@@ -51,6 +51,44 @@ def pic_code(X, elements, bonds, cam, arrows=None, label_macros=None):
                 lines.append(f'\\molarrow{{{fmt(px)}}}{{{fmt(py)}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     return lines
 
+def pic_code_rods(X, elements, bonds, cam, label_macros=None):
+    """TikZ pic code for the v2 molecule primitive: full-length rods, then atoms back to front.
+
+    Rods are ordered by midpoint depth; every atom disc is drawn after every rod, so rod ends are
+    hidden under both spheres (the standard ball-and-stick look, no joints).  A rod that passes in
+    front of a third atom is detected and re-drawn after that atom.
+    """
+    P = G.project(X, cam)
+    order = G.draw_order(P)
+    n = len(X)
+    if label_macros is None:
+        label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
+    rods = []
+    for a, b in bonds:
+        i, j = a-1, b-1
+        rods.append((0.5*(P[i][2]+P[j][2]), i, j))
+    rods.sort()
+    lines = [f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}' for _, i, j in rods]
+    redo = []
+    for _, i, j in rods:
+        ax, ay, az = P[i]; bx, by, bz = P[j]
+        for k in range(n):
+            if k in (i, j):
+                continue
+            kx, ky, kz = P[k]
+            # distance from atom k to the segment, and the rod depth at the closest point
+            dx, dy = bx-ax, by-ay; L2 = dx*dx+dy*dy
+            t = max(0.0, min(1.0, ((kx-ax)*dx+(ky-ay)*dy)/L2)) if L2 > 0 else 0.0
+            cx, cy = ax+t*dx, ay+t*dy
+            if math.hypot(kx-cx, ky-cy) < 0.45 and az+t*(bz-az) > kz + 0.05:
+                redo.append((k, i, j))
+    for k in order:
+        lines.append(f'\\molatom{{{elements[k]}}}{{{label_macros[k]}}}{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}')
+        for kk, i, j in redo:
+            if kk == k:
+                lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
+    return lines
+
 def emit_pic(out, name, lines):
     out.append(f'\\tikzset{{pics/{name}/.style={{code={{%')
     for l in lines:
@@ -251,6 +289,8 @@ def main():
     summary['methylamine_X0'] = [[round(v, 4) for v in c] for c in X0]
     summary['methylamine_X0_Xm'] = [round(v, 12) for v in G.mass_moment(X0, G.MLA_MASSES)]
     emit_pic(mol, 'mla-ref', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     # b X0 and R_b X0
     bX0 = G.apply_perm_inversion(X0, Q.b[0], Q.b[1])
     Rb = G.rot_y(math.pi)

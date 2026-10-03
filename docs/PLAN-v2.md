@@ -184,3 +184,13 @@ rendered and inspected by the coordinator before it enters the tree.
     coset labels listed beneath.
 25. Fig 3 orientation glyph: triad-on-sphere for E* (after Harter 5.1.1) or plain inverted molecule.
     Suggest: both, the triad small beside the molecules.
+
+## 7. Author's answers (2026-10-03): all 25 suggestions approved
+Standing instruction: iterate, and keep returning to Harter's plates for aesthetic inspiration.
+Molecule rule from the author's review of the first mock-up: nuclei large; bonds thin, continuous
+and three-dimensional (a white band with ink edges and one heavier shadow edge), much smaller than
+the nuclei, drawn full length and hidden under the spheres at both ends, never built from halves
+(no joints). The primitive is compute/make_data.py `pic_code_rods` with the `\molrod`/`\hatom`
+macros of studies/molecule-v2.tex; it goes into figures/shared/primitives.tex at step 1.
+No TeX package produces this look (chemfig is 2D skeletal, TikZ ball shading is glossy, Asymptote
+and PSTricks need other engines); the primitive is ours.
