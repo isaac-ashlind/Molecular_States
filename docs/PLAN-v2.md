@@ -201,3 +201,19 @@ including the numbered list in 6b, wherever they conflict. The front page must t
 as one drawing: a nested carving plate with real miniatures in every band, read from the outside in
 (studies/frontpage.tex is the running iteration). Icons-in-circles and other infographic idioms are
 out. Iterate at real scale until a plate could sit unchanged in a 1970s Wiley physics text.
+
+## 9. Mandate (author, 2026-10-03): the illustrator's responsibility
+The artist owns the scaffold: understand the material, and communicate it with beautiful visuals
+guided by physical and mathematical structure. Harter's plates guide by intent, not by trope: he
+innovated, which is why they are timeless; copying his devices without his reasons is mimicry and
+fails. Any rule in this plan may be broken when the structure of the object demands a better drawing,
+provided the drawing stays honest (computed geometry, declared schematics, verified claims).
+Method: for every plate, first write in one sentence what the reader must SEE (not read), then find
+the drawing that makes it unavoidable, then render at real scale, look, and iterate until the artist
+is satisfied; only then move on. Do not stop at "acceptable". Do not wait for approval between steps;
+send renders as they are finished and keep working. The author writes the prose and the mathematics
+around the finished scaffold.
+Resilience: if a session approaches its usage limit before the scaffold is complete, commit, push,
+and schedule a wake-up (send_later, about five hours) that resumes from this plan and the last
+commit; repeat until docs/verification.md and the source zip exist and every plate has passed the
+author's sniff test as stated in section 8.
