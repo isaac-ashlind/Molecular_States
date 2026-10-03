@@ -166,3 +166,29 @@ Rejected: a small (xi, eta) plane drawn in each fibre for fig 2 (the contract fo
 reads as a tangent plane standing for spin space); fig 2 will instead draw the fibre as a vertical
 line with the value Psi(X) as a two-component bar, labelled as H_spin.
 A second critique (reader's eye) may still arrive in this session's transcript; triage it the same way.
+
+## Addendum 5: four more plates (figs 4.3.7, 4.4.1, 4.4.3, 4.4.7) and the citation rule
+Citation rule (author): any figure whose composition is adapted from a Harter plate carries a
+caption-disclosure note "after Harter (1993), Fig. x.y.z" in docs/caption-notes.md, and the manuscript
+cites the book. The artist does not edit refs.bib; the proposed entry, for the author to add:
+  @book{Harter1993, author={William G. Harter}, title={Principles of Symmetry, Dynamics, and
+  Spectroscopy}, publisher={Wiley}, address={New York}, year={1993}}
+Planned adaptations to disclose: fig 5 nested-outline anatomy (after 4.1.5); fig 7 coefficient mode
+pictures with numbers beside sites (after 4.4.3); fig 10 displacement arrows on a constructed molecule
+(after 4.4.3 and 4.4.7); fig 12 species strip with level-rule typography (after 4.2.3 and 4.3.2);
+version sites labelled by coset leaders at the atoms (after 4.4.1). Devices such as dashed hidden edges,
+black crescents and hatched walls are common textbook practice and need no disclosure.
+Devices from these plates:
+- 4.4.1: atoms labelled by orbit and coset leader (|R_3 A>, |r_1 B>, ...), lettered orbits A, B, C;
+  a spring-model inset drawn as a separate small object with its own legend. Use coset-leader labels
+  at the version sites in figs 6 and 11.
+- 4.4.3: spectrum column at the left as doubled or tripled rules, mode pictures to the right with
+  coefficients printed beside the atoms; T1u modes declared "not drawn precisely" where they depend on
+  parameters. Our analogue: species column with rules (no energies) and the three coefficient vectors
+  as site pictures in fig 7; declare illustrative amplitudes as such.
+- 4.3.7: correlation curves with wavefunction sketches placed at the ends and the middle of the diagram,
+  regime labels under the columns. Not used (energies), but the "sketch at the column" idea applies to
+  the guide: one small drawing per part.
+- 4.4.7: motion drawn as ellipses with arrows around each atom, amplitudes printed as numbers; standing
+  versus moving waves as a two-column comparison with hexagonal labels. For fig 10(b) only arrows with
+  the displayed amplitude declared.
