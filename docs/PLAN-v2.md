@@ -142,3 +142,45 @@ rendered and inspected by the coordinator before it enters the tree.
 - Overleaf inclusion: inline standalone or built PDFs [both provided; PDFs recommended].
 - Which Harter plates to cite beyond the adapted compositions [only the adapted ones].
 - Ghost copies for the five non-reference versions, or six solid drawings [ghosts].
+
+## 6b. All remaining decisions, numbered, with the artist's suggestion (taken as default if unanswered)
+1. Fig 1 matrix inset: keep as a small inset beside the atlas (contract) or drop. Suggest: keep, small.
+2. Fig 8: ruled table or 32-unit partitioned bar per parity. Suggest: the bar, with the table's numbers
+   printed on the blocks (it satisfies "proper table or clean plot" and reads as area).
+3. Fig 10: keep the normal-slice panel and the reconstruction molecule, or fold the slice into fig 6 and
+   drop the molecule. Suggest: keep both, the slice as a magnifying circle on the chart figure, the
+   reconstruction as one large constructed molecule (it is the only place Q is seen on the molecule).
+4. Fig 12 formula panel: keep the boxed correspondence or drop to a one-line label. Suggest: one line.
+5. Guide: nested carving drawing or emblem strip. Suggest: nested carving (it shows the inversion).
+6. Fresh tree: orphan branch figures-v2 in this repository or a new repository. Suggest: branch now,
+   rename or move when the suite is accepted.
+7. Overleaf inclusion: built PDFs via \includegraphics or inline standalone sources. Suggest: PDFs,
+   with sources shipped alongside.
+8. Citation scope: per-figure disclosures only, or also one acknowledgment sentence. Suggest: both;
+   the artist supplies the notes and the BibTeX entry, the author writes the sentence.
+9. Versions: six solid drawings or one solid reference plus ghosts. Suggest: ghosts.
+10. Fig 6 tube: cut-away wedge or plain tube with a section inset. Suggest: wedge.
+11. Hidden versions on the tube's bottom face: leaders only, or dashed through-wall markers with
+    leaders. Suggest: dashed markers with leaders.
+12. Atom labels: beside every atom, or only where a panel refers to labels. Suggest: only where
+    referred to; elsewhere element identity by colour, size and contour with one legend per figure.
+13. Fig 5: Hasse diagram of the full interval plus nested outlines for the chain, or nested outlines
+    only. Suggest: both (the lattice is the verified content; the nesting is the reading aid).
+14. Fig 2 fibre values: two-component bar on a fibre line, or a small arrow in a plane. Suggest: bar;
+    the plane is forbidden by the contract.
+15. Fig 9 packets: on the torsion circle or on the abstract triangle. Suggest: circle.
+16. Fig 4 channel groups: nested inset inside S, or a separate panel. Suggest: nested inset.
+17. Scaffold captions: title-only captions or none. Suggest: title-only (they pin the numbering).
+18. Illustrative constants: rho = 0.3 (fig 12), sigma/d = 1/3 (fig 9), water generic shape
+    delta = 0.2 l, theta = 112 deg (figs 1 to 3), KRb schematic positions (fig 4), methylamine model
+    parameters (CN 1.471, CH 1.093, NH 1.010 A; HCN 110.3, HNC 110, HNH 107 deg). Suggest: keep, all
+    declared in the caption notes.
+19. Plate width: 150 mm or the full 165 mm text width. Suggest: 150 mm.
+20. Fonts: the manuscript's Computer Modern with T1, or another serif. Suggest: the manuscript's.
+21. Mass-centre crosses in the atlas: keep or drop. Suggest: keep (declared in the note).
+22. K versus Rb under colour-vision deficiency: distinguish by size and label (K smaller). Suggest: yes.
+23. Hatch meaning: cut or removed material only; shading by crescents. Suggest: yes, suite-wide.
+24. Fig 11 sheets: four plates plus ellipsis, or all twelve. Suggest: four plus ellipsis, with the six
+    coset labels listed beneath.
+25. Fig 3 orientation glyph: triad-on-sphere for E* (after Harter 5.1.1) or plain inverted molecule.
+    Suggest: both, the triad small beside the molecules.
