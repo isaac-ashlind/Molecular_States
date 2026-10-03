@@ -100,3 +100,31 @@ Guide: four quadrants with miniature versions of the main motifs; thick-tube min
   density like this is appropriate only for the Gaussian packets of figure 9, and then sparingly.
 - The plates themselves are in this session's uploads only (images/1.png, 2.png, 3.png); they are not in
   the repository. The author will supply the full PDF.
+
+## Addendum 3: the governing principle, top-down carving (author, 2026-10-03)
+The author's work is an evolution of Harter's. Harter builds exquisite models from the ground up
+(modes and subgroups assembled into spectra and groups). This manuscript carves the same shapes from
+the top down: the full configuration space C, the ambient Hilbert space and the complete group S come
+first, and constraints carve the physical space, the feasible region, the species and the localized
+states out of them. The visual flow of the suite must demonstrate this inversion.
+
+Visual grammar for carving (one meaning per device, suite-wide):
+- The whole is drawn first and lightly: the ambient object (C, H_ambient, S) as the outer outline.
+- The retained part is carved out of it in flat gouache with a heavy contour: H inside H_ambient,
+  F and its twenty images inside C, G inside S, the versions G/H inside S/H.
+- What a constraint removes is drawn as CUT MATERIAL: regular 45-degree hatch, exactly as the cut
+  faces of the thick tube and Harter's walls. Hatch therefore means "cut away" everywhere, never
+  shading; shading is the solid black crescent.
+- Nested outlines (Harter's fig. 4.1.5 anatomy) are read from the outside in: outer S, then B, G12,
+  G6, H, each region holding the molecule and the operation that the next cut removes.
+- The reading map shows the carving sequence as one nested drawing across the four parts:
+  configurations and states (the whole), fragments and feasible regimes (the first cuts), symmetry
+  and localization (carving within the feasible region), representations (views of the carved object).
+- Harter fig. 4.3.2 devices to borrow: heavy displacement arrows on a constructed polyhedron (figure 10's
+  normal displacement), stippled lobes with signs for wave patterns (figure 9's packets), species as
+  short labelled rules (figures 8 and 12).
+Per figure: 1 starts from C with the atlas as a carved family; 3 shows H carved from H_ambient by the
+exchange condition; 4 and 5 show groupings and groups carved from S; 6 shows F carved from C (twenty
+images retained, the rest hatched); 7 to 9 carve species and packets inside F; 10 to 12 are charts and
+mode views of the carved object, not new carvings.
+The author will share Harter plates as images; the full PDF is too large.
