@@ -1,0 +1,34 @@
+% Molecule primitive v2: larger nuclei with crescents, thin 3D rods (white band, ink edges, a heavier
+% shadow edge), rods hidden under the spheres at both ends, no joints. Scale 0.95 cm per angstrom.
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\newcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+  \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
+    \fill[PlateInk,even odd rule] ({(#1)+0.08*#3},{(#2)-0.08*#3}) circle[radius=#3] ({(#1)-0.20*#3},{(#2)+0.20*#3}) circle[radius={0.97*#3}];
+  \end{scope}\draw[line width=.6pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+% rod: a white band with ink edges; the lower-right edge heavier so the rod reads as a cylinder
+\newcommand\molrod[4]{%
+  \draw[line width=.4pt,draw=PlateInk,double distance=1.4pt,double=white] (#1,#2)--(#3,#4);
+  \pgfmathsetmacro{\rdx}{#3-#1}\pgfmathsetmacro{\rdy}{#4-#2}\pgfmathsetmacro{\rl}{sqrt(\rdx*\rdx+\rdy*\rdy)}
+  \pgfmathsetmacro{\nx}{\rdy/\rl}\pgfmathsetmacro{\ny}{-\rdx/\rl}
+  \pgfmathsetmacro{\sg}{(\nx-\ny)>0 ? 1 : -1}% the lower-right edge carries the shadow
+  \draw[line width=.7pt,draw=PlateInk] ({#1+\sg*0.026*\nx},{#2+\sg*0.026*\ny})--({#3+\sg*0.026*\nx},{#4+\sg*0.026*\ny});}
+\renewcommand\molatom[4]{\if#1H\hatom{#3}{#4}{.24}{white}\else\if#1C\hatom{#3}{#4}{.36}{PlateInk}\else\if#1O\hatom{#3}{#4}{.36}{ColOxygen}\else\hatom{#3}{#4}{.36}{ColNitrogen}\fi\fi\fi}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,6.2);
+\node[panel] at (0,6.15) {Molecule primitive, third attempt};
+\begin{scope}[shift={(3.0,3.2)}]\pic[scale=.95] at (0,0) {mol3d-mla-ref};\end{scope}
+\begin{scope}[shift={(8.2,3.2)}]\pic[scale=.95] at (0,0) {mol3d-mla-ref};
+  \foreach \p/\l/\dx/\dy in {H/1/0/0} {}
+\end{scope}
+\begin{scope}[shift={(12.6,3.3)}]\pic[scale=1.1] at (0,0) {mol3d-water-X};\end{scope}
+\node[note] at (3.0,1.2) {methylamine, 0.95 cm per \AA};
+\node[note] at (8.2,1.2) {same drawing, repeated};
+\node[note] at (12.6,1.2) {water, 1.1 cm per \AA};
+\node[note,anchor=north west,text width=14.6cm,align=left] at (0,.75) {H radius 2.4 mm, C and N 3.6 mm, rod 1.3 mm wide with a 0.8 pt shadow edge; rods are drawn full length first and the spheres over them, so a rod enters each sphere at its silhouette; labels will sit on leaders only where a plate refers to them};
+\end{tikzpicture}
+\end{document}

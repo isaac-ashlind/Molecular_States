@@ -1,0 +1,110 @@
+% Practice-round studies "in the manner of" classic textbook ink plates: constructed 3D, form-following
+% hatching for shading, hidden lines dashed, serif labels with short leaders, flat gouache colour underneath.
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\usetikzlibrary{decorations.markings}
+% ---- engraved sphere: flat fill, crescent hatching on the shadow side, ink outline
+\newcommand\engsphere[4]{% x y radius(cm) fillcolour
+  \begin{scope}
+    \clip (#1,#2) circle[radius=#3];
+    \fill[#4] (#1,#2) circle[radius=#3];
+    \foreach \k in {1,...,7} {
+      \pgfmathsetmacro{\rr}{#3*(0.55+0.19*\k)}
+      \draw[PlateInk,line width=.22pt] ({#1+0.95*#3},{#2-0.85*#3}) circle[radius=\rr];
+    }
+  \end{scope}
+  \draw[PlateInk,line width=.5pt] (#1,#2) circle[radius=#3];
+}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,15.4);
+\node[panel] at (0,15.35) {Study A. Constructed 3D molecule: rod bonds, engraved spheres, flat colour, ink labels};
+\begin{scope}[shift={(3.2,12.6)}]
+  % rods: double lines; spheres: engraved; labels beside; draw order comes from the computed depth sort
+  \renewcommand\molbond[4]{\draw[PlateInk,line width=.4pt,double distance=2.2pt,double=white] (#1,#2)--(#3,#4);}
+  \renewcommand\molatom[4]{%
+    \if#1H\engsphere{#3}{#4}{.17}{white}\else\if#1C\engsphere{#3}{#4}{.27}{PlateInk!25}\else\engsphere{#3}{#4}{.27}{ColNitrogen!70}\fi\fi
+    \if#1H\draw[guide] ($(#3,#4)!-.2cm!(0,0)$)--($(#3,#4)!-.42cm!(0,0)$); \node[font=\fontsize{8}{9}\selectfont,inner sep=.6pt] at ($(#3,#4)!-.62cm!(0,0)$) {$\mathrm{#1}_{#2}$};\else
+      \node[font=\fontsize{8}{9}\selectfont,inner sep=.6pt,anchor=north] at ($(#3,#4)+(0,-.33)$) {$\mathrm{#1}_{#2}$};\fi}
+  \pic[scale=.95] at (0,0) {mla-ref};
+\end{scope}
+\node[note,align=center] at (3.2,10.45) {scale 0.95 cm per \AA; hatching follows the sphere,\\light from the upper left};
+\begin{scope}[shift={(9.6,12.6)}]
+  \renewcommand\molbond[4]{\draw[PlateInk,line width=.4pt,double distance=2.2pt,double=white] (#1,#2)--(#3,#4);}
+  \renewcommand\molatom[4]{%
+    \if#1H\engsphere{#3}{#4}{.17}{white}\else\if#1C\engsphere{#3}{#4}{.27}{PlateInk!25}\else\engsphere{#3}{#4}{.27}{ColNitrogen!70}\fi\fi}
+  \pic[scale=.95] at (0,0) {mla-ref};
+  \node[font=\fontsize{8}{9}\selectfont] at (1.7,-1.5) {$\mathrm{CH_3NH_2}$};
+\end{scope}
+\node[note,align=center] at (9.6,10.45) {the same drawing without per-atom labels,\\for panels where only the shape matters};
+
+\node[panel] at (0,9.9) {Study B. The reduced-family cylinder as a constructed surface};
+\begin{scope}[shift={(3.4,7.0)}]
+  \def\Rx{2.0}\def\Ry{.6}\def\Hh{1.35}
+  % wall tint, then generatrix lines that explain the curvature, denser near the silhouettes
+  \path[fill=ColNitrogen!8] (-\Rx,-\Hh) arc[start angle=180,end angle=360,x radius=\Rx,y radius=\Ry] -- (\Rx,\Hh) arc[start angle=0,end angle=-180,x radius=\Rx,y radius=\Ry] -- cycle;
+  \foreach \a in {195,210,...,345} {
+    \pgfmathsetmacro{\lw}{0.18+0.22*abs(cos(\a))}
+    \draw[PlateInk,line width=\lw pt] ({\Rx*cos(\a)},{-\Hh-\Ry*sin(\a)})--({\Rx*cos(\a)},{\Hh-\Ry*sin(\a)});
+  }
+  % shadow hatch on the right third of the wall
+  \begin{scope}
+    \clip ({\Rx*cos(320)},{-\Hh}) -- (\Rx,-\Hh) -- (\Rx,\Hh) -- ({\Rx*cos(320)},{\Hh}) -- cycle;
+    \foreach \y in {-1.6,-1.45,...,1.9} \draw[PlateInk,line width=.2pt] (0.8,\y)--(2.2,{\y-.9});
+  \end{scope}
+  \draw[PlateInk,line width=.5pt] (-\Rx,-\Hh)--(-\Rx,\Hh) (\Rx,-\Hh)--(\Rx,\Hh);
+  \draw[PlateInk,line width=.5pt,fill=white] (0,\Hh) ellipse[x radius=\Rx,y radius=\Ry];
+  \draw[PlateInk,line width=.5pt] (-\Rx,-\Hh) arc[start angle=180,end angle=360,x radius=\Rx,y radius=\Ry];
+  \draw[PlateInk,line width=.3pt,densely dashed] (-\Rx,-\Hh) arc[start angle=180,end angle=0,x radius=\Rx,y radius=\Ry];
+  % paths and marked points
+  \draw[ColNitrogen,line width=.9pt,-{Stealth[length=1.8mm,width=1.4mm]}] plot[domain=0:118,samples=30,variable=\a] ({\Rx*sin(\a)},{\Hh-\Ry*cos(\a)});
+  \draw[ColOxygen,line width=.9pt,densely dashed,-{Stealth[length=1.8mm,width=1.4mm]}] plot[domain=0:.96,samples=30,variable=\s] ({\Rx*sin(-60*\s)},{\Hh-2*\Hh*\s-\Ry*cos(60*\s)});
+  \foreach \a/\h in {0/\Hh,120/\Hh,240/\Hh,300/-\Hh,60/-\Hh} \draw[PlateInk,line width=.4pt,fill=ColGold] ({\Rx*sin(\a)},{\h-\Ry*cos(\a)}) circle[radius=1.5pt];
+  \draw[PlateInk,line width=.3pt,fill=white] ({\Rx*sin(180)},{-\Hh-\Ry*cos(180)}) circle[radius=1.5pt];
+  \draw[guide] (0,{\Hh-\Ry})--(.55,.35) node[anchor=west,inner sep=1pt,small] {$H$};
+  \draw[guide] ({\Rx*sin(120)},{\Hh-\Ry*cos(120)})--(2.4,2.0) node[anchor=west,inner sep=1pt,small] {$tH$};
+  \draw[guide] ({\Rx*sin(240)},{\Hh-\Ry*cos(240)})--(-2.4,2.0) node[anchor=east,inner sep=1pt,small] {$t^2H$};
+  \draw[guide] ({\Rx*sin(300)},{-\Hh-\Ry*cos(300)})--(-2.5,-1.3) node[anchor=east,inner sep=1pt,small] {$tuH$};
+  \draw[guide] ({\Rx*sin(60)},{-\Hh-\Ry*cos(60)})--(2.5,-1.3) node[anchor=west,inner sep=1pt,small] {$t^2uH$};
+  \draw[guide] (0,{-\Hh+\Ry})--(-.3,-.35) node[anchor=east,inner sep=1pt,small] {$uH$, behind};
+  \node[small] at (1.55,2.35) {$t$};
+  \node[small] at (-1.35,.25) {$tu$};
+\end{scope}
+\node[note,anchor=north west,text width=6.6cm,align=left] at (8.0,9.4) {generatrix lines carry the curvature and thicken toward the silhouettes; a hatched band shades the far side; hidden rim dashed; marked points are gold with ink outline and leader labels; the two paths are the only strokes in colour};
+
+\node[panel] at (0,4.3) {Study C. Region and stack conventions};
+\begin{scope}[shift={(1.5,2.3)}]
+  \path[fill=ColGold!40] (-1.1,-.8) rectangle (1.1,.8);
+  \begin{scope}\clip (-1.1,-.8) rectangle (1.1,.8);\foreach \x in {-2.4,-2.1,...,1.6} \draw[PlateInk,line width=.22pt] (\x,-.9)--(\x+1.8,.9);\end{scope}
+  \draw[PlateInk,line width=.5pt] (-1.1,-.8) rectangle (1.1,.8);
+  \node[tag] at (0,0) {$\mathcal F$};
+  \node[note] at (0,-1.15) {gouache + ink hatch};
+\end{scope}
+\begin{scope}[shift={(4.6,2.3)}]
+  \path[fill=ColGold!40] (-1.1,-.8) rectangle (1.1,.8);
+  \draw[PlateInk,line width=.5pt] (-1.1,-.8) rectangle (1.1,.8);
+  \node[tag] at (0,0) {$\mathcal F$};
+  \node[note] at (0,-1.15) {gouache only};
+\end{scope}
+\begin{scope}[shift={(8.2,1.4)}]
+  % stacked sheets in oblique view with hidden edges dashed; projection arrow to the base
+  \foreach \k in {3,2,1,0} {
+    \pgfmathsetmacro{\yy}{.55*\k}
+    \path[fill=white] (0,\yy)--(2.2,\yy)--(2.9,\yy+.45)--(.7,\yy+.45)--cycle;
+    \draw[PlateInk,line width=.45pt] (0,\yy)--(2.2,\yy)--(2.9,\yy+.45);
+    \draw[PlateInk,line width=.45pt] (0,\yy)--(.7,\yy+.45)--(2.9,\yy+.45);
+    \fill[ColGold] (1.45,\yy+.22) circle[radius=1.3pt]; \draw[PlateInk,line width=.3pt] (1.45,\yy+.22) circle[radius=1.3pt];
+  }
+  \draw[PlateInk,line width=.9pt,-{Stealth[length=1.8mm,width=1.4mm]}] (1.45,-.3)--(1.45,-1.05);
+  \path[fill=ColNitrogen!10] (0,-1.6)--(2.2,-1.6)--(2.9,-1.15)--(.7,-1.15)--cycle;
+  \draw[PlateInk,line width=.5pt] (0,-1.6)--(2.2,-1.6)--(2.9,-1.15)--(.7,-1.15)--cycle;
+  \fill[PlateInk] (1.45,-1.38) circle[radius=1.3pt];
+  \node[small,anchor=west] at (3.0,-1.38) {$V$};
+  \node[small,anchor=west] at (3.0,1.9) {sheets $gV$};
+\end{scope}
+\node[note,anchor=north west,text width=3.3cm,align=left] at (11.7,2.6) {sheets as thin plates in oblique view; gold = lifted points; the base is tinted blue to read as a different space};
+\end{tikzpicture}
+\end{document}

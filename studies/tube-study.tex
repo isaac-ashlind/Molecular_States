@@ -1,0 +1,74 @@
+% Study D. The feasible region F as a short THICK tube (solid), cut away to show the wall section.
+% tau runs around, eta is the short height, the wall thickness stands for the normal coordinates Q
+% (schematic: one radial direction for 13). The reference family is the band at mid-thickness.
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,9.6);
+\node[panel] at (0,9.55) {Study D. $\mathcal F$ as a short thick tube; wedge cut away between $\tau=-80^\circ$ and $-5^\circ$};
+\begin{scope}[shift={(6.3,5.0)}]
+  \def\Ro{2.6}\def\Ri{1.85}\def\Rm{2.225}\def\Hh{.62}\def\E{.46}
+  % page map: (tau, rho, z) -> (rho sin tau, z - E rho cos tau); tau = 0 faces the viewer
+  % 1. inside of the far inner wall, seen through the opening, in shadow (vertical hatch)
+  \begin{scope}
+    \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+    \path[fill=ColNitrogen!6] (-\Ri,\Hh) arc[start angle=180,end angle=0,x radius=\Ri,y radius={\E*\Ri}] -- (\Ri,-\Hh) arc[start angle=0,end angle=180,x radius=\Ri,y radius={\E*\Ri}] -- cycle;
+    \foreach \a in {100,112,...,260} \draw[PlateInk,line width=.18pt] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
+    \draw[PlateInk,line width=.45pt] ({\Ri*sin(90)},{-\Hh-\E*\Ri*cos(90)}) arc[start angle=0,end angle=180,x radius=\Ri,y radius={\E*\Ri}];
+  \end{scope}
+  % 2. outer wall, front, with the wedge removed: tau in [-90,-80] and [-5,90]
+  \foreach \ta/\tb in {-90/-80,-5/90} {
+    \path[fill=ColNitrogen!10] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;
+  }
+  % shading hatch on the right part of the outer wall
+  \begin{scope}
+    \clip plot[domain=40:90,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=90:40,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;
+    \foreach \y in {-2.2,-2.05,...,1.2} \draw[PlateInk,line width=.2pt] (1.2,\y)--(2.9,{\y-1.0});
+  \end{scope}
+  \draw[PlateInk,line width=.5pt] plot[domain=-5:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+  \draw[PlateInk,line width=.5pt] plot[domain=-90:-80,samples=6,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+  \draw[PlateInk,line width=.5pt] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
+  % 3. the ghost band inside the wedge: the reference family at mid-thickness, with the tu path and tuH
+  \path[fill=ColNitrogen!14] plot[domain=-80:-5,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)}) -- plot[domain=-5:-80,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)}) -- cycle;
+  \draw[ColNitrogen,line width=.4pt,densely dotted] plot[domain=-80:-5,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+  \draw[ColNitrogen,line width=.4pt,densely dotted] plot[domain=-80:-5,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
+  \draw[ColOxygen,line width=.9pt,densely dashed,-{Stealth[length=1.8mm,width=1.4mm]}] plot[domain=0:1,samples=30,variable=\s] ({\Rm*sin(-60*\s)},{\Hh-2*\Hh*\s-\E*\Rm*cos(60*\s)});
+  \draw[PlateInk,line width=.4pt,fill=ColGold] ({\Rm*sin(-60)},{-\Hh-\E*\Rm*cos(-60)}) circle[radius=1.5pt];
+  % 4. cut faces at tau = -80 and -5: wall section, hatched, with the band's eta-line in blue
+  \foreach \a in {-80,-5} {
+    \path[fill=white] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+    \begin{scope}
+      \clip ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+      \foreach \y in {-3,-2.85,...,2} \draw[PlateInk,line width=.22pt] (-3.5,\y)--(3.5,{\y+1.4});
+    \end{scope}
+    \draw[PlateInk,line width=.5pt] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+    \draw[ColNitrogen,line width=.7pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
+  }
+  % 5. top face: annulus minus the wedge sector
+  \path[fill=white] plot[domain=-5:280,samples=80,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=280:-5,samples=80,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
+  \draw[PlateInk,line width=.5pt] plot[domain=-5:280,samples=80,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
+  \draw[PlateInk,line width=.5pt] plot[domain=-5:280,samples=80,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
+  \draw[ColNitrogen,line width=.4pt,densely dotted] plot[domain=-5:280,samples=80,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+  \draw[ColNitrogen,line width=.9pt,-{Stealth[length=1.8mm,width=1.4mm]}] plot[domain=0:118,samples=30,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+  \foreach \a in {0,120,240} \draw[PlateInk,line width=.4pt,fill=ColGold] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)}) circle[radius=1.5pt];
+  % leaders and labels (ink)
+  \draw[guide] ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)})--(.9,-.1) node[anchor=west,inner sep=1pt,small] {$H$};
+  \draw[guide] ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)})--(2.9,1.95) node[anchor=west,inner sep=1pt,small] {$tH$};
+  \draw[guide] ({\Rm*sin(240)},{\Hh-\E*\Rm*cos(240)})--(-2.9,1.95) node[anchor=east,inner sep=1pt,small] {$t^2H$};
+  \draw[guide] ({\Rm*sin(-60)},{-\Hh-\E*\Rm*cos(-60)})--(-3.2,-1.5) node[anchor=east,inner sep=1pt,small] {$tuH$};
+  \node[small] at (1.2,1.35) {$t$};
+  \node[small] at (-1.85,-.3) {$tu$};
+  \node[note,anchor=west] at (3.2,.6) {$\tau$ around};
+  \node[note,anchor=west] at (3.2,.1) {$\eta$: the short height};
+  \node[note,anchor=west] at (3.2,-.4) {$Q$: the wall thickness};
+  \draw[guide] (2.85,-.55)--(2.4,-.95);
+  \node[note,anchor=east,align=right] at (-3.3,.5) {band at mid-thickness:\\the reference family $X_0(\tau,\eta)$};
+  \draw[guide] (-3.25,.3)--({\Rm*sin(-80)+.05},{-\E*\Rm*cos(-80)});
+  \node[note,anchor=north] at (0,-2.0) {$uH$ and $t^2uH$ lie on the bottom face, hidden; hatched faces are cut material};
+\end{scope}
+\node[note,anchor=north west,text width=14.6cm,align=left] at (0,1.85) {proportions: height $\approx$ a quarter of the radius, wall thickness $\approx$ a quarter of the radius; one radial thickness stands for the $13$ normal coordinates; the solid is $\mathcal F$, the band is the family, the top face shows the band's $+\eta_0$ edge with the versions $H,tH,t^2H$ and the $t$ path on it; the $tu$ path runs through the interior to the bottom edge};
+\end{tikzpicture}
+\end{document}
