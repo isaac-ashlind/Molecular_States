@@ -69,3 +69,17 @@ Guide: four quadrants with miniature versions of the main motifs; thick-tube min
 - Atom labels beside every atom (proposed where labels are referred to; otherwise none).
 - Harter plates: the full PDF the author is preparing should be matched for line weights and hatch
   density before step 3.
+
+## Addendum: three more Harter plates (received 2026-10-03, late)
+- Fig. 1.4.2 spring-mass: heavy black arc arrows for angles and actions; masses with solid black
+  crescents; fine dashed construction lines; axes as fine lines with small labels; wide whitespace.
+- Rotation-class spheres: a sphere is a circle with great-circle arcs, heavy and solid where in front,
+  DOTTED where behind (Harter uses dotted, not dashed, for hidden arcs); axes drawn through; many small
+  labelled arrows along the arcs.
+- Fig. 4.1.5 "anatomy of O_h": subgroup containment drawn as NESTED heavy rounded outlines, each region
+  holding a small 3D drawing of the symmetry object (cube, octahedron, tetrahedron, mirror planes),
+  elements listed beside. Option for figure 5: keep the Hasse diagram for the full 10-subgroup interval
+  but draw the chain H < G6 < G12 < B as nested rounded outlines, each with the methylamine drawing and
+  the operation that extends it (b; t; tu; E*).
+- Colour: use the gouache palette exactly as shared (ink #303438, H white, O #D56860, N #397BA8,
+  K #91A653, Rb #AD8BC0, gold #E0B84F), flat and opaque under the ink; nothing else.
