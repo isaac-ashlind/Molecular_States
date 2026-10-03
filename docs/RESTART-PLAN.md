@@ -246,3 +246,25 @@ coordinates, that the SO(3) factor is suppressed, and that the tube's topology i
 - 4.4.8 level sketch: thick level bars by column with dashed correlations; the "density of levels"
   reading is energetic and not for us, but the column typography matches addendum 2.
 Citation: any of these compositions used is disclosed "after Harter (1993), Fig. x.y.z".
+
+## Addendum 8: plates 5.5.3, 5.6.5, 7.4.1, 7.4.2, 7.4.6 (RE surfaces and level clusters)
+Scope: rotational energy surfaces, level clusters and fine structure are energetic content and stay
+out of this suite (contracts: no energy curve without a Hamiltonian, no imported band dynamics).
+Devices taken, without the energetics:
+- Magnifying circles (7.4.2, 7.4.6): a small circle on the main drawing joined by two fine lines to an
+  enlarged circle beside it. This is the suite's zoom device: the local chart enlargement next to the
+  reference-family context in fig 10, the neighbourhood V with its sheets in fig 11, and, if room, the
+  cut-away window on the tube in fig 6. It satisfies the supplement's "context alongside a local-chart
+  enlargement" without a second full panel.
+- Dotted special loci and "separatrix region" labels (7.4.2): special loci drawn dotted and named in
+  small caps-free serif: the equal-bond line and the linear boundary in fig 1, the planar locus
+  eta = 0 in figs 6 and 10, the seam tau = +-pi in figs 10 and 12.
+- Surface-with-trajectories above, diagram below (7.4.2, 7.4.6): a 3D object on top with its paths,
+  and the discrete bookkeeping (labels, columns) directly beneath, aligned by fine leaders. Use this
+  vertical composition for fig 6 (tube above, version row beneath) and fig 11 (sheets above, the two
+  continuation rows beneath).
+- Stacked rings as a cone family and the K ladder (5.5.3, 7.4.1d): the compact J >= |K| device for
+  fig 12(b), rings labelled K = J, J-1, ..., no energies.
+- Contour-banded surfaces (5.6.5, 7.4.1): bands of alternating width to render a curved surface. For
+  us only as density bands on fig 9's packets, and only if the plate stays quiet.
+Citation: used compositions are disclosed "after Harter (1993), Fig. x.y.z".
