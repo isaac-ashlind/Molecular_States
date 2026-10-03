@@ -194,3 +194,10 @@ the nuclei, drawn full length and hidden under the spheres at both ends, never b
 macros of studies/molecule-v2.tex; it goes into figures/shared/primitives.tex at step 1.
 No TeX package produces this look (chemfig is 2D skeletal, TikZ ball shading is glossy, Asymptote
 and PSTricks need other engines); the primitive is ours.
+
+## 8. Overriding rule (author, 2026-10-03)
+The story arc (top-down carving) and the aesthetic guide (Harter) overrule every earlier decision,
+including the numbered list in 6b, wherever they conflict. The front page must tell the whole story
+as one drawing: a nested carving plate with real miniatures in every band, read from the outside in
+(studies/frontpage.tex is the running iteration). Icons-in-circles and other infographic idioms are
+out. Iterate at real scale until a plate could sit unchanged in a 1970s Wiley physics text.

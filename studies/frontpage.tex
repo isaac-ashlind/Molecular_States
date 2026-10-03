@@ -1,0 +1,142 @@
+% Front page: the whole story as one nested carving drawing, read from the outside in.
+% Heavy rounded outlines are the retained objects; the hatched strip under each band is the material
+% the next constraint removes. Real miniatures from the computed data in every band.
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\tikzset{heavy/.style={line width=.9pt,draw=PlateInk},fine/.style={line width=.4pt,draw=PlateInk},
+  hidden/.style={line width=.4pt,draw=PlateInk,dash pattern=on 1.6pt off 1.3pt},
+  cut/.style={pattern={Lines[angle=45,distance=2.6pt,line width=.3pt]},pattern color=PlateInk},
+  region/.style={heavy,rounded corners=9pt},
+  head/.style={font=\fontsize{9}{11}\selectfont\bfseries,anchor=north west,inner sep=0pt},
+  rng/.style={font=\fontsize{8}{10}\selectfont,anchor=north east,inner sep=0pt},
+  lab/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt},
+  tpath/.style={line width=.8pt,draw=ColNitrogen,-{Stealth[length=1.6mm,width=1.3mm]}},
+  upath/.style={line width=.8pt,draw=ColOxygen,densely dashed,-{Stealth[length=1.6mm,width=1.3mm]}}}
+\newcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+  \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
+    \fill[PlateInk,even odd rule] ({(#1)+0.08*#3},{(#2)-0.08*#3}) circle[radius=#3] ({(#1)-0.20*#3},{(#2)+0.20*#3}) circle[radius={0.97*#3}];
+  \end{scope}\draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+\newcommand\molrod[4]{\draw[line width=.35pt,draw=PlateInk,double distance=1.1pt,double=white] (#1,#2)--(#3,#4);
+  \pgfmathsetmacro{\rdx}{#3-#1}\pgfmathsetmacro{\rdy}{#4-#2}\pgfmathsetmacro{\rl}{sqrt(\rdx*\rdx+\rdy*\rdy)}
+  \pgfmathsetmacro{\nx}{\rdy/\rl}\pgfmathsetmacro{\ny}{-\rdx/\rl}\pgfmathsetmacro{\sg}{(\nx-\ny)>0 ? 1 : -1}
+  \draw[line width=.6pt,draw=PlateInk] ({#1+\sg*0.03*\nx},{#2+\sg*0.03*\ny})--({#3+\sg*0.03*\nx},{#4+\sg*0.03*\ny});}
+\renewcommand\molatom[4]{\if#1H\hatom{#3}{#4}{.19}{white}\else\if#1C\hatom{#3}{#4}{.29}{PlateInk}\else\if#1O\hatom{#3}{#4}{.29}{ColOxygen}\else\hatom{#3}{#4}{.29}{ColNitrogen}\fi\fi\fi}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,15.2);
+% ---- nested regions: outer to inner. Each band is the top strip of its region.
+\draw[region] (.2,.2) rectangle (14.8,15.0);
+\draw[region] (.55,.55) rectangle (14.45,11.55);
+\draw[region] (.9,.9) rectangle (14.1,8.1);
+\draw[region] (1.25,1.25) rectangle (13.75,4.65);
+% cut strips: the material each constraint removes, along the bottom of each band
+\path[cut] (.55,11.55) rectangle (14.45,11.8); \draw[fine] (.55,11.8)--(14.45,11.8);
+\path[cut] (.9,8.1) rectangle (14.1,8.35); \draw[fine] (.9,8.35)--(14.1,8.35);
+\path[cut] (1.25,4.65) rectangle (13.75,4.9); \draw[fine] (1.25,4.9)--(13.75,4.9);
+% ---- headings (heading and range on one line)
+\node[head] at (.5,14.8) {Configurations and States\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,1--3};
+\node[head] at (.85,11.35) {Fragments and Feasible Regimes\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,4--6};
+\node[head] at (1.2,7.9) {Symmetry and Localization\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,7--9};
+\node[head] at (1.55,4.45) {Representations and Global Structure\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,10--12};
+\tikzset{cap/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text width=4.1cm,align=center}}
+
+% ---- band 1: configurations, the family, the two actions, the spin value
+\begin{scope}[shift={(0,12.15)}]
+  \pic[scale=.5] at (1.6,1.05) {mol3d-water-sample-1};
+  \pic[scale=.5] at (3.3,1.05) {mol3d-water-sample-2};
+  \pic[scale=.5] at (5.0,1.05) {mol3d-water-sample-3};
+  \node[cap] at (3.3,.1) {$X\in\conf$, a family of shapes};
+  \pic[scale=.5] at (7.6,1.05) {mol3d-water-X};
+  \draw[heavy,-{Stealth[length=1.6mm,width=1.3mm]}] (8.45,1.05)--(9.05,1.05); \node[lab,anchor=south] at (8.75,1.12) {$R$};
+  \pic[scale=.5] at (9.9,1.05) {mol3d-water-RX};
+  \node[cap] at (8.75,.1) {rotate on the left, relabel on the right};
+  % spin fibre: a vertical line over a configuration carrying the value as a two-component bar
+  \pic[scale=.5] at (12.3,.85) {mol3d-water-X};
+  \draw[fine] (12.3,1.25)--(12.3,2.05);
+  \path[fill=ColGold] (12.15,1.45) rectangle (12.45,1.75); \path[fill=white] (12.15,1.75) rectangle (12.45,1.95); \draw[fine] (12.15,1.45) rectangle (12.45,1.95);
+  \node[lab,anchor=west] at (12.55,1.7) {$\Psi(X)\in\spin$};
+  \node[cap,text width=3.2cm] at (12.9,.1) {$\Psi\circ\sigma\sim\stat\,\sigma\act\Psi$};
+\end{scope}
+
+% ---- band 2: fragments, the group chain nested, the feasible tube
+\begin{scope}[shift={(0,8.7)}]
+  \pic[scale=.45] at (2.6,1.35) {mol3d-mla-ref};
+  \begin{scope}[scale=.45,shift={(2.6/.45,1.35/.45)}]
+    \draw[heavy] plot[smooth cycle,tension=.6] coordinates {\fragloopmethyl};
+    \draw[heavy] plot[smooth cycle,tension=.6] coordinates {\fragloopamino};
+  \end{scope}
+  \node[cap] at (2.6,.05) {fragments: boundaries drawn on one configuration};
+  % nested chain S > B > G12 > G6 > H as concentric outlines
+  \foreach \k/\w/\h/\l in {0/4.4/2.3/S,1/3.5/1.8/B,2/2.6/1.3/G_{12},3/1.7/.8/G_6,4/.8/.35/H} {
+    \draw[heavy,rounded corners=4pt] ({7.4-\w/2},{1.45-\h/2}) rectangle ({7.4+\w/2},{1.45+\h/2});
+    \node[lab,anchor=north east,inner sep=1.5pt] at ({7.4+\w/2},{1.45+\h/2}) {$\l$};
+  }
+  \node[cap] at (7.4,.05) {$H\le G\le S$: the regime carved from the full group};
+  % the thick tube, short, with the band at mid-thickness and gold versions
+  \begin{scope}[shift={(11.9,1.55)}]
+    \def\Ro{1.45}\def\Ri{1.0}\def\Rm{1.225}\def\Hh{.3}\def\E{.42}
+    \path[fill=ColNitrogen!18] (-\Ro,-\Hh) arc[start angle=180,end angle=360,x radius=\Ro,y radius={\E*\Ro}] -- (\Ro,\Hh) arc[start angle=0,end angle=-180,x radius=\Ro,y radius={\E*\Ro}] -- cycle;
+    \path[fill=PlateInk] plot[domain=50:90,samples=12,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=90:50,samples=12,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;
+    \draw[heavy] (-\Ro,-\Hh) arc[start angle=180,end angle=360,x radius=\Ro,y radius={\E*\Ro}];
+    \draw[heavy] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
+    \path[fill=white] (0,\Hh) ellipse[x radius=\Ro,y radius={\E*\Ro}];
+    \draw[heavy] (0,\Hh) ellipse[x radius=\Ro,y radius={\E*\Ro}];
+    \path[fill=ColNitrogen!8] (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]; \draw[heavy] (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+    \draw[hidden] (0,\Hh) ellipse[x radius=\Rm,y radius={\E*\Rm}];
+    \draw[tpath] plot[domain=0:115,samples=20,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \draw[upath] plot[domain=0:1,samples=20,variable=\s] ({\Rm*sin(-60*\s)},{\Hh-2*\Hh*\s-\E*\Rm*cos(60*\s)});
+    \foreach \a in {0,120,240} \hatom{\Rm*sin(\a)}{\Hh-\E*\Rm*cos(\a)}{.07}{ColGold}
+    \node[cap,text width=3.6cm] at (0,-1.5) {$\mathcal F$: the family thickened; versions $G/H$ marked};
+  \end{scope}
+\end{scope}
+
+% ---- band 3: cosets, packets, species
+\begin{scope}[shift={(0,5.4)}]
+  \coordinate (v0) at (2.6,1.75); \coordinate (v1) at (1.9,.75); \coordinate (v2) at (3.3,.75);
+  \draw[tpath] (v0) to[bend right=18] (v1); \draw[tpath] (v1) to[bend right=18] (v2); \draw[tpath] (v2) to[bend right=18] (v0);
+  \draw[upath,-] (v1)--(v2);
+  \foreach \p/\l in {v0/H,v1/tH,v2/t^2H} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=.8pt,font=\fontsize{7}{8}\selectfont] at (\p) {$\l$};
+  \node[cap] at (2.6,.05) {versions as sites: $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$};
+  % packets on the torsion circle
+  \begin{scope}[shift={(6.9,1.2)}]
+    \draw[fine] (0,0) circle[radius=.85];
+    \foreach \a in {90,210,330} {\path[fill=ColGold] ({.85*cos(\a)},{.85*sin(\a)}) circle[radius=.33]; \draw[fine] ({.85*cos(\a)},{.85*sin(\a)}) circle[radius=.33];}
+    \node[cap] at (0,-1.15) {packets on the torsion circle, shares $w_{\mathrm A_1},w_{\mathrm E}$};
+  \end{scope}
+  % species rules with spin weights
+  \begin{scope}[shift={(10.4,.7)}]
+    \foreach \y/\l/\w in {1.5/{\mathrm A_1}/\weightEvenAone,1.0/{\mathrm A_2}/\weightEvenAtwo,.5/{\mathrm E}/\weightEvenE} {
+      \draw[heavy] (0,\y)--(1.4,\y); \node[lab,anchor=south west] at (0,\y) {$\l$}; \node[lab,anchor=west] at (1.55,\y) {$w(+)=\w$};}
+    \draw[heavy] (0,.45)--(1.4,.45);
+    \node[cap] at (1.5,-.65) {species paired with nuclear spin};
+  \end{scope}
+\end{scope}
+
+% ---- band 4: chart with cells, sheets over V, modes
+\begin{scope}[shift={(0,1.75)}]
+  \draw[fine] (1.7,.3) rectangle (5.0,2.1); \draw[fine] (1.7,1.2)--(5.0,1.2);
+  \foreach \x in {2.8,3.9} \draw[fine] (\x,1.2)--(\x,2.1); \foreach \x in {2.25,3.35,4.45} \draw[fine] (\x,.3)--(\x,1.2);
+  \path[fill=ColGold!45] (2.8,1.2) rectangle (3.9,2.1); \draw[fine] (2.8,1.2) rectangle (3.9,2.1);
+  \node[lab] at (3.35,1.65) {$\mathcal U$};
+  \node[cap] at (3.35,-.1) {the chart cut and unrolled, $T_s$ between cells};
+  % sheets over V with two lifts
+  \begin{scope}[shift={(6.6,.4)}]
+    \path[fill=ColNitrogen!12] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle; \draw[heavy] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle;
+    \foreach \k in {0,1,2} {\pgfmathsetmacro{\yy}{.85+.55*\k} \path[fill=white] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle; \draw[fine] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle;}
+    \draw[tpath] (1.2,.95)--(2.2,1.2); \draw[upath] (2.2,1.2)--(1.6,2.1);
+    \draw[upath] (1.2,.95)--(.8,1.65); \draw[tpath] (.8,1.65)--(1.9,2.7);
+    \draw[heavy,-{Stealth[length=1.4mm,width=1.1mm]}] (1.5,.78)--(1.5,.3);
+    \node[cap] at (1.5,-.5) {sheets over $V$: $tb\neq bt$};
+  \end{scope}
+  % modes: K rows and a waveform
+  \begin{scope}[shift={(10.6,.5)}]
+    \foreach \k/\d in {0/.0,1/.25,2/-.25} {\draw[fine] (0,{1.9-.45*\k})--(2.6,{1.9-.45*\k}); \foreach \m in {0,...,5} \fill[PlateInk] ({.3+.45*\m+.45*\d},{1.9-.45*\k}) circle[radius=.9pt];}
+    \draw[fine] plot[domain=0:2.6,samples=50] (\x,{.35+.25*cos(360*\x/1.3)});
+    \node[cap] at (1.3,-.6) {modes: $\kappa=m+\rho K$};
+  \end{scope}
+\end{scope}
+\end{tikzpicture}
+\end{document}
