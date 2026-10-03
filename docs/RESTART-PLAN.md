@@ -226,3 +226,23 @@ author changes it): the water atlas stays substantial in fig 1; fig 6 uses the t
 object (the critique prefers the clean cylinder with a local cut-away window), with version labels kept
 off the hidden face and the caption note saying that one radial thickness stands for 13 normal
 coordinates, that the SO(3) factor is suppressed, and that the tube's topology is not a claim about F.
+
+## Addendum 7: plates 4.4.8, 5.1.1, 5.3.2, 5.4.2, 5.4.4 (rotations and frames)
+- 5.1.1 action on a unit-vector triad: a sphere with octants in black, white and stipple so that an
+  orientation is visible at a glance; rotation, inversion and rotation-inversion each drawn as
+  "before = after" pairs with the transformed axes labelled R.u, I.u, O.u. Use for fig 1(b) (R on the
+  left, relabelling on the right, the frame carried along) and for fig 3(c) (E*: X -> -X as the
+  inversion of the triad), and as the orientation glyph wherever r in SO(3) must be shown (figs 5, 10).
+  Octant shading in our idiom: ink, white and a flat gouache tone, no stipple.
+- 5.4.2 commutator path on a sphere: successive small rotations traced as arcs with arrows, start and
+  finish marked, the discrepancy hatched; the caption discloses that the drawn paths are schematic
+  ("not Hamilton arcs"). Model for fig 11(c): draw t-then-b and b-then-t as two arc paths from one
+  start with different finishes, and disclose in the caption notes that the drawn paths are schematic.
+- 5.3.2 nested shells, lab frame outside and body frame inside, with cranks as the operations: the
+  device for separating r (orientation, outer shell) from q and Q (inner) in fig 10(b); a nested-shell
+  inset can replace the three-molecule row if the author accepts the critiques' trimming.
+- 5.4.4 angular-momentum cones with the m ladder: a compact way to show J >= |K| in fig 12(b), a small
+  cone with the K ladder beside the K rows (no energies).
+- 4.4.8 level sketch: thick level bars by column with dashed correlations; the "density of levels"
+  reading is energetic and not for us, but the column typography matches addendum 2.
+Citation: any of these compositions used is disclosed "after Harter (1993), Fig. x.y.z".
