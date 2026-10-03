@@ -83,3 +83,20 @@ Guide: four quadrants with miniature versions of the main motifs; thick-tube min
   the operation that extends it (b; t; tu; E*).
 - Colour: use the gouache palette exactly as shared (ink #303438, H white, O #D56860, N #397BA8,
   K #91A653, Rb #AD8BC0, gold #E0B84F), flat and opaque under the ink; nothing else.
+
+## Addendum 2: three further Harter plates (figs 4.1.6, 4.2.3, 4.3.1)
+- Polyhedra and mirror planes (4.1.6): pure hairline-to-medium ink, hidden edges dashed, no shading at
+  all when the object is a wire construction; planes drawn as thin oblique rectangles that interpenetrate.
+  Use this for any symmetry-object inset (mirror plane through H1, C6, N7 in figure 5; the versions'
+  rotation axes) rather than shaded solids.
+- Level-splitting / correlation diagrams (4.2.3): columns headed by the group, species as short
+  horizontal rules with the label set above each rule, dashed connectors between columns, doubled or
+  tripled rules for degenerate species. Adopt this typography for the torsional species strip in
+  figure 12 and for the pairing in figure 8; it is the natural way to show species across the chain
+  H < G6 < G12 if the author ever asks for it (not in the current contracts).
+- Octahedral beads on axes and the valley surface (4.3.1): rods as double-line cylinders, beads as
+  shaded ellipsoids with crescents, springs drawn as coils; a potential surface drawn with dense ink
+  contour lines on a 3D blob. For us: rods and crescent beads confirm the molecule treatment; contour
+  density like this is appropriate only for the Gaussian packets of figure 9, and then sparingly.
+- The plates themselves are in this session's uploads only (images/1.png, 2.png, 3.png); they are not in
+  the repository. The author will supply the full PDF.
