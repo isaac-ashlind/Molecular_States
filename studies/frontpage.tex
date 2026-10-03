@@ -41,24 +41,24 @@
 \node[head] at (.85,11.35) {Fragments and Feasible Regimes\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,4--6};
 \node[head] at (1.2,7.9) {Symmetry and Localization\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,7--9};
 \node[head] at (1.55,4.45) {Representations and Global Structure\quad\mdseries\fontsize{8}{10}\selectfont\S\S\,10--12};
-\tikzset{cap/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text width=4.1cm,align=center}}
+\tikzset{capt/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text width=4.1cm,align=center}}
 
 % ---- band 1: configurations, the family, the two actions, the spin value
 \begin{scope}[shift={(0,12.15)}]
   \pic[scale=.5] at (1.6,1.05) {mol3d-water-sample-1};
   \pic[scale=.5] at (3.3,1.05) {mol3d-water-sample-2};
   \pic[scale=.5] at (5.0,1.05) {mol3d-water-sample-3};
-  \node[cap] at (3.3,.1) {$X\in\conf$, a family of shapes};
+  \node[capt] at (3.3,.1) {$X\in\conf$, a family of shapes};
   \pic[scale=.5] at (7.6,1.05) {mol3d-water-X};
   \draw[heavy,-{Stealth[length=1.6mm,width=1.3mm]}] (8.45,1.05)--(9.05,1.05); \node[lab,anchor=south] at (8.75,1.12) {$R$};
   \pic[scale=.5] at (9.9,1.05) {mol3d-water-RX};
-  \node[cap] at (8.75,.1) {rotate on the left, relabel on the right};
+  \node[capt] at (8.75,.1) {$R$ on the left, $P_\sigma$ on the right};
   % spin fibre: a vertical line over a configuration carrying the value as a two-component bar
   \pic[scale=.5] at (12.3,.85) {mol3d-water-X};
   \draw[fine] (12.3,1.25)--(12.3,2.05);
   \path[fill=ColGold] (12.15,1.45) rectangle (12.45,1.75); \path[fill=white] (12.15,1.75) rectangle (12.45,1.95); \draw[fine] (12.15,1.45) rectangle (12.45,1.95);
   \node[lab,anchor=west] at (12.55,1.7) {$\Psi(X)\in\spin$};
-  \node[cap,text width=3.2cm] at (12.9,.1) {$\Psi\circ\sigma\sim\stat\,\sigma\act\Psi$};
+  \node[capt,text width=3.2cm] at (12.9,.1) {$\Psi\circ\sigma\sim\stat\,\sigma\act\Psi$};
 \end{scope}
 
 % ---- band 2: fragments, the group chain nested, the feasible tube
@@ -68,13 +68,13 @@
     \draw[heavy] plot[smooth cycle,tension=.6] coordinates {\fragloopmethyl};
     \draw[heavy] plot[smooth cycle,tension=.6] coordinates {\fragloopamino};
   \end{scope}
-  \node[cap] at (2.6,.05) {fragments: boundaries drawn on one configuration};
+  \node[capt] at (2.6,.05) {fragments: boundaries drawn on one configuration};
   % nested chain S > B > G12 > G6 > H as concentric outlines
-  \foreach \k/\w/\h/\l in {0/4.4/2.3/S,1/3.5/1.8/B,2/2.6/1.3/G_{12},3/1.7/.8/G_6,4/.8/.35/H} {
-    \draw[heavy,rounded corners=4pt] ({7.4-\w/2},{1.45-\h/2}) rectangle ({7.4+\w/2},{1.45+\h/2});
+  \foreach \k/\w/\h/\l in {0/4.4/1.75/S,1/3.5/1.38/B,2/2.6/1.02/G_{12},3/1.7/.66/G_6,4/.8/.3/H} {
+    \draw[heavy,rounded corners=4pt] ({7.4-\w/2},{1.5-\h/2}) rectangle ({7.4+\w/2},{1.5+\h/2});
     \node[lab,anchor=north east,inner sep=1.5pt] at ({7.4+\w/2},{1.45+\h/2}) {$\l$};
   }
-  \node[cap] at (7.4,.05) {$H\le G\le S$: the regime carved from the full group};
+  \node[capt] at (7.4,.05) {$H\le G\le S$: the regime carved from the full group};
   % the thick tube, short, with the band at mid-thickness and gold versions
   \begin{scope}[shift={(11.9,1.55)}]
     \def\Ro{1.45}\def\Ri{1.0}\def\Rm{1.225}\def\Hh{.3}\def\E{.42}
@@ -89,7 +89,7 @@
     \draw[tpath] plot[domain=0:115,samples=20,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
     \draw[upath] plot[domain=0:1,samples=20,variable=\s] ({\Rm*sin(-60*\s)},{\Hh-2*\Hh*\s-\E*\Rm*cos(60*\s)});
     \foreach \a in {0,120,240} \hatom{\Rm*sin(\a)}{\Hh-\E*\Rm*cos(\a)}{.07}{ColGold}
-    \node[cap,text width=3.6cm] at (0,-1.5) {$\mathcal F$: the family thickened; versions $G/H$ marked};
+    \node[capt,text width=3.6cm] at (0,-1.5) {$\mathcal F$: the family thickened; versions $G/H$ marked};
   \end{scope}
 \end{scope}
 
@@ -99,19 +99,19 @@
   \draw[tpath] (v0) to[bend right=18] (v1); \draw[tpath] (v1) to[bend right=18] (v2); \draw[tpath] (v2) to[bend right=18] (v0);
   \draw[upath,-] (v1)--(v2);
   \foreach \p/\l in {v0/H,v1/tH,v2/t^2H} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=.8pt,font=\fontsize{7}{8}\selectfont] at (\p) {$\l$};
-  \node[cap] at (2.6,.05) {versions as sites: $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$};
+  \node[capt] at (2.6,.05) {versions as sites: $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$};
   % packets on the torsion circle
   \begin{scope}[shift={(6.9,1.2)}]
     \draw[fine] (0,0) circle[radius=.85];
     \foreach \a in {90,210,330} {\path[fill=ColGold] ({.85*cos(\a)},{.85*sin(\a)}) circle[radius=.33]; \draw[fine] ({.85*cos(\a)},{.85*sin(\a)}) circle[radius=.33];}
-    \node[cap] at (0,-1.15) {packets on the torsion circle, shares $w_{\mathrm A_1},w_{\mathrm E}$};
+    \node[capt] at (0,-1.15) {packets on the torsion circle, shares $w_{\mathrm A_1},w_{\mathrm E}$};
   \end{scope}
   % species rules with spin weights
   \begin{scope}[shift={(10.4,.7)}]
     \foreach \y/\l/\w in {1.5/{\mathrm A_1}/\weightEvenAone,1.0/{\mathrm A_2}/\weightEvenAtwo,.5/{\mathrm E}/\weightEvenE} {
       \draw[heavy] (0,\y)--(1.4,\y); \node[lab,anchor=south west] at (0,\y) {$\l$}; \node[lab,anchor=west] at (1.55,\y) {$w(+)=\w$};}
     \draw[heavy] (0,.45)--(1.4,.45);
-    \node[cap] at (1.5,-.65) {species paired with nuclear spin};
+    \node[capt] at (1.5,-.65) {species paired with nuclear spin};
   \end{scope}
 \end{scope}
 
@@ -121,21 +121,21 @@
   \foreach \x in {2.8,3.9} \draw[fine] (\x,1.2)--(\x,2.1); \foreach \x in {2.25,3.35,4.45} \draw[fine] (\x,.3)--(\x,1.2);
   \path[fill=ColGold!45] (2.8,1.2) rectangle (3.9,2.1); \draw[fine] (2.8,1.2) rectangle (3.9,2.1);
   \node[lab] at (3.35,1.65) {$\mathcal U$};
-  \node[cap] at (3.35,-.1) {the chart cut and unrolled, $T_s$ between cells};
+  \node[capt] at (3.35,-.1) {chart cut and unrolled; $T_s$ between cells};
   % sheets over V with two lifts
-  \begin{scope}[shift={(6.6,.4)}]
+  \begin{scope}[shift={(6.6,.25)}]
     \path[fill=ColNitrogen!12] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle; \draw[heavy] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle;
-    \foreach \k in {0,1,2} {\pgfmathsetmacro{\yy}{.85+.55*\k} \path[fill=white] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle; \draw[fine] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle;}
-    \draw[tpath] (1.2,.95)--(2.2,1.2); \draw[upath] (2.2,1.2)--(1.6,2.1);
-    \draw[upath] (1.2,.95)--(.8,1.65); \draw[tpath] (.8,1.65)--(1.9,2.7);
-    \draw[heavy,-{Stealth[length=1.4mm,width=1.1mm]}] (1.5,.78)--(1.5,.3);
-    \node[cap] at (1.5,-.5) {sheets over $V$: $tb\neq bt$};
+    \foreach \k in {0,1,2} {\pgfmathsetmacro{\yy}{.8+.5*\k} \path[fill=white] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle; \draw[fine] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle;}
+    \draw[tpath] (1.2,.9)--(2.2,1.15); \draw[upath] (2.2,1.15)--(1.6,1.95);
+    \draw[upath] (1.2,.9)--(.8,1.55); \draw[tpath] (.8,1.55)--(1.9,2.5);
+    \draw[heavy,-{Stealth[length=1.4mm,width=1.1mm]}] (1.5,.72)--(1.5,.3);
+    \node[capt] at (1.5,-.35) {sheets over $V$: $tb\neq bt$};
   \end{scope}
   % modes: K rows and a waveform
   \begin{scope}[shift={(10.6,.5)}]
     \foreach \k/\d in {0/.0,1/.25,2/-.25} {\draw[fine] (0,{1.9-.45*\k})--(2.6,{1.9-.45*\k}); \foreach \m in {0,...,5} \fill[PlateInk] ({.3+.45*\m+.45*\d},{1.9-.45*\k}) circle[radius=.9pt];}
     \draw[fine] plot[domain=0:2.6,samples=50] (\x,{.35+.25*cos(360*\x/1.3)});
-    \node[cap] at (1.3,-.6) {modes: $\kappa=m+\rho K$};
+    \node[capt] at (1.3,-.6) {modes: $\kappa=m+\rho K$};
   \end{scope}
 \end{scope}
 \end{tikzpicture}
