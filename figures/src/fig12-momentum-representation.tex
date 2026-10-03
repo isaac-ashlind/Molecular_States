@@ -1,0 +1,103 @@
+% Figure 12. Momentum representation: Wigner-Fourier labels, K rows across the seam, torsional species.
+% Colours: blue = A1 species; ochre = A2 species; red = E species (panel (c) only). Everything else ink.
+% Markers in (c): filled disc = A1, open ring = A2, filled square = E, short dash = absent mode (sin 0).
+% Arrows: the double-headed ink arrow in (a) is the Wigner-Fourier basis change, not the seam (frame change).
+% Dashed line in (b) = kappa = 0 origin of the twisted frame; thin slanted guide = kappa = rho K at m = 0;
+% the small bracket "1" marks unit spacing. rho = \rhoIll is illustrative (declared in place); kappa rows and
+% species lists come from numbers.tex. Hatch unused.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{numbers.tex}
+% species cells for (c): marker plus text label; an E cell carries the marker only (one E label per joined column)
+\expandafter\newcommand\csname cellA1\endcsname[2]{%
+  \fill[PlateBlue] (#1-.3,#2) circle[radius=1.6pt];
+  \node[small,anchor=west,inner sep=2pt] at (#1-.28,#2) {$\mathrm A_1$};}
+\expandafter\newcommand\csname cellA2\endcsname[2]{%
+  \draw[PlateOchre,line width=.6pt,fill=white] (#1-.3,#2) circle[radius=1.6pt];
+  \node[small,anchor=west,inner sep=2pt] at (#1-.28,#2) {$\mathrm A_2$};}
+\expandafter\newcommand\csname cellE\endcsname[2]{%
+  \node[fill=PlateRed,inner sep=0pt,minimum size=3.2pt] at (#1-.3,#2) {};}
+\expandafter\newcommand\csname cellnone\endcsname[2]{%
+  \draw[inclusion] (#1-.41,#2)--(#1-.19,#2);}
+\def\speciesE{E}
+\begin{document}
+\begin{tikzpicture}[plate,
+  boxframe/.style={draw=PlateInk,line width=.35pt}]
+\path[use as bounding box] (0,0) rectangle (15,9.4);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,9.35) {(a) Position labels and mode labels};
+\draw[boxframe] (.1,7.6) rectangle (5.0,8.85);
+\node at (2.55,8.57) {$|r,\tau,Q\rangle_0$};
+\node[small] at (2.55,8.2) {$SO(3)\times S^1\times\R^d$ (product model)};
+\node[note] at (2.55,7.84) {density absorbed: $\tilde\psi=J^{1/2}\psi$};
+\draw[boxframe] (10.0,7.6) rectangle (14.9,8.85);
+\node at (12.45,8.57) {$|JMK,m,p\rangle$};
+\node[small] at (12.45,8.2) {$J\in\mathbb N_0,\quad -J\le M,K\le J$};
+\node[small] at (12.45,7.84) {$m\in\mathbb Z,\quad p\in\R^d$};
+\draw[operation,<->] (5.25,8.22)--(9.75,8.22);
+\node[anchor=south,inner sep=2pt] at (7.5,8.26) {Wigner--Fourier transform};
+\node[note,anchor=north] at (7.5,8.16) {(basis change)};
+\node at (7.5,7.08) {$\langle r,\tau,Q\,|\,JMK,m,p\rangle_0=\dfrac{\sqrt{2J+1}\;D^J_{MK}(r)\,e^{im\tau}\,e^{ip\cdot Q/\hbar}}{\sqrt{2\pi}\,(2\pi\hbar)^{d/2}}$};
+\node[note] at (7.5,6.42) {frame change (seam) is a separate operation from the transform};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (0,6.05) {(b) $K$ rows: periodic frame, twisted frame ($\rho=\rhoIll$ illustrative)};
+\node[small,anchor=south west,inner sep=1pt] at (1.85,5.42) {periodic frame};
+\node[small,anchor=south west,inner sep=1pt] at (9.15,5.42) {twisted frame};
+% left half: integer m, unit spacing
+\foreach \K in {-1,0,1} {
+  \pgfmathsetmacro\y{4.45+.5*(\K)}
+  \node[small,anchor=east,inner sep=2pt] at (1.6,\y) {$K=\K$};
+  \draw[guide] (1.85,\y)--(6.15,\y);
+  \foreach \m in {-3,...,3} { \fill[PlateInk] ({4.0+.62*(\m)},\y) circle[radius=1.5pt]; }
+}
+\foreach \m in {-3,...,3} { \node[small,anchor=north,inner sep=2pt] at ({4.0+.62*(\m)},3.8) {$\m$}; }
+\node[small,anchor=west,inner sep=2pt] at (6.2,3.95) {$m$};
+\node[small] at (1.2,3.58) {$J\ge|K|$};
+\draw[guide] (5.24,5.05)--(5.24,5.13)--(5.86,5.13)--(5.86,5.05);
+\node[small,anchor=south,inner sep=1pt] at (5.55,5.15) {$1$};
+% right half: kappa = m + rho K from the data macro
+\foreach \K/\list in \kappaRows {
+  \pgfmathsetmacro\y{4.45+.5*(\K)}
+  \node[small,anchor=east,inner sep=2pt] at (8.9,\y) {$K=\K$};
+  \draw[guide] (9.15,\y)--(13.65,\y);
+  \foreach \k in \list { \fill[PlateInk] ({11.4+.62*(\k)},\y) circle[radius=1.5pt]; }
+}
+\draw[guidedash] (11.4,3.75)--(11.4,5.2);
+\node[small,anchor=north,inner sep=2pt] at (11.4,3.8) {$0$};
+\node[small,anchor=west,inner sep=2pt] at (13.7,3.95) {$\kappa$};
+\pgfmathsetmacro\su{.62*\rhoIll}
+\draw[guide] (11.4-1.45*\su,3.725)--(11.4+1.45*\su,5.175);
+\node[small,anchor=south west,inner sep=1pt] at (11.4+1.45*\su+.05,5.17) {$\kappa=\rho K$ ($m=0$)};
+% seam rule
+\node[anchor=west,inner sep=2pt] at (.1,3.22) {$(r,\tau+2\pi,Q)\sim(rR_z(-2\pi\rho),\tau,Q)$};
+\node[anchor=west,inner sep=2pt] at (.1,2.78) {$D^J_{MK}(rR_z(\alpha))=e^{-iK\alpha}D^J_{MK}(r)\;\Rightarrow\;e^{2\pi i\kappa}=e^{2\pi i\rho K},\quad\kappa=m+\rho K$};
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (0,2.45) {(c) Torsional real modes and species, $G_6$};
+\node[small,anchor=east,inner sep=2pt] at (1.45,1.86) {$m$};
+\node[small,anchor=east,inner sep=2pt] at (1.45,1.44) {$\cos m\tau$};
+\node[small,anchor=east,inner sep=2pt] at (1.45,.96) {$\sin m\tau$};
+\draw[frame] (1.5,.72) rectangle (8.1,1.68);
+\foreach \m/\cs/\ss in \torsionSpecies {
+  \pgfmathsetmacro\cx{1.95+.95*\m}
+  \node[small] at (\cx,1.86) {$\m$};
+  \csname cell\cs\endcsname{\cx}{1.44}
+  \csname cell\ss\endcsname{\cx}{.96}
+  \ifnum\m<6 \draw[frame] (\cx+.475,.72)--(\cx+.475,1.68); \fi
+  \edef\tmp{\cs}
+  \ifx\tmp\speciesE
+    \draw[guide] (\cx-.14,1.58)--(\cx-.06,1.58)--(\cx-.06,.82)--(\cx-.14,.82);
+    \node[small,anchor=west,inner sep=2pt] at (\cx-.06,1.2) {$\mathrm E$};
+  \fi
+}
+\node[note] at (4.8,.45) {each joined column is one $\mathrm E$ pair};
+\node[small,anchor=north west,align=left] at (8.7,2.1) {
+  periodic scalar torsion:\\[2pt]
+  $t\colon\tau\mapsto\tau+2\pi/3,\qquad b\colon\tau\mapsto-\tau$\\[2pt]
+  $U_gf=f\circ g^{-1},\qquad f_m=e^{im\tau}$\\[2pt]
+  $U_tf_m=e^{-2\pi im/3}f_m,\qquad U_bf_m=f_{-m}$};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,88 @@
+% Figure 9. Localized states: packet width sets the overlap c and the spatial projection shares.
+% Colours: blue = w_A1 (solid), red = w_E (dashed), ochre = w_A2 (densely dotted); ink = geometry.
+% Circles: density level sets at radius sigma (ink) and 2 sigma (lighter ink), not support boundaries.
+% Dashes: triangle edges and the sigma/d = 1/3 guide. Open circle = narrow limit sigma/d -> 0;
+% filled dot = the width drawn in (a). Dimension line (guide) = edge length d. No arrows, no hatch.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,
+  levelA/.style={line width=.65pt,draw=PlateInk},
+  levelB/.style={line width=.65pt,draw=PlateInk!55},
+  curveA/.style={PlateBlue,line width=.65pt},
+  curveE/.style={PlateRed,line width=.65pt,dashed},
+  curveB/.style={PlateOchre,line width=.65pt,densely dotted}]
+\path[use as bounding box] (0,0) rectangle (15,7.8);
+% drawing scale of (a): edge d = 2.4 cm, so sigma = d/3 = 0.8 cm and 2 sigma = 1.6 cm
+\def\edgeD{2.4}\pgfmathsetmacro\sigA{\edgeD/3}\pgfmathsetmacro\sigB{2*\edgeD/3}
+\pgfmathsetmacro\triH{\edgeD*sqrt(3)/2}
+\pgfmathsetmacro\xthird{1/3}
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,7.75) {(a) Equilateral Gaussian model};
+\coordinate (H) at (3.1,5.45);
+\coordinate (tH) at ($(H)+(-\edgeD/2,-\triH)$);
+\coordinate (t2H) at ($(H)+(\edgeD/2,-\triH)$);
+\draw[guidedash] (H)--(tH)--(t2H)--cycle;
+\foreach \c in {H,tH,t2H} {
+  \draw[levelB] (\c) circle[radius=\sigB];
+  \draw[levelA] (\c) circle[radius=\sigA];
+  \fill[PlateInk] (\c) circle[radius=1.2pt];
+}
+\node[small,anchor=south] at ($(H)+(0,.12)$) {$H$: $g_0$};
+\node[small,anchor=north] at ($(tH)+(0,-.12)$) {$tH$: $g_1$};
+\node[small,anchor=north] at ($(t2H)+(0,-.12)$) {$t^2H$: $g_2$};
+% radii of the two level sets, shown on the packet at H
+\draw[guide] (H)--++(0:\sigA); \node[small,anchor=north] at ($(H)+(.42,-.06)$) {$\sigma$};
+\draw[guide] (H)--++(180:\sigB); \node[small,anchor=north] at ($(H)+(-1.2,-.06)$) {$2\sigma$};
+% dimension line for the edge d
+\draw[guide,|-|] ($(tH)+(0,-1.0)$)--($(t2H)+(0,-1.0)$);
+\node[tag,anchor=center] at ($(tH)!.5!(t2H)+(0,-1.0)$) {$d$};
+\node[note,anchor=north west,align=left] at (0,1.25) {drawn for $\sigma/d=1/3$: radii $\sigma=d/3$ and $2\sigma=2d/3$\\[1pt]
+  contours: density level sets, not support boundaries\\[1pt]
+  each width is a different packet};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (7.6,7.75) {(b) Projection shares against $\sigma/d$};
+\node[anchor=north west,align=left] at (7.6,7.3) {
+  $c=\langle g_0,g_1\rangle=\exp\bigl(-d^2/(8\sigma^2)\bigr)$\\[2pt]
+  {\fontsize{8}{10}\selectfont all pairwise overlaps equal; $\sigma^2$ = density variance}\\[3pt]
+  $w_{\mathrm A_1}=\tfrac{1+2c}{3},\quad w_{\mathrm E}=\tfrac{2(1-c)}{3},\quad w_{\mathrm A_2}=0$\\[3pt]
+  $w_{\mathrm A_1}+w_{\mathrm E}+w_{\mathrm A_2}=1$};
+\begin{axis}[
+  at={(15cm,0cm)},anchor=outer south east,
+  width=7.5cm,height=5.3cm,
+  axis lines=left,axis line style={line width=.5pt,PlateInk,-},
+  tick style={line width=.35pt,PlateInk},tick align=outside,
+  xmin=0,xmax=2,ymin=-.06,ymax=1.06,clip=false,
+  xlabel={$\sigma/d$},ylabel={share},
+  label style={font=\fontsize{9}{11}\selectfont,text=PlateInk},
+  tick label style={font=\fontsize{8}{10}\selectfont,text=PlateInk},
+  xlabel style={at={(axis description cs:.5,-.1)},anchor=north},
+  ylabel style={at={(axis description cs:-.1,.5)},anchor=south,rotate=0},
+  xtick={0,1/3,2/3,1,4/3,5/3,2},xticklabels={$0$,$1/3$,$2/3$,$1$,$4/3$,$5/3$,$2$},
+  ytick={0,1/3,2/3,1},yticklabels={$0$,$1/3$,$2/3$,$1$},
+  legend style={at={(.97,.26)},anchor=east,draw=none,fill=none,font=\fontsize{8}{10}\selectfont,text=PlateInk},
+  legend cell align=left,
+  every axis plot/.append style={line cap=round}]
+  \addplot[curveA] table[x=x,y=wA1] {gaussian-shares.dat};
+  \addlegendentry{$w_{\mathrm A_1}$}
+  \addplot[curveE] table[x=x,y=wE] {gaussian-shares.dat};
+  \addlegendentry{$w_{\mathrm E}$}
+  \addplot[curveB] table[x=x,y=wA2] {gaussian-shares.dat};
+  \addlegendentry{$w_{\mathrm A_2}=0$}
+  % narrow limits sigma/d -> 0 from the first row of the data file, drawn at x = 0
+  \addplot[forget plot,only marks,mark=o,mark size=2pt,PlateBlue,line width=.55pt,skip coords between index={1}{200}]
+    table[x expr=0,y=wA1] {gaussian-shares.dat};
+  \addplot[forget plot,only marks,mark=o,mark size=2pt,PlateRed,line width=.55pt,skip coords between index={1}{200}]
+    table[x expr=0,y=wE] {gaussian-shares.dat};
+  % the width drawn in (a)
+  \draw[guidedash] (axis cs:\xthird,0)--(axis cs:\xthird,\shareShownA);
+  \addplot[forget plot,only marks,mark=*,mark size=1.8pt,PlateBlue] coordinates {(\xthird,\shareShownA)};
+  \addplot[forget plot,only marks,mark=*,mark size=1.8pt,PlateRed] coordinates {(\xthird,\shareShownE)};
+  \node[small,anchor=west,inner sep=2pt] at (axis cs:.42,.5) {as in (a): $w_{\mathrm A_1}=\shareShownA$, $w_{\mathrm E}=\shareShownE$};
+\end{axis}
+\end{tikzpicture}
+\end{document}

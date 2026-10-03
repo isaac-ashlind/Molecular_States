@@ -1,0 +1,70 @@
+% Figure 5. Symmetry groups and versions: H as the rotational-orbit stabiliser, the bond interval, reference versions.
+% Colours: ochre = the point-group operation b; violet = the rotation R_b; blue = the chain H < G6 < G12 < B.
+% Inclusion lines in (b) are undirected covers of the subgroup interval; heights are log2 of the version count |K/H|.
+% Drawings in (c) share one set of positions; only labels move: position j carries label g(j).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,12.9);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,12.85) {(a) $bX_0=R_bX_0$, so $b\in H$};
+\begin{scope}[shift={(0,8.3)}]
+  \pic[scale=.62] at (1.75,2.6) {mla-ref};
+  \pic[scale=.62] at (5.85,2.6) {mla-bref};
+  \draw[operation,draw=PlateOchre] (3.15,3.3) to[bend left=22] node[midway,above,inner sep=2pt] {$b=(23)(45)^*$} (4.45,3.3);
+  \draw[operation,draw=PlateViolet] (3.15,1.85) to[bend right=22] node[midway,below,inner sep=2pt] {$R_b=R_y(\pi)$} (4.45,1.85);
+  \node[small] at (1.75,.95) {$X_0$};
+  \node[small] at (5.85,.95) {$bX_0=R_bX_0$};
+  \node[note,anchor=north west,text width=7.3cm,align=left] at (0,.5)
+    {$b$ relabels $2\leftrightarrow3$, $4\leftrightarrow5$ and inverts; $R_b$ is a half-turn about the axis normal to the mirror plane through $\mathrm H_1,\mathrm C_6,\mathrm N_7$; the two results coincide (computed), so $H=\{E,b\}$ stabilises the orbit $SO(3)X_0$, not the point $X_0$};
+\end{scope}
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (7.9,12.85) {(b) Interval $[H,B]$: $10$ subgroups, $17$ covers};
+\begin{scope}[shift={(11.65,8.05)},x=.58cm,y=1.05cm]
+  \foreach \i/\x/\y/\v/\name in \hasseNodes {
+    \coordinate (n\i) at (\x,\y);
+  }
+  \foreach \a/\b in \hasseCovers {
+    \draw[inclusion] (n\a)--(n\b);
+  }
+  \draw[inclusion,draw=PlateBlue,line width=1.1pt] (n0)--(n4)--(n6)--(n9);
+  \foreach \i/\x/\y/\v/\name in \hasseNodes {
+    \node[small,fill=white,inner sep=1.5pt] at (n\i) {$\name$};
+  }
+  \foreach \y/\v in {0/1,1/2,1.585/3,2/4,2.585/6,3.585/12} {
+    \node[note,anchor=east] at (-6.2,\y) {$\v$};
+  }
+  \node[note,anchor=east] at (-5.95,3.95) {$|K/H|$};
+\end{scope}
+\node[note,anchor=north west,text width=7.0cm,align=left] at (7.9,7.75)
+  {$b=(23)(45)^*$, $t=(123)$, $u=(45)$; $H=\langle b\rangle$, $G_6=\langle H,t\rangle$, $G_{12}=\langle H,t,u\rangle=\langle G_6,tu\rangle$, $B=\langle G_{12},E^*\rangle$; blue: the chain used in the text; crossings are not nodes};
+
+% rigid orbit: one shape, three orientations (the same X0 rotated), against the changing shapes of fig. 6
+\begin{scope}[shift={(0,5.3)}]
+  \node[note,anchor=west] at (0,2.55) {the rotational orbit $SO(3)X_0$: one shape, all orientations $rX_0$};
+  \pic[scale=.45] at (1.2,1.25) {mla-ref};
+  \pic[scale=.45] at (3.75,1.25) {mla-rot-a};
+  \pic[scale=.45] at (6.3,1.25) {mla-rot-b};
+  \draw[operation,draw=PlateViolet] (2.3,1.25)--(2.75,1.25) node[midway,above,inner sep=2pt] {$r$};
+  \draw[operation,draw=PlateViolet] (4.85,1.25)--(5.3,1.25) node[midway,above,inner sep=2pt] {$r'$};
+  \node[note] at (3.75,.2) {same internal shape, so the same point of the reduced family; orientation is the $SO(3)$ factor};
+\end{scope}
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (0,3.75) {(c) Six reference versions, the cosets $G_{12}/H$: same positions, labels moved by $g$};
+\foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
+  \begin{scope}[shift={({1.3+2.48*\k},2.15)}]
+    \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
+    \pic[scale=.5] at (0,0) {mla-ref};
+    \node[small] at (0,-1.3) {$gX_0$,\; $g=\gname$};
+    \node[small] at (0,-1.72) {version $\cname$};
+  \end{scope}
+}
+\end{tikzpicture}
+\end{document}

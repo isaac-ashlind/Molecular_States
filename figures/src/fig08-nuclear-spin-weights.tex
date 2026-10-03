@@ -1,0 +1,67 @@
+% Figure 8. Nuclear spin weights: each spatial species pairs with the spin species whose product
+% contains chi_+ = A1 (even parity) or chi_- = A2 (odd parity); chi_stat = +1 on G6 throughout.
+% Colours: blue = A1, gold = A2, red = E (species; solid / densely dotted / dashed, as in fig. 9).
+% Discs: filled = even parity, open = odd parity. Rules and grid lines are guides. No arrows, no hatch.
+% Copy counts and weights come from numbers.tex; the irrep dimensions d_Gamma = 1, 1, 2 are structural.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{numbers.tex}
+\newcommand\spA{$\mathrm A_1$}
+\newcommand\spB{$\mathrm A_2$}
+\newcommand\spE{$\mathrm E$}
+\begin{document}
+\begin{tikzpicture}[plate,
+  lnA/.style={line width=.65pt,draw=PlateBlue},
+  lnB/.style={line width=.65pt,draw=PlateOchre,densely dotted},
+  lnE/.style={line width=.65pt,draw=PlateRed,dashed},
+  even/.style={circle,fill=PlateInk,draw=PlateInk,line width=.55pt,inner sep=0pt,minimum size=4.4pt},
+  odd/.style={circle,fill=white,draw=PlateInk,line width=.55pt,inner sep=0pt,minimum size=4.4pt}]
+\path[use as bounding box] (0,0) rectangle (15,7.0);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,6.95) {(a) Allowed species pairings};
+\node[small] at (3.5,6.3) {$\Gamma_{\mathrm{spin}}$ in $\spin=(\mathbb C^2)^{\otimes5}$, $\dim=\spinDim$};
+\node at (2.5,5.9) {\spA}; \node at (3.5,5.9) {\spB}; \node at (4.5,5.9) {\spE};
+\node[small,anchor=east] at (1.95,5.55) {copies};
+\node[small] at (2.5,5.55) {\weightEvenAone}; \node[small] at (3.5,5.55) {\weightEvenAtwo}; \node[small] at (4.5,5.55) {\weightEvenE};
+\node[small] at (1.0,5.95) {$\Gamma_{\mathrm{space}}$, $d_\Gamma$};
+\node[anchor=east] at (1.85,4.8) {\spA, $1$};
+\node[anchor=east] at (1.85,3.8) {\spB, $1$};
+\node[anchor=east] at (1.85,2.8) {\spE, $2$};
+\draw[guide] (3,2.3)--(3,5.3) (4,2.3)--(4,5.3) (2,3.3)--(5,3.3) (2,4.3)--(5,4.3) (5,2.3)--(5,5.3) (2,2.3)--(5,2.3);
+\draw[lnA] (2,5.3)--(3,5.3); \draw[lnB] (3,5.3)--(4,5.3); \draw[lnE] (4,5.3)--(5,5.3);
+\draw[lnA] (2,4.3)--(2,5.3); \draw[lnB] (2,3.3)--(2,4.3); \draw[lnE] (2,2.3)--(2,3.3);
+\node[even] at (2.5,4.8) {}; \node[odd] at (3.5,4.8) {};
+\node[odd] at (2.5,3.8) {}; \node[even] at (3.5,3.8) {};
+\node[even] at (4.3,2.8) {}; \node[odd] at (4.7,2.8) {};
+\node[even] at (.15,1.85) {}; \node[small,anchor=west] at (.35,1.85) {even parity, $\chi_+=\mathrm A_1$};
+\node[odd] at (.15,1.45) {}; \node[small,anchor=west] at (.35,1.45) {odd parity, $\chi_-=\mathrm A_2$ ($b\mapsto-1$)};
+\node[note,anchor=north west,align=left] at (0,1.05) {condition $\Gamma_{\mathrm{space}}\otimes\Gamma_{\mathrm{spin}}\ni\chi_\pm$, with $\stat=+1$ on $G_6$\\[1pt]
+  (every underlying permutation is even)};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (6.2,6.95) {(b) Spin weights $w_\Gamma(\pm)$ per spatial level};
+\node[small,anchor=west,align=left] at (6.3,6.2) {species\\$\Gamma$};
+\node[small,align=center] at (7.75,6.2) {dim\\$d_\Gamma$};
+\node[small,align=center] at (8.95,6.2) {copies in\\$\mathbb C[G_6/H]$};
+\node[small,align=center] at (10.65,6.2) {spin partner\\even\,/\,odd};
+\node[small,align=center] at (12.4,6.2) {weight even\\$w_\Gamma(+)$};
+\node[small,align=center] at (14.1,6.2) {weight odd\\$w_\Gamma(-)$};
+\draw[guide] (6.2,6.6)--(15,6.6);
+\draw[guide] (6.2,5.8)--(15,5.8);
+\draw[guide] (6.2,4.2)--(15,4.2);
+\node[anchor=west] at (6.25,5.5) {\spA}; \node at (7.75,5.5) {$1$}; \node at (8.95,5.5) {\localCopiesAone};
+  \node at (10.65,5.5) {\spA\,/\,\spB}; \node at (12.4,5.5) {\weightEvenAone}; \node at (14.1,5.5) {\weightOddAone};
+\node[anchor=west] at (6.25,5.0) {\spB}; \node at (7.75,5.0) {$1$}; \node at (8.95,5.0) {\localCopiesAtwo};
+  \node at (10.65,5.0) {\spB\,/\,\spA}; \node at (12.4,5.0) {\weightEvenAtwo}; \node at (14.1,5.0) {\weightOddAtwo};
+\node[anchor=west] at (6.25,4.5) {\spE}; \node at (7.75,4.5) {$2$}; \node at (8.95,4.5) {\localCopiesE};
+  \node at (10.65,4.5) {\spE\,/\,\spE}; \node at (12.4,4.5) {\weightEvenE}; \node at (14.1,4.5) {\weightOddE};
+\node[anchor=west] at (6.25,3.75) {$\sum_\Gamma d_\Gamma\,w_\Gamma(+)=1\cdot\weightEvenAone+1\cdot\weightEvenAtwo+2\cdot\weightEvenE=\spinDim=\dim\spin$};
+\node[anchor=west] at (6.25,3.25) {$\sum_\Gamma d_\Gamma\,w_\Gamma(-)=1\cdot\weightOddAone+1\cdot\weightOddAtwo+2\cdot\weightOddE=\spinDim$};
+\node[note,anchor=north west,text width=8.7cm,align=left] at (6.2,2.75)
+  {$w_\Gamma(\pm)$ = copies of the partner spin species = physical states per spatial level of species $\Gamma$};
+\node[note,anchor=north west,text width=8.7cm,align=left] at (6.2,1.95)
+  {$\mathrm A_2$ has no copy among the three version states ($\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, fig.\,7), but is still a valid spin sector: \weightEvenAtwo\ copies in $\spin$};
+\end{tikzpicture}
+\end{document}

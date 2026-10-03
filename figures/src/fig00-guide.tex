@@ -1,0 +1,120 @@
+% Unnumbered reading map: four quadrants whose headings are the four parts and section ranges.
+% Miniatures reuse the motifs of the main figures (same pics, same conventions, no labels at this scale).
+% Colours as in the main figures: blue = t action, red = tu path, ochre = b action / highlighted image,
+% violet = rotation. Grey arrows between quadrants mark reading order only, never physical evolution.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,
+  quad/.style={draw=PlateInk!40,line width=.35pt},
+  qhead/.style={font=\fontsize{9}{11}\selectfont\bfseries,anchor=north west,inner sep=0pt},
+  qrange/.style={font=\fontsize{8}{10}\selectfont,anchor=north east,inner sep=0pt,text=PlateInk!70},
+  order/.style={draw=PlateInk!45,line width=.6pt,-{Stealth[length=1.6mm,width=1.2mm]}}]
+\path[use as bounding box] (0,0) rectangle (15,10.2);
+
+% ------------------------------------------------ quadrant 1
+\draw[quad] (0,5.4) rectangle (7.3,10.0);
+\node[qhead] at (.15,9.85) {Configurations and States};
+\node[qrange] at (7.15,9.85) {\S\S\,1--3};
+\begin{scope}[minimol]
+  \mollabelsfalse
+  \pic[scale=.75] at (1.3,8.3) {water-X};
+  \pic[scale=.75] at (3.3,8.3) {water-RX};
+\end{scope}
+\draw[operation,draw=PlateViolet,shorten <=5mm,shorten >=5mm] (1.3,8.3)--(3.3,8.3);
+\node[note] at (2.3,7.35) {$X\in\conf$,\; $RX$,\; $XP_\sigma$};
+\node[small,anchor=west] at (4.3,8.55) {$\Psi(X)\in\spin$};
+\node[small,anchor=west] at (4.3,7.95) {$\Psi\circ\sigma\sim\stat(\sigma)\,\sigma\act\Psi$};
+\node[note,anchor=west] at (4.3,7.4) {statistics, then parity $\pm$};
+\node[note,anchor=north west,text width=6.9cm,align=left] at (.15,6.6)
+  {centred labelled nuclei; spin-valued wavefunctions; the physical space $\hilb\subseteq\hilb_{\mathrm{ambient}}$};
+
+% ------------------------------------------------ quadrant 2
+\draw[quad] (7.7,5.4) rectangle (15,10.0);
+\node[qhead] at (7.85,9.85) {Fragments and Feasible Regimes};
+\node[qrange] at (14.85,9.85) {\S\S\,4--6};
+\begin{scope}[minimol]
+  \mollabelsfalse
+  \pic[scale=.42] at (9.1,8.2) {mla-ref};
+  \begin{scope}[scale=.42,shift={(9.1/.42,8.2/.42)}]
+    \draw[PlateBlue,densely dashed,line width=.5pt] plot[smooth cycle] coordinates {\fragloopmethyl};
+    \draw[PlateBlue,densely dashed,line width=.5pt] plot[smooth cycle] coordinates {\fragloopamino};
+  \end{scope}
+\end{scope}
+\node[note] at (9.1,7.2) {fragments};
+\node[small] at (11.0,8.55) {$H\le G\le S$};
+\node[note] at (11.0,8.05) {versions $G/H$};
+% miniature cylinder with six version points
+\begin{scope}[shift={(13.3,8.15)}]
+  \def\Rx{.85}\def\Ry{.26}\def\Hh{.55}
+  \draw[guide] (-\Rx,-\Hh)--(-\Rx,\Hh) (\Rx,-\Hh)--(\Rx,\Hh);
+  \draw[guide] (0,\Hh) ellipse[x radius=\Rx,y radius=\Ry];
+  \draw[guide] ({-\Rx},-\Hh) arc[start angle=180,end angle=360,x radius=\Rx,y radius=\Ry];
+  \draw[PlateBlue,line width=.6pt] plot[domain=0:120,samples=20,variable=\a] ({\Rx*sin(\a)},{\Hh-\Ry*cos(\a)});
+  \draw[PlateRed,densely dashed,line width=.6pt] plot[domain=0:1,samples=20,variable=\s] ({\Rx*sin(-60*\s)},{\Hh-2*\Hh*\s-\Ry*cos(60*\s)});
+  \foreach \a/\h in {0/\Hh,120/\Hh,240/\Hh,300/-\Hh,60/-\Hh} \fill[PlateInk] ({\Rx*sin(\a)},{\h-\Ry*cos(\a)}) circle[radius=1pt];
+\end{scope}
+\node[note] at (13.3,7.2) {feasible family $\mathcal F$};
+\node[note,anchor=north west,text width=6.9cm,align=left] at (7.85,6.6)
+  {groupings are a choice of boundaries; $H$ stabilises the reference orbit; feasible $G$ from resolved rearrangements; $\mathcal F$ and its images $S/G$};
+
+% ------------------------------------------------ quadrant 3
+\draw[quad] (0,.2) rectangle (7.3,4.8);
+\node[qhead] at (.15,4.65) {Symmetry and Localization};
+\node[qrange] at (7.15,4.65) {\S\S\,7--9};
+\begin{scope}[shift={(1.5,2.85)}]
+  \coordinate (v0) at (0,.75); \coordinate (v1) at (-.7,-.45); \coordinate (v2) at (.7,-.45);
+  \draw[PlateBlue,line width=.6pt,-{Stealth[length=1.3mm]}] (v0) to[bend right=20] (v1);
+  \draw[PlateBlue,line width=.6pt,-{Stealth[length=1.3mm]}] (v1) to[bend right=20] (v2);
+  \draw[PlateBlue,line width=.6pt,-{Stealth[length=1.3mm]}] (v2) to[bend right=20] (v0);
+  \draw[PlateOchre,line width=.6pt,<->] (v1)--(v2);
+  \foreach \p/\l in {v0/H,v1/tH,v2/t^2H} \node[circle,draw=PlateInk,fill=white,line width=.4pt,inner sep=.8pt,font=\fontsize{7}{8}\selectfont] at (\p) {$\l$};
+\end{scope}
+\node[note] at (1.5,1.6) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$};
+\node[small] at (4.0,3.55) {$w_\Gamma(\pm)$};
+\node[note] at (4.0,3.05) {spin weights};
+\begin{scope}[shift={(5.9,3.2)}]
+  \coordinate (a0) at (0,.5); \coordinate (a1) at (-.45,-.28); \coordinate (a2) at (.45,-.28);
+  \foreach \c in {a0,a1,a2} {\draw[guide] (\c) circle[radius=.22]; \draw[guide] (\c) circle[radius=.44]; \fill[PlateInk] (\c) circle[radius=.8pt];}
+\end{scope}
+\node[note] at (5.9,2.3) {packets, shares $w_{\mathrm A_1},w_{\mathrm E}$};
+\node[note,anchor=north west,text width=6.9cm,align=left] at (.15,1.25)
+  {species of $G$, pairing with nuclear spin and parity, localized packets and their projection shares};
+
+% ------------------------------------------------ quadrant 4
+\draw[quad] (7.7,.2) rectangle (15,4.8);
+\node[qhead] at (7.85,4.65) {Representations and Global Structure};
+\node[qrange] at (14.85,4.65) {\S\S\,10--12};
+\begin{scope}[shift={(8.1,2.55)}]
+  \draw[guide] (0,0) rectangle (2.4,1.2);
+  \draw[guide] (0,.6)--(2.4,.6);
+  \path[fill=PlateBlue!14] (1.0,.6) rectangle (1.8,1.2);
+  \path[fill=PlateRed!14] (.6,0) rectangle (1.4,.6);
+  \draw[PlateRed,line width=.6pt,-{Stealth[length=1.3mm]}] (1.4,1.15) to[bend right=25] (1.0,.05);
+  \node[note,anchor=north] at (1.2,-.05) {$T_s$ on charts $(r,q,Q)$};
+\end{scope}
+\begin{scope}[shift={(11.1,2.6)}]
+  \node[small,anchor=west] at (0,1.1) {$X\to tX\to tbX$};
+  \node[small,anchor=west] at (0,.6) {$X\to bX\to btX$};
+  \node[note,anchor=west] at (0,.1) {monodromy: $tb\neq bt$};
+\end{scope}
+\begin{scope}[shift={(11.2,1.45)}]
+  \foreach \k/\d in {0/.0,1/.3,2/-.3} {
+    \draw[guide] (0,{.5-.3*\k})--(3.3,{.5-.3*\k});
+    \foreach \m in {0,...,5} \fill[PlateInk] ({.35+.55*\m+.55*\d},{.5-.3*\k}) circle[radius=.8pt];
+  }
+  \node[note,anchor=west] at (0,-.4) {$|JMK,m,p\rangle$, $\kappa=m+\rho K$};
+\end{scope}
+\node[note,anchor=north west,text width=6.9cm,align=left] at (7.85,1.0)
+  {local coordinates and chart transitions; covering sheets and monodromy; the same states in modes};
+
+% ------------------------------------------------ reading order
+\draw[order] (7.3,7.7)--(7.7,7.7);
+\draw[order] (11.35,5.4)--(11.35,4.8);
+\draw[order] (7.7,2.5)--(7.3,2.5);
+\node[note,anchor=south west] at (0,10.05) {grey arrows: reading order, not evolution};
+\end{tikzpicture}
+\end{document}

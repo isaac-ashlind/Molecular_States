@@ -1,0 +1,81 @@
+% Figure 1. Configuration space: centred labelled configurations, the two commuting actions, and the water atlas.
+% Colours: red = oxygen; lilac = rotation R acting on the left; everything else ink. No hatch.
+% Arrows: lilac = rotation; ink = relabelling by P_sigma; thin guide arrows in (a) are position vectors.
+% Atlas glyphs: one parameter specification (delta/ell, theta) generates both the axis values and the drawings;
+% page position encodes (delta, theta), while the ink cross inside each glyph is that configuration's own
+% origin, its mass centre. Display scale 0.6 cm per angstrom; disc sizes are glyph sizes, not nuclear radii.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,15.3);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,15.25) {(a) A centred configuration and its matrix};
+\begin{scope}[shift={(1.9,12.4)}]
+  \draw[guide,->] (-1.7,0)--(1.9,0) node[anchor=west,inner sep=1pt,small] {$x$};
+  \draw[guide,->] (0,-1.1)--(0,1.9) node[anchor=south,inner sep=1pt,small] {$y$};
+  \pic[scale=1.3] at (0,0) {water-X};
+  \draw[guide,->,draw=PlateInk!80,shorten >=2.1mm] (0,0)--({1.3*\waterXAx},{1.3*\waterXAy});
+  \draw[guide,->,draw=PlateInk!80,shorten >=2.1mm] (0,0)--({1.3*\waterXBx},{1.3*\waterXBy});
+  \node[note,inner sep=1pt] at (-.78,.12) {$\mathbf x_1$};
+  \node[note,inner sep=1pt] at (.62,-.08) {$\mathbf x_2$};
+\end{scope}
+\node[small,anchor=north west] at (4.3,14.7) {$X=\begin{pmatrix}\waterXAx&\waterXBx&\waterXCx\\\waterXAy&\waterXBy&\waterXCy\\0&0&0\end{pmatrix}$\,\AA};
+\node[note,anchor=north west,align=left] at (0,10.75) {$X\mathbf m=0$, $\mathbf m=(\massH,\massH,\massO)^{\mathsf T}$\,u: mass centre at the origin\\$\mathbf x_3$ lies $0.07$\,\AA\ from the origin, under the oxygen disc; planar, so the $z$ row vanishes};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (8.3,15.25) {(b) Rotation left, relabelling right};
+\begin{scope}[shift={(8.5,10.4)}]
+  \pic[scale=.85] at (1.1,3.4) {water-X};
+  \pic[scale=.85] at (4.7,3.4) {water-RX};
+  \begin{scope}
+    \def\molA{2}\def\molB{1}
+    \pic[scale=.85] at (1.1,1.0) {water-X};
+    \pic[scale=.85] at (4.7,1.0) {water-RX};
+  \end{scope}
+  \draw[operation,draw=PlateViolet] (2.3,3.55)--(3.5,3.55) node[midway,above,inner sep=2pt] {$R$};
+  \draw[operation,draw=PlateViolet] (2.3,1.15)--(3.5,1.15) node[midway,above,inner sep=2pt] {$R$};
+  \draw[operation] (1.1,2.65)--(1.1,1.85) node[midway,left,inner sep=2pt] {$P_\sigma$};
+  \draw[operation] (4.7,2.65)--(4.7,1.85) node[midway,right,inner sep=2pt] {$P_\sigma$};
+  \node[small,anchor=west] at (2.15,4.3) {$X$};
+  \node[small,anchor=west] at (3.45,4.35) {$RX$};
+  \node[small,anchor=north] at (1.1,.3) {$XP_\sigma$};
+  \node[small,anchor=north] at (4.7,.3) {$RXP_\sigma$};
+\end{scope}
+\node[note,anchor=north west,text width=6.5cm,align=left] at (8.3,10.4) {$R=R_z(\waterRotDeg^\circ)$ multiplies every column; $\sigma=(12)$ swaps columns; $(RX)P_\sigma=R(XP_\sigma)$ by associativity};
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (0,9.35) {(c) The water configuration family: $r_1=\ell+\delta$, $r_2=\ell-\delta$, bond angle $\theta$};
+\begin{scope}[shift={(1.7,.55)}]
+  \draw[guide] (-.4,0)--(12.0,0);
+  \draw[guide] (0,-.3)--(0,8.0);
+  \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {
+    \draw[guide] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08);
+    \node[small,anchor=north] at ({1.1+2.3*\i},-.12) {$\lab$};
+  }
+  \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {
+    \draw[guide] (-.08,{.85+1.6*\j})--(.08,{.85+1.6*\j});
+    \node[small,anchor=east] at (-.14,{.85+1.6*\j}) {$\lab$};
+  }
+  \node[small,anchor=west] at (12.05,0) {$\delta$};
+  \node[small,anchor=east] at (-.14,8.0) {$\theta$};
+  \draw[guidedash] (5.7,-.3)--(5.7,7.95);
+  \draw[guidedash] (-.4,7.25)--(12.0,7.25);
+  \draw[guide] (5.7,7.25) circle[radius=.95];
+  \foreach \i in {0,...,4} {
+    \foreach \j in {0,...,4} {
+      \pic[scale=.6] at ({1.1+2.3*\i},{.85+1.6*\j}) {water-grid-\i\j};
+      \draw[PlateInk,line width=.5pt] ({1.1+2.3*\i-.09},{.85+1.6*\j})--({1.1+2.3*\i+.09},{.85+1.6*\j}) ({1.1+2.3*\i},{.85+1.6*\j-.09})--({1.1+2.3*\i},{.85+1.6*\j+.09});
+    }
+  }
+  \node[tag,anchor=west] at (6.75,7.95) {$\delta=0$, $\theta=\pi$: both symmetries};
+  \node[tag,anchor=north] at (5.7,-.65) {equal bonds $\delta=0$: exchanging $\mathrm H_1,\mathrm H_2$ is a rotation};
+  \node[tag,anchor=east] at (12.0,7.6) {linear $\theta=\pi$: axial rotations fix every nucleus};
+\end{scope}
+\node[note,anchor=north west,text width=14.8cm,align=left] at (0,.45) {page position encodes $(\delta,\theta)$; the cross in each glyph is that configuration's own origin, its mass centre, which is not the oxygen position; one display scale throughout; a shape family with orientation suppressed, not a chart of $\conf$};
+\end{tikzpicture}
+\end{document}

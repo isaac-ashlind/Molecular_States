@@ -1,0 +1,73 @@
+\ProvidesPackage{figurestyle}[2026/10/03 Textbook ink figure style]
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{tikz,pgfplots}
+\usetikzlibrary{arrows.meta,calc,positioning,patterns,patterns.meta,decorations.pathreplacing,backgrounds}
+\pgfplotsset{compat=1.18}
+
+% ---- shared base palette (author supplement, 2026-10-03): textbook ink with gouache-like flat colour.
+% Base hues are defined once here; figures use the subset they need and document each meaning.
+\definecolor{PlateInk}{HTML}{303438}       % ink and carbon
+\definecolor{ColOxygen}{HTML}{D56860}      % oxygen
+\definecolor{ColNitrogen}{HTML}{397BA8}    % nitrogen
+\definecolor{ColPotassium}{HTML}{91A653}   % potassium (avocado green)
+\definecolor{ColRubidium}{HTML}{AD8BC0}    % rubidium (lilac)
+\definecolor{ColGold}{HTML}{E0B84F}        % gold, a mathematical accent (fills)
+% Mathematical accents borrow the base hues (one meaning per figure).  Thin gold strokes on white
+% are darkened once, centrally, for legibility; gold fills use the pure hue.
+\colorlet{ColGoldStroke}{ColGold!70!PlateInk}
+\colorlet{PlateBlue}{ColNitrogen}
+\colorlet{PlateRed}{ColOxygen}
+\colorlet{PlateViolet}{ColRubidium}
+\colorlet{PlateGreen}{ColPotassium}
+\colorlet{PlateOchre}{ColGoldStroke}
+
+% ---- line grammar: contours .65pt, guides .35pt, operations .8pt, labels 9pt (8pt minimum)
+\tikzset{
+  plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,
+    draw=PlateInk,text=PlateInk,>={Stealth[length=1.8mm,width=1.4mm]}},
+  contour/.style={line width=.65pt,draw=PlateInk},
+  guide/.style={line width=.35pt,draw=PlateInk!65},
+  guidedash/.style={guide,densely dashed},
+  operation/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.8mm,width=1.4mm]}},
+  inclusion/.style={line width=.5pt,draw=PlateInk!85},
+  panel/.style={font=\fontsize{9}{11}\selectfont\bfseries,anchor=north west,inner sep=0pt,text=PlateInk},
+  note/.style={font=\fontsize{8}{10}\selectfont,text=PlateInk!85,align=center,inner sep=1.5pt},
+  small/.style={font=\fontsize{8}{10}\selectfont},
+  frame/.style={draw=PlateInk!35,line width=.35pt},
+  hatch/.style={pattern={Lines[angle=45,distance=2.4pt,line width=.3pt]},pattern color=PlateInk!55},
+  hatchfine/.style={pattern={Lines[angle=-45,distance=1.6pt,line width=.25pt]},pattern color=PlateInk!45},
+  tag/.style={fill=white,inner sep=1.5pt,font=\fontsize{8}{10}\selectfont},
+}
+
+% ---- molecule primitives.  Coordinates come from figures/data/molecules.tex in angstrom;
+% the enclosing pic scale sets the display scale.  Disc sizes and fonts do not scale.
+\tikzset{
+  molbond/.style={line width=.65pt,draw=PlateInk},
+  atomH/.style={circle,draw=PlateInk,fill=white,line width=.55pt,minimum size=3.8mm,
+    inner sep=0pt,font=\fontsize{8}{9}\selectfont,text=PlateInk},
+  atomC/.style={atomH,fill=PlateInk,text=white,minimum size=4.4mm},
+  atomN/.style={atomH,fill=ColNitrogen,text=white,minimum size=4.4mm},
+  atomO/.style={atomH,fill=ColOxygen,text=PlateInk,minimum size=4.4mm},
+  atomK/.style={atomH,fill=ColPotassium,text=PlateInk,minimum size=4.8mm},
+  atomRb/.style={atomH,fill=ColRubidium,text=PlateInk,minimum size=5.2mm},
+  molarrow/.style={line width=.8pt,draw=PlateRed,-{Stealth[length=1.5mm,width=1.2mm]},shorten <=1.6mm},
+  minimol/.style={atomH/.append style={minimum size=2.0mm,line width=.4pt},
+    atomC/.append style={minimum size=2.4mm},atomN/.append style={minimum size=2.4mm},
+    atomO/.append style={minimum size=2.4mm},atomK/.append style={minimum size=2.4mm},
+    atomRb/.append style={minimum size=2.6mm},molbond/.append style={line width=.45pt}},
+}
+\newif\ifmollabels \mollabelstrue
+\def\molA{1}\def\molB{2}\def\molC{3}\def\molD{4}\def\molE{5}\def\molF{6}\def\molG{7}
+\newcommand\molbond[4]{\draw[molbond] (#1,#2)--(#3,#4);}
+\newcommand\molatom[4]{\node[atom#1] at (#3,#4) {\ifmollabels$\mathrm{#1}_{#2}$\fi};}
+\newcommand\molarrow[4]{\draw[molarrow] (#1,#2)--++(#3,#4);}
+% restore the identity labelling (used after relabelled versions)
+\newcommand\molresetlabels{\def\molA{1}\def\molB{2}\def\molC{3}\def\molD{4}\def\molE{5}\def\molF{6}\def\molG{7}}
+
+% ---- common text helpers
+\newcommand{\conf}{\mathcal{C}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\spin}{\mathcal{H}_{\mathrm{spin}}}
+\newcommand{\stat}{\chi_{\mathrm{stat}}}
+\newcommand{\act}{\mathbin{\cdot}}
+\newcommand{\R}{\mathbb{R}}

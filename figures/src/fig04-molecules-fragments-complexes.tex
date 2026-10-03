@@ -1,0 +1,68 @@
+% Figure 4. Molecules, fragments, and complexes: one framework for intra- and intermolecular groupings.
+% Colours: blue dashed loops = fragment boundaries (a grouping, not a bond); violet = potassium; ochre = rubidium;
+% nitrogen grey, carbon ink, hydrogen white. Inclusion lines in (c) are undirected. No hatch.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,
+  fragment/.style={draw=PlateBlue,densely dashed,line width=.65pt}]
+\path[use as bounding box] (0,0) rectangle (15,9.8);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,9.75) {(a) Methylamine: one fragment, or two};
+\begin{scope}[shift={(2.0,7.3)}]
+  \pic[scale=.7] at (0,0) {mla-ref};
+  \begin{scope}[scale=.7]
+    \draw[fragment] plot[smooth cycle] coordinates {\fragloopall};
+  \end{scope}
+  \node[note] at (0,-1.85) {one fragment};
+\end{scope}
+\begin{scope}[shift={(6.0,7.3)}]
+  \pic[scale=.7] at (0,0) {mla-ref};
+  \begin{scope}[scale=.7]
+    \draw[fragment] plot[smooth cycle] coordinates {\fragloopmethyl};
+    \draw[fragment] plot[smooth cycle] coordinates {\fragloopamino};
+  \end{scope}
+  \node[note] at (0,-1.85) {two fragments};
+\end{scope}
+\node[note,anchor=north west,text width=7.4cm,align=left] at (0,4.95)
+  {methyl $\{1,2,3,6\}$ and amino $\{4,5,7\}$; a partition changes the boundaries, not the positions; relative fragment position and orientation remain coordinates in $\conf$; rigid fragments are a modelling approximation};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (8.1,9.75) {(b) KRb\,+\,KRb: three groupings};
+\foreach \x/\loopa/\loopb/\cap in {
+    9.25/\krbloopinA/\krbloopinB/{incoming pair},
+    11.6/\krbloopcomplexA/\krbloopcomplexA/{one complex},
+    13.95/\krbloopoutA/\krbloopoutB/{outgoing pair}} {
+  \begin{scope}[shift={(\x,7.35)}]
+    \pic[scale=.36] at (0,0) {krb-config};
+    \begin{scope}[scale=.36]
+      \draw[fragment] plot[smooth cycle] coordinates {\loopa};
+      \draw[fragment] plot[smooth cycle] coordinates {\loopb};
+    \end{scope}
+    \node[note] at (0,-1.6) {\cap};
+  \end{scope}
+}
+\node[small,anchor=north west,align=left] at (8.1,5.2) {incoming: $G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$\\[1pt]
+  complex: $S=\langle(12),(34),E^*\rangle$\\[1pt]
+  outgoing: $G_{\mathrm K}=\langle(12),E^*\rangle$, $G_{\mathrm{Rb}}=\langle(34),E^*\rangle$};
+\node[note,anchor=north west,text width=6.8cm,align=left] at (8.1,3.65)
+  {positions schematic, no bonds drawn; K labelled $1,2$ and Rb labelled $3,4$; grouping is not bond formation};
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (0,3.0) {(c) Channel groups inside $S$};
+\begin{scope}[shift={(0.3,.4)}]
+  \node[small] (S) at (3.2,2.0) {$S$};
+  \node[small] (Gin) at (.9,.6) {$G_{\mathrm{in}}$};
+  \node[small] (GK) at (3.2,.6) {$G_{\mathrm K}$};
+  \node[small] (GRb) at (5.5,.6) {$G_{\mathrm{Rb}}$};
+  \draw[inclusion] (S)--(Gin); \draw[inclusion] (S)--(GK); \draw[inclusion] (S)--(GRb);
+  \node[note,anchor=west] at (6.1,2.0) {$|S|=8$};
+  \node[note,anchor=west] at (6.1,.6) {order $4$ each; any two generate $S$};
+  \node[note,anchor=north west] at (-.3,-.05) {group inclusion only: neither accessibility nor yield};
+\end{scope}
+\end{tikzpicture}
+\end{document}

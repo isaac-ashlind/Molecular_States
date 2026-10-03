@@ -1,0 +1,82 @@
+% Figure 11. Covering spaces and monodromy: local sheets over a quotient neighbourhood and noncommuting continuation.
+% Colours: blue = lifts of the loop l_t (deck element t); ochre = lifts of the loop l_b (deck element b).
+% Ink arrows: the covering projection. Sheets are drawn as parallelograms; braces group the two sheets of one version cell.
+% Configurations in (b) are computed: X is a generic point near X0 (torsion 0.22 rad plus a normal displacement), bX = -X P_(23)(45).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,
+  sheet/.style={draw=PlateInk,line width=.45pt,fill=white},
+  tlift/.style={operation,draw=PlateBlue},
+  blift/.style={operation,draw=PlateOchre}]
+\path[use as bounding box] (0,0) rectangle (15,10.0);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,9.95) {(a) Sheets over $V$, coset pairs};
+\begin{scope}[shift={(0.4,.35)}]
+  \foreach \ga/\gb [count=\k from 0] in \sheetPairs {
+    \pgfmathsetmacro{\yb}{7.9-1.1*\k}
+    \pgfmathsetmacro{\ya}{\yb+.42}
+    \path[sheet] (0,\yb)--(2.4,\yb)--(2.95,\yb+.22)--(.55,\yb+.22)--cycle;
+    \path[sheet] (0,\ya)--(2.4,\ya)--(2.95,\ya+.22)--(.55,\ya+.22)--cycle;
+    \fill[PlateInk] (1.45,\yb+.11) circle[radius=1pt];
+    \fill[PlateInk] (1.45,\ya+.11) circle[radius=1pt];
+    \node[small,anchor=west,inner sep=2pt] at (1.55,\yb+.11) {$\gb X$};
+    \node[small,anchor=west,inner sep=2pt] at (1.55,\ya+.11) {$\ga X$};
+    \draw[guide] (3.15,\yb)--(3.3,\yb)--(3.3,\ya+.22)--(3.15,\ya+.22);
+  }
+  \foreach \v [count=\k from 0] in {H,tH,t^2H,uH,tuH,t^2uH} {
+    \node[small,anchor=west,inner sep=2pt] at (3.35,{7.9-1.1*\k+.32}) {$\v$};
+  }
+  \draw[operation] (1.45,2.3)--(1.45,1.3) node[midway,right,inner sep=2pt,small] {$\pi$};
+  \draw[contour,fill=PlateInk!5] (1.45,.75) ellipse[x radius=1.3,y radius=.38];
+  \fill[PlateInk] (1.45,.75) circle[radius=1.2pt];
+  \node[small,anchor=west,inner sep=3pt] at (1.5,.75) {$[X]$};
+  \node[small,anchor=west] at (2.85,.75) {$V\subset\mathcal F/G_{12}$};
+\end{scope}
+\node[note,anchor=north west,text width=4.6cm,align=left] at (5.3,3.3)
+  {free domain: $G_{12}$ acts freely where no $gX=X$; near $X_0$ the nearest image $gX_0$ is $\minDispG$\,\AA\ away (computed); deck transformations act on the left, $X\mapsto gX$};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (5.3,9.95) {(b) $X$ and $bX$ in one cell};
+\begin{scope}[shift={(5.3,5.4)}]
+  \pic[scale=.58] at (1.35,2.45) {mla-X};
+  \pic[scale=.58] at (4.25,2.45) {mla-bX};
+  \node[small] at (1.35,.95) {$X$};
+  \node[small] at (4.25,.95) {$bX$};
+  \draw[blift] (2.7,2.45)--(3.05,2.45) node[midway,above,inner sep=2pt] {$b$};
+\end{scope}
+\node[note,anchor=north west,text width=4.5cm,align=left] at (5.3,5.95)
+  {$bX=-XP_{(23)(45)}$: the same point $[X]$ of $\mathcal F/G_{12}$, two configurations; no rotation carries $X$ to $bX$ (best fit residual $\bXresidual$\,\AA): $H$ stabilises the orbit of $X_0$, not the point $X$};
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (10.7,9.95) {(c) Order of continuation};
+\begin{scope}[shift={(10.75,5.4)}]
+  \node[small] (e1) at (.3,3.3) {$X$};
+  \node[small] (t1) at (1.95,3.3) {$tX$};
+  \node[small] (tb) at (3.7,3.3) {$tbX$};
+  \draw[tlift] (e1)--(t1) node[midway,above,inner sep=2pt] {$\ell_t$};
+  \draw[blift] (t1)--(tb) node[midway,above,inner sep=2pt] {$\ell_b$};
+  \node[small] (e2) at (.3,2.1) {$X$};
+  \node[small] (b1) at (1.95,2.1) {$bX$};
+  \node[small] (bt) at (3.7,2.1) {$btX$};
+  \draw[blift] (e2)--(b1) node[midway,above,inner sep=2pt] {$\ell_b$};
+  \draw[tlift] (b1)--(bt) node[midway,above,inner sep=2pt] {$\ell_t$};
+  \node[small] at (2.0,1.35) {$btX=t^2bX\neq tbX$};
+  \node[note] at (2.0,.9) {same start, different end sheets};
+  % the two loops downstairs
+  \coordinate (base) at (2.0,-.55);
+  \draw[tlift] (base) .. controls (.6,.7) and (.5,-1.6) .. (base);
+  \draw[blift] (base) .. controls (3.4,-1.6) and (3.5,.7) .. (base);
+  \fill[PlateInk] (base) circle[radius=1.2pt];
+  \node[small,anchor=north,inner sep=3pt] at (base) {$[X]$};
+  \node[small] at (.7,-.55) {$\ell_t$};
+  \node[small] at (3.3,-.55) {$\ell_b$};
+\end{scope}
+\node[note,anchor=north west,text width=4.2cm,align=left] at (10.75,3.95)
+  {loops downstairs, lifts above; continuation from $gX$ along $\ell_s$ ends at $gsX$: the sheet label is multiplied on the right; $btb=t^{-1}$, $bt=t^2b$; on $\mathrm A_1$ no change is seen, on $\mathrm E$ the noncommutativity remains};
+\end{tikzpicture}
+\end{document}

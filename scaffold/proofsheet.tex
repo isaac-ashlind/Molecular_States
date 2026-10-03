@@ -1,0 +1,31 @@
+% Proof sheet: a contact page of every render, then each figure at its true 150 mm width.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx,pgffor}
+\usepackage[margin=15mm]{geometry}
+\graphicspath{{build/figures/}{../build/figures/}}
+\pagestyle{empty}
+\def\figlist{fig00-guide/Reading map (unnumbered),fig01-configuration-space/1 Configuration Space,%
+fig02-ambient-hilbert-space/2 Ambient Hilbert Space,fig03-physical-hilbert-space/3 Physical Hilbert Space,%
+fig04-molecules-fragments-complexes/4 Molecules{,} Fragments{,} and Complexes,%
+fig05-symmetry-groups-versions/5 Symmetry Groups and Versions,%
+fig06-feasible-configuration-space/6 Feasible Configuration Space,fig07-symmetry-species/7 Symmetry Species,%
+fig08-nuclear-spin-weights/8 Nuclear Spin Weights,fig09-localized-states/9 Localized States,%
+fig10-position-representation/10 Position Representation,%
+fig11-covering-spaces-monodromy/11 Covering Spaces and Monodromy,%
+fig12-momentum-representation/12 Momentum Representation}
+\begin{document}
+\section*{Proof sheet}
+\noindent
+\foreach \file/\title in \figlist {%
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \fbox{\includegraphics[width=0.94\linewidth]{\file.pdf}}\\[2pt]
+    {\footnotesize\title}\\[6pt]
+  \end{minipage}\hfill
+}
+\foreach \file/\title in \figlist {%
+  \clearpage
+  \noindent{\large\bfseries\title}\hfill{\small\texttt{\file.tex}}\par\medskip
+  \noindent\includegraphics{\file.pdf}\par
+}
+\end{document}

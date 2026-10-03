@@ -1,0 +1,59 @@
+% Figure 2. Ambient Hilbert space: spin-valued wavefunctions before any constraint.
+% Colours: red = oxygen; blue = component a; ochre = component b; ink = squared norm.
+% Values shown are values of one continuous representative (illustrative); an L^2 class has no intrinsic pointwise values.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.35pt,tick style={line width=.35pt}}}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,9.3);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,9.25) {(a) Spin values at three configurations};
+\foreach \x/\k/\th/\av/\bv in {1.6/1/\sampleThetaone/\sampleAone/\sampleBone,
+                                5.1/2/\sampleThetatwo/\sampleAtwo/\sampleBtwo,
+                                8.6/3/\sampleThetathree/\sampleAthree/\sampleBthree} {
+  \pic[scale=.9] at (\x,7.75) {water-sample-\k};
+  \node[small] at (\x,6.6) {$X_\k$};
+  \node[small] at (\x,6.1) {$\Psi(X_\k)=\av\,\xi\,\bv\,\eta$};
+}
+\node[note,anchor=north west,text width=4.4cm,align=left] at (10.4,8.85)
+  {$\spin=\mathbb C^{2}\otimes\mathbb C^{2}\otimes\mathbb C^{1}$ for $(^1\mathrm H,{}^1\mathrm H,{}^{16}\mathrm O)$, a copy over every $X\in\conf$\\[3pt]
+   $\xi=\uparrow\otimes\downarrow\otimes\omega,\quad \eta=\downarrow\otimes\uparrow\otimes\omega$\\
+   $\langle\xi,\eta\rangle=0,\;\|\xi\|=\|\eta\|=1$; $\omega$ spans $\mathbb C^1$\\[3pt]
+   $a\xi+b\eta$ is a superposition, not a product, when $ab\neq0$};
+\node[note,anchor=north west] at (0,5.55) {values of one continuous representative, illustrative; no exchange condition is imposed here};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (0,4.85) {(b) Component functions along the bend angle, $\delta=0$, and the squared norm};
+\begin{scope}[shift={(0,0)}]
+  \begin{axis}[at={(0.9cm,0.8cm)},width=8.6cm,height=4.0cm,
+    xlabel={$\theta$ (deg)},xlabel style={at={(0.5,0)},anchor=north,yshift=-15pt},
+    xmin=80,xmax=180,ymin=-.75,ymax=1.5,ytick={-0.5,0,0.5,1,1.5},xtick={80,100,120,140,160,180},
+    axis lines=left,axis line style={-},tick align=outside,
+    legend style={draw=none,fill=none,at={(0.98,0.97)},anchor=north east,font=\fontsize{8}{9}\selectfont,row sep=-2pt},
+    legend cell align=left]
+    \addplot[PlateBlue,line width=.8pt] table[x=theta,y=a] {component-functions.dat};
+    \addlegendentry{$a(X)$}
+    \addplot[PlateOchre,line width=.8pt,densely dashed] table[x=theta,y=b] {component-functions.dat};
+    \addlegendentry{$b(X)$}
+    \addplot[PlateInk,line width=.65pt,densely dotted] table[x=theta,y=n2] {component-functions.dat};
+    \addlegendentry{$|a|^2+|b|^2$}
+    \addplot[only marks,mark=*,mark size=1.5pt,PlateInk] coordinates
+      {(\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone})
+       (\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo})
+       (\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree})};
+    \node[note,anchor=east,inner sep=2pt] at (axis cs:\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree}) {$X_3$};
+    \node[note,anchor=south,inner sep=2pt] at (axis cs:\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone}) {$X_1$};
+    \node[note,anchor=west,inner sep=3pt] at (axis cs:\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo}) {$X_2$};
+  \end{axis}
+  \node[small,anchor=north west,align=left] at (9.8,4.3) {$\Psi(X)=a(X)\,\xi+b(X)\,\eta$\\[3pt]
+    $\|\Psi(X)\|_{\spin}^2=|a(X)|^2+|b(X)|^2$\\[3pt]
+    $\|\Psi\|^2=\displaystyle\int_{\conf}\bigl(|a|^2+|b|^2\bigr)\,dX<\infty$};
+  \node[note,anchor=north west,text width=4.8cm,align=left] at (9.8,1.45) {the path is one slice of $\conf$; dots mark the three configurations of (a); $\Psi\sim\Phi$ when $\int\|\Psi-\Phi\|^2dX=0$};
+\end{scope}
+\end{tikzpicture}
+\end{document}

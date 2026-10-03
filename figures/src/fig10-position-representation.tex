@@ -1,0 +1,99 @@
+% Figure 10. Position representation: local coordinates and one explicit chart transition.
+% Colours: violet = orientation r; blue = shape coordinate q and its tangent; red = normal
+% displacement Q and the tu map. Hatch = the normal thickening {X0(q)+sum Q_a e_a(q): |Q| small}.
+% Displacement arrows in (b) are drawn \arrowGain x longer than the displacement used; declared in place.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,10.6);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,10.55) {(a) Reference curve, normal slice};
+\begin{scope}[shift={(0,5.7)}]
+  \draw[contour,draw=PlateBlue] plot[smooth,samples=40,domain=0:1] ({.35+5.0*\x},{1.55+1.1*\x-.9*\x*\x});
+  \coordinate (p) at (2.6,2.0635);
+  \coordinate (sl) at ($(p)+(62:1.05)$);
+  \coordinate (sr) at ($(p)-(62:1.05)$);
+  \path[hatch] ($(sl)+(-.26,0)$)--($(sl)+(.26,0)$)--($(sr)+(.26,0)$)--($(sr)+(-.26,0)$)--cycle;
+  \draw[contour] (sl)--(sr);
+  \draw[operation,draw=PlateBlue] (p)--++(4:1.0);
+  \node[small,anchor=west,inner sep=1pt] at ($(p)+(4:1.0)+(.05,-.02)$) {$\partial_qX_0$};
+  \draw[operation,draw=PlateRed] (p)--++(62:.8);
+  \node[small,anchor=west,inner sep=1pt] at ($(p)+(62:.8)+(.32,.0)$) {$e_a(q)$};
+  \fill[PlateInk] (p) circle[radius=1.5pt];
+  \node[small,anchor=north east,inner sep=2pt] at ($(p)+(-.05,-.08)$) {$X_0(q)$};
+  \node[small,anchor=west] at (4.5,2.55) {$q\mapsto X_0(q)$};
+  \node[note,anchor=west] at (2.45,3.55) {slice $X_0(q)+\sum_aQ_ae_a(q)$};
+  \draw[guidedash] ($(sl)+(.2,.05)$)--(2.5,3.42);
+  \node[note,anchor=north west,align=left] at (0,1.05) {$\langle e_a,\partial_qX_0\rangle_{\mathbf m}=0,\;\;\langle e_a,L_kX_0\rangle_{\mathbf m}=0,$\\
+    $\langle e_a,e_b\rangle_{\mathbf m}=\delta_{ab}$: mass metric, not page angle\\[2pt]
+    $SO(3)$ orbit directions $L_kX_0$ suppressed};
+\end{scope}
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (5.9,10.55) {(b) $X=r\bigl(X_0(q)+\sum_aQ_ae_a(q)\bigr)$};
+\begin{scope}[shift={(5.9,5.7)}]
+  \pic[scale=.58] at (1.35,2.45) {mla-ref-eminus};
+  \pic[scale=.58] at (4.55,2.45) {mla-disp};
+  \pic[scale=.58] at (7.75,2.45) {mla-rot-disp};
+  \draw[operation,draw=PlateRed] (2.75,2.45)--(3.2,2.45) node[midway,above,inner sep=2pt] {$Q$};
+  \draw[operation,draw=PlateViolet] (5.95,2.45)--(6.4,2.45) node[midway,above,inner sep=2pt] {$r$};
+  \node[small] at (1.35,.95) {$X_0(q)$, arrows $e_-(q)$};
+  \node[small] at (4.55,.95) {$X_0(q)+Q_-e_-(q)$};
+  \node[small] at (7.75,.95) {$r\bigl(X_0(q)+Q_-e_-(q)\bigr)$};
+  \node[note,anchor=north west,text width=9.0cm,align=left] at (0,.6)
+    {$q=(\tau,\eta)$ shape, $r\in SO(3)$ orientation, $Q$ normal coordinates; $e_-$ is the amino twist pattern projected onto the mass-normal space at $q$; $Q_-=\dispAmp$\,\AA, arrows enlarged $\arrowGain\times$};
+\end{scope}
+
+% ---------------------------------------------------------------- (c)
+\node[panel] at (0,4.75) {(c) One explicit source--target map, $T_{tu}=\varphi_{\mathrm{target}}^{-1}\circ tu\circ\varphi_{\mathrm{source}}$};
+\begin{scope}[shift={(0,.35)}]
+  % spatial view of the same family (fig. 6), cut along tau = +-pi and unrolled into the chart at right
+  \begin{scope}[shift={(.55,2.05)}]
+    \def\Rx{.42}\def\Ry{.13}\def\Hh{.95}
+    \draw[guide] (-\Rx,-\Hh)--(-\Rx,\Hh) (\Rx,-\Hh)--(\Rx,\Hh);
+    \draw[guide] (0,\Hh) ellipse[x radius=\Rx,y radius=\Ry];
+    \draw[guide] (-\Rx,-\Hh) arc[start angle=180,end angle=360,x radius=\Rx,y radius=\Ry];
+    \draw[guidedash] (0,\Hh+\Ry)--(0,-\Hh+\Ry);
+    \node[note,anchor=north] at (0,-\Hh-\Ry-.05) {cut at $\tau=\pm\pi$};
+    \draw[guide,->] (\Rx+.12,0)--(\Rx+.5,0);
+  \end{scope}
+  \begin{scope}[shift={(.6,0)}]
+  \draw[frame] (1.0,.75) rectangle (7.4,3.35);
+  \draw[guide] (1.0,2.05)--(7.4,2.05);
+  \foreach \x/\l in {1.0/{-\pi},3.133/{-\pi/3},4.2/{0},5.267/{\pi/3},7.4/{\pi}} {
+    \draw[guide] (\x,.67)--(\x,.75);
+    \node[small,anchor=north,inner sep=2pt] at (\x,.67) {$\l$};
+  }
+  \node[small,anchor=west,inner sep=2pt] at (7.45,.75) {$-\eta_0$};
+  \node[small,anchor=west,inner sep=2pt] at (7.45,2.05) {$0$};
+  \node[small,anchor=west,inner sep=2pt] at (7.45,3.35) {$\eta_0$};
+  \node[small,anchor=north] at (4.2,.25) {$\tau$};
+  \node[small,anchor=south] at (7.5,3.45) {$\eta$};
+  \path[fill=PlateBlue!12] (3.133,2.05) rectangle (5.267,3.35);
+  \path[fill=PlateRed!12] (2.067,.75) rectangle (4.2,2.05);
+  \draw[frame] (3.133,2.05) rectangle (5.267,3.35);
+  \draw[frame] (2.067,.75) rectangle (4.2,2.05);
+  \fill[PlateInk] (4.2,3.35) circle[radius=1.4pt];
+  \fill[PlateInk] (3.133,.75) circle[radius=1.4pt];
+  \node[small,anchor=south,inner sep=2pt] at (4.2,3.4) {$q=(0,\eta_0)$};
+  \node[small,anchor=north,inner sep=2pt] at (3.133,.2) {};
+  \node[small,anchor=south west,inner sep=2pt] at (3.2,.78) {$q'$};
+  \draw[operation,draw=PlateRed] (4.1,3.2) to[bend right=28] node[pos=.45,left,inner sep=2pt] {$T_{tu}$} (3.2,.9);
+  \node[note] at (4.2,2.6) {source cell};
+  \node[note] at (2.95,1.3) {target cell};
+  \end{scope}
+  \node[small,anchor=north west,align=left] at (8.55,3.85) {
+    $X_0(q)P_{tu}=A_{tu}X_0(q'),\qquad A_{tu}=R_z(\pi)$\\[3pt]
+    $q'=(\tau-\pi/3,\,-\eta),\qquad \eta_0=\etaZero\,$\AA\\[3pt]
+    $e_a(q)P_{tu}=A_{tu}\sum_b e_b(q')\,[M_{tu}]_{ba}$,\; $M_{tu}=\mathrm{diag}(1,-1)$\\[3pt]
+    $T_{tu}(r,\tau,\eta,Q_+,Q_-)=\bigl(rR_z(\pi),\,\tau-\tfrac{\pi}{3},\,-\eta,\,Q_+,\,-Q_-\bigr)$};
+  \node[note,anchor=north west,text width=6.4cm,align=left] at (8.55,1.6)
+    {periodic body frame ($\rho=0$, so $\alpha=\pi$); $e_+$: projected C--N stretch, $e_-$: projected amino twist; $A_{tu}$ records the frame choice, not a transport; the chart is regular away from linear shapes (axial redundancy of $r$)};
+\end{scope}
+\end{tikzpicture}
+\end{document}

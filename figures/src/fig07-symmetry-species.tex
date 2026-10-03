@@ -1,0 +1,60 @@
+% Figure 7. Symmetry species: three version states resolve into A1 and one E subspace.
+% Colours: blue = t action; ochre = b action. Sites are abstract orthonormal version states.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,
+  site/.style={circle,draw=PlateInk,fill=white,line width=.55pt,minimum size=6.2mm,inner sep=0pt},
+  coef/.style={circle,draw=PlateInk,fill=white,line width=.55pt,minimum size=5.4mm,inner sep=0pt,font=\fontsize{8}{9}\selectfont},
+  zero/.style={coef,draw=PlateInk!45,text=PlateInk!60},
+  tarrow/.style={operation,draw=PlateBlue},
+  barrow/.style={operation,draw=PlateOchre}]
+\path[use as bounding box] (0,0) rectangle (15,8.3);
+
+% ---------------------------------------------------------------- (a)
+\node[panel] at (0,8.25) {(a) Cosets $G_6/H$: actions of $t$, $b$};
+\node[site] (H) at (2.6,6.2) {$H$};
+\node[site] (tH) at (1.1,3.8) {$tH$};
+\node[site] (t2H) at (4.1,3.8) {$t^2H$};
+\draw[tarrow] (H) to[bend right=22] (tH);
+\draw[tarrow] (tH) to[bend right=22] (t2H);
+\draw[tarrow] (t2H) to[bend right=22] (H);
+\node[small] at (1.25,5.25) {$t$};
+\node[small] at (2.6,2.95) {$t$};
+\node[small] at (3.95,5.25) {$t$};
+\draw[barrow,<->] (tH)--(t2H);
+\node[small,anchor=south] at (2.6,3.9) {$b$};
+\draw[barrow] (H) edge[loop above,looseness=9,min distance=7mm] (H);
+\node[small] at (2.6,7.5) {$b$};
+\node[note,anchor=north west,align=left] at (0,2.35) {$hg H\leftarrow gH$ for $h\in G_6$\\[1pt]
+  $t$: $H\to tH\to t^2H\to H$\\[1pt]
+  $b$: $bH=H$, $b\,tH=t^2b\,H=t^2H$, $b\,t^2H=tH$\\[1pt]
+  $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, with no $\mathrm A_2$ copy};
+
+% ---------------------------------------------------------------- (b)
+\node[panel] at (5.9,8.25) {(b) Coefficient vectors on the ordered sites $(H,tH,t^2H)$};
+\draw[guide] (6.0,7.3)--(6.0,7.15)--(8.2,7.15)--(8.2,7.3);
+\node[small,anchor=south] at (7.1,7.35) {$\mathrm A_1$};
+\draw[guide] (9.05,7.3)--(9.05,7.15)--(14.45,7.15)--(14.45,7.3);
+\node[small,anchor=south] at (11.75,7.35) {$\mathrm E$: one two-dimensional subspace, two basis vectors};
+\foreach \cx/\ca/\cb/\cc/\sa/\sb/\sc/\den/\vn in {
+    7.1/1/1/1/coef/coef/coef/{\sqrt3}/v_1,
+    10.2/2/-1/-1/coef/coef/coef/{\sqrt6}/v_2,
+    13.3/0/1/-1/zero/coef/coef/{\sqrt2}/v_3} {
+  \draw[guide] (\cx,6.35)--(\cx-.95,4.85)--(\cx+.95,4.85)--cycle;
+  \node[\sa] at (\cx,6.35) {$\ca$};
+  \node[\sb] at (\cx-.95,4.85) {$\cb$};
+  \node[\sc] at (\cx+.95,4.85) {$\cc$};
+  \node[small] at (\cx,4.05) {$\vn=\dfrac{(\ca,\cb,\cc)}{\den}$};
+}
+\node[note] at (10.2,3.5) {site order in every triangle: top $H$, lower left $tH$, lower right $t^2H$};
+\node[small,anchor=north west,align=left] at (5.6,3.05) {
+  on $v_1$:\quad $t\mapsto1,\quad b\mapsto1$\\[4pt]
+  on $(v_2,v_3)$:\quad
+  $t\mapsto\begin{pmatrix}-\tfrac12&-\tfrac{\sqrt3}2\\[2pt]\tfrac{\sqrt3}2&-\tfrac12\end{pmatrix}$,\quad
+  $b\mapsto\begin{pmatrix}1&0\\0&-1\end{pmatrix}$};
+\node[note,anchor=north west,text width=9.2cm,align=left] at (5.6,1.15) {sites are the orthonormal version states $\delta_H,\delta_{tH},\delta_{t^2H}$ (abstract, not overlapping packets); site action $t\,\delta_{xH}=\delta_{txH}$, $b\,\delta_{xH}=\delta_{bxH}$; no energies are assigned};
+\end{tikzpicture}
+\end{document}
