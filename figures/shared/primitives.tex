@@ -1,0 +1,82 @@
+% primitives.tex: the drawing vocabulary of the suite (v2). Load after figurestyle.sty.
+% Two ink weights, solid crescent shading, hatch only for cut or removed material, flat gouache.
+\tikzset{
+  heavy/.style={line width=.9pt,draw=PlateInk},
+  fine/.style={line width=.4pt,draw=PlateInk},
+  hidden/.style={line width=.4pt,draw=PlateInk,dash pattern=on 1.6pt off 1.3pt},
+  ghost/.style={line width=.5pt,draw=PlateInk,dash pattern=on 1.8pt off 1.4pt},
+  cut/.style={pattern={Lines[angle=45,distance=2.6pt,line width=.3pt]},pattern color=PlateInk},
+  harrow/.style={heavy,-{Stealth[length=2.2mm,width=1.8mm]}},
+  tpath/.style={line width=.9pt,draw=ColNitrogen,-{Stealth[length=2mm,width=1.6mm]}},
+  upath/.style={line width=.9pt,draw=ColOxygen,densely dashed,-{Stealth[length=2mm,width=1.6mm]}},
+  leader/.style={line width=.3pt,draw=PlateInk},
+  region/.style={heavy,rounded corners=8pt},
+  lab/.style={font=\fontsize{9}{11}\selectfont,inner sep=1pt},
+  sub/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text=PlateInk},
+}
+% ---- atom: flat colour, ink contour, solid black crescent (light from the upper left)
+\newcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+  \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
+    \fill[PlateInk,even odd rule] ({(#1)+0.08*#3},{(#2)-0.08*#3}) circle[radius=#3] ({(#1)-0.20*#3},{(#2)+0.20*#3}) circle[radius={0.97*#3}];
+  \end{scope}\draw[line width=.55pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+% ---- rod: white band with ink edges, the lower-right edge heavier (a cylinder in ink)
+\newcommand\molrod[4]{\draw[line width=.4pt,draw=PlateInk,double distance=1.4pt,double=white] (#1,#2)--(#3,#4);
+  \pgfmathsetmacro{\rdx}{#3-#1}\pgfmathsetmacro{\rdy}{#4-#2}\pgfmathsetmacro{\rl}{sqrt(\rdx*\rdx+\rdy*\rdy)}
+  \pgfmathsetmacro{\nx}{\rdy/\rl}\pgfmathsetmacro{\ny}{-\rdx/\rl}\pgfmathsetmacro{\sg}{(\nx-\ny)>0 ? 1 : -1}
+  \draw[line width=.7pt,draw=PlateInk] ({#1+\sg*0.026*\nx},{#2+\sg*0.026*\ny})--({#3+\sg*0.026*\nx},{#4+\sg*0.026*\ny});}
+% ---- molecule modes: \molsolid (coloured atoms), \molghost (dashed outlines), radii in cm at pic scale 1
+\def\radH{.24}\def\radX{.36}
+\newcommand\molsolid{\renewcommand\molatom[4]{%
+  \if##1H\hatom{##3}{##4}{\radH}{white}\else\if##1C\hatom{##3}{##4}{\radX}{PlateInk}\else\if##1N\hatom{##3}{##4}{\radX}{ColNitrogen}\else\if##1O\hatom{##3}{##4}{\radX}{ColOxygen}\else\if##1K\hatom{##3}{##4}{.40}{ColPotassium}\else\hatom{##3}{##4}{.46}{ColRubidium}\fi\fi\fi\fi\fi}}
+\newcommand\molghost{\renewcommand\molrod[4]{\draw[ghost] (##1,##2)--(##3,##4);}
+  \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\fi}}
+% ---- leader label: \leaderlabel{x}{y}{dx}{dy}{anchor}{text}
+\newcommand\leaderlabel[6]{\draw[leader] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5] at ({#1+#3},{#2+#4}) {#6};}
+% ---- zoom bubble: \zoombubble{x}{y}{r}{X}{Y}{R} draws the small circle, the large circle and two tangent lines
+\newcommand\zoombubble[6]{\draw[fine] (#1,#2) circle[radius=#3]; \draw[heavy,fill=white] (#4,#5) circle[radius=#6];
+  \pgfmathsetmacro{\za}{atan2(#5-#2,#4-#1)}
+  \draw[fine] ({#1+#3*cos(\za+90)},{#2+#3*sin(\za+90)})--({#4+#6*cos(\za+90)},{#5+#6*sin(\za+90)});
+  \draw[fine] ({#1+#3*cos(\za-90)},{#2+#3*sin(\za-90)})--({#4+#6*cos(\za-90)},{#5+#6*sin(\za-90)});}
+% ---- thick tube with a near-side cut-away wedge: pic with keys Ro, Ri, H (half height), E (ellipse ratio), wedge a1 a2 (degrees, tau=0 faces the viewer)
+\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.6,tube/E/.initial=.42,tube/a1/.initial=-80,tube/a2/.initial=-5,
+  pics/thicktube/.style={code={
+    \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
+    \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
+    \pgfmathsetmacro{\wa}{\pgfkeysvalueof{/tikz/tube/a1}}\pgfmathsetmacro{\wb}{\pgfkeysvalueof{/tikz/tube/a2}}
+    \begin{scope}\clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+      \path[fill=white] (-\Ri,\Hh) arc[start angle=180,end angle=0,x radius=\Ri,y radius={\E*\Ri}] -- (\Ri,-\Hh) arc[start angle=0,end angle=180,x radius=\Ri,y radius={\E*\Ri}] -- cycle;
+      \foreach \x in {-3.0,-2.75,...,3.0} \draw[fine] (\x,-2)--({\x+1.6},2);\end{scope}
+    \foreach \ta/\tb in {-90/\wa,\wb/90} {\path[fill=ColNitrogen!18] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;}
+    \path[fill=PlateInk] plot[domain=48:90,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=90:48,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;
+    \path[fill=ColNitrogen!18] plot[domain=48:76,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)-.08}) -- plot[domain=76:48,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)+.08}) -- cycle;
+    \draw[heavy] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[heavy] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[heavy] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
+    \draw[hidden] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \draw[hidden] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
+    \foreach \a in {\wa,\wb} {
+      \path[fill=white] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+      \begin{scope}\clip ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+        \foreach \y in {-3,-2.8,...,2} \draw[fine] (-3.5,\y)--(3.5,{\y+1.6});\end{scope}
+      \draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+      \draw[ColNitrogen,line width=.9pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
+    \path[fill=white] plot[domain=\wb:{\wa+360},samples=80,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=80,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
+    \draw[heavy] plot[domain=\wb:{\wa+360},samples=80,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
+    \draw[heavy] plot[domain=\wb:{\wa+360},samples=80,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
+    \draw[hidden] plot[domain=\wb:{\wa+360},samples=80,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \coordinate (-top0) at ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)});
+    \coordinate (-top120) at ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)});
+    \coordinate (-top240) at ({\Rm*sin(240)},{\Hh-\E*\Rm*cos(240)});
+    \coordinate (-bot300) at ({\Rm*sin(300)},{-\Hh-\E*\Rm*cos(300)});
+    \coordinate (-bot60) at ({\Rm*sin(60)},{-\Hh-\E*\Rm*cos(60)});
+    \coordinate (-bot180) at ({\Rm*sin(180)},{-\Hh-\E*\Rm*cos(180)});
+  }}}
+% ---- oblique plates (covering sheets): \plates{x}{y}{n}{spacing} draws n sheets over a tinted base
+\newcommand\plates[4]{\begin{scope}[shift={(#1,#2)}]
+  \path[fill=ColNitrogen!12] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle; \draw[heavy] (0,0)--(2.4,0)--(3.0,.4)--(.6,.4)--cycle;
+  \foreach \k in {1,...,#3} {\pgfmathsetmacro{\yy}{.5+#4*\k} \path[fill=white] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle; \draw[fine] (0,\yy)--(2.4,\yy)--(3.0,\yy+.4)--(.6,\yy+.4)--cycle;}
+  \end{scope}}
+% ---- level rules: \levelrule{x}{y}{width}{label}{degeneracy}
+\newcommand\levelrule[5]{\foreach \k in {1,...,#5} \draw[heavy] (#1,{#2+.06*(\k-1)})--({#1+#3},{#2+.06*(\k-1)}); \node[sub,anchor=south west] at (#1,{#2+.06*#5}) {#4};}
+% ---- atom at a named coordinate: \hatomat{coordinate name}{r}{fill}
+\newcommand\hatomat[3]{\begin{scope}[shift={(#1)}]\hatom{0}{0}{#2}{#3}\end{scope}}
