@@ -192,3 +192,37 @@ Devices from these plates:
 - 4.4.7: motion drawn as ellipses with arrows around each atom, amplitudes printed as numbers; standing
   versus moving waves as a two-column comparison with hexagonal labels. For fig 10(b) only arrows with
   the displayed amplitude declared.
+
+## Addendum 6: reader critique (bounded subagent), triaged
+Mathematics: every (tau, eta) action, the spin weights, the E matrices, the seam rule, the right-
+multiplication continuation rule and the X versus bX claim were re-derived by hand and confirmed.
+Corrections to make:
+- Fig 1: the distance of x_3 from the origin is 0.06 A (0.0625), not 0.07; compute it in make_data.
+- Fig 6: the note "sF = F for s in G12 is an assumption" is wrong. With A_s and M_s orthogonal and the
+  ball |Q| < eps rotation-invariant, sF = F follows from the construction. The real assumptions are
+  (i) the normal map (r, q, Q) -> X is injective on |Q| < eps (an embedded tubular neighbourhood) and
+  (ii) separation, sF and F disjoint for s outside G12. State these; nothing else.
+- Fig 12: the chart density is calligraphic J (\mathcal J^{1/2}), not the angular momentum J.
+- Fig 11: the top sheet is labelled X, not EX.
+- Fig 7: delete the cryptic "hgH <- gH" line.
+Adopted drawing changes:
+- Fig 4(b): place K1, K2 on the top row and Rb3, Rb4 on the bottom row (change krb_schematic in
+  compute/geometry.py) so incoming = columns, outgoing = rows, and no fragment loop ever crosses.
+- Fig 5(a): construct the mirror plane through H1, C6, N7 and the R_b axis normal to it, and show the
+  half-turn carrying X0 onto bX0 (a Newman projection down C-N with the mirror line is the 2D option).
+- Fig 6: the tu path is a solid curve on the surface with visible helical curvature (its hidden part
+  dashed); the open-marker convention for hidden points is stated or avoided; shapes along the t path
+  drawn as Newman projections down C-N, where torsion and the eclipsed tau = pi/3 shape read at once.
+- Fig 10(c): draw all six cells of the H-cell partition: U = [-pi/3, pi/3] x [0, eta0] with tU, t^2U on
+  the top row and uU, tuU, t^2uU below, uU split across the seam tau = +-pi; this is the picture that
+  (G12 x_H U)/~ = F and fig 11's six version cells point at. Unclip the formula block.
+- Fig 9: cut the x-axis at about 1.2; formulas to the caption notes; keep w_A2 = 0 as one label.
+- Fig 8: remove the coloured border decoration on the grid; (a) as a small matrix, (b) the table.
+- Notes that become caption-disclosure items (docs/caption-notes.md), not plate text: fig 5(a)'s
+  four-line note; fig 6's set-builder definition and dimension count; fig 11(b)'s residual numbers;
+  fig 1's grid note; fig 2's representative line; fig 9's formula block; fig 12(a)'s seam sentence.
+Author decisions (critique dissents from the author's supplement; the supplement stands unless the
+author changes it): the water atlas stays substantial in fig 1; fig 6 uses the thick tube as its main
+object (the critique prefers the clean cylinder with a local cut-away window), with version labels kept
+off the hidden face and the caption note saying that one radial thickness stands for 13 normal
+coordinates, that the SO(3) factor is suppressed, and that the tube's topology is not a claim about F.
