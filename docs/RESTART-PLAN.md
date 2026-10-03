@@ -128,3 +128,41 @@ exchange condition; 4 and 5 show groupings and groups carved from S; 6 shows F c
 images retained, the rest hatched); 7 to 9 carve species and packets inside F; 10 to 12 are charts and
 mode views of the carved object, not new carvings.
 The author will share Harter plates as images; the full PDF is too large.
+
+## Addendum 4: illustrator critique (bounded subagent, received at the limit), triaged
+Adopted (compatible with the author's plates and contracts):
+- Prose out of the plates: panel titles of at most three words after the letter; one sub-line of at
+  most twelve words under a drawing; everything else is caption material (author's). No framed panels.
+- One oblique projection for every 3D object in the suite (eye elevation about 22 degrees, ellipse
+  axis ratio 0.37), light fixed from the upper left; generatrices foreshortened toward silhouettes;
+  paths on surfaces drawn as curves on the surface (helix segments), hidden halves dashed; hatch on a
+  cut face projected with the face.
+- Thick tube proportions: height at least 0.45 R, wall at least 0.25 R, band at mid-thickness as a
+  solid 0.5 pt ink line; wedge on the near side so both cut faces show.
+- Line scale at 150 mm: silhouettes 0.9 pt, interior edges and 2D bonds 0.6 pt, hidden 0.4 pt dashed,
+  hatch 0.25 to 0.3 pt with pitch opening toward the light, guides and leaders 0.3 to 0.35 pt,
+  operation arrows 0.8 pt. Labels 9 pt, never rotated, 1 mm clear space, never over a line or hatch.
+- Molecules: constructed 3D at 0.95 cm per angstrom with rods occluded by spheres and labels outside
+  on straight leaders; 2D glyphs only where geometry is irrelevant; disc sizes scale with the drawing
+  (no fixed-mm discs on scaled bonds); labels inside a disc only if the disc is at least 5 mm.
+- Colour: opaque fills at the pure hue for material (nuclei, the distinguished region, the base space);
+  coloured lines only for the t path and the tu or b path, which also differ by dash; operations and
+  rotation arrows in ink (heavy arc arrows per Harter). Potassium and rubidium differ by size and
+  label, never by hue alone.
+- Figure-level ideas taken: fig 7 coefficient vectors as mode pictures (disc area = amplitude, fill =
+  sign) in Harter's manner; fig 9 packets as gouache blobs on the torsion circle at 0, 2pi/3, 4pi/3;
+  fig 11 four sheets plus ellipsis with the two lifts actually drawn ending on different sheets and a
+  figure-eight loop on the tinted base; fig 12 species read from drawn waveforms; fig 6 as one cut-away
+  tube with the six version glyphs beneath; fig 5 with the C2 axis and mirror plane constructed.
+Overruled by the author's plates: sphere shading is a solid black crescent, not engraved latitude
+hatch; carbon is ink-filled.
+Needs the author's decision (would change an approved panel contract):
+- Drop fig 1(a) matrix panel and merge the commuting square into fig 3 (contract lists both in fig 1).
+- Replace fig 8's table by a 32-unit partitioned bar (contract: "proper table or clean plot").
+- Fold fig 10(a) into fig 6's cut face and drop fig 10(b) (contract lists both).
+- Drop fig 12(a) formula panel (contract: "compact position/mode correspondence").
+- Reduce the guide to a single emblem strip without frames or prose.
+Rejected: a small (xi, eta) plane drawn in each fibre for fig 2 (the contract forbids anything that
+reads as a tangent plane standing for spin space); fig 2 will instead draw the fibre as a vertical
+line with the value Psi(X) as a two-component bar, labelled as H_spin.
+A second critique (reader's eye) may still arrive in this session's transcript; triage it the same way.
