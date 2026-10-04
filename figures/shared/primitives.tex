@@ -113,7 +113,7 @@
 % ---- the band alone (the reference family as an open cylinder surface), same projection as the tube.
 % Keys band/R, band/H (half height), band/E. Far inner half visible through the opening; seam at tau = pi (back) dashed.
 % Named coordinates as for the tube: -top0 -top120 -top240 -bot60 -bot180 -bot300.
-\tikzset{band/R/.initial=1.5,band/H/.initial=.55,band/E/.initial=.42,band/farfill/.initial=ColBand,band/nearfill/.initial=ColWall,
+\tikzset{band/R/.initial=1.5,band/H/.initial=.55,band/E/.initial=.42,band/farfill/.initial=ColBand,band/nearfill/.initial=ColBand,
   pics/band/.style={code={
     \pgfmathsetmacro{\R}{\pgfkeysvalueof{/tikz/band/R}}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/band/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/band/E}}
     % far half (inside face), lightly tinted, with generatrices crowding toward the silhouettes

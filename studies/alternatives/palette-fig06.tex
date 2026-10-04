@@ -13,6 +13,12 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
+% ---- PALETTE TEST override (study only): torsion green, umbrella purple, dots red, core sheet gold, cladding white
+\colorlet{ColTorsion}{ColPotassium}\colorlet{ColUmbrella}{ColRubidium}\colorlet{ColDot}{ColOxygen}
+\colorlet{ColBand}{ColGold!70}\colorlet{ColBandLine}{ColGold!70!PlateInk}\colorlet{ColWall}{white}\colorlet{ColRetained}{ColGold}
+\tikzset{tpath/.style={line width=.9pt,draw=ColTorsion,-{Stealth[length=2mm,width=1.6mm]}},upath/.style={line width=.9pt,draw=ColUmbrella,densely dashed,-{Stealth[length=2mm,width=1.6mm]}},
+  tube/wallfill=ColWall,tube/bandfill=ColBand,tube/linecol=ColBandLine,band/farfill=ColBand,band/nearfill=ColBand}
+
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,14.4);
