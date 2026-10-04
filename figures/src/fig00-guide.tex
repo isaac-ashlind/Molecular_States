@@ -7,7 +7,7 @@
 % beside their objects, with section ranges only.
 % The solid's decoration is turned by 15 degrees so that the projection line from H to [X] passes no other point.
 % Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the
-% packet, white = cladding, sheets and the quotient patch, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
+% packet, white = the vibrations (the solid's wall), sheets and the quotient patch, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
 % on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -23,7 +23,7 @@
 % arrangement (author, 2026-10-04): the bond interval [H, B] in grey at the top left under heading III, the molecule at
 % the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
-\path[cut] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle; \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
+\hatchregion{42.51}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
 \node[lab,anchor=south west] at (3.0,4.07) {$\conf$};
 \path[fill=white,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];

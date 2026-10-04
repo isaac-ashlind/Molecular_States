@@ -21,7 +21,7 @@ Symmetry, Dynamics, and Spectroscopy* (Wiley, 1993), to be cited as "after Harte
 
 Common to all plates: colours are the anchored gouache set (ink; red for oxygen on the water plates and for the
 version points on the methylamine plates; blue for nitrogen; teal as a pale tint for the reference family where it
-is a surface and at full strength for rubidium; gold for retained regions and for potassium; white cladding and
+is a surface and at full strength for rubidium; gold for retained regions and for potassium; white vibrations and
 hydrogen); actions are ink, solid for t, dashed for u or tu, dotted for a starred operation (b, E*); red dots are
 the version points; hatching marks cut or removed material only; molecules are
 drawn from the computed configurations at 0.95 cm per angstrom in one oblique projection (camera azimuth 50 deg,
@@ -123,8 +123,9 @@ verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
 
 ## Figure 10, position representation
 Top row, left to right: the solid F of figure 6 (cut open, window -62 to 8 degrees, the decoration unturned so that the
-seam sits at the back), stripped of its cladding to the core sheet (the band, the reference family X0(a), an open
-cylinder in a = (tau, iota), cut at the seam tau = +-pi, cut marks), unrolled into the chart [-pi, pi] x
+seam sits at the back), stripped of its vibrations to the core sheet (a thin teal tube of the sheet's own thickness, the
+reference family X0(a), an open cylinder in a = (tau, iota), cut at the seam tau = +-pi, cut marks; the small solid
+carries the version points but not the paths, which are read on the sheet and the chart), unrolled into the chart [-pi, pi] x
 [-iota0, iota0] with the six H-cells computed (chartCells), the reference cell U in pale gold, the same six red
 version points and the two paths (t solid, tu dashed); iota = 0 is the planar amino locus. Middle row: over a point
 a of the chart sit every normal displacement q and every orientation r, drawn as the reconstruction: the shape X0(a),

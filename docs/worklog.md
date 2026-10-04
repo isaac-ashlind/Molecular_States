@@ -65,3 +65,11 @@ plates; rho = 1/2 with Mellor et al. 2019 cited. Full build clean, all checks pa
 sheet, previews, figures/pdf and the zip are current; everything is pushed to figures-v2. Open for the author:
 nothing on the list; the next round starts from the author's reading of the draft.
 
+## 2026-10-04, night, round 6 (author's notes on the core and the hatch)
+
+Core sheet half as thick everywhere (tube/bw .04; the zoom strip to match); figure 10's stripped core drawn as a thin
+teal tube of that thickness with the seam marks, the small solid without paths, the chart's t arrow bowed clear of the
+edge; figure 6's miniature white with red dots on top and pale dots on the hidden edge, the grey images without a
+ring; "cladding" is "vibrations" on the plates and in the notes; the cover's slab hatched with continuous lines along
+its own slanted edge (a tiled pattern breaks at every tile, so hatch is now drawn by \hatchregion).
+
