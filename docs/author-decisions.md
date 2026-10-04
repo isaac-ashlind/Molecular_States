@@ -48,3 +48,9 @@
 - The second spin basis vector in the ambient-space example is zeta (was eta, which is the amino coordinate
   everywhere else): one sentence of the text, figure 2's caption note.
 - Free letters checked before choosing: lambda, zeta, nu and Delta are unused elsewhere.
+
+## 2026-10-04, night: colour scheme locked
+
+The current hues are final: ink 303438, red D56860, blue 397BA8, teal 4F9C97, gold E0B84F, white, grey as thinned
+ink. The grayscale study (L* 21, 49, 57, 60, 77; even and wide respacings; a nitrogen nudge to L* 45) was reviewed
+and set aside: hues are used pure, never darkened; fades mark only obscured elements.

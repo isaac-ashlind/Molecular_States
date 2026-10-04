@@ -5,7 +5,7 @@ assistant is the scientific illustrator. No swarms: one coordinator, at most two
 
 ## Anchored decisions (do not reopen)
 
-- **Palette, exclusive** (`figures/shared/figurestyle.sty`): ink `#303438`; red `#D56860` (oxygen on the water
+- **Palette, exclusive and locked** (`figures/shared/figurestyle.sty`): ink `#303438`; red `#D56860` (oxygen on the water
   plates, version points on the methylamine plates); blue `#397BA8` (nitrogen only); teal `#4F9C97` (the reference
   family as a pale surface tint; rubidium at full strength); gold `#E0B84F` (retained regions; potassium); white
   (cladding, sheets, hydrogen); grey as thinned ink. Any palette colour not already spent on a plate is available
