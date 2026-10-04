@@ -1,6 +1,8 @@
 # Style of the suite
 
 Reference: the ink plates of Harter (1993). The drawing shows the structure itself; text is bookkeeping.
+The plates read as black-and-white ink drawings; colour is spent only where it speeds comprehension or guides the
+eye (author decision, 2026-10-04). Surfaces that carry no meaning stay white.
 
 - Ink `#303438`; line weights 0.9 pt (silhouettes, retained structure) and 0.4 pt (construction, fine detail);
   hidden lines dashed; leaders 0.3 pt.

@@ -1,9 +1,8 @@
 % Guide (unnumbered). The whole story as one carved scene, read bottom to top: the configuration space C as a
 % hatched slab with the hole the carving leaves and one configuration as a point of it; the feasible solid F lifted
 % out and cut open, with the two generator paths and the version points on its core sheet and a packet on one
-% version; above, the quotient patch V with the two loops, and over V four of the sheets, on which the two loops
-% lift: neither lift closes, and they end on different sheets (monodromy). The four parts of the paper are headings
-% beside their objects, with section ranges only.
+% version; above, the quotient patch V with the two loops, and over V four of the sheets,
+% on which the two loops lift: neither lift closes, and they end on different sheets (monodromy).
 % Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the
 % packet, white = cladding, sheets and the quotient patch, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
 % on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
@@ -13,6 +12,7 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
+\tikzset{cut/.style={pattern={Lines[angle=45,distance=3.4pt,line width=.28pt]},pattern color=PlateInk!62}}
 \begin{document}
 \begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt}]
 \path[use as bounding box] (0,0) rectangle (15,14.2);
