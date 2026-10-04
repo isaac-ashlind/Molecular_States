@@ -155,6 +155,11 @@
 \newcommand\graphink{\renewcommand\gnode[4]{\if##1H\draw[line width=.5pt,draw=PlateInk,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\else\draw[line width=.5pt,draw=PlateInk,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{8}{9}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\fi}}
 % ---- digit labels inside the hydrogen discs (C and N unlabelled): \mollabelsinside
 \newcommand\mollabelsinside{\renewcommand\mollabel[6]{\if##1H\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at (##3,##4) {##2};\fi}}
+% ---- grouping line between grouped nuclei (figure 4): \gline{x1}{y1}{x2}{y2}; \glinestyle sets its look
+\tikzset{glinestyle/.style={line width=.5pt,draw=PlateInk}}
+\newcommand\gline[4]{\draw[glinestyle] (#1,#2)--(#3,#4);}
+% ---- digit labels inside every disc (potassium, rubidium): \mollabelsinsideall
+\newcommand\mollabelsinsideall{\renewcommand\mollabel[6]{\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {##2};}}
 % ---- ghost molecule with the label inside each disc (versions: same positions, labels moved)
 \newcommand\molghostlabels{\renewcommand\molrodj[8]{\draw[ghost] (##1,##2)--(##3,##4);}
   \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{6}{7}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\fi}}

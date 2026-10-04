@@ -297,13 +297,14 @@ def krb_schematic():
     """A schematic planar K2Rb2 arrangement (angstrom-like units), centred.
 
     This is NOT a computed complex geometry; it is declared schematic in the
-    figure.  K1 and Rb3 are placed close together, as are K2 and Rb4, so the
-    same positions admit the three partitions used in the figure.
+    figure.  Potassium on the upper row, rubidium on the lower row, so that the
+    three groupings (incoming pairs K1Rb3 | K2Rb4, one complex, outgoing pairs
+    K1K2 | Rb3Rb4) are drawn by envelopes that never cross.
     """
-    cols = [(-2.2, 0.9, 0.0),   # K1
-            ( 2.2, -0.9, 0.0),  # K2
-            (-1.0, -1.1, 0.0),  # Rb3
-            ( 1.0, 1.1, 0.0)]   # Rb4
+    cols = [(-1.35, 0.8, 0.0),   # K1
+            ( 1.35, 0.8, 0.0),   # K2
+            (-1.35, -0.8, 0.0),  # Rb3
+            ( 1.35, -0.8, 0.0)]  # Rb4
     return center(cols, KRB_MASSES)
 
 # ------------------------------------------------------------- projection ---

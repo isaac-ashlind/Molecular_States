@@ -1,0 +1,52 @@
+% Figure 2. Ambient Hilbert space. What the reader must see: one spin space over every configuration; a state
+% assigns to each configuration a vector of that space (two components here); the norm is the integral of the
+% squared length over C. Drawing: a slice of C as a baseline with a comb of fibres, three configurations standing
+% on it, the two components as bars on each fibre; the component functions plotted beneath on the same theta scale.
+% Colours: blue = component a, red = component b; gold unused. Hatch unused. Values are one continuous
+% representative, illustrative (declared); samples and functions from figures/data.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt}}}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,10.6);
+% ------------------------------------------------ the comb: fibres over a slice of C
+\begin{scope}[shift={(1.6,6.9)}]
+  \draw[heavy] (-.2,0)--(9.6,0);
+  \node[sub,anchor=west,text width=3.2cm] at (9.9,-.1) {a slice of $\conf$: $\delta=0$, $\theta$ from $80^\circ$ to $180^\circ$};
+  \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}\draw[fine] (\x,0)--(\x,2.6);}
+  \node[sub,anchor=south] at (4.7,2.65) {the same $\spin$ over every $X$: on each fibre the value $\Psi(X)$, as its two components};
+  \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}
+    \pgfmathsetmacro{\av}{exp(-((\th-104.5)/14.0)^2/2)}\pgfmathsetmacro{\bv}{0.9*((\th-118.0)/16.0)*exp(-((\th-118.0)/16.0)^2/2)}
+    \draw[fine] (\x-.08,1.3)--(\x+.08,1.3);
+    \draw[line width=2.2pt,draw=ColNitrogen] (\x-.07,1.3)--(\x-.07,{1.3+.9*\av});
+    \draw[line width=2.2pt,draw=ColOxygen] (\x+.07,1.3)--(\x+.07,{1.3+.9*\bv});}
+  \foreach \th/\k/\av/\bv in {\sampleThetaone/1/\sampleAone/\sampleBone,\sampleThetatwo/2/\sampleAtwo/\sampleBtwo,\sampleThetathree/3/\sampleAthree/\sampleBthree} {
+    \pgfmathsetmacro{\x}{(\th-80)/100*9.4}
+    \draw[fine] (\x,0)--(\x,2.6); \draw[fine] (\x-.08,1.3)--(\x+.08,1.3);
+    \draw[line width=2.2pt,draw=ColNitrogen] (\x-.07,1.3)--(\x-.07,{1.3+.9*\av});
+    \draw[line width=2.2pt,draw=ColOxygen] (\x+.07,1.3)--(\x+.07,{1.3+.9*\bv});
+    \fill[PlateInk] (\x,0) circle[radius=1.6pt];
+    \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\pic[scale=.75] at (\x,-.8) {mol3d-water-sample-\k};\end{scope}
+    \node[lab] at (\x,-1.55) {$X_\k$};}
+  \node[sub,anchor=west] at (9.9,1.3) {zero of $\spin$};
+  \node[sub,anchor=west] at (9.9,.8) {\textcolor{ColNitrogen}{\rule{2.2pt}{6pt}}\, $a(X)$\quad \textcolor{ColOxygen}{\rule{2.2pt}{6pt}}\, $b(X)$};
+\end{scope}
+% ------------------------------------------------ the component functions on the same theta scale
+\begin{axis}[at={(1.6cm,1.1cm)},scale only axis,width=9.4cm,height=2.9cm,xmin=80,xmax=180,ymin=-.75,ymax=1.3,ytick={-0.5,0,0.5,1},xtick={80,100,120,140,160,180},
+  xlabel={$\theta$},xlabel style={at={(axis description cs:1,0)},anchor=west,xshift=3pt},axis lines=left,axis line style={-},tick align=outside,clip=false]
+  \addplot[ColNitrogen,line width=.9pt] table[x=theta,y=a] {component-functions.dat};
+  \addplot[ColOxygen,line width=.9pt,densely dashed] table[x=theta,y=b] {component-functions.dat};
+  \addplot[PlateInk,line width=.6pt,dash pattern=on .6pt off 1.3pt] table[x=theta,y=n2] {component-functions.dat};
+  \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone}) (\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo}) (\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree})};
+  \node[sub,anchor=south west] at (axis cs:150,0.35) {$|a|^2+|b|^2$}; \node[sub,anchor=south west] at (axis cs:150,0.0) {$a$}; \node[sub,anchor=north west,text=ColOxygen] at (axis cs:150,-.08) {$b$};
+\end{axis}
+\node[lab,anchor=north west,text width=3.5cm,align=left] at (11.5,4.3) {$\Psi(X)=a(X)\,\xi+b(X)\,\eta$\\[6pt] $\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,dX$};
+\node[sub,anchor=north west,text width=3.4cm,align=left] at (11.5,2.5) {$\Psi(X_1)=\sampleAone\,\xi\,\sampleBone\,\eta$\\ $\Psi(X_2)=\sampleAtwo\,\xi\,\sampleBtwo\,\eta$\\ $\Psi(X_3)=\sampleAthree\,\xi\,\sampleBthree\,\eta$\\[2pt] the dots are $\|\Psi(X_k)\|^2$};
+\node[sub,anchor=north west,text width=14.4cm] at (.3,.55) {$\xi=\uparrow\downarrow\omega$ and $\eta=\downarrow\uparrow\omega$ are orthonormal in $\spin=\mathbb C^2\otimes\mathbb C^2\otimes\mathbb C^1$ for $({}^1\mathrm H,{}^1\mathrm H,{}^{16}\mathrm O)$; the values are one continuous representative, illustrative; $\Psi\sim\Phi$ when $\int\|\Psi-\Phi\|^2dX=0$};
+\end{tikzpicture}
+\end{document}

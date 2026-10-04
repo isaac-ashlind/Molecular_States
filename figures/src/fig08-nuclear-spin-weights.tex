@@ -1,0 +1,43 @@
+% Figure 8. Nuclear spin weights. What the reader must see: the 32-dimensional proton spin space splits under G6
+% into copies of A1, A2 and E; a spatial level of species Gamma pairs with the spin species whose product with
+% Gamma contains the parity character, and its weight is the number of copies of that partner; even and odd parity
+% swap the A1 and A2 partners. Drawing: a correlation diagram in the manner of Harter (1993) fig. 4.2.3, spatial
+% species as level rules at left, spin species at right as partitioned bars whose length is the copy count
+% (32 units in all), solid connections for even parity, dashed for odd. Colours: bars tinted by species; ink
+% elsewhere; gold unused. Hatch unused. All counts from the character computation (checks/verify.g).
+% Chosen from studies/alternatives/alt-fig04-08-11 (correlation diagram merged with the partitioned bar).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,evenline/.style={line width=.6pt,draw=PlateInk},oddline/.style={line width=.6pt,draw=PlateInk,dash pattern=on 2.4pt off 1.6pt}]
+\path[use as bounding box] (0,0) rectangle (15,9.4);
+\pgfmathsetmacro{\u}{.36}
+\node[sub,anchor=north west,text width=14.4cm] at (.3,9.25) {$\spin=(\mathbb C^2)^{\otimes5}$ for the five protons, $\dim=\spinDim$; under $G_6$ it holds $\weightEvenAone$ copies of $\mathrm A_1$, $\weightEvenAtwo$ of $\mathrm A_2$ and $\weightEvenE$ of $\mathrm E$, so $\weightEvenAone+\weightEvenAtwo+2\cdot\weightEvenE=\spinDim$; at right each spin species is a bar of one unit per dimension};
+\node[sub,anchor=south] at (2.1,7.75) {spatial species $\Gamma$, dimension $d_\Gamma$};
+\node[sub,anchor=south] at (10.4,7.75) {spin species, copies in $\spin$};
+% ------------------------------------------------ spatial species as level rules
+\foreach \y/\l/\d in {6.9/{\mathrm A_1}/1,5.3/{\mathrm A_2}/1} {\draw[heavy] (1.2,\y)--(3.0,\y); \node[lab,anchor=south west] at (1.2,\y) {$\l$, $d=\d$};}
+\draw[heavy] (1.2,3.73)--(3.0,3.73) (1.2,3.67)--(3.0,3.67); \node[lab,anchor=south west] at (1.2,3.73) {$\mathrm E$, $d=2$};
+% ------------------------------------------------ spin species as partitioned bars
+\begin{scope}[shift={(7.0,0)}]
+  \path[fill=ColNitrogen!18] (0,6.65) rectangle ({\u*\weightEvenAone},7.15); \foreach \k in {1,...,11} \draw[line width=.3pt,draw=PlateInk!60] ({\u*\k},6.65)--({\u*\k},7.15); \draw[heavy] (0,6.65) rectangle ({\u*\weightEvenAone},7.15);
+  \node[lab,anchor=west] at ({\u*\weightEvenAone+.15},6.9) {$\mathrm A_1$, $\weightEvenAone$ copies};
+  \path[fill=ColOxygen!18] (0,5.05) rectangle ({\u*\weightEvenAtwo},5.55); \foreach \k in {1,...,3} \draw[line width=.3pt,draw=PlateInk!60] ({\u*\k},5.05)--({\u*\k},5.55); \draw[heavy] (0,5.05) rectangle ({\u*\weightEvenAtwo},5.55);
+  \node[lab,anchor=west] at ({\u*\weightEvenAtwo+.15},5.3) {$\mathrm A_2$, $\weightEvenAtwo$ copies};
+  \path[fill=ColGold!35] (0,3.45) rectangle ({\u*2*\weightEvenE},3.95); \foreach \k in {1,...,15} \draw[line width=.3pt,draw=PlateInk!60] ({\u*\k},3.45)--({\u*\k},3.95); \foreach \k in {2,4,...,14} \draw[line width=.5pt,draw=PlateInk] ({\u*\k},3.45)--({\u*\k},3.95); \draw[heavy] (0,3.45) rectangle ({\u*2*\weightEvenE},3.95);
+  \node[lab,anchor=west] at ({\u*2*\weightEvenE+.15},3.7) {$\mathrm E$, $\weightEvenE$ copies, two units each};
+\end{scope}
+% ------------------------------------------------ pairings: even solid, odd dashed
+\draw[evenline] (3.0,6.9)--(7.0,6.9); \draw[evenline] (3.0,5.3)--(7.0,5.3); \draw[evenline] (3.0,3.73)--(7.0,3.73);
+\draw[oddline] (3.0,6.9)--(7.0,5.3); \draw[oddline] (3.0,5.3)--(7.0,6.9); \draw[oddline] (3.0,3.67)--(7.0,3.67);
+\node[sub,anchor=south,fill=white,inner sep=1pt] at (5.0,6.95) {even}; \node[sub,anchor=north,fill=white,inner sep=1pt] at (5.0,5.25) {even}; \node[sub,anchor=south,fill=white,inner sep=1pt] at (5.0,3.78) {even and odd};
+\node[sub,fill=white,inner sep=1pt] at (4.2,6.42) {odd}; \node[sub,fill=white,inner sep=1pt] at (5.8,6.42) {odd};
+% ------------------------------------------------ the weights read off the bars
+\node[sub,anchor=north west,text width=6.6cm] at (.4,2.85) {the weight of a spatial level is the length of the bar it is joined to: $w_{\mathrm A_1}(+)=\weightEvenAone$, $w_{\mathrm A_1}(-)=\weightOddAone$; $w_{\mathrm A_2}(+)=\weightEvenAtwo$, $w_{\mathrm A_2}(-)=\weightOddAtwo$; $w_{\mathrm E}(\pm)=\weightEvenE$ for each member; $\sum_\Gamma d_\Gamma w_\Gamma(\pm)=\spinDim$};
+\node[sub,anchor=north west,text width=7.4cm] at (7.4,2.85) {rule: $\Gamma_{\mathrm{space}}\otimes\Gamma_{\mathrm{spin}}$ must contain the parity character, $\chi_+=\mathrm A_1$ (solid) or $\chi_-=\mathrm A_2$ with $b\mapsto-1$ (dashed); $\stat\equiv+1$ on $G_6$, every permutation there being even; $\mathrm A_2$ has no copy among the three version states (fig.\,7) and is still a valid spin sector};
+\node[sub,anchor=north west,text width=14.4cm] at (.4,1.0) {level rules and connections in the manner of Harter (1993) fig.\,4.2.3; a double rule marks the two-dimensional $\mathrm E$};
+\end{tikzpicture}
+\end{document}
