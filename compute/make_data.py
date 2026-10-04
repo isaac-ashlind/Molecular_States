@@ -419,19 +419,23 @@ def main():
     inbond = {bigkey[K] for K in big if K <= Q.B}
     levels = sorted(set(len(K) for K in big))
     lev = {K: levels.index(len(K)) for K in big}
-    xpos = {}
+    yof = {K: math.log(len(K)/2)/math.log(120) for K in big}      # height by log of the version count
     below = {K: [a for a, b in bigcov if b == K] for K in big}
-    for L in levels:
-        row = [K for K in bigsorted if len(K) == L]
-        if L == levels[0]:
-            order = row
-        else:
-            order = sorted(row, key=lambda K: (sum(xpos[a] for a in below[K])/len(below[K]) if below[K] else 0.5, bigkey[K]))
-        for i, K in enumerate(order):
-            xpos[K] = (i + 0.5)/len(order)
-    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{lev[K]}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
+    above = {K: [b for a, b in bigcov if a == K] for K in big}
+    xpos = {K: 0.5 for K in big}
+    for sweep in range(8):
+        for L in (levels if sweep % 2 == 0 else levels[::-1]):
+            row = [K for K in bigsorted if len(K) == L]
+            def bary(K):
+                nb = below[K] + above[K]
+                v = sum(xpos[a] for a in nb)/len(nb) if nb else 0.5
+                return v + (-0.25 if K <= Q.B else 0.0)          # pull the bond interval to the left
+            order = sorted(row, key=lambda K: (bary(K), bigkey[K]))
+            for i, K in enumerate(order):
+                xpos[K] = (i + 0.5)/len(order)
+    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
+    num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}/{1 if (a <= Q.B and b <= Q.B) else 0}' for a, b in bigcov) + '}')
     num.append(f'\\def\\bigLevels{{{len(levels)}}}')
-    num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}' for a, b in bigcov) + '}')
     summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
                               'orders': sorted(len(K) for K in big)}
     summary['interval'] = {'subgroups': len(subs), 'covers': len(cov),

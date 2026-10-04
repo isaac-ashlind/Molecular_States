@@ -12,48 +12,50 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,15.4);
+\path[use as bounding box] (0,0) rectangle (15,16.2);
 % ------------------------------------------------ A. b is a rotation: mirror plane and half-turn axis
-\begin{scope}[shift={(3.0,12.6)}]
+\begin{scope}[shift={(3.0,13.4)}]
   \begin{scope}[scale=.8]
     \path[fill=PlateInk!6] plot coordinates {\mirrorplane} -- cycle; \draw[fine] plot coordinates {\mirrorplane} -- cycle;
     \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] plot coordinates {\mirroraxis};
   \end{scope}
   \begin{scope}\molsolid\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
-  \draw[harrow] (1.35,1.55) arc[start angle=20,end angle=200,x radius=.45,y radius=.2];
-  \node[lab,anchor=south] at (.9,1.85) {$R_b$};
-  \node[sub,anchor=north] at (0,-1.95) {$X_0$: mirror plane through $\mathrm H_1,\mathrm C_6,\mathrm N_7$; axis normal to it};
+  % half-turn arc around the axis, near its upper end
+  \draw[harrow] ($(0,0)+(.8*1.05,.8*1.55)+(-.42,.0)$) arc[start angle=180,end angle=-60,x radius=.42,y radius=.16];
+  \node[lab,anchor=west] at ($(0,0)+(.8*1.05,.8*1.55)+(.5,.05)$) {$R_b$};
+  \node[sub,anchor=north,text width=5.2cm,align=center] at (0,-1.9) {$X_0$ with the mirror plane through $\mathrm H_1,\mathrm C_6,\mathrm N_7$ and the axis normal to it};
 \end{scope}
-\draw[harrow] (5.6,12.6)--(7.2,12.6);
-\node[lab,anchor=south] at (6.4,12.7) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (6.4,12.5) {$=R_y(\pi)$};
-\begin{scope}[shift={(9.6,12.6)}]
+\draw[harrow] (5.6,13.4)--(7.2,13.4);
+\node[lab,anchor=south] at (6.4,13.5) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (6.4,13.3) {$=R_y(\pi)$};
+\begin{scope}[shift={(9.6,13.4)}]
   \begin{scope}\molghostlabels\pic[scale=.8] at (0,0) {mol3d-mla-bref};\end{scope}
-  \node[sub,anchor=north] at (0,-1.95) {$bX_0=R_bX_0$, so $H=\{E,b\}$ stabilises the orbit $SO(3)X_0$};
+  \node[sub,anchor=north,text width=5.4cm,align=center] at (0,-1.9) {$bX_0=R_bX_0$: $b$ relabels and inverts, the half-turn reproduces it, so $H=\{E,b\}$};
 \end{scope}
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval
 \begin{scope}[shift={(.6,5.6)}]
   \node[sub,anchor=south west] at (0,4.45) {all $36$ subgroups between $H$ and $S$, by order; the $10$ that keep the bonds, in gold};
-  \foreach \i/\x/\lev/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+7.6*\x},{.15+4.0*\lev/12});}
-  \foreach \a/\b in \bigCovers {\draw[line width=.25pt,draw=PlateInk!70] (n\a)--(n\b);}
-  \foreach \i/\x/\lev/\inb/\name in \bigNodes {
-    \ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=1.8pt];\else\fill[PlateInk] (n\i) circle[radius=1.1pt];\fi}
-  \node[lab,anchor=west] at (7.55,.15) {$H$}; \node[lab,anchor=west] at (7.55,4.15) {$S$};
+  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+7.4*\x},{.15+3.9*\yy});}
+  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.25pt,draw=PlateInk!60] (n\a)--(n\b);\fi}
+  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.9pt,draw=ColGoldStroke] (n\a)--(n\b);\fi}
+  \foreach \i/\x/\yy/\inb/\name in \bigNodes {
+    \ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=1.9pt];\else\fill[PlateInk] (n\i) circle[radius=1.1pt];\fi}
+  \node[lab,anchor=north] at (n0) {\;$H$}; \node[lab,anchor=south] at (n35) {$S$};
 \end{scope}
-\draw[harrow] (8.9,7.6)--(9.7,7.6); \node[sub,anchor=south] at (9.3,7.7) {keep the bonds};
-\begin{scope}[shift={(11.5,5.95)},x=.46cm,y=.95cm]
+\draw[harrow] (8.75,8.9)--(9.55,8.9); \node[sub,anchor=south] at (9.15,9.0) {keep the bonds};
+\begin{scope}[shift={(12.15,6.1)},x=.52cm,y=.9cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \foreach \a/\b in \hasseCovers {\draw[fine] (h\a)--(h\b);}
   \draw[line width=1.2pt,draw=ColNitrogen] (h0)--(h4)--(h6)--(h9);
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\node[font=\fontsize{8}{9}\selectfont,fill=white,inner sep=1pt] at (h\i) {$\name$};}
 \end{scope}
-\node[sub] at (11.5,5.45) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers; chain $H<G_6<G_{12}<B$};
+\node[sub,text width=5.4cm,align=center] at (12.15,5.5) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers; the chain $H<G_6<G_{12}<B$ in blue};
 % ------------------------------------------------ C. versions: one reference, five ghosts, labels moved by g
 \node[sub,anchor=west] at (.2,4.4) {versions $G_{12}/H$: the same positions, position $j$ carries label $g(j)$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
   \begin{scope}[shift={({1.4+2.45*\k},2.6)}]
     \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
-    \ifnum\k=0 \begin{scope}\molsolid\pic[scale=.5] at (0,0) {mol3d-mla-ref};\end{scope}
-    \else \begin{scope}\molghostlabels\pic[scale=.5] at (0,0) {mol3d-mla-ref};\end{scope}\fi
+    \ifnum\k=0 \begin{scope}\molsolid\pic[scale=.55] at (0,0) {mol3d-mla-ref};\end{scope}
+    \else \begin{scope}\molghostlabels\renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {##2};\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{8}{9}\selectfont,inner sep=0pt] at (##3,##4) {##2};\fi}\pic[scale=.55] at (0,0) {mol3d-mla-ref};\end{scope}\fi
     \node[lab] at (0,-1.35) {$\cname$};
     \node[sub] at (0,-1.75) {$g=\gname$};
   \end{scope}
