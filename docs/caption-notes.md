@@ -120,7 +120,9 @@ solid, tu dashed); eta = 0 is the planar amino locus. The zoom at q = H is the n
 of figure 6, with the band's eta-line (teal) and the coordinate Q across the wall. Below, the two normal
 directions at q, e_-(q) (the amino twist, hydrogens 4 and 5 against each other along the axis) and e_+(q) (the C-N
 stretch, carbon against nitrogen along the axis), drawn on the molecule seen from the side (camera azimuth 90,
-elevation 18, so the C-N axis lies in the page) with arrows 5x the displacement (mol3d-mla-ref-eminus-side, -eplus-side; mass-orthonormal, orthogonal to the family and to the rotations in
+elevation 18, so the C-N axis lies in the page); each direction's arrows are scaled so that its largest arrow is 1.1 A on
+the page (the direction is the content; the mass-orthonormal stretch moves the heavy atoms far less than the twist
+moves the hydrogens), declared (mol3d-mla-ref-eminus-side, -eplus-side; mass-orthonormal, orthogonal to the family and to the rotations in
 the mass metric). The formulas X0(q) P_tu = A_tu X0(q'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
 
 ## Figure 11, covering spaces and monodromy

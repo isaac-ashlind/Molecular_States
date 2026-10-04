@@ -453,9 +453,13 @@ def main():
     emit_pic(mol, 'mol3d-mla-ref-eminus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
     emit_pic(mol, 'mol3d-mla-ref-eplus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
     CAM_SIDE = G.camera(azimuth_deg=90.0, elevation_deg=18.0)   # the C-N axis lies in the page: both normal displacements at full length
-    def arrows_side(e):
+    def arrows_side(e, longest=1.1):
+        # side views: each direction's arrows scaled so that its largest arrow is `longest` angstrom on the page
+        # (the direction is the content; a common gain cannot serve a hydrogen twist and a heavy-atom stretch); declared
         Pe = [(G.dot(v, CAM_SIDE[0]), G.dot(v, CAM_SIDE[1])) for v in e]
-        return [(5.0*amp*px, 5.0*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]   # side views: arrows 5x (declared)
+        big = max(math.hypot(px, py) for px, py in Pe)
+        g = longest / big
+        return [(g*px, g*py) if math.hypot(px, py) > 0.12*big else None for px, py in Pe]
     emit_pic(mol, 'mol3d-mla-ref-eminus-side', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_SIDE, arrows=arrows_side(nf['e_minus'])))
     emit_pic(mol, 'mol3d-mla-ref-eplus-side', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_SIDE, arrows=arrows_side(nf['e_plus'])))
     Xdisp = [G.add(x, G.scale(v, amp)) for x, v in zip(X0, nf['e_minus'])]
