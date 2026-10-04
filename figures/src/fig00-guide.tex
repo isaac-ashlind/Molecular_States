@@ -12,7 +12,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt},lift/.style={line width=.8pt,draw=ColNitrogen},bliftl/.style={line width=.8pt,draw=ColOxygen,densely dashed}]
+\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt},lift/.style={line width=.8pt,draw=ColTorsion},bliftl/.style={line width=.8pt,draw=ColUmbrella,densely dashed}]
 \path[use as bounding box] (0,0) rectangle (15,13.8);
 \pgfmathsetmacro{\Ro}{2.3}\pgfmathsetmacro{\Ri}{1.62}\pgfmathsetmacro{\E}{.42}
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
@@ -31,8 +31,8 @@
   \pic (ft) at (0,0) {thicktube};
   \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});
   \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.96*sin(-60*\s)},{.55-2*.55*\s-.42*1.96*cos(60*\s)});
-  \foreach \p in {top0,top120,top240,bot300} {\hatomat{ft-\p}{.085}{ColGold}}
-  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColGold!45] (ft-\p) circle[radius=.085];}
+  \foreach \p in {top0,top120,top240,bot300} {\hatomat{ft-\p}{.085}{ColDot}}
+  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (ft-\p) circle[radius=.085];}
   \draw[fine] (ft-top0) circle[radius=.3];
   \node[tag,anchor=west] at (2.5,-1.15) {$\mathcal F$};
 \end{scope}
@@ -43,10 +43,10 @@
 \draw[fine,dash pattern=on 1.6pt off 1.3pt] (7.6,5.03)--(7.9,8.52);
 \node[sub,anchor=west,inner sep=1pt] at (7.85,7.3) {$\mathcal F\to\mathcal F/G_{12}$};
 \begin{scope}[shift={(7.6,8.3)}]
-  \path[fill=ColNitrogen!12] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle; \draw[heavy] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle;
+  \path[fill=ColBand] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle; \draw[heavy] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle;
   \coordinate (bx) at (.3,.22); \fill[PlateInk] (bx) circle[radius=1.2pt];
-  \draw[line width=.8pt,draw=ColNitrogen] (bx) .. controls (-.9,.6) and (-.9,-.15) .. (bx);
-  \draw[line width=.8pt,draw=ColOxygen,densely dashed] (bx) .. controls (1.5,-.15) and (1.5,.6) .. (bx);
+  \draw[line width=.8pt,draw=ColTorsion] (bx) .. controls (-.9,.6) and (-.9,-.15) .. (bx);
+  \draw[line width=.8pt,draw=ColUmbrella,densely dashed] (bx) .. controls (1.5,-.15) and (1.5,.6) .. (bx);
   \node[sub,anchor=west,inner sep=1pt] at (1.9,.22) {$V$};
   \foreach \k in {0,1,2} {\pgfmathsetmacro{\ya}{1.15+1.2*\k}\pgfmathsetmacro{\yb}{\ya+.32}
     \path[fill=white] (-1.2,\ya)--(1.2,\ya)--(1.8,\ya+.45)--(-.6,\ya+.45)--cycle; \draw[fine] (-1.2,\ya)--(1.2,\ya)--(1.8,\ya+.45)--(-.6,\ya+.45)--cycle;
@@ -57,7 +57,7 @@
   \draw[bliftl] (pa1) .. controls (1.4,{1.15+1.2+.22+.05}) and (1.4,{1.15+1.2+.32+.22-.05}) .. (pb1);
   \draw[bliftl] (pa0) .. controls (1.4,{1.15+.22+.05}) and (1.4,{1.15+.32+.22-.05}) .. (pb0);
   \draw[lift] (pb0) .. controls (-1.0,{1.15+.32+.22+.8}) and (-1.0,{1.15+2.4+.32+.22-.8}) .. (pb2);
-  \hatomat{pb1}{.075}{ColGold} \hatomat{pb2}{.075}{ColGold}
+  \hatomat{pb1}{.075}{ColDot} \hatomat{pb2}{.075}{ColDot}
 \end{scope}
 \node[head,anchor=west] at (10.7,12.1) {Representations and}; \node[head,anchor=west] at (10.7,11.7) {Global Structure}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,11.48) {\S\S\,10--12\quad charts, sheets and modes; the lifts of the two loops end on different sheets};
 \draw[leader] (10.6,11.9)--(9.5,11.6);

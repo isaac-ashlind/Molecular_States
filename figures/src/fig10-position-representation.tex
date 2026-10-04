@@ -20,8 +20,8 @@
 \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.0+1.5*sin(-60*\s)},{9.4+.55-2*.55*\s-.42*1.5*cos(60*\s)});
 \foreach \a in {-58,58} {\begin{scope}[shift={(2.0,9.4)}]\path[cut] ({1.28*sin(\a)},{.55-.42*1.28*cos(\a)})--({1.72*sin(\a)},{.55-.42*1.72*cos(\a)})--({1.72*sin(\a)},{-.55-.42*1.72*cos(\a)})--({1.28*sin(\a)},{-.55-.42*1.28*cos(\a)})--cycle;
   \draw[fine] ({1.28*sin(\a)},{.55-.42*1.28*cos(\a)})--({1.72*sin(\a)},{.55-.42*1.72*cos(\a)})--({1.72*sin(\a)},{-.55-.42*1.72*cos(\a)})--({1.28*sin(\a)},{-.55-.42*1.28*cos(\a)})--cycle;
-  \draw[ColNitrogen,line width=1.1pt] ({1.5*sin(\a)},{.55-.42*1.5*cos(\a)})--({1.5*sin(\a)},{-.55-.42*1.5*cos(\a)});\end{scope}}
-\foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColGold}}
+  \draw[ColBandLine,line width=1.1pt] ({1.5*sin(\a)},{.55-.42*1.5*cos(\a)})--({1.5*sin(\a)},{-.55-.42*1.5*cos(\a)});\end{scope}}
+\foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColDot}}
 \node[sub,anchor=south] at ($(bd-top0)+(0,.1)$) {$H$}; \node[sub,anchor=north east] at ($(bd-bot300)+(-.04,-.06)$) {$tuH$};
 \node[sub,anchor=south] at (2.0,10.7) {seam $\tau=\pm\pi$};
 \node[sub,anchor=north,text width=3.6cm,align=center] at (2.0,8.05) {the band of figure 6 with two normal slices standing across it};
@@ -29,7 +29,7 @@
 \begin{scope}[shift={(9.9,9.4)}]
   \begin{scope}[x=3.7cm,y=1.35cm]
     \foreach \n/\a/\b/\e/\f in \chartCells {\draw[fine] (\a,\e) rectangle (\b,\f);}
-    \path[fill=ColGold!50] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
+    \path[fill=ColRetained!50] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
     \draw[heavy] (-1,-1) rectangle (1,1);
     \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.2pt] (-1,0)--(1,0);
     \draw[heavy,dash pattern=on 2.4pt off 1.6pt] (-1,-1.08)--(-1,1.08) (1,-1.08)--(1,1.08);
@@ -38,11 +38,11 @@
     \node[lab] at (-.5,-.4) {$tu\,\mathcal U$}; \node[lab] at (.3333,-.5) {$t^2u\,\mathcal U$};
     \draw[tpath] (0,1)--(.64,1);
     \draw[upath] (0,1)--(-.3333,-1);
-    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColGold] (\x,\y) circle[radius=2.1pt];
+    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColDot] (\x,\y) circle[radius=2.1pt];
     \node[sub,anchor=south] at (0,1.14) {$H$}; \node[sub,anchor=south] at (.6667,1.06) {$tH$}; \node[sub,anchor=south] at (-.6667,1.06) {$t^2H$};
     \node[sub,anchor=north west,inner sep=1pt] at (.03,.97) {$q$};
     \node[sub,anchor=north] at (-.3333,-1.1) {$q'=(-\pi/3,-\eta_0)$, $tuH$};
-    \node[sub,anchor=west,text=ColOxygen,inner sep=1pt] at (-.14,0.1) {$T_{tu}$};
+    \node[sub,anchor=west,text=ColUmbrella,inner sep=1pt] at (-.14,0.1) {$T_{tu}$};
     \foreach \x/\l in {-1/{-\pi},.3333/{\pi/3},1/{\pi}} \node[sub,anchor=north] at (\x,-1.1) {$\l$};
     \node[sub,anchor=east] at (-1.04,1) {$\eta_0$}; \node[sub,anchor=east] at (-1.04,0) {$0$}; \node[sub,anchor=east] at (-1.04,-1) {$-\eta_0$};
     \node[sub,anchor=west] at (1.03,.2) {$\eta=0$};
@@ -55,9 +55,9 @@
 \zoombubble{9.9}{10.75}{.14}{13.2}{12.35}{.95}
 \begin{scope}[shift={(13.2,12.35)}]
   \path[cut] (-.42,-.6) rectangle (.42,.6); \draw[heavy] (-.42,-.6) rectangle (.42,.6);
-  \draw[ColNitrogen,line width=1.3pt] (0,-.6)--(0,.6);
-  \hatom{0}{0}{.07}{ColGold}
-  \draw[line width=.8pt,draw=ColOxygen,-{Stealth[length=1.6mm,width=1.3mm]}] (0,0)--(.34,0); \node[sub,anchor=west,inner sep=1pt,fill=white] at (.36,0) {$Q$};
+  \draw[ColBandLine,line width=1.3pt] (0,-.6)--(0,.6);
+  \hatom{0}{0}{.07}{ColDot}
+  \draw[line width=.8pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (0,0)--(.34,0); \node[sub,anchor=west,inner sep=1pt,fill=white] at (.36,0) {$Q$};
   \node[sub,anchor=east,inner sep=1pt,fill=white] at (-.05,.4) {$\eta$};
   \node[sub,anchor=north east,inner sep=1pt,fill=white] at (-.04,-.06) {$q$};
 \end{scope}

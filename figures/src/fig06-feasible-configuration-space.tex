@@ -22,9 +22,9 @@
 \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{11.4+.62-.42*2.15*cos(\a)});
 \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{11.4+.62-2*.62*\s-.42*2.15*cos(60*\s)});
 \draw[fine,fill=white] (tb-top60) circle[radius=.075];
-\foreach \p in {top0,top120,top240} {\hatomat{tb-\p}{.09}{ColGold}}
-\hatomat{tb-bot300}{.09}{ColGold}
-\foreach \p in {bot60,bot180} {\draw[ghost,fill=ColGold!45] (tb-\p) circle[radius=.09];}
+\foreach \p in {top0,top120,top240} {\hatomat{tb-\p}{.09}{ColDot}}
+\hatomat{tb-bot300}{.09}{ColDot}
+\foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (tb-\p) circle[radius=.09];}
 \leaderlabel{4.6}{11.05}{.0}{-.5}{north}{$H$}
 \leaderlabel{6.46}{12.47}{.5}{.35}{west}{$tH$}
 \leaderlabel{2.74}{12.47}{-.45}{.4}{east}{$t^2H$}
@@ -49,7 +49,7 @@
   \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   \draw[ColNitrogen,line width=1.3pt] (0,{\m*.62})--(0,{-\m*.62});
-  \hatom{0}{-\m*.62}{.09}{ColGold}
+  \hatom{0}{-\m*.62}{.09}{ColDot}
   \node[lab,anchor=north,fill=white,inner sep=1pt] at (0,{-\m*.62-.12}) {$tuH$};
   \draw[harrow] (0,.2)--(-.5,.2); \node[lab,anchor=south,inner sep=1pt,fill=white] at (-.28,.27) {$Q$};
   \node[lab,anchor=east,inner sep=1pt,fill=white] at (-.1,{\m*.45}) {$\eta$};
@@ -63,9 +63,9 @@
   \pic[scale=.9] at (8.7,5.2) {newman-tau-60};
   \pic[scale=.9] at (12.1,5.2) {newman-tau-120};
 \end{scope}
-\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,text=ColOxygen,anchor=south] at (3.6,5.28) {$tu$};
-\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,text=ColNitrogen,anchor=south] at (7.0,5.28) {$t$};
-\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,text=ColNitrogen,anchor=south] at (10.4,5.28) {$t$};
+\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,text=ColUmbrella,anchor=south] at (3.6,5.28) {$tu$};
+\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,text=ColTorsion,anchor=south] at (7.0,5.28) {$t$};
+\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,text=ColTorsion,anchor=south] at (10.4,5.28) {$t$};
 \foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\eta=-\eta_0$},5.3/{$H$}/{$\tau=0$, $\eta=\eta_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\eta=\eta_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\eta=\eta_0$}} {
   \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
 % ------------------------------------------------ the images of F inside C
@@ -80,9 +80,9 @@
     \draw[fine,fill=white] (\cx,{\cy+.17}) ellipse[x radius=.5,y radius=.21];
     \draw[fine] (\cx,{\cy+.17}) ellipse[x radius=.33,y radius=.14];
   }
-  \path[fill=ColGold!55] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
+  \path[fill=ColRetained!55] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
   \draw[fine] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
-  \draw[fine,fill=ColGold!55] (1.35,1.12) ellipse[x radius=.5,y radius=.21]; \draw[fine] (1.35,1.12) ellipse[x radius=.33,y radius=.14];
+  \draw[fine,fill=ColRetained!55] (1.35,1.12) ellipse[x radius=.5,y radius=.21]; \draw[fine] (1.35,1.12) ellipse[x radius=.33,y radius=.14];
   \node[tag] at (1.35,.35) {$\mathcal F$};
   \node[tag,anchor=north east] at (14.55,2.9) {$|S/G_{12}|=20$ images of $\mathcal F$; the rest of $\conf$ is cut away};
 \end{scope}

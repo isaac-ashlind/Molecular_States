@@ -7,8 +7,8 @@
   ghost/.style={line width=.5pt,draw=PlateInk,dash pattern=on 1.8pt off 1.4pt},
   cut/.style={pattern={Lines[angle=45,distance=2.6pt,line width=.3pt]},pattern color=PlateInk},
   harrow/.style={heavy,-{Stealth[length=2.2mm,width=1.8mm]}},
-  tpath/.style={line width=.9pt,draw=ColNitrogen,-{Stealth[length=2mm,width=1.6mm]}},
-  upath/.style={line width=.9pt,draw=ColOxygen,densely dashed,-{Stealth[length=2mm,width=1.6mm]}},
+  tpath/.style={line width=.9pt,draw=ColTorsion,-{Stealth[length=2mm,width=1.6mm]}},
+  upath/.style={line width=.9pt,draw=ColUmbrella,densely dashed,-{Stealth[length=2mm,width=1.6mm]}},
   leader/.style={line width=.3pt,draw=PlateInk},
   region/.style={heavy,rounded corners=8pt},
   lab/.style={font=\fontsize{9}{11}\selectfont,inner sep=1pt},
@@ -60,7 +60,7 @@
 % ---- thick tube with a near-side cut-away wedge. Keys: tube/Ro, Ri, H (half height), E (ellipse ratio), a1, a2 (wedge, degrees; tau = 0 faces the viewer).
 % Order: far inner wall, outer wall pieces, cut faces (hatched = cut material), the band in the wedge gap (nearer than the faces),
 % top face as the annulus minus the wedge sector, then the band edge. Named coordinates: -top0 -top120 -top240 (top edge), -bot60 -bot180 -bot300 (bottom edge).
-\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColNitrogen!16,tube/bandfill/.initial=ColNitrogen!10,tube/linecol/.initial=ColNitrogen,
+\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/linecol/.initial=ColBandLine,
   pics/thicktube/.style={code={
     \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
     \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
@@ -113,7 +113,7 @@
 % ---- the band alone (the reference family as an open cylinder surface), same projection as the tube.
 % Keys band/R, band/H (half height), band/E. Far inner half visible through the opening; seam at tau = pi (back) dashed.
 % Named coordinates as for the tube: -top0 -top120 -top240 -bot60 -bot180 -bot300.
-\tikzset{band/R/.initial=1.5,band/H/.initial=.55,band/E/.initial=.42,band/farfill/.initial=ColNitrogen!8,band/nearfill/.initial=ColNitrogen!16,
+\tikzset{band/R/.initial=1.5,band/H/.initial=.55,band/E/.initial=.42,band/farfill/.initial=ColBand,band/nearfill/.initial=ColWall,
   pics/band/.style={code={
     \pgfmathsetmacro{\R}{\pgfkeysvalueof{/tikz/band/R}}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/band/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/band/E}}
     % far half (inside face), lightly tinted, with generatrices crowding toward the silhouettes
