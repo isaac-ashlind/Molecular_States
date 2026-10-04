@@ -90,6 +90,10 @@ Row C: the six versions G12/H, the same positions with the digits moved, positio
 lattice data, generator forms and cover labels computed (compute/, checks/verify.g).
 
 ## Figure 6, feasible configuration space
+The vibrations are the displacements mass-orthogonal to the rotations and to the family's tangent plane: at each
+shape the tangent space of C splits into 3 rotational directions, 2 along the family (tau, iota) and the 13 normal
+ones; the wall's thickness is the reach of those 13, and the zoom's q arrow runs along that normal direction from
+the sheet's edge across the wall.
 The solid F as a short thick tube cut open: band at mid-thickness, tau around, iota along the height, q across the
 wall; one radial thickness stands for the 13 normal coordinates; SO(3) suppressed; the tube's topology is not a
 claim about F; assumed: an embedded tubular neighbourhood and separation of the images. Version positions, the

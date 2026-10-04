@@ -53,10 +53,19 @@
   \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
   \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
-  \path[fill=ColBand] ({-.04*\m},{\m*.62}) rectangle ({.04*\m},{-\m*.62}); \draw[line width=.4pt,draw=PlateInk] ({-.04*\m},{\m*.62})--({-.04*\m},{-\m*.62}) ({.04*\m},{\m*.62})--({.04*\m},{-\m*.62});
+  % the core sheet's cross-section: the same face geometry at the radii Rm -+ bw, so its ends follow the face's slanted edges
+  \pgfmathsetmacro{\Rmo}{2.15+.04}\pgfmathsetmacro{\Rmi}{2.15-.04}
+  \coordinate (s1) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(.62-\E*\Rmi*cos(\fa)-\cy)});
+  \coordinate (s2) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.62-\E*\Rmo*cos(\fa)-\cy)});
+  \coordinate (s3) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmo*cos(\fa)-\cy)});
+  \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmi*cos(\fa)-\cy)});
+  \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[line width=.4pt,draw=PlateInk] (s1)--(s4) (s2)--(s3);
   \hatom{0}{-\m*.62}{.08}{ColDot}
   \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.14}) {$tuH$};
-  \draw[harrow] (0,.2)--(-.40,.2); \node[lab,anchor=east,inner sep=1pt] at (-.72,.2) {$q$};
+  % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
+  \coordinate (qa) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.2-\E*\Rmo*cos(\fa)-\cy)});
+  \coordinate (qb) at ({\m*(2.45*sin(\fa)-\cx)},{\m*(.2-\E*2.45*cos(\fa)-\cy)});
+  \draw[harrow] (qa)--(qb); \node[lab,anchor=east,inner sep=1pt] at ($(qb)+(-.16,-.04)$) {$q$};
   \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\iota$};
 \end{scope}
 \node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
