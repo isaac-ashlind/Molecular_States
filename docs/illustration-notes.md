@@ -239,3 +239,13 @@ numbers with an axis on the lattice, the sphere's K labels on its left, titles a
 Lessons: a label near a point must not sit where projection lines converge; a loop drawn on a thin patch wants
 its name outside the patch; two columns of similar labels side by side read as one misaligned column.
 
+## Round 5: the formatting pass (2026-10-04, evening)
+
+My own close-up of every plate at print size, then two reviewers' lists (about sixty items), applied plate by
+plate with a build and a look after each: labels off edges, lines and dots; leaders and arrows ending where they
+should; one radius, one scale, one baseline for like elements; chart references in grey; the plates' page
+footprints settled (figure 5 full page and filling it; the rest short enough to share a page). Lessons: a reviewer
+with fresh eyes finds the half-millimetre faults the maker stops seeing; the dot radius and the glyph scale drift
+between plates unless written down once; a label placed "beside" a curve must be checked against the curve's
+value there, not its neighbourhood.
+

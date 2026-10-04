@@ -80,3 +80,17 @@ docs/notation-migration.md.
 - Figures 7, 8 and 9 take less room; figure 8's bundles have no end strokes; figure 9's share chart spans the rows
   with the three ratios written at their dots.
 
+## Second review round and the frame parameter (2026-10-04, evening)
+
+- Two bounded reviewers (one per half of the suite) listed small formatting defects; all concrete items were applied
+  (docs/illustration-notes.md, round 5). Declined: recolouring figure 2's components (teal and gold are the approved
+  dual pair there) and the edge-on cut face of the small solid in figure 10 (geometry, not a defect).
+- Conventions fixed by that round: version points radius .08 on every plate; chart references (loci, zero lines,
+  norm curves) fine solid grey, never a dashed or dotted style; a leader starts on the edge of the point it joins;
+  an arrow shaft starts on an atom's silhouette; the same molecule at one scale within a plate.
+- The frame-twist parameter is rho = 1/2, the symmetric (internal-axis) frame of Mellor, Yurchenko, Mant and
+  Jensen, Symmetry 11, 862 (2019), cited in the text; figure 12's twisted labels are the half-integers m + K/2.
+  Numbers on the plates and in the text are written as exact fractions and roots, never as decimals.
+- Plate sizes: a plate shares its page with the prose (at most about two thirds of the text height) or takes the
+  page, which only figure 5 does; floats are no longer barred at subsections, so the prose flows under them.
+

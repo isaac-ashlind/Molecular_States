@@ -46,7 +46,7 @@ base patch of the sheets is unnamed (the quotient is named on the projection, F 
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
 l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (no mark drawn, 0.06 A from
 the oxygen in the upper-left shape, `\waterOxygenOffset`); dotted loci delta = 0 and theta = pi, their intersection
-circled. Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
+circled; the two loci are fine solid grey, the chart-reference style (line styles are kept for actions). Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
 matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
 
 ## Figure 2, ambient Hilbert space
@@ -54,7 +54,7 @@ A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb
 configuration; on each fibre the value Psi(X) as its two components a (teal) and b (gold) in the basis
 |up down> omega, |down up> omega (the text's xi and zeta; zeta replaces the earlier eta, which is the amino
 coordinate elsewhere); three configurations X1, X2, X3 standing on the slice; the component functions
-plotted beneath on the same theta scale with the norm density dotted and the three sampled values as dots. The
+plotted beneath on the same theta scale with the norm density in grey and the three sampled values as dots. The
 state drawn is physical on this slice by the author's choice: rotation-invariant and exchange-antisymmetric, so
 b = -a (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
 forces this; the caption should say the plate shows a physical representative, not a generic one.
@@ -129,7 +129,7 @@ cylinder in a = (tau, iota), cut at the seam tau = +-pi, cut marks), unrolled in
 version points and the two paths (t solid, tu dashed); iota = 0 is the planar amino locus. Middle row: over a point
 a of the chart sit every normal displacement q and every orientation r, drawn as the reconstruction: the shape X0(a),
 the shape displaced along the normal frame X0(a) + sum q e(a) (amplitude 0.42 A along e_-, illustrative, declared;
-its undisplaced ghost beneath), and the result rotated, phi(r,a,q) = R(r)(...) (rotation about (0.3, 1, 0.25) by
+its undisplaced shape beneath as faded solid outlines), and the result rotated, phi(r,a,q) = R(r)(...) (rotation about (0.3, 1, 0.25) by
 55 degrees, illustrative, declared). Bottom row: the two normal directions at a, e_-(a) (the amino twist, hydrogens 4
 and 5 against each other along the axis) and e_+(a) (the C-N stretch, carbon against nitrogen along the axis), on
 the molecule seen from the side (camera azimuth 75, elevation 18, so the C-N axis lies in the page and no methyl

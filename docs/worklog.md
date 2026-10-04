@@ -56,3 +56,12 @@ the author's plate-by-plate round (docs/illustration-notes.md, round 4): cover w
 top left (pitch A of three, tuned), figures 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 reworked to the notes; the parts are
 roman-numbered sections, the sections subsections 1-12; a notation table before the references. Full build,
 manuscript (20 pages) and zip refreshed at each commit; everything pushed to figures-v2.
+
+## 2026-10-04, night: closing entry
+
+References and bibliography compiled into the manuscript (docs/refs.bib, bibtex step in the README recipe); the
+manuscript is self-contained (no legacy motif inputs). The formatting pass (round 5) is applied on all thirteen
+plates; rho = 1/2 with Mellor et al. 2019 cited. Full build clean, all checks pass, no text collisions; the proof
+sheet, previews, figures/pdf and the zip are current; everything is pushed to figures-v2. Open for the author:
+nothing on the list; the next round starts from the author's reading of the draft.
+
