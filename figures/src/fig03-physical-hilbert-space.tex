@@ -15,7 +15,7 @@
 \newcommand\spindn[2]{\draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.4mm,width=1.1mm]}] (#1,#2+.18)--(#1,#2-.18);}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,6.2);
+\path[use as bounding box] (0,0) rectangle (15,5.4);
 % ------------------------------------------------ X, sigma X, -X with their spins
 \begin{scope}[shift={(2.4,4.4)}]\molsolid\mollabelsinside\pic[scale=1.05] at (0,0) {mol3d-water-X};
   \spinup{-1.34}{.61}\spindn{1.05}{.39}\node[lab] at (0,-1.25) {$X$};\end{scope}
@@ -27,9 +27,7 @@
 \draw[harrow] (4.2,4.4)--(5.7,4.4); \node[lab,anchor=south] at (4.95,4.5) {$\sigma=(12)$}; \node[lab,anchor=north] at (4.95,4.3) {$\times\,\stat(\sigma)=-1$};
 \draw[harrow] (9.3,4.4)--(10.7,4.4); \node[lab,anchor=south] at (10.0,4.5) {$E^*$}; \node[lab,anchor=north] at (10.0,4.3) {$\times\,\chi_\pm(E^*)=\pm1$};
 % ------------------------------------------------ what the drawing says, in one line each
-\node[sub,anchor=north,text width=4.2cm,align=center] at (2.4,2.75) {a product value: $\uparrow$ on $1$, $\downarrow$ on $2$, the oxygen spinless};
-\node[sub,anchor=north,text width=4.4cm,align=center] at (7.5,2.75) {same points, same spins, digits moved; a proton exchange changes the sign};
-\node[sub,anchor=north,text width=4.2cm,align=center] at (12.9,2.75) {every column through the origin; parity is a separate sign; planar, so $-X$ is also a rotated copy};
+\node[sub,anchor=north] at (12.9,2.75) {planar, so $-X$ is also a rotated copy};
 
 \end{tikzpicture}
 \end{document}

@@ -25,7 +25,7 @@
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
     \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.75] at ({1.1+2.3*\i},{.9+1.65*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
-  \node[sub,anchor=north west] at (0,-.55) {$r_1=\ell+\delta$, $r_2=\ell-\delta$; every shape centred on its own mass centre, orientation suppressed};
+  \node[sub,anchor=north west] at (0,-.55) {$r_1=\ell+\delta$, $r_2=\ell-\delta$};
 \end{scope}
 % ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
 \begin{scope}\molsolid\mollabelsinside
@@ -46,6 +46,5 @@
 % names under the glyphs
 \node[lab] at (5.4,4.55) {$X$}; \node[lab] at (10.3,4.65) {$RX$}; \node[lab] at (2.85,4.55) {$E^*X=-X$};
 \node[lab] at (5.4,.56) {$XP_\sigma$}; \node[lab] at (10.6,.56) {$RXP_\sigma$};
-\node[sub,anchor=south] at (7.5,.02) {on the left every column turns; on the right the columns move or flip};
 \end{tikzpicture}
 \end{document}

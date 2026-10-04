@@ -20,7 +20,7 @@
   \draw[heavy] (-.2,0)--(9.6,0);
   \node[sub,anchor=west,text width=3.2cm] at (9.9,-.1) {a slice of $\conf$: $\delta=0$, $\theta$ from $80^\circ$ to $180^\circ$};
   \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}\draw[fine] (\x,0)--(\x,2.6);}
-  \node[sub,anchor=south] at (4.7,2.65) {the same $\spin$ over every $X$: on each fibre the value $\Psi(X)$ as its two components $a$, $b$};
+  \node[sub,anchor=south] at (4.7,2.65) {the same $\spin$ over every $X$; on each fibre, $\Psi(X)$ as its components $a$, $b$};
   \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}
     \pgfmathsetmacro{\av}{exp(-((\th-104.5)/14.0)^2/2)}\pgfmathsetmacro{\bv}{-\av}
     \draw[line width=2.2pt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
@@ -46,6 +46,6 @@
   \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.03) {$a$}; \node[lab,anchor=north west,text=ColDualB] at (axis cs:121,-.9) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:118,1.55) {$|a|^2+|b|^2$};
 \end{axis}
 \node[lab,anchor=north west,text width=3.5cm,align=left] at (11.5,4.6) {$\Psi(X)=a(X)\,\xi+b(X)\,\eta$\\[6pt] $\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,dX$};
-\node[sub,anchor=north west,text width=14.4cm] at (.3,.6) {$\xi=\uparrow\downarrow\omega$, $\eta=\downarrow\uparrow\omega$ orthonormal in $\spin$; $b=-a$, so $\Psi=a\,(\xi-\eta)$ is the proton singlet, as exchange requires of a rotation-invariant state on this slice; $a(\theta)$ illustrative; the dots are $\|\Psi(X_k)\|^2$};
+\node[sub,anchor=north west] at (.3,.6) {$b=-a$: the proton singlet $a\,(\xi-\eta)$, as exchange requires here; $a(\theta)$ illustrative; the dots are $\|\Psi(X_k)\|^2$};
 \end{tikzpicture}
 \end{document}
