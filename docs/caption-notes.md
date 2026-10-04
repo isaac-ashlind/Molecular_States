@@ -118,7 +118,8 @@ paths, cut at the seam tau = +-pi (cut marks) and unrolled into the chart [-pi, 
 H-cells computed (chartCells), the reference cell U in pale gold, the same six red points and the two paths (t
 solid, tu dashed); eta = 0 is the planar amino locus. The zoom at q = H is the normal slice, the hatched cut face
 of figure 6, with the band's eta-line (teal) and the coordinate Q across the wall. Below, the two normal
-directions at q, e_-(q) (the amino twist) and e_+(q) (the amino rock), drawn on the molecule with arrows 3x the
+directions at q, e_-(q) (the amino twist, hydrogens 4 and 5 against each other along the axis) and e_+(q) (the C-N
+stretch, carbon against nitrogen along the axis), drawn on the molecule with arrows 3x the
 displacement (mol3d-mla-ref-eminus, -eplus; mass-orthonormal, orthogonal to the family and to the rotations in
 the mass metric). The formulas X0(q) P_tu = A_tu X0(q'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
 

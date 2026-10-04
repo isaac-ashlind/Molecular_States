@@ -2,7 +2,7 @@
 % cylinder in (tau, eta)) is cut at the seam tau = +-pi and unrolled into a chart; the same six version points and
 % the same two paths reappear on the chart, which is partitioned into the six H-cells with the reference cell U;
 % the normal slice at a point q of the band is the hatched cut face of figure 6, carrying Q across the wall; the
-% two normal directions e_-(q), e_+(q) are drawn on the molecule. Colours: red = version points, gold (pale) = the
+% two normal directions e_-(q) (the amino twist) and e_+(q) (the C-N stretch) are drawn on the molecule, arrows 3x. Colours: red = version points, gold (pale) = the
 % reference cell, teal = the band and its eta-line; ink elsewhere, t solid, tu dashed, hidden dotted. Hatch = cut
 % material (the slice). Cells and normal directions computed (compute/, checks/).
 \documentclass[10pt,border=1mm]{standalone}
@@ -57,6 +57,6 @@
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (5.0,3.2) {mol3d-mla-ref-eminus};\end{scope}
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (10.6,3.2) {mol3d-mla-ref-eplus};\end{scope}
 \node[sub,anchor=north,text width=5.2cm,align=center] at (5.0,1.7) {$e_-(q)$, the amino twist};
-\node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$e_+(q)$, the amino rock};
+\node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$e_+(q)$, the C--N stretch};
 \end{tikzpicture}
 \end{document}
