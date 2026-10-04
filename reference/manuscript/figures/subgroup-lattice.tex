@@ -1,0 +1,84 @@
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+  x=1.25cm,
+  y=1.9cm,
+  every node/.style={font=\small, inner sep=2.5pt, fill=white},
+  cover/.style={
+    draw=black!55,
+    line width=.55pt,
+    preaction={draw=white, line width=2.6pt}
+  },
+  selected/.style={
+    draw=black,
+    line width=1.05pt,
+    preaction={draw=white, line width=3.2pt}
+  }
+]
+  \coordinate (H)    at (0,0);
+  \coordinate (Hu)   at (4.75,1);
+  \coordinate (HE)   at (-.7,1);
+  \coordinate (HuStar) at (-2.25,1);
+  \coordinate (G6)   at (2.7,1.585);
+  \coordinate (C)    at (-2.5,2);
+  \coordinate (G12)  at (2.35,2.585);
+  \coordinate (GE)   at (.7,2.585);
+  \coordinate (GuStar) at (-4.3,2.585);
+  \coordinate (B)    at (0,3.585);
+
+  % Fifteen ordinary covers. The two selected covers are drawn last.
+  \draw[cover] (H) -- (Hu);
+  \draw[cover] (H) -- (HE);
+  \draw[cover] (H) -- (HuStar);
+  \draw[cover] (Hu) -- (C);
+  \draw[cover] (HE) -- (C);
+  \draw[cover] (HuStar) -- (C);
+  \draw[cover] (Hu) -- (G12);
+  \draw[cover] (HE) -- (GE);
+  \draw[cover] (HuStar) -- (GuStar);
+  \draw[cover] (G6) -- (GE);
+  \draw[cover] (G6) -- (GuStar);
+  \draw[cover] (C) -- (B);
+  \draw[cover] (G12) -- (B);
+  \draw[cover] (GE) -- (B);
+  \draw[cover] (GuStar) -- (B);
+
+  \draw[selected,draw=figTorsion] (H) -- (G6);
+  \draw[selected,draw=figSeam,densely dashed] (G6) -- (G12);
+
+  \node at (H)   {$H$};
+  \node at (Hu)  {$\langle H,u\rangle$};
+  \node at (HE)  {$\langle H,E^*\rangle$};
+  \node at (HuStar) {$\langle H,u^*\rangle$};
+  \node[text=figTorsion] at (G6)  {$G_6$};
+  \node at (C)   {$\langle H,u,E^*\rangle$};
+  \node[text=figSeam] at (G12) {$G_{12}$};
+  \node at (GE)  {$\langle G_6,E^*\rangle$};
+  \node at (GuStar) {$\langle G_6,u^*\rangle$};
+  \node at (B)   {$B$};
+  % Equal heights indicate equal subgroup order, hence equal version count.
+  \node[font=\scriptsize] at (-6.0,3.92) {versions};
+  \node at (-6.0,0)     {$1$};
+  \node at (-6.0,1)     {$2$};
+  \node at (-6.0,1.585) {$3$};
+  \node at (-6.0,2)     {$4$};
+  \node at (-6.0,2.585) {$6$};
+  \node at (-6.0,3.585) {$12$};
+\end{tikzpicture}
+\par\smallskip
+{\small
+\(\begin{gathered}
+b=(23)(45)^*,\qquad t=(123),\qquad u=(45),\\[3pt]
+H=\langle b\rangle,\qquad
+G_6=\langle H,t\rangle,\qquad
+G_{12}=\langle G_6,tu\rangle,\qquad
+B=\langle G_{12},E^*\rangle.
+\end{gathered}\)\par
+}
+\caption{The bond-preserving subgroup interval for methylamine.
+Numbers at left give $|G/H|$ at each height. The solid teal edge adds
+methyl torsion and the dark dashed edge adds the coupled torsion--inversion
+extension.
+Crossings are not additional nodes.}
+\label{fig:methylamine-lattice}
+\end{figure}

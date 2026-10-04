@@ -1,0 +1,93 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  >={Stealth[length=1.7mm,width=1.3mm]},
+  edge/.style={draw=black!27,line width=.6pt},
+  turn/.style={draw=figTorsion,line width=.85pt,->},
+  orbit/.style={circle,draw=figTorsion,fill=white,
+    line width=.75pt,minimum size=7mm,inner sep=1pt},
+  aone/.style={circle,draw=figAone,fill=white,
+    text=figAone,line width=.65pt,minimum size=6.3mm,inner sep=1pt},
+  eplus/.style={circle,draw=figTorsion,fill=white,
+    text=figTorsion,line width=.65pt,minimum size=6.3mm,inner sep=1pt},
+  eminus/.style={circle,draw=figTorsion,fill=white,
+    text=figTorsion,line width=.65pt,minimum size=6.3mm,inner sep=1pt},
+  zero/.style={circle,draw=black!25,fill=white,text=black!45,
+    line width=.6pt,minimum size=6.3mm,inner sep=1pt}
+]
+  \path[use as bounding box] (-.10,-.15) rectangle (13.75,6.95);
+
+  \node[anchor=west,font=\small\bfseries] at (.10,6.63) {Three versions};
+  \node[anchor=west,font=\small\bfseries] at (4.48,6.63) {Symmetry-adapted patterns};
+
+  % The triangle carries the left permutation action on G_6/H.
+  \coordinate (v0) at (1.67,5.60);
+  \coordinate (v1) at (.47,3.75);
+  \coordinate (v2) at (2.87,3.75);
+  \draw[turn] (v0) to[bend right=16] node[left,inner sep=2pt] {$t$} (v1);
+  \draw[turn] (v1) to[bend right=16] node[below,inner sep=2pt] {$t$} (v2);
+  \draw[turn] (v2) to[bend right=16] node[right,inner sep=2pt] {$t$} (v0);
+  \draw[black!22,densely dashed] (1.67,3.37)--(1.67,5.93);
+  \node[orbit] at (v0) {$H$};
+  \node[orbit] at (v1) {$tH$};
+  \node[orbit] at (v2) {$t^2H$};
+  \node[text=black!65,align=center] at (1.67,2.88)
+    {$b$ fixes $H$\\and exchanges $tH,t^2H$};
+
+  \draw[->,black!50,line width=.8pt] (3.42,4.58)--(4.07,4.58);
+
+  % Patterns are listed in the order (H,tH,t^2H).
+  \node[text=figAone] at (5.80,6.03) {$\mathrm A_1$};
+  \draw[edge] (5.80,5.48)--(5.10,4.27)--(6.50,4.27)--cycle;
+  \node[aone] at (5.80,5.48) {$1$};
+  \node[aone] at (5.10,4.27) {$1$};
+  \node[aone] at (6.50,4.27) {$1$};
+  \node at (5.80,3.58) {$\dfrac{(1,1,1)}{\sqrt3}$};
+
+  \node[text=figTorsion] at (10.55,6.03) {$\mathrm E$};
+  \draw[figTorsion!75,line width=.55pt]
+    (8.05,5.88)--(8.05,6.03)--(10.10,6.03);
+  \draw[figTorsion!75,line width=.55pt]
+    (11.00,6.03)--(13.05,6.03)--(13.05,5.88);
+  \draw[edge] (8.97,5.48)--(8.27,4.27)--(9.67,4.27)--cycle;
+  \node[eplus] at (8.97,5.48) {$2$};
+  \node[eminus] at (8.27,4.27) {$-1$};
+  \node[eminus] at (9.67,4.27) {$-1$};
+  \node at (8.97,3.58) {$\dfrac{(2,-1,-1)}{\sqrt6}$};
+
+  \draw[edge] (12.12,5.48)--(11.42,4.27)--(12.82,4.27)--cycle;
+  \node[zero] at (12.12,5.48) {$0$};
+  \node[eplus] at (11.42,4.27) {$1$};
+  \node[eminus] at (12.82,4.27) {$-1$};
+  \node at (12.12,3.58) {$\dfrac{(0,1,-1)}{\sqrt2}$};
+
+  % The data distinguish irrep dimension, spatial multiplicity, and spin weight.
+  \path[rounded corners=3pt,fill=black!3]
+    (4.43,-.08) rectangle (13.61,2.65);
+  \node[align=center] at (5.08,2.24) {species};
+  \node[align=center] at (6.63,2.24) {irrep\\dimension};
+  \node[align=center] at (8.23,2.24) {local\\copies};
+  \node[align=center] at (10.22,2.24) {spin weight\\even parity};
+  \node[align=center] at (12.41,2.24) {spin weight\\odd parity};
+  \draw[black!17,line width=.5pt] (4.63,1.78)--(13.41,1.78);
+  \foreach \y/\species/\dimension/\copies/\even/\odd in {
+    1.42/{\mathrm A_1}/1/1/12/4,
+     .86/{\mathrm A_2}/1/0/4/12,
+     .30/{\mathrm E}/2/1/8/8
+  }{
+    \node at (5.08,\y) {$\species$};
+    \node at (6.63,\y) {$\dimension$};
+    \node at (8.23,\y) {$\copies$};
+    \node at (10.22,\y) {$\even$};
+    \node at (12.41,\y) {$\odd$};
+  }
+  \node[align=center,text=black!65] at (1.67,1.41)
+    {one uniform mode\\and one $\mathrm E$ pair};
+\end{tikzpicture}
+\caption{Three scalar version states give one $\mathrm A_1$ mode and
+one $\mathrm E$ pair. Spin weights count the five proton spins at
+fixed total inversion parity.}
+\label{fig:version-species}
+\end{figure}

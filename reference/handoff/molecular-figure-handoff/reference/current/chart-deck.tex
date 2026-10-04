@@ -1,0 +1,58 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+  card/.style={draw=figMuted,line width=.5pt},
+  wall/.style={draw=figMuted,densely dashed,line width=.5pt},
+  arrow/.style={-{Stealth[length=1.8mm]},draw=figMuted,line width=.65pt}]
+  \path[use as bounding box] (-.1,-.4) rectangle (14.45,5.9);
+  \node[anchor=west,font=\small\bfseries] at (0,5.6) {(a) The same tube};
+  \node[anchor=west,font=\small\bfseries] at (4.5,5.6) {(b) Six cells};
+  \node[anchor=west,font=\small\bfseries] at (8.5,5.6) {(c) Laid out};
+  \pic[scale=1.03] at (1.9,2.60) {versiontube};
+  \node[text=figTeal] at (1.9,1.15) {$\mathcal F$};
+  \node[font=\scriptsize,text=figMuted] at (1.9,.72)
+    {from Fig.~\ref{fig:feasible-carving}};
+  \draw[arrow] (3.65,3.05)--(4.25,3.05);
+
+  \foreach \y/\version/\shade in {
+    1.3/H/figTeal!13,1.87/tH/figInk!4,2.44/t^2H/figInk!8,
+    3.01/uH/figInk!4,3.58/tuH/figInk!8,4.15/t^2uH/figInk!12} {
+    \path[card,fill=\shade]
+      (4.55,\y)--(6.65,\y)--(7.15,\y+.32)--(5.05,\y+.32)--cycle;
+    \node[font=\scriptsize] at (5.85,\y+.16) {$\version$};
+  }
+  \node at (5.85,.72) {$G_{12}\times_H\mathcal U$};
+  \draw[arrow] (7.35,3.05)--(8.0,3.05);
+
+  % Cut the tube along a meridian. The upper versions are staggered.
+  \fill[figTeal!13] (8.45,2.10) rectangle (10.35,3.13);
+  \fill[figInk!4] (10.35,2.10) rectangle (12.25,3.13);
+  \fill[figInk!8] (12.25,2.10) rectangle (14.15,3.13);
+  \fill[figInk!8] (8.45,3.13) rectangle (9.40,4.16);
+  \fill[figInk!12] (9.40,3.13) rectangle (11.30,4.16);
+  \fill[figInk!4] (11.30,3.13) rectangle (13.20,4.16);
+  \fill[figInk!8] (13.20,3.13) rectangle (14.15,4.16);
+  \draw[card] (8.45,2.10) rectangle (14.15,4.16);
+  \draw[wall] (8.45,3.13)--(14.15,3.13);
+  \foreach \x in {10.35,12.25} \draw[wall] (\x,2.10)--(\x,3.13);
+  \foreach \x in {9.40,11.30,13.20} \draw[wall] (\x,3.13)--(\x,4.16);
+  \foreach \x/\version in {9.40/H,11.30/tH,13.20/t^2H}
+    \node at (\x,2.64) {$\version$};
+  \foreach \x/\version in {8.92/tuH,10.35/t^2uH,12.25/uH,13.68/tuH}
+    \node[font=\scriptsize] at (\x,3.66) {$\version$};
+  \node[font=\scriptsize,text=figGold] at (11.3,4.63) {umbrella $+1$};
+  \node[font=\scriptsize,text=figGold] at (11.3,1.76) {$-1$};
+  \draw[arrow,figTeal] (9.2,1.25)--node[above,font=\scriptsize] {torsion} (13.4,1.25);
+  \draw[arrow,dashed,rounded corners=5pt]
+    (14.15,2.10)--(14.15,.50)--(8.45,.50)--(8.45,2.10);
+  \node[fill=white,font=\scriptsize,inner sep=3pt] at (11.3,.50) {identify the ends};
+  \node at (11.3,-.12) {$(G_{12}\times_H\mathcal U)/{\sim}\cong\mathcal F$};
+\end{tikzpicture}
+\caption{The six versions of Fig.~\ref{fig:feasible-carving}, carried
+from the tube into cells. Teal marks the reference cell $\mathcal U$.
+The laid-out tube retains the staggered version positions, with the
+$tuH$ cell split across the end seam. Dashed walls carry coordinate
+transitions, including the suppressed orientation and normal coordinates.
+Fig.~\ref{fig:monodromy} resolves two local covering sheets within each cell.}
+\label{fig:chart-deck}
+\end{figure}

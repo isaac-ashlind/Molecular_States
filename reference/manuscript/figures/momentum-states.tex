@@ -1,0 +1,71 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\small,
+  >={Stealth[length=1.7mm,width=1.3mm]},
+  aone/.style={draw=figAone,fill=white,text=figAone,
+    rounded corners=3pt,line width=.65pt,minimum width=1.05cm,
+    minimum height=.60cm,inner sep=2pt},
+  atwo/.style={draw=figAtwo,fill=white,text=figAtwo,
+    rounded corners=3pt,line width=.65pt,minimum width=1.05cm,
+    minimum height=.60cm,inner sep=2pt},
+  paired/.style={draw=figEtwo,fill=white,
+    rounded corners=3pt,line width=.65pt}
+]
+  \path[use as bounding box] (-.12,-.10) rectangle (13.72,6.08);
+
+  \node[anchor=west,font=\small\bfseries] at (.10,5.76) {Integer Fourier labels};
+  \draw[->,black!40,line width=.65pt] (.33,4.52)--(13.43,4.52);
+  \node[anchor=west] at (13.47,4.52) {$m$};
+  \foreach \m in {-6,-5,...,6}{
+    \pgfmathsetmacro{\mx}{6.75+\m}
+    \draw[black!40,line width=.5pt] (\mx,4.43)--(\mx,4.61);
+    \fill[black!65] (\mx,4.52) circle[radius=2.25pt];
+    \node at (\mx,4.14) {$\m$};
+  }
+  \draw[<->,black!52,line width=.65pt]
+    (5.75,4.75) to[bend left=25]
+    node[midway,above,inner sep=2pt] {$b$} (7.75,4.75);
+  \node[anchor=east,text=black!65] at (13.22,5.24)
+    {$m\longleftrightarrow -m$};
+
+  \node[anchor=west,font=\small\bfseries] at (.10,3.42) {Real modes and species};
+  \node[anchor=east] at (1.35,2.82) {$|m|$};
+  \node[anchor=east] at (1.35,2.05) {$\cos(m\tau)$};
+  \node[anchor=east] at (1.35,.79) {$\sin(m\tau)$};
+  \foreach \m in {0,1,...,6}{
+    \pgfmathsetmacro{\mx}{2.13+1.66*\m}
+    \node at (\mx,2.82) {$\m$};
+  }
+
+  % The constant is a single A1 state. There is no sine partner at m=0.
+  \node[aone] at (2.13,2.05) {$\mathrm A_1$};
+  \node[text=black!35] at (2.13,.79) {$0$};
+
+  % For |m| not divisible by three, the cosine and sine span ONE E irrep.
+  \foreach \m in {1,2,4,5}{
+    \pgfmathsetmacro{\mx}{2.13+1.66*\m}
+    \path[paired] ({\mx-.54},.42) rectangle ({\mx+.54},2.42);
+    \draw[figEtwo!60,line width=.5pt] (\mx,.80)--(\mx,2.04);
+    \fill[figEtwo] (\mx,2.05) circle[radius=2.05pt];
+    \fill[figEtwo] (\mx,.79) circle[radius=2.05pt];
+    \node[fill=white,text=figEtwo,inner sep=3pt]
+      at (\mx,1.42) {$\mathrm E$};
+  }
+
+  % For nonzero |m| divisible by three, t acts trivially and b separates parity.
+  \foreach \m in {3,6}{
+    \pgfmathsetmacro{\mx}{2.13+1.66*\m}
+    \node[aone] at (\mx,2.05) {$\mathrm A_1$};
+    \node[atwo] at (\mx,.79) {$\mathrm A_2$};
+  }
+  \node[anchor=west,text=black!60] at (1.60,-.04)
+    {each connected column is one $\mathrm E$ pair};
+\end{tikzpicture}
+\caption{Periodic torsion modes grouped into species of $G_6$.
+The constant belongs to $\mathrm A_1$. For each nonzero multiple of
+three, the cosine and sine belong to $\mathrm A_1$ and $\mathrm A_2$.
+Every other pair spans $\mathrm E$.}
+\label{fig:torsion-momentum}
+\end{figure}

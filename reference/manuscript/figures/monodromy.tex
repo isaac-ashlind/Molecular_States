@@ -1,0 +1,103 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  x=1cm,y=1cm,font=\small,
+  line cap=round,line join=round,
+  arrow/.style={-{Stealth[length=1.8mm]},line width=.8pt},
+  torsion/.style={arrow,draw=figTeal},
+  flip/.style={arrow,draw=figGold,dashed},
+  card/.style={draw=figMuted,line width=.5pt},
+  note/.style={font=\scriptsize,text=figMuted,align=center}
+]
+  \path[use as bounding box] (-.1,-.25) rectangle (14.35,7.05);
+  \node[anchor=west,font=\small\bfseries] at (0,6.8)
+    {(a) Components};
+  \node[anchor=west,font=\small\bfseries] at (4.9,6.8)
+    {(b) Sheets within cells};
+  \node[anchor=west,font=\small\bfseries] at (9.5,6.8)
+    {(c) Two loop orders};
+
+  % Reuse the same tube, with orientation and normal coordinates suppressed.
+  \fill[figInk!3,rounded corners=6pt] (0,2.5) rectangle (4.2,6.35);
+  \node[anchor=west] at (.2,6.05) {$\conf$};
+  \pic[scale=.90,transform shape] at (2.0,3.85) {versiontube};
+  \node[text=figTeal] at (2.0,6.05) {$\mathcal F$};
+  \foreach \x/\y in {.7/2.93} {
+    \draw[figLine,fill=white] (\x-.27,\y+.12)--(\x-.27,\y-.12)
+      arc[start angle=180,end angle=360,x radius=.27cm,y radius=.1cm]
+      --(\x+.27,\y+.12);
+    \draw[figLine,fill=white] (\x,\y+.12)
+      ellipse[x radius=.27cm,y radius=.1cm];
+  }
+  \node[note] at (1.4,2.91) {$s\mathcal F$};
+  \node[note] at (2.1,2.13) {the same six versions};
+  \node at (2.1,1.68) {$S/H\longrightarrow S/G_{12}$};
+
+  % Each version cell contains two local lifts near the reference orbit.
+  \foreach \y in {2.15,2.83,3.51,4.19,4.87,5.55} {
+    \fill[figInk!4,rounded corners=3pt]
+      (4.9,\y-.08) rectangle (7.87,\y+.59);
+  }
+  \fill[figTeal!13,rounded corners=3pt] (4.9,2.07) rectangle (7.87,2.74);
+  \foreach \y/\sheet in {
+    2.15/E,2.47/b,2.83/t,3.15/tb,3.51/t^2,3.83/t^2b,
+    4.19/u,4.51/ub,4.87/tu,5.19/tub,5.55/t^2u,5.87/t^2ub} {
+    \path[card,fill=white]
+      (5.05,\y)--(7.25,\y)--(7.75,\y+.20)--(5.55,\y+.20)--cycle;
+    \fill[figGold] (5.80,\y+.10) circle[radius=.8pt];
+    \node[font=\tiny,anchor=west,inner sep=0pt]
+      at (6.05,\y+.10) {$\sheet X$};
+  }
+  \foreach \y/\version in {2.15/H,2.83/tH,3.51/t^2H,4.19/uH,4.87/tuH,5.55/t^2uH} {
+    \draw[figMuted] (7.94,\y)--(8.06,\y)--(8.06,\y+.52)--(7.94,\y+.52);
+    \node[anchor=west,font=\scriptsize] at (8.12,\y+.26) {$\version$};
+  }
+  \draw[arrow,figMuted] (6.35,1.98)--node[right,font=\scriptsize] {quotient} (6.35,1.65);
+  \draw[figMuted,fill=figInk!3]
+    (6.35,1.15) ellipse[x radius=1.24cm,y radius=.43cm];
+  \node[font=\scriptsize] at (7.12,1.16) {$V$};
+  \fill[figInk] (6.00,1.15) circle[radius=1.2pt];
+  \node[below,font=\scriptsize] at (6.00,1.10) {$[X]$};
+  \node at (6.35,.36) {$\mathcal F/G_{12}$};
+  \node[note] at (2.1,.95) {$X$ and $gX$ become\\the same point downstairs};
+  \draw[arrow,figLine] (3.95,1.15)--(4.85,1.15);
+
+  % Lift a t-loop and a b-loop successively from X.
+  % With the left G action upstairs, continuation acts on labels
+  % by right multiplication: s -> st or s -> sb.
+  \node (e1) at (9.7,5.60) {$X$};
+  \node (t1) at (11.65,5.60) {$tX$};
+  \node[text=figGold] (tb) at (13.70,5.60) {$tbX$};
+  \draw[torsion] (e1)--node[above] {$t$} (t1);
+  \draw[flip] (t1)--node[above] {$b$} (tb);
+
+  \node (e2) at (9.7,4.16) {$X$};
+  \node (b1) at (11.65,4.16) {$bX$};
+  \node[text=figTeal] (bt) at (13.70,4.16) {$btX$};
+  \draw[flip] (e2)--node[above] {$b$} (b1);
+  \draw[torsion] (b1)--node[above] {$t$} (bt);
+
+  \node at (11.75,3.22) {$btX=t^2bX\ne tbX$};
+  \node[note] at (11.75,2.54) {same start, different endpoints};
+
+  % The two loops share a basepoint in the quotient.
+  \coordinate (base) at (11.7,1.10);
+  \draw[torsion] (base)
+    .. controls (10.10,2.40) and (10.05,.02) .. (base);
+  \draw[flip] (base)
+    .. controls (13.30,.02) and (13.35,2.40) .. (base);
+  \fill[figInk] (base) circle[radius=1.2pt];
+  \node[below,font=\scriptsize] at (11.7,1.03) {$[X]$};
+  \node[text=figTeal] at (10.35,1.52) {$t$};
+  \node[text=figGold] at (13.05,1.52) {$b$};
+  \node[note] at (11.7,.13) {loops downstairs, lifts above};
+\end{tikzpicture}
+\caption{The $G_{12}$ tube and version cells of Fig.~\ref{fig:chart-deck},
+now viewed through a free covering. Each cell contains two local
+sheets over a small quotient neighborhood $V$. Orientations and normal
+coordinates are suppressed in the tube only. Loops $t,b$ lift from
+$X$ to $tX,bX$. Continuing from $sX$ ends at $stX,sbX$, so order matters.
+Loop continuation acts on the right of the sheet label, while deck
+transformations act on the left.}
+\label{fig:monodromy}
+\end{figure}

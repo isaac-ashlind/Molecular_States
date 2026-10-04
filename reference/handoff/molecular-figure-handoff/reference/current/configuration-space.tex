@@ -1,0 +1,69 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+  >={Stealth[length=1.8mm]},line cap=round,line join=round,
+  oxygen/.style={circle,draw=figOxygen!80!black,fill=figOxygen,
+    text=white,minimum size=4mm,inner sep=0pt,font=\scriptsize},
+  hydrogen/.style={circle,draw=figInk!70,fill=figHydrogen,
+    text=figInk,minimum size=4mm,inner sep=0pt,font=\scriptsize}]
+\path[use as bounding box] (-.1,-.95) rectangle (15.9,8.85);
+% Exact shape coordinates with r_1+r_2=2 ell. Glyph sizes are illustrative.
+\fill[figTeal!10] (7.78,.60) rectangle (8.62,7.70);
+\fill[figOxygen!8] (1.2,7.20) rectangle (15.1,7.80);
+\draw[figOxygen!85!black,line width=.85pt] (1.2,7.5)--(15.1,7.5);
+\draw[figInk!65,rounded corners=5pt,line width=.55pt]
+  (7.05,7.13) rectangle (9.35,7.83);
+\node[font=\scriptsize,align=center] at (8.2,8.52)
+  {linear and equal bonds};
+\draw[figMuted,line width=.45pt] (8.2,8.26)--(8.2,7.85);
+\draw[figTeal!80!black,densely dashed,line width=.8pt]
+  (8.2,.60)--(8.2,7.45);
+\foreach \yy in {1.1,2.7,4.3,5.9,7.5}
+  \draw[figLine!70,line width=.4pt] (1.2,\yy)--(15.1,\yy);
+\foreach \xx in {2.4,5.3,8.2,11.1,14.0}
+  \draw[figLine!70,line width=.4pt] (\xx,.6)--(\xx,7.5);
+\draw[figInk!75,->,line width=.65pt] (1.2,.6)--(15.45,.6);
+\draw[figInk!75,->,line width=.65pt] (1.2,.6)--(1.2,7.95);
+\node at (1.2,8.17) {$\theta$};
+\node[anchor=west] at (15.5,.6) {$\delta$};
+\foreach \yy/\lab in {1.1/{\pi/3},2.7/{\pi/2},4.3/{2\pi/3},5.9/{5\pi/6},7.5/{\pi}} {
+  \draw[figInk!75,line width=.5pt] (1.12,\yy)--(1.2,\yy);
+  \node[anchor=east,inner sep=5pt] at (1.12,\yy) {$\lab$};
+}
+\foreach \xx/\lab in {2.4/{-\ell/2},5.3/{-\ell/4},8.2/0,11.1/{\ell/4},14.0/{\ell/2}} {
+  \draw[figInk!75,line width=.5pt] (\xx,.6)--(\xx,.52);
+  \node[anchor=north,inner sep=5pt] at (\xx,.52) {$\lab$};
+}
+\node[text=figTorsion,font=\scriptsize] at (8.2,-.50) {equal bonds};
+\node[anchor=west,text=figMuted,font=\scriptsize,fill=white,inner sep=2pt]
+  at (1.47,7.88) {linear configurations};
+\node[anchor=east,font=\scriptsize] at (15.05,7.95)
+  {$r_1=\ell+\delta,\quad r_2=\ell-\delta$};
+% Horizontal spacing is affine in delta; vertical spacing is affine in theta.
+% Each glyph is an exact bond-length/bend drawing, up to display scale.
+\foreach \xx/\deltaRatio in {2.4/-.5,5.3/-.1,8.2/0,11.1/.25,14.0/.5} {
+  \foreach \yy/\angle in {1.1/60,2.7/90,4.3/120,5.9/150,7.5/180} {
+    \begin{scope}[shift={(\xx,\yy)}]
+      \pgfmathsetmacro{\bondone}{.9*(1+\deltaRatio)}
+      \pgfmathsetmacro{\bondtwo}{.9*(1-\deltaRatio)}
+      \coordinate (Hone) at ({-\bondone*sin(\angle/2)},{\bondone*cos(\angle/2)});
+      \coordinate (Htwo) at ({\bondtwo*sin(\angle/2)},{\bondtwo*cos(\angle/2)});
+      \draw[figInk,line width=.8pt] (Hone)--(0,0)--(Htwo);
+      \node[oxygen] at (0,0) {$\mathrm O$};
+      \node[hydrogen] at (Hone) {$\mathrm H_1$};
+      \node[hydrogen] at (Htwo) {$\mathrm H_2$};
+    \end{scope}
+  }
+}
+\end{tikzpicture}
+\caption{A two-coordinate water family in $\conf$, with each
+configuration centered at its mass center. Fix $r_1+r_2=2\ell$ and vary
+$\delta=(r_1-r_2)/2$ and the bond angle $\theta$.
+At $\delta=0$, exchanging the hydrogens is equivalent to a rigid rotation.
+The linear boundary $\theta=\pi$ admits rotations about the molecular
+axis that fix every nucleus. Both symmetries occur at their intersection.
+See Section~\ref{sec:feasible-regimes} for orbit stabilizers and
+Section~\ref{sec:position-coordinates} for the axial redundancy of
+linear configurations. Overall orientation is suppressed.}
+\label{fig:configuration-orbit}
+\end{figure}

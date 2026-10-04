@@ -1,0 +1,33 @@
+{
+  "passed": [
+    "group orders",
+    "generator extension",
+    "coset counts",
+    "bond interval and covers",
+    "spin weights and dimension sum",
+    "coefficient orthogonality",
+    "Gaussian sum rule"
+  ],
+  "spin_weights": {
+    "1": {
+      "A1": 12,
+      "A2": 4,
+      "E": 8
+    },
+    "-1": {
+      "A1": 4,
+      "A2": 12,
+      "E": 8
+    }
+  },
+  "not_verified": [
+    "reference geometry",
+    "global normal topology",
+    "cell partitions",
+    "covering domain",
+    "seam/Wigner conventions",
+    "other molecule tables",
+    "LaTeX compilation",
+    "renders"
+  ]
+}

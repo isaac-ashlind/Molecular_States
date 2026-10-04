@@ -1,0 +1,142 @@
+[
+  {
+    "file": "reference/slides/slides_Page_21-13.jpg",
+    "sha256": "f82fafcaffd7764d7e9a7efc447921055901620cafdfda0dd34fb28f93610e44"
+  },
+  {
+    "file": "reference/slides/slides_Page_16-8.jpg",
+    "sha256": "72978abd55cf980bc21ab1c3d7339de1116213fd35684290f5df0d07c9487cb9"
+  },
+  {
+    "file": "reference/current/localized-states.tex",
+    "sha256": "9898cbacd133a50f51688cfb420ab00426b12c22eda683080bd78466da764cc0"
+  },
+  {
+    "file": "reference/current/configuration-space.tex",
+    "sha256": "1b592c06981addc995eb7f96d697f01bea1b07ab538e36752f27f38c27a7494b"
+  },
+  {
+    "file": "reference/slides/slides_Page_01-23.jpg",
+    "sha256": "a9c059d8c5438e57a7dae04893a6edd0ee58b665822132d9b07b9563933bab53"
+  },
+  {
+    "file": "reference/slides/slides_Page_02-22.jpg",
+    "sha256": "9328b578a6d93b6817408f3eba3e0b064c6ab30d7547692538630427ef2df73f"
+  },
+  {
+    "file": "reference/current/frames-and-gluing.tex",
+    "sha256": "d246803af02c1eb19282d140e09967f4a5c7e1eadd39e04727a25639759a5537"
+  },
+  {
+    "file": "reference/slides/slides_Page_03-14.jpg",
+    "sha256": "0d66b7f9e90ef49632fb724c67e1b204648c68ad8d0182987e054afc6661994c"
+  },
+  {
+    "file": "reference/slides/slides_Page_14-6.jpg",
+    "sha256": "6644de1b710951b04047b6be0cd239f2c7f14c075fede52cde1083d80f079cd1"
+  },
+  {
+    "file": "reference/current/feasible-space.tex",
+    "sha256": "e467dc2c2fbbd941e62c83f9e6d2ab9771fb31d7adc7e519b46c7bf690ab71eb"
+  },
+  {
+    "file": "reference/slides/slides_Page_12-4.jpg",
+    "sha256": "389591295736a733794a10e80e8d478a55181b63ec3adc8922f270f4b795a2ea"
+  },
+  {
+    "file": "reference/slides/slides_Page_10-21.jpg",
+    "sha256": "034911a56ae7c0d0d064c3becda56dd29b7d54ea0c3576fa4e98f56130f161a9"
+  },
+  {
+    "file": "reference/slides/slides_Page_15-7.jpg",
+    "sha256": "1903eaf9a464d4b9a5ac7e65645f3c9f1d7072ace70d847f19c17171561a33c4"
+  },
+  {
+    "file": "reference/slides/slides_Page_05-16.jpg",
+    "sha256": "a52b7a1ea36b98f13ae61dc2294409c92da605a60fbc33e6e8ecaecee7f6fb56"
+  },
+  {
+    "file": "reference/older/paper.pdf",
+    "sha256": "86779f2bfd29f9278b4abaf5d3c7909dd518aee92f51f4b5b67272e4921af79e"
+  },
+  {
+    "file": "reference/slides/slides_Page_07-18.jpg",
+    "sha256": "ff7c896a266cf081e3abf9d2d426b69fea80adb7ee27714ace07bcc11d311148"
+  },
+  {
+    "file": "reference/slides/slides_Page_04-15.jpg",
+    "sha256": "e4502f01b691b5240210ee8e4a61ba1d16966c8408aaa522553a4c5b502846af"
+  },
+  {
+    "file": "reference/current/internal-rotation.tex",
+    "sha256": "a3f61fc8b154c7c748b67ac2414d9e807ca00572681c0e9b7597c7c0b0ee6886"
+  },
+  {
+    "file": "reference/current/Molecular_State_Space-26.pdf",
+    "sha256": "ac1857b265ab18bfcd012070fe92fdfadd5846161d6a8f8d7af7ad18256f6613"
+  },
+  {
+    "file": "reference/current/exchange-statistics.tex",
+    "sha256": "707c35b4822ba60bd968ff67b2cf88eddbc04f44a519c1fb07003b349ce37fd1"
+  },
+  {
+    "file": "reference/slides/slides_Page_19-11.jpg",
+    "sha256": "af022bd91a57532da893d90ccd8feaa6ef9dceea7e93677a4cc30deb15c9f36f"
+  },
+  {
+    "file": "reference/current/colors.tex",
+    "sha256": "0b4cce89124321e33f9e28b3c6d0d12458b05222f0cdc96e9704c1daf0dc908d"
+  },
+  {
+    "file": "reference/current/chart-deck.tex",
+    "sha256": "019edb1940457148cd76a48094373687604b2adcc9c697161a7db810dd00868f"
+  },
+  {
+    "file": "reference/slides/slides_Page_18-10.jpg",
+    "sha256": "ed9ee2bee7a21943c05c00529342cd2fab3f4f45ba24086ada9369e8ec45f6b8"
+  },
+  {
+    "file": "reference/slides/slides_Page_17-9.jpg",
+    "sha256": "393bff265fde832891a84b0bca82950eb48f5049ebd14c28b1004878757e770d"
+  },
+  {
+    "file": "reference/current/basis-charts.tex",
+    "sha256": "bc64469377aa5eff76770740a43386caea7148d684a69380905bf7a8de6c383e"
+  },
+  {
+    "file": "reference/slides/slides_Page_11-3.jpg",
+    "sha256": "ec2d67f2e5652e4e35927cd05f18e49bbb9074b19c3af90f59a0e1b6e45fd10a"
+  },
+  {
+    "file": "reference/slides/slides_Page_20-12.jpg",
+    "sha256": "55e5600c7e46edbdd310aa0793be0b7859bec82d1d08f240c8e20d7e75ca7675"
+  },
+  {
+    "file": "reference/current/methylamine-labels.tex",
+    "sha256": "944b511037e5d5d23a72abfc22e5850f02d6318e507a3d8772eee5e395ddcf3a"
+  },
+  {
+    "file": "reference/older/slides-2.pdf",
+    "sha256": "1dd59096cdd017951888a5516fce64b754322d66fd77c9fa085f8bb3c7619ab8"
+  },
+  {
+    "file": "reference/current/geometric-abstract.tex",
+    "sha256": "40d284fa8c60179aa6c360de0c7e6ebbf581e2fb1072be695c6285c60960b98a"
+  },
+  {
+    "file": "reference/slides/slides_Page_08-19.jpg",
+    "sha256": "c780cec10e006bac73e632ab5427efd0b1be5b5c67c19900bbf2b79a2fad72b1"
+  },
+  {
+    "file": "reference/slides/slides_Page_06-17.jpg",
+    "sha256": "785ec66b269dc8bb23e554d3263bef6212f5d6914cdc5afb129afbe058113a8a"
+  },
+  {
+    "file": "reference/slides/slides_Page_09-20.jpg",
+    "sha256": "a664af322c9b6ea85f813d4e5f7e2799591ecf013f7fdb7f04f32086a5de9e83"
+  },
+  {
+    "file": "reference/slides/slides_Page_13-5.jpg",
+    "sha256": "f3ffad33997d5b6d2b1f924a5447d0ca5927a0422212972a706c79b51c8ab03d"
+  }
+]

@@ -1,0 +1,136 @@
+% A geometric synopsis, indexed by section range.
+% Nuclear colors follow the manuscript's chemistry palette.
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,
+  line cap=round,line join=round,
+  stageheading/.style={font=\footnotesize\bfseries,anchor=west},
+  note/.style={font=\scriptsize,text=figMuted,align=center},
+  flow/.style={-{Stealth[length=2mm]},draw=figMuted,line width=.7pt},
+  pics/nucleiset/.style={code={
+    \foreach \x/\y in {-.85/-.30,-.85/.30,-.30/.55,.85/.30,.85/-.30}
+      \draw[figInk,fill=figHydrogen,line width=.45pt]
+        (\x,\y) circle[radius=.075cm];
+    \fill[figCarbon] (-.30,0) circle[radius=.105cm];
+    \fill[figNitrogen] (.30,0) circle[radius=.105cm];
+  }}]
+  \path[use as bounding box] (0,.2) rectangle (14.4,11.3);
+
+  % 1. Configurations carry spin vectors before a molecular grouping is chosen.
+  \node[stageheading] at (.1,10.95) {\S\S\,1--3\quad Nuclei and spin};
+  \path[fill=figInk!3,rounded corners=12pt]
+    (.1,7.30) rectangle (6.55,8.70);
+  \node at (.45,8.43) {$\conf$};
+  \pic[scale=.66,rotate=20] at (1.2,7.95) {nucleiset};
+  \pic[scale=.66] at (3.35,7.95) {nucleiset};
+  \pic[scale=.66,rotate=-40] at (5.5,7.95) {nucleiset};
+  \node[note] at (1.2,7.48) {$X_1$};
+  \node[font=\scriptsize] at (3.35,7.48) {$X$};
+  \node[note] at (5.5,7.48) {$X_2$};
+  \node[note,text=figBlue] at (3.35,10.36) {a copy of $\spin$ over each configuration};
+  \foreach \x/\dx/\dy in {1.2/.10/.42,3.35/.43/.32,5.5/.55/.17} {
+    \draw[figLine,densely dotted,line width=.65pt]
+      (\x,8.43)--(\x,9.25);
+    \path[draw=figBlue!60,fill=figBlue!5,line width=.55pt]
+      (\x-.65,9.15)--(\x+.30,9.15)--(\x+.65,9.90)--(\x-.30,9.90)--cycle;
+    \fill[figBlue] (\x-.20,9.35) circle[radius=1pt];
+    \draw[figBlue,line width=.85pt,-{Stealth[length=1.5mm]}]
+      (\x-.20,9.35)--++(\dx,\dy);
+  }
+  \node[font=\scriptsize,text=figBlue,anchor=south] at (3.73,9.80) {$\Psi(X)$};
+  \node[font=\scriptsize] at (3.3,6.85)
+    {$\Psi\circ\sigma\sim\stat(\sigma)\,\sigma\act\Psi$};
+
+  % 2. Grouping is extra structure. A single fragment gives a molecule.
+  \node[stageheading] at (7.7,10.95) {\S\S\,4--6\quad Groupings and symmetry};
+  \draw[figTeal,fill=figTeal!5] (8.65,9.30)
+    ellipse[x radius=.57cm,y radius=.71cm];
+  \draw[figTeal,fill=figTeal!5] (10.02,9.30)
+    ellipse[x radius=.51cm,y radius=.71cm];
+  \fill[figCarbon] (8.80,9.3) circle[radius=.095cm];
+  \foreach \x/\y in {8.35/9.05,8.35/9.55,8.80/9.85}
+    \draw[figInk,fill=figHydrogen,line width=.45pt]
+      (\x,\y) circle[radius=.07cm];
+  \fill[figNitrogen] (9.88,9.30) circle[radius=.095cm];
+  \foreach \y in {9.02,9.58}
+    \draw[figInk,fill=figHydrogen,line width=.45pt]
+      (10.25,\y) circle[radius=.07cm];
+  \draw[flow] (10.75,9.3)--(11.30,9.3);
+  \draw[figTeal,fill=figTeal!5] (12.65,9.35)
+    ellipse[x radius=1.13cm,y radius=.75cm];
+  \begin{scope}[shift={(12.65,9.3)}]
+    \draw[figLine] (-.85,-.3)--(-.3,0)--(-.85,.3)
+      (-.3,.55)--(-.3,0)--(.3,0)--(.85,.3)
+      (.3,0)--(.85,-.3);
+    \pic {nucleiset};
+  \end{scope}
+  \node[note] at (9.3,8.28) {several fragments};
+  \node[note] at (12.65,8.28) {one molecule};
+  \node (ah) at (8.35,7.32) {$H$};
+  \node (ag6) at (10.48,7.32) {$G_6$};
+  \node (ag12) at (12.65,7.32) {$G_{12}$};
+  \draw[flow,figTeal] (ah)--node[above,font=\scriptsize] {$t$} (ag6);
+  \draw[flow,figGold,dashed] (ag6)--node[above,font=\scriptsize] {$tu$} (ag12);
+  \node[note] at (10.5,6.70) {resolve rearrangements};
+
+  % 3. Soft localization and an optional exact support restriction.
+  \node[stageheading] at (.1,5.45) {\S\S\,7--9\quad Localized states and geometry};
+  \pic[scale=1.08] at (2.0,2.80) {versiontube};
+  \foreach \angle/\height in {-30/0,90/0,210/0,150/1.3,270/1.3,30/1.3} {
+    \coordinate (packet) at
+      ({2+1.08*1.34*cos(\angle)},{2.8+1.08*(\height+.43*sin(\angle))});
+    \draw[figTeal,opacity=.23,line width=.5pt]
+      (packet) ellipse[x radius=.29cm,y radius=.17cm];
+    \draw[figTeal,opacity=.15,line width=.5pt]
+      (packet) ellipse[x radius=.43cm,y radius=.26cm];
+  }
+  \node[text=figTeal] at (2.0,1.68) {$\mathcal F$};
+  \node[note] at (2.0,1.22) {one connected family};
+  \node[note] at (2.0,.72) {versions $G/H$, copies $S/G$};
+  \node[note] at (5.2,4.65) {soft localization};
+  \draw[figLine] (4.18,3.55)--(6.3,3.55);
+  \draw[figTeal,line width=.85pt]
+    plot[domain=-1.05:1.05,samples=60] ({5.24+\x},{3.55+.65*exp(-5*\x*\x)});
+  \draw[flow] (5.24,3.18)--(5.24,2.83);
+  \node[note,anchor=west] at (5.43,3.00) {optional};
+  \foreach \x in {4.54,5.94}
+    \draw[figGold,dashed,line width=.6pt] (\x,1.73)--(\x,2.64);
+  \draw[figLine] (4.18,1.87)--(6.3,1.87);
+  \draw[figTeal,line width=.85pt]
+    (4.18,1.87)--(4.54,1.87)
+    plot[domain=-.99:.99,samples=80]
+      ({5.24+.70*\x},{1.87+.65*exp(1-1/(1-\x*\x))})
+    --(6.3,1.87);
+  \node[note] at (5.24,1.22) {supported packets};
+
+  % 4. Charts describe the connected family; the mode expansion changes basis.
+  \node[stageheading] at (7.7,5.45) {\S\S\,10--12\quad Position and momentum};
+  \path[draw=figLine,fill=figTeal!5,rounded corners=3pt]
+    (7.90,3.10) rectangle (9.53,4.20);
+  \path[draw=figLine,fill=figBlue!5,rounded corners=3pt]
+    (8.72,3.40) rectangle (10.35,4.50);
+  \draw[figTeal,line width=1pt,-{Stealth[length=1.5mm]}]
+    (8.05,3.50)..controls(8.85,3.42)and(9.1,4.40)..(10.17,3.87);
+  \node[note] at (9.15,4.86) {overlapping charts};
+  \node[font=\scriptsize] at (9.12,2.55) {$|r,q,Q\rangle$};
+  \draw[flow] (10.55,3.90)--(11.03,3.90);
+  \foreach \level/\mode/\shade/\pattern in
+    {3.14/1/figEtwo/dashed,3.64/2/figEtwo/dashed,4.14/3/figAtwo/densely dotted} {
+    \draw[figLine,line width=.35pt] (11.3,\level)--(13.8,\level);
+    \draw[\shade,\pattern,line width=.85pt]
+      plot[domain=0:1,samples=65] ({11.3+2.5*\x},{\level+.18*sin(360*\mode*\x)});
+  }
+  \foreach \x in {11.3,13.8}
+    \draw[figMuted,densely dashed,line width=.45pt] (\x,2.92)--(\x,4.40);
+  \node[note] at (12.55,4.86) {adapted modes};
+  \node[font=\scriptsize] at (12.55,2.55) {$|JMK,m,p\rangle$};
+  \node[note] at (9.15,1.80) {gluing and monodromy};
+  \node[note] at (12.55,1.80) {species and spin};
+  \node[note] at (11,1.22) {the same states in a familiar basis};
+\end{tikzpicture}
+\caption*{\textbf{Geometric abstract.} Each configuration $X$ carries a spin
+fiber $\spin$, with value $\Psi(X)$. Choose groupings and feasible motions.
+Build localized states and feasible families, then describe the same states
+in position and momentum. Hard support is optional. Chart gluing preserves
+the distinction between separate feasible components.}
+\end{figure}

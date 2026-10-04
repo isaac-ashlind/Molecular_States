@@ -1,0 +1,102 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[
+  x=1cm,y=1cm,font=\small,
+  torsion/.style={draw=figTorsion,line width=1.05pt},
+  orient/.style={draw=figRotation,line width=1.05pt},
+  guide/.style={draw=black!24,line width=.5pt},
+  liftguide/.style={draw=figRotation!20,line width=.5pt},
+  turn/.style={-{Stealth[length=1.8mm]},line width=.85pt}
+]
+  \path[use as bounding box] (0,-.15) rectangle (13.8,5.10);
+  \node[anchor=west,font=\small\bfseries] at (.05,4.87)
+    {(a) Counterrotation};
+  \node[anchor=west,font=\small\bfseries] at (7.05,4.87)
+    {(b) A closed shape path};
+
+  % Two separated coaxial disks. The vertical shaft represents the
+  % shared axis; their elliptical outlines are a perspective drawing.
+  \draw[guide,line width=1.2pt] (2.55,1.13)--(2.55,3.93);
+  \draw[orient,fill=figRotation!4] (2.55,1.92) ellipse[x radius=1.45,y radius=.50];
+  \draw[torsion,fill=figTorsion!7] (2.55,3.25) ellipse[x radius=1.08,y radius=.38];
+
+  % Initial spokes and current fragment orientations.
+  \draw[guide,densely dashed] (2.55,3.25)--(3.63,3.25);
+  \draw[guide,densely dashed] (2.55,1.92)--(4.00,1.92);
+  \draw[torsion,line width=1.35pt] (2.55,3.25)--(2.55,3.63);
+  \fill[figTorsion] (2.55,3.63) circle[radius=1.55pt];
+  \draw[orient,line width=1.35pt] (2.55,1.92)--(3.8057,1.67);
+  \fill[figRotation] (3.8057,1.67) circle[radius=1.55pt];
+  \fill[black!65] (2.55,3.25) circle[radius=1.1pt];
+  \fill[black!65] (2.55,1.92) circle[radius=1.1pt];
+
+  \draw[turn,figTorsion]
+    (3.80,3.25) arc[start angle=0,end angle=90,x radius=1.25,y radius=.46];
+  \draw[turn,figRotation]
+    (4.19,1.92) arc[start angle=0,end angle=-30,x radius=1.64,y radius=.61];
+  \node[text=figTorsion,anchor=west] at (4.06,3.28)
+    {$I_{\mathrm{top}}$};
+  \node[text=figRotation,anchor=west] at (4.37,2.06)
+    {$I_{\mathrm{frame}}$};
+  \node[text=figTorsion] at (2.55,4.20)
+    {$\theta_{\mathrm{top}}=(1-\rho)\tau$};
+  \node[text=figRotation] at (3.00,1.05)
+    {$\theta_{\mathrm{frame}}=-\rho\tau$};
+  \node[font=\scriptsize,text=black!65] at (2.85,.56)
+    {$\ell_z=I_{\mathrm{top}}\dot\theta_{\mathrm{top}}
+       +I_{\mathrm{frame}}\dot\theta_{\mathrm{frame}}=0$};
+  \node[font=\scriptsize,text=black!65] at (2.85,.11)
+    {shown at $\tau=2\pi/3$};
+
+  % The orange ellipse is the torsional shape circle. The blue curve
+  % is its horizontal lift, with a vertical orientation coordinate.
+  % The vertical display scale is arbitrary. It decreases by 1.30 cm
+  % as the physical angle decreases by pi/2 over the full loop.
+  \foreach \a in {0,90,180,270} {
+    \draw[liftguide]
+      ({10.12+1.64*cos(\a)},{1.57+.55*sin(\a)}) --
+      ({10.12+1.64*cos(\a)},{1.57+.55*sin(\a)+2.48});
+  }
+  \draw[guide,densely dashed]
+    plot[domain=0:360,samples=90,smooth]
+      ({10.12+1.64*cos(\x)},{4.05+.55*sin(\x)});
+  \draw[torsion]
+    (10.12,1.57) ellipse[x radius=1.64,y radius=.55];
+  \draw[torsion,turn]
+    ({10.12+1.64*cos(45)},{1.57+.55*sin(45)})
+    arc[start angle=45,end angle=140,x radius=1.64,y radius=.55];
+  \node[text=figTorsion] at (10.12,1.14) {$\tau$};
+  \fill[figTorsion] (11.76,1.57) circle[radius=1.5pt];
+  \node[font=\scriptsize,text=black!65] at (10.12,.61)
+    {the shape returns};
+
+  \draw[orient]
+    plot[domain=0:360,samples=110,smooth]
+      ({10.12+1.64*cos(\x)},{4.05+.55*sin(\x)-1.30*\x/360});
+  \draw[orient,turn]
+    plot[domain=110:155,samples=18,smooth]
+      ({10.12+1.64*cos(\x)},{4.05+.55*sin(\x)-1.30*\x/360});
+  \draw[orient,turn]
+    plot[domain=270:315,samples=18,smooth]
+      ({10.12+1.64*cos(\x)},{4.05+.55*sin(\x)-1.30*\x/360});
+  \fill[figRotation] (11.76,4.05) circle[radius=1.7pt];
+  \fill[figRotation] (11.76,2.75) circle[radius=1.7pt];
+
+  % The two blue arrows show the frame's actual laboratory orientation.
+  \draw[orient,turn] (11.76,4.05)--(12.35,4.05);
+  \draw[orient,turn] (11.76,2.75)--(11.76,2.17);
+  \node[anchor=west,text=figRotation,font=\scriptsize] at (12.50,4.05)
+    {$\theta=0$};
+  \node[anchor=west,text=figRotation,font=\scriptsize] at (12.04,2.72)
+    {$\theta=-\pi/2$};
+  \node[text=figRotation] at (10.12,.11)
+    {$\Delta\theta=-2\pi\rho$};
+\end{tikzpicture}
+\caption{A two-rotor model with illustrative inertia ratio $\rho=1/4$.
+The fragments counterrotate while their relative angle changes.
+After one full torsion, the shape closes and the frame has turned
+through $-2\pi\rho$. At right, height records the frame angle above
+the shape circle. The endpoint arrows show its laboratory
+orientation.}
+\label{fig:mechanical-transport}
+\end{figure}

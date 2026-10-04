@@ -1,0 +1,91 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (0,0) rectangle (14.4,6.6);
+\path[draw=figInk!3,line width=0.1pt,fill=figInk!3] (0.0500,1.0500) -- (4.3500,1.0500) --
+  (4.3500,5.9500) -- (0.0500,5.9500) -- cycle;
+\node[text=figInk,anchor=west,font=\small,inner sep=1.5pt,rotate=0] at (0.3,5.66) {$\conf$};
+% Twenty copies, with one selected for enlargement.
+\foreach \row in {0,...,4} {
+  \foreach \col in {0,...,3} {
+    \begin{scope}[shift={({.65+1.02*\col},{1.61+.81*\row})}]
+      \tikzset{mini/.style={draw=figLine,fill=figInk!3,line width=.45pt}}
+      \ifnum\row=2\relax
+        \ifnum\col=3\relax
+          \tikzset{mini/.style={draw=figTorsion,fill=figInk!5,line width=.45pt}}
+        \fi
+      \fi
+      \path[mini] (-.32,.12)--(-.32,-.12)
+        arc[start angle=180,end angle=360,x radius=.32cm,y radius=.12cm]
+        --(.32,.12)
+        arc[start angle=0,end angle=-180,x radius=.32cm,y radius=.12cm]--cycle;
+      \path[mini,fill=white] (0,.12) ellipse[x radius=.32cm,y radius=.12cm];
+      \path[mini,fill=none,line width=.35pt]
+        (0,.12) ellipse[x radius=.25cm,y radius=.075cm];
+    \end{scope}
+  }
+}
+\node[text=figTorsion,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (4.5,3.24) {$\mathcal
+  F$};
+\node[text=figMuted,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (1.68,1.2) {$s\mathcal
+  F$};
+\node[text=figInk,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (2.2,0.55) {$|S/G|=20$};
+\path[draw=figLine,line width=0.5pt,densely dashed] (4.0700,3.5100) -- (6.3000,5.3000);
+\path[draw=figLine,line width=0.5pt,densely dashed] (4.0700,3.1700) -- (6.3000,2.6800);
+% The same tube recurs in the coordinate and gluing figures.
+\pic[scale=1.5] at (8.45,2.70) {versiontube};
+\draw[figTeal,line width=1pt,-{Stealth[length=1.65mm]}]
+  ({8.45+2*cos(-25)},{2.70+.67*sin(-25)})
+  arc[start angle=-25,end angle=82,x radius=2cm,y radius=.67cm];
+\node[text=figTeal] at (9.66,3.45) {$t$};
+\draw[figGold,densely dashed,line width=1pt,-{Stealth[length=1.65mm]}]
+  plot[domain=0:1,samples=41,variable=\q]
+  ({8.45+2*cos(-30-60*\q)},{2.70+1.95*\q+.67*sin(-30-60*\q)});
+\node[text=figGold] at (9.25,3.62) {$tu$};
+\path[draw=figSeam,line width=0.75pt,-{Stealth[length=1.65mm,width=1.2mm]}] (5.7800,2.7000) --
+  (5.7800,4.6500);
+\node[text=figSeam,anchor=center,font=\footnotesize,inner sep=1.5pt,rotate=90] at (5.38,3.69)
+  {umbrella};
+\node[text=figSeam,anchor=center,font=\footnotesize,inner sep=1.5pt,rotate=0] at (5.78,2.32) {$-1$};
+\node[text=figSeam,anchor=center,font=\footnotesize,inner sep=1.5pt,rotate=0] at (5.78,5.0) {$+1$};
+\node[text=figTorsion,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (8.45,1.47) {torsion
+  $S^1$};
+\node[text=figInk,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (8.45,0.55) {$|G/H|=6$};
+\path[draw=figInk,line width=0.3pt,fill=figInk] (10.2200,3.8800) ellipse[x radius=0.0350cm,y
+  radius=0.0350cm];
+\path[draw=figLine,line width=0.5pt] (10.2200,3.8800) -- (11.2400,4.3000) -- (12.2200,4.5400);
+\path[draw=figLine,line width=0.5pt] (10.2200,3.8800) -- (11.2100,3.1300) -- (12.1500,2.5700);
+\path[draw=figRotation,line width=0.95pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.3000,4.6400) --
+  (13.0600,4.6900);
+\path[draw=figRotation,line width=0.95pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.3000,4.6400) --
+  (11.8800,4.3000);
+\path[draw=figRotation,line width=0.95pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.3000,4.6400) --
+  (12.3200,5.4100);
+\path[draw=figRotation,line width=0.3pt,fill=figRotation] (12.3000,4.6400) ellipse[x
+  radius=0.0350cm,y radius=0.0350cm];
+\node[text=figRotation,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (12.65,5.82)
+  {orientation};
+\node[text=figRotation,anchor=center,font=\footnotesize,inner sep=1.5pt,rotate=0] at (12.67,4.0)
+  {$r\in SO(3)$};
+\path[draw=figNormal,line width=0.8pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.1500,2.5040) --
+  (13.0600,2.9200);
+\path[draw=figNormal,line width=0.8pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.1410,2.6690) --
+  (13.0900,2.3700);
+\path[draw=figNormal,line width=0.8pt,-{Stealth[length=1.65mm,width=1.2mm]}] (12.4590,2.4170) --
+  (12.0300,3.2100);
+\path[draw=figNormal,line width=0.3pt,fill=figNormal] (12.3600,2.6000) ellipse[x radius=0.0350cm,y
+  radius=0.0350cm];
+\node[text=figNormal,anchor=center,font=\footnotesize,inner sep=1.5pt,rotate=0] at (12.56,1.66)
+  {normal vibrations};
+\node[text=figInk,anchor=center,font=\small,inner sep=1.5pt,rotate=0] at (8.45,6.15)
+  {$S^1\times[-1,1]$};
+\end{tikzpicture}
+\caption{A torsion--umbrella family for $G_{12}$. Torsion runs around
+the tube and the umbrella coordinate along it. Thickness represents
+normal displacements. Each marked version carries its orientations.
+The highlighted $H$ cell is followed into the position chart of
+Fig.~\ref{fig:position-coordinates} and the six-cell layout of
+Fig.~\ref{fig:chart-deck}. The twenty copies in $\conf$ each contain
+six reference versions.}
+\label{fig:feasible-carving}
+\end{figure}

@@ -1,0 +1,58 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  line cap=round,line join=round]
+  \path[use as bounding box] (0,0) rectangle (14.4,5.6);
+  \node[anchor=west,font=\small\bfseries] at (0,5.25) {(a) Reference family};
+  \node[anchor=west,font=\small\bfseries] at (4.8,5.25) {(b) Local patch};
+  \node[anchor=west,font=\small\bfseries] at (9.4,5.25) {(c) Coordinates};
+  \pic[scale=.94] at (1.95,2.40) {versiontube};
+  \node[font=\scriptsize,text=figMuted] at (1.95,.65)
+    {from Fig.~\ref{fig:feasible-carving}};
+  \draw[figLine,dashed] (3.04,2.20)--(4.90,1.75);
+  \draw[figLine,dashed] (3.04,2.45)--(4.90,3.85);
+
+  % One normal slice through the highlighted cell.
+  \path[fill=figTeal!7]
+    plot[domain=4.9:8.65,samples=40] (\x,{3+.12*(\x-6.6)^2})
+    --plot[domain=8.65:4.9,samples=40] (\x,{1.55+.12*(\x-6.6)^2})--cycle;
+  \draw[figTeal,line width=1pt]
+    plot[domain=4.9:8.65,samples=40] (\x,{2.2+.12*(\x-6.6)^2});
+  \foreach \x in {5.3,6.1,6.9,7.7,8.3} {
+    \pgfmathsetmacro{\slope}{.24*(\x-6.6)}
+    \pgfmathsetmacro{\baseheight}{2.2+.12*(\x-6.6)^2}
+    \draw[figNormal,line width=.5pt]
+      ({\x+.52*\slope},{\baseheight-.52})--({\x-.52*\slope},{\baseheight+.52});
+  }
+  \draw[figNormal,->] (6.6,2.2)--(6.6,3.02);
+  \fill[figGold] (6.6,2.2) circle[radius=1.5pt];
+  \fill[figInk] (6.6,3.02) circle[radius=1.5pt];
+  \node[below,text=figGold] at (6.6,2.1) {$X_0(q)$};
+  \node[above] at (6.6,3.14) {$X_0(q)+v$};
+  \node[left,text=figNormal] at (6.6,2.65) {$v$};
+  \node[font=\scriptsize,text=figMuted,align=center] at (6.7,.65)
+    {one normal slice\\orientation suppressed};
+  \draw[figMuted,->] (8.78,2.75)--(9.25,2.75);
+
+  \draw[figLine,fill=figInk!2,rounded corners=3pt]
+    (9.45,1.15) rectangle (14.2,4.38);
+  \node at (11.82,3.88) {$X=r\bigl(X_0(q)+v\bigr)$};
+  \node[font=\scriptsize] at (11.82,3.30) {$v=\sum_a Q_a e_a(q)$};
+  \foreach \dx/\dy in {.53/.06,-.30/-.24,0/.58}
+    \draw[figRotation,->] (10.3,2.4)--++(\dx,\dy);
+  \draw[figTeal,->] ({11.83+.37*cos(10)},{2.4+.23*sin(10)})
+    arc[start angle=10,end angle=335,x radius=.37cm,y radius=.23cm];
+  \foreach \dx/\dy in {.44/.33,-.22/.50,.46/-.18}
+    \draw[figNormal,->] (13.35,2.4)--++(\dx,\dy);
+  \node[align=center,font=\scriptsize,text=figRotation] at (10.3,1.63) {$r$\\orientation};
+  \node[align=center,font=\scriptsize,text=figTeal] at (11.83,1.63) {$q$\\shape};
+  \node[align=center,font=\scriptsize,text=figNormal] at (13.35,1.63) {$Q$\\normal};
+  \node at (11.82,.65) {$|r,q,Q\rangle$};
+\end{tikzpicture}
+\caption{A local patch of the same highlighted cell. The middle panel
+enlarges a normal slice through the family in Fig.~\ref{fig:feasible-carving}.
+The displacement $v$ is mass-orthogonal to the rotation-swept family.
+The coordinates restore the suppressed orientation and normal directions,
+ready for the gluing in Fig.~\ref{fig:chart-deck}.}
+\label{fig:position-coordinates}
+\end{figure}
