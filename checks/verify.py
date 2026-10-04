@@ -151,6 +151,7 @@ with open(os.path.join(ROOT, 'figures', 'data', 'summary.json')) as f:
 assert S['spin_weights'] == {'1': {'A1': 12, 'A2': 4, 'E': 8}, '-1': {'A1': 4, 'A2': 12, 'E': 8}}
 assert S['local_copies'] == {'A1': 1, 'A2': 0, 'E': 1}
 assert S['interval'] == {'subgroups': 10, 'covers': 17, 'versions': [1, 2, 2, 2, 3, 4, 6, 6, 6, 12]}
+assert S['interval_HS']['subgroups'] == 36 and S['interval_HS']['covers'] == 73 and S['interval_HS']['in_bond_interval'] == 10
 M = S['normal_frame']['M']
 assert abs(M[0][0] - 1) < 1e-9 and abs(M[1][1] + 1) < 1e-9 and abs(M[0][1]) < 1e-9 and abs(M[1][0]) < 1e-9
 assert S['normal_frame']['resid'] < 1e-9 and S['normal_frame']['ortho'] < 1e-12

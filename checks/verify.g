@@ -34,8 +34,8 @@ Print("three order-12 extensions of G6; any two generate B: ok\n");
 
 # full interval [H,S]: manuscript states 36 subgroups
 intS := IntermediateSubgroups(S,H);;
-Print("interval [H,S]: subgroups = ", Length(intS.subgroups)+2, "\n");
-Assert(0, Length(intS.subgroups)+2 = 36);
+Print("interval [H,S]: subgroups = ", Length(intS.subgroups)+2, ", covers = ", Length(intS.inclusions), "\n");
+Assert(0, Length(intS.subgroups)+2 = 36 and Length(intS.inclusions) = 73);
 
 # character table of G6 (= S_3 as abstract group) and the five-proton spin weights
 tbl := CharacterTable(G6);;

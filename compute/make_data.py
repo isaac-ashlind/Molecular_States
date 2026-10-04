@@ -52,41 +52,28 @@ def pic_code(X, elements, bonds, cam, arrows=None, label_macros=None):
     return lines
 
 def pic_code_rods(X, elements, bonds, cam, label_macros=None):
-    """TikZ pic code for the v2 molecule primitive: full-length rods, then atoms back to front.
+    """TikZ pic code for the v2 molecule primitive with correct layering.
 
-    Rods are ordered by midpoint depth; every atom disc is drawn after every rod, so rod ends are
-    hidden under both spheres (the standard ball-and-stick look, no joints).  A rod that passes in
-    front of a third atom is detected and re-drawn after that atom.
+    Items (atoms and rods) are painted back to front.  A rod is painted just after its farther atom
+    and before its nearer atom, so it emerges from the front of the far sphere and vanishes under the
+    silhouette of the near sphere.  Rod depth = depth of the far atom + a small epsilon.
     """
     P = G.project(X, cam)
-    order = G.draw_order(P)
     n = len(X)
     if label_macros is None:
         label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
-    rods = []
+    items = [(P[i][2], 0, i, None) for i in range(n)]
     for a, b in bonds:
         i, j = a-1, b-1
-        rods.append((0.5*(P[i][2]+P[j][2]), i, j))
-    rods.sort()
-    lines = [f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}' for _, i, j in rods]
-    redo = []
-    for _, i, j in rods:
-        ax, ay, az = P[i]; bx, by, bz = P[j]
-        for k in range(n):
-            if k in (i, j):
-                continue
-            kx, ky, kz = P[k]
-            # distance from atom k to the segment, and the rod depth at the closest point
-            dx, dy = bx-ax, by-ay; L2 = dx*dx+dy*dy
-            t = max(0.0, min(1.0, ((kx-ax)*dx+(ky-ay)*dy)/L2)) if L2 > 0 else 0.0
-            cx, cy = ax+t*dx, ay+t*dy
-            if math.hypot(kx-cx, ky-cy) < 0.45 and az+t*(bz-az) > kz + 0.05:
-                redo.append((k, i, j))
-    for k in order:
-        lines.append(f'\\molatom{{{elements[k]}}}{{{label_macros[k]}}}{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}')
-        for kk, i, j in redo:
-            if kk == k:
-                lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
+        far = i if P[i][2] <= P[j][2] else j
+        items.append((P[far][2] + 1e-6, 1, i, j))
+    items.sort(key=lambda t: (t[0], t[1]))
+    lines = []
+    for z, kind, i, j in items:
+        if kind == 0:
+            lines.append(f'\\molatom{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
+        else:
+            lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
     return lines
 
 def emit_pic(out, name, lines):
@@ -399,6 +386,16 @@ def main():
         f'{key[names[K]]}/{xslot[names[K]]}/{math.log2(len(K)//2):.4f}/{len(K)//2}/{{{names[K]}}}' for K in ordered) + '}')
     num.append('\\def\\hasseCovers{' + ','.join(f'{key[names[a]]}/{key[names[b]]}' for a, b in cov) + '}')
     num.append('\\def\\hasseChain{' + ','.join(str(key[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
+    # the whole interval [H, S]: every subgroup containing H, with covers; the bond interval is a sub-poset
+    big = Q.interval(Q.H, Q.S, Q.N)
+    bigcov = Q.covers(big)
+    bigsorted = sorted(big, key=lambda K: (len(K), sorted(K)))
+    bigkey = {K: i for i, K in enumerate(bigsorted)}
+    inbond = {bigkey[K] for K in big if K <= Q.B}
+    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{len(K)//2}/{1 if bigkey[K] in inbond else 0}' for K in bigsorted) + '}')
+    num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}' for a, b in bigcov) + '}')
+    summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
+                              'orders': sorted(len(K) for K in big)}
     summary['interval'] = {'subgroups': len(subs), 'covers': len(cov),
                            'versions': sorted(order_of.values())}
 
