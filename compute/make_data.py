@@ -51,7 +51,7 @@ def pic_code(X, elements, bonds, cam, arrows=None, label_macros=None):
                 lines.append(f'\\molarrow{{{fmt(px)}}}{{{fmt(py)}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     return lines
 
-def pic_code_rods(X, elements, bonds, cam, label_macros=None):
+def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None):
     """TikZ pic code for the v2 molecule primitive with correct layering.
 
     Items (atoms and rods) are painted back to front.  A rod is painted just after its farther atom
@@ -74,6 +74,11 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None):
             lines.append(f'\\molatom{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
         else:
             lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
+    if arrows is not None:
+        for k in range(n):
+            if arrows[k] is not None:
+                dx, dy = arrows[k]
+                lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     return lines
 
 def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7):
@@ -344,6 +349,23 @@ def main():
     actions, worst = derive_family_actions()
     summary['family_actions'] = actions; summary['family_action_residual'] = worst
     num.append(f'\\def\\etaZero{{{fmt(ETA0,2)}}}')
+    # H-invariant cell U = [-pi/3, pi/3] x [0, eta0] and its five translates under the derived actions
+    acts = {'t': (2/3, 1), 'u': (1.0, -1), 'tu': (-1/3, -1), 't^2': (4/3, 1), 't^2u': (1/3, -1)}
+    cells = [('H', -1/3, 1/3, 0, 1)]
+    for gname, (shift, sgn) in acts.items():
+        lo, hi = -1/3 + shift, 1/3 + shift
+        elo, ehi = (0, 1) if sgn > 0 else (-1, 0)
+        # reduce to (-1, 1] in units of pi, splitting at the seam
+        pieces = []
+        lo2 = ((lo + 1) % 2) - 1; hi2 = lo2 + (hi - lo)
+        if hi2 <= 1 + 1e-9:
+            pieces.append((lo2, hi2))
+        else:
+            pieces.append((lo2, 1.0)); pieces.append((-1.0, hi2 - 2))
+        for a, b in pieces:
+            cells.append((gname + 'H', a, b, elo, ehi))
+    num.append('\\def\\chartCells{' + ','.join(f'{{{n}}}/{a:.4f}/{b:.4f}/{e1}/{e2}' for n, a, b, e1, e2 in cells) + '}')
+    summary['chart_cells'] = cells
 
     # normal frame and T_tu (figure 10)
     nf = normal_frame_data()
@@ -357,6 +379,8 @@ def main():
         return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.12 else None for px, py in Pe]
     emit_pic(mol, 'mla-ref-eplus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
     emit_pic(mol, 'mla-ref-eminus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
+    emit_pic(mol, 'mol3d-mla-ref-eminus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
+    emit_pic(mol, 'mol3d-mla-ref-eplus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
     Xdisp = [G.add(x, G.scale(v, amp)) for x, v in zip(X0, nf['e_minus'])]
     Rdisp = G.rot_axis((0.3, 1.0, 0.25), math.radians(55.0))
     emit_pic(mol, 'mla-disp', pic_code(Xdisp, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
