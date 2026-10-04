@@ -40,7 +40,10 @@ carries exactly the molecular symmetry group, which the caption may say. The sol
 roman numerals of the four sections (the former parts) with their subsection ranges. At the top left, under heading
 III, the bond interval [H, B] of figure 5 as a small Hasse diagram in grey (ink thinned), covers in the line grammar
 (solid t, dashed u, dotted a starred generator), the vertices H, B and G (= G_12, the regime) named; no colour. The
-base patch of the sheets is unnamed (the quotient is named on the projection, F -> F/G, the same G as the lattice vertex).
+base patch of the sheets is pale gold, a chart neighbourhood in the quotient (gold = a retained region, here the
+neighbourhood carrying a chart), with the class of the reference as a red point; it is unnamed (the quotient is named
+on the projection, F -> F/G, the same G as the lattice vertex), and the dotted projection runs unbroken from the red
+point on the sheet to the point on the patch.
 
 ## Figure 1, configuration space
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
@@ -141,7 +144,8 @@ the family and to the rotations in the mass metric). The formulas X0(a) P_tu = A
 M_tu = diag(1, -1) are in the text, not the plate.
 
 ## Figure 11, covering spaces and monodromy
-Over a patch of the quotient F/G, drawn the size of one sheet (each sheet maps onto it), the version pairs {gX, gbX}
+Over a patch of the quotient F/G, drawn the size of one sheet and pale gold like the chart cell of figure 10 (each
+sheet maps onto it), the version pairs {gX, gbX}
 side by side: the X-side column at the left headed by X, the bX-side at the right headed by bX (two configurations over
 the one point [X], a red point like the version points; no rotation carries one to the
 other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by

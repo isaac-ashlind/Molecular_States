@@ -36,9 +36,9 @@
   \draw[kline] (k\krbIdxS)--(k\krbIdxK); \draw[rbline] (k\krbIdxS)--(k\krbIdxRb);
   \draw[line width=.7pt,draw=PlateInk] (k\krbIdxCore)--(k\krbIdxIn) (k\krbIdxCore)--(k\krbIdxK) (k\krbIdxCore)--(k\krbIdxRb) (k\krbIdxE)--(k\krbIdxCore);
   \foreach \i/\x/\y/\m/\name in \krbNodes {\ifnum\m=1\else\fill[PlateInk!45] (k\i) circle[radius=1.1pt];\fi}
-  \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxE) circle[radius=2.6pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxCore) circle[radius=2.6pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxS) circle[radius=2.6pt];
-  \draw[line width=.5pt,draw=PlateInk,fill=ColPotassium] (k\krbIdxK) circle[radius=2.6pt]; \draw[line width=.5pt,draw=PlateInk,fill=ColRubidium] (k\krbIdxRb) circle[radius=2.6pt];
-  \begin{scope}\clip (k\krbIdxIn) circle[radius=2.6pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=2.6pt];
+  \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxE) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxCore) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxS) circle[radius=3.1pt];
+  \draw[line width=.5pt,draw=PlateInk,fill=ColPotassium] (k\krbIdxK) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=ColRubidium] (k\krbIdxRb) circle[radius=3.1pt];
+  \begin{scope}\clip (k\krbIdxIn) circle[radius=3.1pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=3.1pt];
   \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.14)$) {$S$}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.14)$) {$E$};
   \node[lab,anchor=west] at ($(k\krbIdxCore)+(.16,-.04)$) {$\langle E^*\rangle$};
   \node[lab,anchor=west] at ($(k\krbIdxK)+(.16,0)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.12,.1)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,0)$) {$G_{\mathrm{in}}$};

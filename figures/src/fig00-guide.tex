@@ -7,7 +7,7 @@
 % beside their objects, with section ranges only.
 % The solid's decoration is turned by 15 degrees so that the projection line from H to [X] passes no other point.
 % Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the
-% packet, white = the vibrations (the solid's wall), sheets and the quotient patch, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
+% packet and the quotient patch (a chart neighbourhood), white = the vibrations (the solid's wall) and the sheets, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
 % on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -49,14 +49,14 @@
   \coordinate (Hpt) at (vt0);
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,6.1) {II\quad Fragments and}; \node[head,anchor=west] at (10.7+\dx,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7+\dx,5.48) {\S\S\,4--6};
-\node[head,anchor=west] at (.5,13.0) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,12.6) {Localization}; \node[rng,anchor=north west] at (.5,12.38) {\S\S\,7--9};
+\node[head,anchor=west] at (.5,12.7) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,12.3) {Localization}; \node[rng,anchor=north west] at (.5,12.08) {\S\S\,7--9};
 % ------------------------------------------------ the quotient patch V with the two loops; over it the six sheets with the two lifts
-\draw[hidden] (Hpt)--(8.1+\dx,6.08); \draw[hidden] (8.1+\dx,7.72)--(8.11+\dx,9.52);
+\draw[hidden,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
 \node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]
   \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
-  \sheet{0}{heavy}{white}
-  \coordinate (bx) at (.35,.25); \fill[PlateInk] (bx) circle[radius=1.2pt];
+  \sheet{0}{heavy}{ColRetained!50}
+  \coordinate (bx) at (.35,.25); \hatomat{bx}{.08}{ColDot}
   \draw[tlift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
   \draw[ulift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
   \foreach \k/\la in {0/H,1/uH,2/tH,3/tuH,4/{t^2H},5/{t^2uH}} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
@@ -72,7 +72,7 @@
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \def\gt{t}\def\gu{u}
-\begin{scope}[shift={(3.95,8.3)},x=-.38cm,y=1.02cm]
+\begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift,draw=PlateInk!55] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift,draw=PlateInk!55] (h\a)--(h\b);\else \draw[blift,draw=PlateInk!55] (h\a)--(h\b);\fi\fi}
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[line width=.5pt,draw=PlateInk!55,fill=white] (h\i) circle[radius=2pt];}

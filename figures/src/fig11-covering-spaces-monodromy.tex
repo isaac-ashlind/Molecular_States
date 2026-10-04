@@ -22,7 +22,7 @@
 \path[use as bounding box] (0,0) rectangle (15,11.0);
 \begin{scope}[shift={(5.6,.8)}]
   % the base: a patch of the quotient, one sheet's size, both columns over it; the two loops inside it
-  \sheet{0}{0}{heavy}{white}
+  \sheet{0}{0}{heavy}{ColRetained!50}
   \coordinate (bx) at (.35,.35);
   \draw[tlift] (bx) .. controls (-1.7,.64) and (-1.7,.06) .. (bx); \draw[blift] (bx) .. controls (2.4,.06) and (2.4,.64) .. (bx);
   \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.06) {$\ell_t$}; \node[sub,anchor=north,inner sep=1.5pt] at (1.65,-.06) {$\ell_b$};
