@@ -85,10 +85,23 @@ def main():
     if 'fig:guide' in aux or 'fig:0' in aux:
         raise SystemExit('the guide must not define a numbered figure label')
     print('    figure numbers 1-12 match their sections; guide unnumbered')
-    print('[6/6] proof sheet')
+    print('[6/6] proof sheet, squint sheet, grayscale proof, deliverable PDFs, text-collision report')
     run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
          '-output-directory=' + str(BUILD), 'scaffold/proofsheet.tex'], env=env)
-    print('done:', BUILD / 'outline.pdf', BUILD / 'proofsheet.pdf')
+    if shutil.which('gs'):
+        run(['gs', '-q', '-o', str(BUILD / 'proofsheet-gray.pdf'), '-sDEVICE=pdfwrite',
+             '-sColorConversionStrategy=Gray', '-dProcessColorModel=/DeviceGray', str(BUILD / 'proofsheet.pdf')])
+    elif shutil.which('pdftoppm'):
+        run(['pdftoppm', '-r', '110', '-gray', '-png', str(BUILD / 'proofsheet.pdf'), str(PREV / 'proofsheet-gray')])
+    out = ROOT / 'figures' / 'pdf'
+    out.mkdir(exist_ok=True)
+    for pdf in sorted(FIGS.glob('fig*.pdf')):
+        shutil.copy2(pdf, out / pdf.name)
+    r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))],
+                       cwd=ROOT, capture_output=True, text=True)
+    (BUILD / 'collisions.txt').write_text(r.stdout)
+    print(r.stdout.strip())
+    print('done:', BUILD / 'outline.pdf', BUILD / 'proofsheet.pdf', out)
 
 if __name__ == '__main__':
     main()

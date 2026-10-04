@@ -1,0 +1,195 @@
+--- manuscript.tex
++++ manuscript.tex
+@@ -6,6 +6,7 @@
+ \usetikzlibrary{arrows.meta,calc,backgrounds,positioning}
+ \input{figures/colors}
+ \input{figures/motifs}
++\usepackage{graphicx}\graphicspath{{figures/pdf/}}   % the figure suite; copy figures/pdf/ into the project
+ 
+ \usepackage[font=small,labelfont=bf]{caption}
+ \usepackage[section]{placeins}
+@@ -32,7 +33,11 @@
+ \begin{document}
+ \maketitle
+ 
+-\input{figures/geometric-abstract}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig00-guide}
++\caption*{Guide to the paper.}
++\end{figure}
+ \clearpage
+ 
+ \section{Configuration Space}
+@@ -118,7 +123,11 @@
+ \]
+ We drop the dots when the action is understood.
+ 
+-\input{figures/configuration-space}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig01-configuration-space}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:1}
++\end{figure}
+ 
+ \section{Ambient Hilbert Space}
+ 
+@@ -175,6 +184,12 @@
+ \int_{\conf}
+ \|\Psi(X)-\Phi(X)\|_{\spin}^2\,dX=0.
+ \]
++
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig02-ambient-hilbert-space}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:2}
++\end{figure}
+ 
+ \section{Physical Hilbert Space}
+ 
+@@ -244,7 +259,11 @@
+ Here composition acts on the configuration argument,
+ while $s\cdot\Psi_\pm$ acts on the spin factors.
+ 
+-\input{figures/exchange-statistics}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig03-physical-hilbert-space}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:3}
++\end{figure}
+ 
+ \section{Molecules and Complexes}
+ \begin{itemize}
+@@ -272,7 +291,11 @@
+ Symmetry gives allowed sectors, not yields.
+ \item Choose a reference geometry to count versions.
+ \end{itemize}
+-\input{figures/reaction-lattice}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig04-molecules-fragments-complexes}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:4}
++\end{figure}
+ 
+ \section{Symmetry Groups}
+ \label{sec:feasible-regimes}
+@@ -350,7 +373,11 @@
+ S=S_5\times\{E,E^*\},\qquad |S|=240,
+ \qquad H=\langle b\rangle,\qquad b=(23)(45)^*.
+ \]
+-\input{figures/methylamine-labels}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig05-symmetry-groups-versions}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:5}
++\end{figure}
+ \begin{itemize}
+ \item Keeping bonds restricts the candidates to $[H,B]$.
+ Here $S_A$ permutes the labels in $A$.
+@@ -375,7 +402,6 @@
+ \item Compare the candidates through species and spin weights.
+ The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
+ \end{itemize}
+-\input{figures/subgroup-lattice}
+ 
+ \section{Versions and Symmetry Species}
+ \begin{itemize}
+@@ -407,7 +433,16 @@
+ \[
+ \mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E.
+ \]
+-\input{figures/version-species}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig07-symmetry-species}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:7}
++\end{figure}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig08-nuclear-spin-weights}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:8}
++\end{figure}
+ 
+ \section{Localized States}
+ \label{sec:localized-states}
+@@ -442,7 +477,11 @@
+ of Section~\ref{sec:feasible-space}, when required.
+ \item Treat symmetry-enforced nodes with the required pointwise regularity.
+ \end{itemize}
+-\input{figures/localized-states}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig09-localized-states}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:9}
++\end{figure}
+ 
+ \section{Feasible Configuration Space}
+ \label{sec:feasible-space}
+@@ -464,7 +503,11 @@
+ \item Check the product assumption, connectedness, and separation.
+ Recover the rigid limit.
+ \end{itemize}
+-\input{figures/feasible-space}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig06-feasible-configuration-space}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:6}
++\end{figure}
+ \begin{itemize}
+ \item For an exact support restriction, use the whole symmetry-related union.
+ \end{itemize}
+@@ -547,7 +590,11 @@
+ \item Use these formulas wherever the source and target charts apply.
+ Treat axial redundancy at linear configurations.
+ \end{itemize}
+-\input{figures/position-coordinates}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig10-position-representation}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:10}
++\end{figure}
+ 
+ \begin{itemize}
+ \item For an explicit methylamine model, take the C--N axis as body $z$
+@@ -598,7 +645,11 @@
+ \[
+ (G_{12}\times_H\mathcal U)/{\sim}\cong\mathcal F.
+ \]
+-\input{figures/chart-deck}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig11-covering-spaces-monodromy}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:11}
++\end{figure}
+ \begin{itemize}
+ \item For a free action, $\mathcal F\to\mathcal F/G$ is a covering
+ with deck group $G$. A lifted chart transition induced by $g$
+@@ -612,7 +663,6 @@
+ \[
+ t^3=b^2=E,\qquad btb=t^{-1},\qquad bt=t^2b\ne tb.
+ \]
+-\input{figures/monodromy}
+ \begin{itemize}
+ \item A species sees $g$ through $\Gamma(g)$, with
+ $\Gamma(G)\cong G/\ker\Gamma$. On $G_6$, $\mathrm A_1$ sees no change,
+@@ -661,7 +711,11 @@
+ \item Periodic and twisted frames give integer and shifted labels for
+ the same states. Include normal-frame gluing when present.
+ \end{itemize}
+-\input{figures/basis-charts}
++\begin{figure}[tb]
++\centering
++\includegraphics[width=\linewidth]{fig12-momentum-representation}
++\caption{(author caption; see docs/caption-notes.md)}\label{fig:12}
++\end{figure}
+ \begin{itemize}
+ \item For periodic scalar torsion, take $f_m(\tau)=e^{im\tau}$,
+ with $t:\tau\mapsto\tau+2\pi/3$ and $b:\tau\mapsto-\tau$.
+@@ -674,7 +728,6 @@
+ \item Find the species and spin partners of the modes.
+ Extend to methylamine's coupled torsion and inversion.
+ \end{itemize}
+-\input{figures/momentum-states}
+ 
+ \FloatBarrier
+ \bibliographystyle{unsrt}

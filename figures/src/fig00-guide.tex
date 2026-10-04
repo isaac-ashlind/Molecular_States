@@ -19,7 +19,7 @@
 \node[tag,anchor=north west] at (3.05,3.0) {$\conf$};
 \path[fill=white,even odd rule] (8.2,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}] (8.2,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 \draw[fine] (8.2,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (8.2,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
-\fill[PlateInk] (4.2,2.2) circle[radius=1.4pt];
+\fill[PlateInk] (3.6,2.0) circle[radius=1.4pt];
 % ------------------------------------------------ the feasible solid F lifted out, with its band, paths and versions
 \begin{scope}[shift={(8.2,5.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-62,tube/a2=8}
   \draw[hidden] (-\Ro,-3.2)--(-\Ro,-.55) (\Ro,-3.2)--(\Ro,-.55);
@@ -29,7 +29,7 @@
   \foreach \p in {top0,top120,top240,bot300} {\hatomat{ft-\p}{.085}{ColGold}}
   \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColGold!45] (ft-\p) circle[radius=.085];}
   \draw[fine] (ft-top0) circle[radius=.3];
-  \node[tag,anchor=west] at (2.45,-.35) {$\mathcal F$};
+  \node[tag,anchor=west] at (2.5,-1.1) {$\mathcal F$};
 \end{scope}
 % ------------------------------------------------ sheets over one version, a lifted loop
 \begin{scope}[shift={(8.2,9.5)}]
@@ -40,12 +40,12 @@
 \end{scope}
 % ------------------------------------------------ one configuration, a point of C
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (2.0,7.0) {mol3d-mla-ref};\end{scope}
-\draw[leader] (2.3,6.1)--(4.2,2.3);
+\draw[leader] (2.1,6.05)--(3.6,2.1);
 % ------------------------------------------------ the four parts as callouts on the one drawing
 \node[head,anchor=west] at (.5,9.5) {Configurations and States}; \node[rng,anchor=west,text width=4.2cm] at (.5,9.05) {\S\S\,1--3\quad a configuration is a point of $\conf$};
 \node[head,anchor=west] at (11.3,6.6) {Fragments and}; \node[head,anchor=west] at (11.3,6.2) {Feasible Regimes}; \node[rng,anchor=west,text width=3.5cm] at (11.3,5.65) {\S\S\,4--6\quad $\mathcal F$ carved out of $\conf$, its versions on the band};
-\node[head,anchor=east] at (5.1,5.5) {Symmetry and}; \node[head,anchor=east] at (5.1,5.1) {Localization}; \node[rng,anchor=east,text width=3.6cm,align=right] at (5.1,4.55) {\S\S\,7--9\quad species on the versions, a packet on one of them};
-\draw[leader] (5.2,5.3)--(6.4,4.75);
+\node[head,anchor=west] at (.5,4.9) {Symmetry and}; \node[head,anchor=west] at (.5,4.5) {Localization}; \node[rng,anchor=west,text width=3.3cm] at (.5,3.8) {\S\S\,7--9\quad species on the versions, a packet on one of them};
+\draw[leader] (3.9,4.7)--(6.3,4.75);
 \node[head,anchor=west] at (10.6,10.6) {Representations and}; \node[head,anchor=west] at (10.6,10.2) {Global Structure}; \node[rng,anchor=west,text width=3.9cm] at (10.6,9.65) {\S\S\,10--12\quad charts, sheets and modes over the versions};
 \draw[leader] (10.5,10.35)--(10.1,10.0);
 \node[sub,anchor=north west,text width=14.2cm] at (.5,.6) {read outside in: the configuration space is carved to the feasible solid, the solid to its versions, the versions to their sheets; hatching marks what each cut removes};

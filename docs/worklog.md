@@ -13,3 +13,12 @@ pieces, ghost band with the tu path, cut faces hatched, top face as annulus minu
 points and leaders). Rebuild the pic from that order, prove it on the sheet, then proceed to the
 prototypes (figures 6, 5, 10).
 Nothing in this tree is yet at the standard of section 8. Keep iterating.
+
+## 2026-10-04, continuation after the author's review round
+- Rod junctions computed (bonds leave the far sphere on the projected junction curve); digits inside hydrogens.
+- Figures 1, 5, 6, 7, 9, 10 reworked after feedback; figures 2, 3, 4, 8, 11, 12 and the guide drawn from
+  alternative studies (studies/alternatives, docs/illustration-notes.md); twelve-approach exploration of the
+  solid and eight-approach exploration of the molecule shading.
+- Reference material kept in the repository (manuscript export, handoff package, plate scans).
+- build.py: proof sheet, squint sheet, grayscale proof, deliverable PDFs, collision report; scaffold rebuilt.
+- Open for the author: section order of the export against the specification (docs/author-decisions.md).

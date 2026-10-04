@@ -85,3 +85,12 @@ solid stops being one thing. 10 machine drawing: austere; its hidden-line discip
 11 orthographic triple: engineering convention, reserve. 12 layer cake: the eta-foliation, not needed.
 What they teach together: the band is the object, the thickness is a neighbourhood, and the cut must look like
 a cut (hatched faces) rather than a pipe end.
+
+## The molecule, eight shadings (studies/alternatives/explore-molecule)
+
+1 solid crescent (current): the ink-drawing look, consistent with gouache fills; kept. 2 latitude lines: an
+engraver's ball, busy at plate size, the hydrogens become striped. 3 stipple: soft, turns to mush when small.
+4 flat: clean, no depth. 5 crescent with a white highlight: glossy, the cartoon vibe to avoid. 6 dark lune after
+Harter 5.1.1: strong, but the heavier lune halves the small hydrogens; the terminator idea is right, the weight
+too much. 7 two tones of one gouache: painterly rather than drawn. 8 thinner rods and smaller hydrogens:
+weaker. Decision: keep 1; the junction geometry of the rods matters more than any shading choice.

@@ -1,0 +1,19 @@
+% Proof sheet: every plate at print width (12 cm) one per page, then the squint sheet (all thirteen as thumbnails).
+\documentclass[10pt]{article}
+\usepackage[margin=1.5cm,a4paper]{geometry}
+\usepackage{graphicx}
+\graphicspath{{build/figures/}}
+\pagestyle{empty}
+\newcommand\plate[2]{\begin{center}{\small\texttt{#1}}\\[4pt]\fbox{\includegraphics[width=12cm]{#1}}\\[2pt]{\footnotesize #2}\end{center}\clearpage}
+\begin{document}
+\plate{fig00-guide}{guide, unnumbered}
+\plate{fig01-configuration-space}{1}\plate{fig02-ambient-hilbert-space}{2}\plate{fig03-physical-hilbert-space}{3}
+\plate{fig04-molecules-fragments-complexes}{4}\plate{fig05-symmetry-groups-versions}{5}\plate{fig06-feasible-configuration-space}{6}
+\plate{fig07-symmetry-species}{7}\plate{fig08-nuclear-spin-weights}{8}\plate{fig09-localized-states}{9}
+\plate{fig10-position-representation}{10}\plate{fig11-covering-spaces-monodromy}{11}\plate{fig12-momentum-representation}{12}
+\begin{center}{\small squint sheet: the one idea of each plate must be visible at this size}\\[6pt]
+\fbox{\includegraphics[width=4.1cm]{fig00-guide}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig01-configuration-space}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig02-ambient-hilbert-space}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig03-physical-hilbert-space}}\hspace{4pt}\\[6pt]
+\fbox{\includegraphics[width=4.1cm]{fig04-molecules-fragments-complexes}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig05-symmetry-groups-versions}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig06-feasible-configuration-space}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig07-symmetry-species}}\hspace{4pt}\\[6pt]
+\fbox{\includegraphics[width=4.1cm]{fig08-nuclear-spin-weights}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig09-localized-states}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig10-position-representation}}\hspace{4pt}\fbox{\includegraphics[width=4.1cm]{fig11-covering-spaces-monodromy}}\hspace{4pt}\\[6pt]
+\fbox{\includegraphics[width=4.1cm]{fig12-momentum-representation}}\hspace{4pt}\end{center}
+\end{document}
