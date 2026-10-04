@@ -1,0 +1,62 @@
+% Figure 5. Symmetry groups and versions. What the reader must see: (A) the operation b is a half-turn
+% about the axis normal to the mirror plane, so H = {E, b} stabilises the rotational orbit; (B) the
+% feasible regime is carved from the whole interval [H, S] (36 subgroups) down to the bond interval
+% [H, B] (10 subgroups), with the chain H < G6 < G12 < B; (C) versions are the same positions with
+% the labels moved by g. Colours: gold = retained (bond interval, reference), blue = chain, ink
+% elsewhere. Hatch unused; ghosts dashed. All lattice data computed (compute/, checks/verify.g).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,15.4);
+% ------------------------------------------------ A. b is a rotation: mirror plane and half-turn axis
+\begin{scope}[shift={(3.0,12.6)}]
+  \begin{scope}[scale=.8]
+    \path[fill=PlateInk!6] plot coordinates {\mirrorplane} -- cycle; \draw[fine] plot coordinates {\mirrorplane} -- cycle;
+    \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] plot coordinates {\mirroraxis};
+  \end{scope}
+  \begin{scope}\molsolid\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \draw[harrow] (1.35,1.55) arc[start angle=20,end angle=200,x radius=.45,y radius=.2];
+  \node[lab,anchor=south] at (.9,1.85) {$R_b$};
+  \node[sub,anchor=north] at (0,-1.95) {$X_0$: mirror plane through $\mathrm H_1,\mathrm C_6,\mathrm N_7$; axis normal to it};
+\end{scope}
+\draw[harrow] (5.6,12.6)--(7.2,12.6);
+\node[lab,anchor=south] at (6.4,12.7) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (6.4,12.5) {$=R_y(\pi)$};
+\begin{scope}[shift={(9.6,12.6)}]
+  \begin{scope}\molghostlabels\pic[scale=.8] at (0,0) {mol3d-mla-bref};\end{scope}
+  \node[sub,anchor=north] at (0,-1.95) {$bX_0=R_bX_0$, so $H=\{E,b\}$ stabilises the orbit $SO(3)X_0$};
+\end{scope}
+% ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval
+\begin{scope}[shift={(.6,5.6)}]
+  \node[sub,anchor=south west] at (0,4.45) {all $36$ subgroups between $H$ and $S$, by order; the $10$ that keep the bonds, in gold};
+  \foreach \i/\x/\lev/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+7.6*\x},{.15+4.0*\lev/12});}
+  \foreach \a/\b in \bigCovers {\draw[line width=.25pt,draw=PlateInk!70] (n\a)--(n\b);}
+  \foreach \i/\x/\lev/\inb/\name in \bigNodes {
+    \ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=1.8pt];\else\fill[PlateInk] (n\i) circle[radius=1.1pt];\fi}
+  \node[lab,anchor=west] at (7.55,.15) {$H$}; \node[lab,anchor=west] at (7.55,4.15) {$S$};
+\end{scope}
+\draw[harrow] (8.9,7.6)--(9.7,7.6); \node[sub,anchor=south] at (9.3,7.7) {keep the bonds};
+\begin{scope}[shift={(11.5,5.95)},x=.46cm,y=.95cm]
+  \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
+  \foreach \a/\b in \hasseCovers {\draw[fine] (h\a)--(h\b);}
+  \draw[line width=1.2pt,draw=ColNitrogen] (h0)--(h4)--(h6)--(h9);
+  \foreach \i/\x/\y/\v/\name in \hasseNodes {\node[font=\fontsize{8}{9}\selectfont,fill=white,inner sep=1pt] at (h\i) {$\name$};}
+\end{scope}
+\node[sub] at (11.5,5.45) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers; chain $H<G_6<G_{12}<B$};
+% ------------------------------------------------ C. versions: one reference, five ghosts, labels moved by g
+\node[sub,anchor=west] at (.2,4.4) {versions $G_{12}/H$: the same positions, position $j$ carries label $g(j)$};
+\foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
+  \begin{scope}[shift={({1.4+2.45*\k},2.6)}]
+    \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
+    \ifnum\k=0 \begin{scope}\molsolid\pic[scale=.5] at (0,0) {mol3d-mla-ref};\end{scope}
+    \else \begin{scope}\molghostlabels\pic[scale=.5] at (0,0) {mol3d-mla-ref};\end{scope}\fi
+    \node[lab] at (0,-1.35) {$\cname$};
+    \node[sub] at (0,-1.75) {$g=\gname$};
+  \end{scope}
+}
+\end{tikzpicture}
+\end{document}

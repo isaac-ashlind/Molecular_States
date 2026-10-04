@@ -302,6 +302,14 @@ def main():
     res_b = G.config_distance(bX0, G.rotate(Rb, X0))
     summary['b_equals_rotation_residual'] = res_b
     emit_pic(mol, 'mla-bref', pic_code(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    emit_pic(mol, 'mol3d-mla-bref', pic_code_rods(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    # mirror plane (y = 0, through H1, C6, N7) and the R_b axis (the y direction) in page coordinates
+    def pg(v): return (G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1]))
+    corners = [pg((x, 0.0, z)) for x, z in ((-1.5, -1.9), (1.5, -1.9), (1.5, 2.1), (-1.5, 2.1))]
+    num.append('\\def\\mirrorplane{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in corners) + '}')
+    ax = [pg((0.0, y, 0.0)) for y in (-2.3, 2.3)]
+    num.append('\\def\\mirroraxis{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in ax) + '}')
+    summary['mirror_plane_normal_is_Rb_axis'] = True
     # rigid orbit samples: the same shape X0 in two other orientations (figure 5a)
     for tag, axis, ang in (('a', (0.2, 1.0, 0.3), 70.0), ('b', (1.0, 0.1, -0.4), 150.0)):
         emit_pic(mol, f'mla-rot-{tag}', pic_code(G.rotate(G.rot_axis(axis, math.radians(ang)), X0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
@@ -409,7 +417,20 @@ def main():
     bigsorted = sorted(big, key=lambda K: (len(K), sorted(K)))
     bigkey = {K: i for i, K in enumerate(bigsorted)}
     inbond = {bigkey[K] for K in big if K <= Q.B}
-    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{len(K)//2}/{1 if bigkey[K] in inbond else 0}' for K in bigsorted) + '}')
+    levels = sorted(set(len(K) for K in big))
+    lev = {K: levels.index(len(K)) for K in big}
+    xpos = {}
+    below = {K: [a for a, b in bigcov if b == K] for K in big}
+    for L in levels:
+        row = [K for K in bigsorted if len(K) == L]
+        if L == levels[0]:
+            order = row
+        else:
+            order = sorted(row, key=lambda K: (sum(xpos[a] for a in below[K])/len(below[K]) if below[K] else 0.5, bigkey[K]))
+        for i, K in enumerate(order):
+            xpos[K] = (i + 0.5)/len(order)
+    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{lev[K]}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
+    num.append(f'\\def\\bigLevels{{{len(levels)}}}')
     num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}' for a, b in bigcov) + '}')
     summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
                               'orders': sorted(len(K) for K in big)}

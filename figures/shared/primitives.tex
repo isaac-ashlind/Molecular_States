@@ -46,11 +46,15 @@
     \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
     \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
     \pgfmathsetmacro{\wa}{\pgfkeysvalueof{/tikz/tube/a1}}\pgfmathsetmacro{\wb}{\pgfkeysvalueof{/tikz/tube/a2}}
-    % 1. far inner wall seen through the opening: white, with a solid shadow on its left part (light from the upper left falls on the right part)
-    \begin{scope}\clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}];
-      \path[fill=white] (-\Ri,\Hh) arc[start angle=180,end angle=0,x radius=\Ri,y radius={\E*\Ri}] -- (\Ri,-\Hh) arc[start angle=0,end angle=180,x radius=\Ri,y radius={\E*\Ri}] -- cycle;
-      \foreach \a in {186,189,...,246} {\pgfmathsetmacro{\lw}{0.2+0.4*((246-\a)/60)}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
-      \draw[fine] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
+    % 1. far inner wall, full height, seen through the hole (from above) and through the wedge gap:
+    %    generatrix lines uniform in tau, so they crowd toward both silhouettes; heavier on the shadow (left) side;
+    %    the inner bottom rim is a visible edge.
+    \begin{scope}
+      \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]
+            plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- cycle;
+      \path[fill=white] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
+      \foreach \a in {94,100,...,266} {\pgfmathsetmacro{\lw}{0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
+      \draw[heavy] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
     \end{scope}
     % 2. outer wall, front, minus the wedge; solid shadow band on the right
     \foreach \ta/\tb in {-90/\wa,\wb/90} {\path[fill=ColNitrogen!16] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;}
@@ -99,3 +103,6 @@
   \hatom{#1}{#2}{.17}{white}}
 \newcommand\nmcentre{\draw[line width=.5pt,draw=PlateInk,fill=white] (0,0) circle[radius=\nmR];\hatom{0}{0}{.13}{ColNitrogen}}
 \newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=1.1pt,double=white] (0,0)--(#1,#2);\hatom{#1}{#2}{.17}{white}}
+% ---- ghost molecule with the label inside each disc (versions: same positions, labels moved)
+\newcommand\molghostlabels{\renewcommand\molrod[4]{\draw[ghost] (##1,##2)--(##3,##4);}
+  \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{6}{7}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\fi}}

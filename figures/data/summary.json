@@ -108,6 +108,7 @@
   0.0
  ],
  "b_equals_rotation_residual": 1.188091989162017e-15,
+ "mirror_plane_normal_is_Rb_axis": true,
  "tau_shapes_deg": [
   0,
   60,

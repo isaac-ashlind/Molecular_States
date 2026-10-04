@@ -24,20 +24,20 @@
 \hatomat{tb-bot300}{.09}{ColGold}
 \leaderlabel{4.6}{8.95}{.0}{-.55}{north}{$H$}
 \leaderlabel{6.46}{10.37}{.5}{.35}{west}{$tH$}
-\leaderlabel{2.74}{10.37}{-.55}{-.3}{east}{$t^2H$}
+\leaderlabel{2.74}{10.37}{-.25}{.45}{south east}{$t^2H$}
 \leaderlabel{2.74}{8.23}{-.5}{-.4}{east}{$tuH$}
 \node[lab] at (6.05,10.95) {$t$}; \node[lab] at (2.65,9.1) {$tu$};
 \node[sub,anchor=west] at (7.7,10.0) {$\tau$ around}; \node[sub,anchor=west] at (7.7,9.6) {$\eta$ along the height}; \node[sub,anchor=west] at (7.7,9.2) {$Q$ across the wall};
 \node[sub,anchor=west] at (7.7,8.5) {$uH,\,t^2uH$ on the lower edge, behind};
 % zoom bubble: the normal slice at the cut face
-\zoombubble{2.95}{9.4}{.32}{1.45}{11.85}{1.1}
-\begin{scope}[shift={(1.45,11.85)}]
+\zoombubble{2.95}{9.4}{.32}{1.05}{11.55}{.95}
+\begin{scope}[shift={(1.05,11.55)}]
   \path[cut] (-.72,-.6) rectangle (.72,.6); \draw[heavy] (-.72,-.6) rectangle (.72,.6);
   \draw[ColNitrogen,line width=.9pt] (0,-.6)--(0,.6);
   \draw[harrow] (0,0)--(.6,0); \node[lab,anchor=west] at (.62,.0) {$Q$};
   \node[sub,anchor=south] at (0,.65) {$\eta$};
 \end{scope}
-\node[sub,anchor=west] at (2.7,12.3) {the cut face is a normal slice,}; \node[sub,anchor=west] at (2.7,11.9) {$X_0(q)+\sum_a Q_ae_a(q)$, $|Q|<\varepsilon$};
+\node[sub,anchor=west] at (2.3,12.55) {the cut face is a normal slice,}; \node[sub,anchor=west] at (2.3,12.15) {$X_0(q)+\sum_a Q_ae_a(q)$, $|Q|<\varepsilon$};
 % ------------------------------------------------ versions along the t path, as Newman projections
 \node[sub,anchor=west] at (.2,6.55) {looking down the C--N axis along the $t$ path};
 \foreach \x/\deg/\l in {1.6/0/{$H$},4.3/60/{eclipsed, $\tau=\pi/3$},7.0/120/{$tH$}} {
