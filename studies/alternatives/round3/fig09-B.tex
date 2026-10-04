@@ -1,0 +1,33 @@
+% Figure 9 draft B: packets as radial profiles on the torsion circle (the form of the radial modes of figure 12),
+% profiles fine, union heavy, overlap hatched, centres red; the share chart beside it.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt}}}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,7.6);
+\begin{scope}[shift={(3.4,3.9)}]
+  \pgfmathsetmacro{\R}{1.3}\pgfmathsetmacro{\A}{1.2}\pgfmathsetmacro{\sg}{40}
+  \draw[fine] (0,0) circle[radius=\R];
+  \foreach \a in {90,210,330} {\draw[fine] plot[domain=-100:100,samples=90,variable=\t] ({(\R+\A*exp(-(\t/\sg)^2/2))*cos(\a+\t)},{(\R+\A*exp(-(\t/\sg)^2/2))*sin(\a+\t)});}
+  \draw[heavy] plot[domain=0:360,samples=240,variable=\t] ({(\R+\A*max(exp(-((\t-90)/\sg)^2/2),exp(-((\t-210)/\sg)^2/2),exp(-((\t-330)/\sg)^2/2),exp(-((\t+30)/\sg)^2/2),exp(-((\t-450)/\sg)^2/2)))*cos(\t)},{(\R+\A*max(exp(-((\t-90)/\sg)^2/2),exp(-((\t-210)/\sg)^2/2),exp(-((\t-330)/\sg)^2/2),exp(-((\t+30)/\sg)^2/2),exp(-((\t-450)/\sg)^2/2)))*sin(\t)});
+  \foreach \a in {150,270,30} {\path[cut] plot[domain=-60:60,samples=40,variable=\t] ({(\R+\A*min(exp(-((\t+60)/\sg)^2/2),exp(-((\t-60)/\sg)^2/2)))*cos(\a+\t)},{(\R+\A*min(exp(-((\t+60)/\sg)^2/2),exp(-((\t-60)/\sg)^2/2)))*sin(\a+\t)}) -- plot[domain=60:-60,samples=12,variable=\t] ({\R*cos(\a+\t)},{\R*sin(\a+\t)}) -- cycle;}
+  \foreach \a/\l in {90/{g_0},210/{g_1},330/{g_2}} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.075}{ColDot} \node[lab] at ({(\R+\A+.35)*cos(\a)},{(\R+\A+.35)*sin(\a)}) {$\l$};}
+  \draw[tpath] ({\R*cos(100)},{\R*sin(100)}) arc[start angle=100,end angle=200,radius=\R]; \node[lab] at (150:{\R-.35}) {$t$};
+  \node[sub] at (270:{\R-.3}) {$\tau$};
+\end{scope}
+\begin{axis}[at={(8.0cm,1.6cm)},width=6.2cm,height=4.6cm,xmin=0,xmax=1.1,ymin=0,ymax=1.05,xtick={0,0.3333,0.6667,1},xticklabels={$0$,$1/3$,$2/3$,$1$},ytick={0,0.3333,0.6667,1},yticklabels={$0$,$1/3$,$2/3$,$1$},axis lines=left,axis line style={-},tick align=outside,clip=false,xlabel={$\sigma/d$},xlabel style={at={(axis description cs:1,0)},anchor=west}]
+  \addplot[PlateInk,line width=.9pt] table[x=x,y=wA1] {gaussian-shares.dat};
+  \addplot[PlateInk,line width=.8pt,dash pattern=on 2.4pt off 1.6pt] table[x=x,y=wE] {gaussian-shares.dat};
+  \addplot[only marks,mark=o,mark size=2pt,PlateInk] coordinates {(0,0.3333) (0,0.6667)};
+  \addplot[only marks,mark=*,mark size=1.8pt,PlateInk] coordinates {(0.3333,\shareShownA) (0.3333,\shareShownE)};
+  \node[sub,anchor=west] at (axis cs:1.0,0.86) {$w_{\mathrm A_1}$}; \node[sub,anchor=west] at (axis cs:1.0,0.14) {$w_{\mathrm E}$};
+  \draw[fine,dash pattern=on .6pt off 1.3pt] (axis cs:0.3333,0)--(axis cs:0.3333,\shareShownA);
+\end{axis}
+\node[sub,anchor=north] at (3.4,.6) {profiles at $\sigma/d=1/3$, the overlap hatched};
+\node[sub,anchor=north] at (11.0,.6) {$w_{\mathrm A_1}=(1+2c)/3$, $w_{\mathrm E}=2(1-c)/3$, $c=e^{-d^2/8\sigma^2}$};
+\end{tikzpicture}
+\end{document}

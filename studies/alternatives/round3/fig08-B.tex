@@ -1,0 +1,29 @@
+% Figure 8 draft B: six spatial levels (species and parity) in a row, each carrying its weight as a stack of dots
+% in rows of four; 12, 4, 4, 12, 8, 8 read at a glance.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,6.8);
+\newcommand\stack[4]{% x, weight, species label, parity label
+  \begin{scope}[shift={(#1,1.6)}]
+    \draw[heavy] (-.9,0)--(.9,0);
+    \pgfmathtruncatemacro{\n}{#2}
+    \foreach \k in {1,...,\n} {\pgfmathtruncatemacro{\row}{(\k-1)/4}\pgfmathtruncatemacro{\col}{mod(\k-1,4)}
+      \fill[PlateInk] ({-.6+.4*\col},{.3+.38*\row}) circle[radius=2.2pt];}
+    \node[lab,anchor=north] at (0,-.12) {#3}; \node[sub,anchor=north] at (0,-.5) {#4};
+    \node[lab,anchor=south] at (0,{.3+.38*((\n-1)/4)+.25}) {#2};
+  \end{scope}}
+\stack{1.8}{12}{$\mathrm A_1$}{even}
+\stack{4.0}{4}{$\mathrm A_1$}{odd}
+\stack{6.2}{4}{$\mathrm A_2$}{even}
+\stack{8.4}{12}{$\mathrm A_2$}{odd}
+\stack{10.6}{8}{$\mathrm E$}{even}
+\stack{12.8}{8}{$\mathrm E$}{odd}
+\draw[heavy] (9.7,1.6)--(11.5,1.6) (9.7,1.66)--(11.5,1.66); \draw[heavy] (11.9,1.6)--(13.7,1.6) (11.9,1.66)--(13.7,1.66);
+\node[sub,anchor=north] at (7.5,.55) {one dot per spin state admitted with the level; a double rule marks the two-dimensional E};
+\end{tikzpicture}
+\end{document}

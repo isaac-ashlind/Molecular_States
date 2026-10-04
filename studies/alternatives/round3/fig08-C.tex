@@ -1,0 +1,27 @@
+% Figure 8 draft C: the correlation diagram of the current plate with every paragraph removed; levels at left,
+% partitioned horizontal bars at right, solid even and dashed odd connections, a two-item key.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,even/.style={line width=.7pt,draw=PlateInk},odd/.style={line width=.7pt,draw=PlateInk,dash pattern=on 2.6pt off 1.6pt}]
+\path[use as bounding box] (0,0) rectangle (15,7.2);
+\pgfmathsetmacro{\u}{.33}
+\foreach \y/\l in {5.6/{\mathrm A_1},3.8/{\mathrm A_2}} {\draw[heavy] (1.4,\y)--(3.4,\y); \node[lab,anchor=south west] at (1.4,\y) {$\l$};}
+\draw[heavy] (1.4,2.0)--(3.4,2.0) (1.4,2.06)--(3.4,2.06); \node[lab,anchor=south west] at (1.4,2.08) {$\mathrm E$};
+\begin{scope}[shift={(7.4,0)}]
+  \foreach \y/\n/\l in {5.6/12/{$\mathrm A_1$, 12},3.8/4/{$\mathrm A_2$, 4}} {
+    \draw[fine] (0,{\y-.22}) rectangle ({\u*\n},{\y+.22}); \foreach \k in {1,...,\n} \draw[line width=.3pt,draw=PlateInk!60] ({\u*\k},{\y-.22})--({\u*\k},{\y+.22}); \draw[heavy] (0,{\y-.22}) rectangle ({\u*\n},{\y+.22});
+    \node[lab,anchor=west] at ({\u*\n+.15},\y) {\l};}
+  \draw[fine] (0,1.81) rectangle ({\u*16},2.25); \foreach \k in {1,...,15} \draw[line width=.3pt,draw=PlateInk!60] ({\u*\k},1.81)--({\u*\k},2.25); \foreach \k in {2,4,...,14} \draw[line width=.6pt,draw=PlateInk] ({\u*\k},1.81)--({\u*\k},2.25); \draw[heavy] (0,1.81) rectangle ({\u*16},2.25);
+  \node[lab,anchor=west] at ({\u*16+.15},2.03) {$\mathrm E$, 8 pairs};
+  \node[sub,anchor=south] at (2.6,6.3) {$\spin$, one cell per state, $32$ in all};
+\end{scope}
+\draw[even] (3.4,5.6)--(7.4,5.6); \draw[even] (3.4,3.8)--(7.4,3.8); \draw[even] (3.4,2.06)--(7.4,2.06);
+\draw[odd] (3.4,5.6)--(7.4,3.8); \draw[odd] (3.4,3.8)--(7.4,5.6); \draw[odd] (3.4,2.0)--(7.4,2.0);
+\draw[even] (1.4,.8)--(2.4,.8); \node[sub,anchor=west] at (2.5,.8) {even parity, $\chi_+$};
+\draw[odd] (5.0,.8)--(6.0,.8); \node[sub,anchor=west] at (6.1,.8) {odd parity, $\chi_-$};
+\end{tikzpicture}
+\end{document}

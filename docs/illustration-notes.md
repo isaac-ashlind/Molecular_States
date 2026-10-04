@@ -143,3 +143,22 @@ Recommendation: N4 (black ink; viridian t; cobalt violet for the amino-side gene
 starred b; scarlet versions; French-gray core sheet; chrome-yellow retained regions; cobalt nitrogen), or N1 with a
 light-blue sheet. The semantic fix that came out of the pitch: on the solid the violet path is tu, on the sheets it is
 b; these are different generators, so dash now marks the starred one and the solid line the unstarred one.
+
+## Round 3: figures 7, 8, 9 as three approaches each (2026-10-04)
+
+Files in `studies/alternatives/round3/`. Harter plates consulted: 4.4.3 and 4.4.7 (mode pictures with amplitudes at
+the atoms), 4.2.3 (level correlations), 5.4.2 (a path traced on a sphere, labels placed on the path).
+
+- **7A** triangles: the clearest disc pictures, but the sites lose the torsion circle. **7B** circle grid: the sites
+  are the same object as in 9 and 12; discs on the rim read as beads on the ring. **7C** the E plane: the three
+  images of v2 at a third turn with the mirror axis show why E is two-dimensional, the same geometry as the sites.
+  **7D** merges B and C; the fixed-point glyph for A1 was dropped as cryptic. Pick: D.
+- **8A** vertical 32-strip with converging lines: a tangle. **8B** dot stacks: weights read instantly. **8C** the old
+  correlation diagram tidied: still fussy at the odd crossings. **8D** two rows (even, odd) of stacks, each tagged
+  by its spin species: the swap of A1 and A2 between the rows is seen, the counts are seen. Pick: D.
+- **9A** unrolled tau line, three rows (narrow, drawn, broad), overlap as darker gold, A1 share as the filled part of
+  a bar, the chart small with the three rows marked: the limits are seen without words. **9B** radial profiles: the
+  clover again, which the author rejected. **9C** the two combinations drawn: honest but abstract. Pick: A.
+- Lessons: a loop variable reused inside a macro argument hangs TeX (renamed); unit-less `x=` in a scope is points,
+  not centimetres (the tau axis collapsed); leaders start and end on the things they join, labels sit on the object
+  they name, and line styles are a budget like colour (hidden lines are now dotted because dashed is spent on tu).

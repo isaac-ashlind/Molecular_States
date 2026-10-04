@@ -1,0 +1,43 @@
+% Figure 7 draft D (merge of B and C): sites on the torsion circle with the mirror line and the t arc; the grid of
+% disc pictures, each mode with its t image and b image; beneath, the fixed point of A1 and the E plane with the
+% three images of v2 and the mirror axis. Labels only, one line on how to read the discs.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\input{fig07-common.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,11.6);
+% key: the three version sites on the torsion circle
+\begin{scope}[shift={(2.5,8.2)}]
+  \pgfmathsetmacro{\R}{1.4}
+  \draw[fine] (0,0) circle[radius=\R];
+  \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
+  \draw[tpath] (100:{\R+.28}) arc[start angle=100,end angle=200,radius={\R+.28}];
+  \foreach \a in {90,210,330} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.09}{ColDot}}
+  \node[lab,anchor=south east] at ($(90:\R)+(-.08,.1)$) {$H$}; \node[lab,anchor=north east] at (210:\R) {$tH$}; \node[lab,anchor=north west] at (330:\R) {$t^2H$};
+  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=west] at (.1,{\R+.42}) {$b$};
+  \node[sub] at (270:{\R+.32}) {$\tau$};
+\end{scope}
+% the grid
+\foreach \col/\x/\a/\b/\c/\ta/\tb/\tc/\ba/\bb/\bc in {1/7.0/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA, 2/10.0/\sB/-\sC/-\sC/-\sC/\sB/-\sC/\sB/-\sC/-\sC, 3/13.0/0/\sD/-\sD/-\sD/0/\sD/0/-\sD/\sD} {
+  \modepic{\x}{9.6}{.62}{\a}{\b}{\c}{1}
+  \modepic{\x}{7.5}{.62}{\ta}{\tb}{\tc}{1}
+  \modepic{\x}{5.4}{.62}{\ba}{\bb}{\bc}{1}
+  \node[lab] at (\x,10.55) {$v_\col$};}
+\node[lab,anchor=east] at (5.9,9.6) {$v$}; \node[lab,anchor=east] at (5.9,7.5) {$t\,v$}; \node[lab,anchor=east] at (5.9,5.4) {$b\,v$};
+\draw[fine] (6.2,11.05)--(6.2,10.9)--(7.8,10.9)--(7.8,11.05); \node[lab,anchor=south] at (7.0,11.07) {$\mathrm A_1$};
+\draw[fine] (9.2,11.05)--(9.2,10.9)--(13.8,10.9)--(13.8,11.05); \node[lab,anchor=south] at (11.5,11.07) {$\mathrm E$};
+% beneath: the fixed point and the E plane
+\begin{scope}[shift={(11.5,2.6)}]
+  \pgfmathsetmacro{\L}{1.25}
+  \draw[blift] (-\L-.35,0)--(\L+.35,0); \draw[fine] (0,-\L-.25)--(0,\L+.25);
+  \node[sub,anchor=south] at (0,\L+.28) {$v_3$};
+  \foreach \a/\l/\anc in {0/{v_2}/west,120/{t\,v_2}/south east,240/{t^2v_2}/north east} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.18}) {$\l$};}
+  \draw[tpath] (8:.5) arc[start angle=8,end angle=112,radius=.5];
+\end{scope}
+\node[sub,anchor=north] at (10.0,.55) {disc area is the amplitude; ink positive, white negative, a dash for zero};
+\end{tikzpicture}
+\end{document}

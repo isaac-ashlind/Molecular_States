@@ -5,7 +5,7 @@
   \ifnum#7=1 \draw[fine] (0,0) circle[radius=#3]; \else \draw[fine] (90:#3)--(210:#3)--(330:#3)--cycle; \fi
   \foreach \mang/\mc in {90/#4,210/#5,330/#6} {
     \pgfmathsetmacro{\r}{.42*#3*sqrt(abs(\mc))}\pgfmathsetmacro{\pos}{\mc>0?1:0}
-    \ifdim\r pt>0.6pt \ifnum\pos=1 \fill[PlateInk] (\mang:#3) circle[radius=\r]; \else \draw[fine,fill=white] (\mang:#3) circle[radius=\r]; \fi
+    \ifdim\r cm>0.03cm \ifnum\pos=1 \fill[PlateInk] (\mang:#3) circle[radius=\r]; \else \draw[fine,fill=white] (\mang:#3) circle[radius=\r]; \fi
     \else \draw[fine] ($(\mang:#3)+(-.07,0)$)--($(\mang:#3)+(.07,0)$); \fi}
   \end{scope}}
 % amplitudes: v1=(1,1,1)/sqrt3; v2=(2,-1,-1)/sqrt6; v3=(0,1,-1)/sqrt2; t(a,b,c)=(c,a,b); b(a,b,c)=(a,c,b)
