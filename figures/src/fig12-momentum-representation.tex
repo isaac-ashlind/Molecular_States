@@ -40,8 +40,8 @@
 \draw[fine] ({12.7-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.7-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 \foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.7+\dm*\k},\y) circle[radius=1.5pt];}
 \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (12.7,{9.4-2.5*\dk-.05})--(12.7,{9.4+2.5*\dk+.05});
-\draw[line width=1.1pt,draw=ColGold] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
-\node[sub,anchor=south west,text=ColGoldStroke] at ({12.7+2.5*\sh+.05},{9.4+2.5*\dk-.02}) {$\kappa=\rho K$};
+\draw[line width=1.1pt,draw=PlateInk] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
+\node[sub,anchor=south west] at ({12.7+2.5*\sh+.05},{9.4+2.5*\dk-.02}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.7,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=west] at ({12.7+3.5*\dm+2.5*\sh+.08},{9.4-2.5*\dk-.2}) {$\kappa$};
 \node[sub,anchor=north west,text width=8.6cm] at (6.1,7.65) {a turn of the body frame at the seam, $(r,\tau+2\pi,Q)\sim(rR_z(-2\pi\rho),\tau,Q)$, shears the torsional labels row by row: $\kappa=m+\rho K$};
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6

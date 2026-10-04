@@ -12,9 +12,9 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,cellv/.style={draw=PlateInk,line width=.4pt,minimum width=.56cm,minimum height=.44cm,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont}]
-\path[use as bounding box] (0,0) rectangle (15,15.0);
+\path[use as bounding box] (0,0) rectangle (15,15.4);
 % ------------------------------------------------ the atlas (delta, theta)
-\begin{scope}[shift={(1.5,5.9)}]
+\begin{scope}[shift={(1.5,6.3)}]
   \draw[fine] (-.3,0)--(12.2,0); \draw[fine] (0,-.3)--(0,8.3);
   \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {\draw[fine] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08); \node[lab,anchor=north] at ({1.1+2.3*\i},-.14) {$\lab$};}
   \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.65*\j})--(.08,{.9+1.65*\j}); \node[lab,anchor=east] at (-.14,{.9+1.65*\j}) {$\lab$};}
@@ -22,7 +22,6 @@
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (5.7,.08)--(5.7,8.45);
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (-.3,7.5)--(12.2,7.5);
   \node[sub,anchor=south] at (5.7,8.5) {equal bonds, $\delta=0$}; \node[sub,anchor=south east] at (12.15,7.58) {linear, $\theta=\pi$};
-  \draw[fine] (5.7,7.5) circle[radius=.95];
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
     \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.75] at ({1.1+2.3*\i},{.9+1.65*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
@@ -46,7 +45,7 @@
 \draw[harrow] (4.45,3.6)--(3.85,3.6); \node[lab,anchor=south] at (4.15,3.66) {$E^*$};
 % names under the glyphs
 \node[lab] at (5.4,4.55) {$X$}; \node[lab] at (10.3,4.65) {$RX$}; \node[lab] at (2.85,4.55) {$E^*X=-X$};
-\node[lab] at (5.4,.45) {$XP_\sigma$}; \node[lab] at (10.6,.45) {$RXP_\sigma$};
-\node[sub,anchor=north west,text width=2.7cm] at (12.2,.95) {left: every column turns; right: the columns move or flip};
+\node[lab] at (5.4,.5) {$XP_\sigma$}; \node[lab] at (10.6,.5) {$RXP_\sigma$};
+\node[sub,anchor=south] at (7.5,.08) {on the left every column turns; on the right the columns move or flip};
 \end{tikzpicture}
 \end{document}
