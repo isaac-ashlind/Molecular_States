@@ -455,7 +455,7 @@ def main():
     CAM_SIDE = G.camera(azimuth_deg=90.0, elevation_deg=18.0)   # the C-N axis lies in the page: both normal displacements at full length
     def arrows_side(e):
         Pe = [(G.dot(v, CAM_SIDE[0]), G.dot(v, CAM_SIDE[1])) for v in e]
-        return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]
+        return [(5.0*amp*px, 5.0*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]   # side views: arrows 5x (declared)
     emit_pic(mol, 'mol3d-mla-ref-eminus-side', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_SIDE, arrows=arrows_side(nf['e_minus'])))
     emit_pic(mol, 'mol3d-mla-ref-eplus-side', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_SIDE, arrows=arrows_side(nf['e_plus'])))
     Xdisp = [G.add(x, G.scale(v, amp)) for x, v in zip(X0, nf['e_minus'])]
