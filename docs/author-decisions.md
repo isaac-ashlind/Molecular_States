@@ -169,3 +169,6 @@ docs/notation-migration.md.
 - Minimal captions (author, 2026-10-04): every figure carries a one- to three-sentence caption drawn from the caption
   notes, claiming only what the plate shows; the cover carries no caption line. Figure 12's vector J rises from the
   marked centre to the right end of the K = 1 ring and is named outside the sphere; no radius line.
+- Closing pages (author, 2026-10-04): the rigid formulation is recovered on one unnumbered page with its own plate
+  (one version becomes six, one level becomes a multiplet whose weights add up, verified in verify_spin.py), then
+  Notation and References each on their own page. The box is gone; its content is the page's bullets and footnote.

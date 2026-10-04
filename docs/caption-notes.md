@@ -191,3 +191,14 @@ modes as radial plots (heavier ink) on the torsion circle of figure 9 (thin ink,
 suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
+
+## Rigid recovery (unnumbered plate, the closing page)
+What the reader sees at a squint: one point becomes six points joined by paths, and one level becomes a multiplet.
+Top: the mass-centred molecule X0 over its single version H (the family frozen to a point; the SO(3) factor
+suppressed as on every plate) and, after the arrow "let tau and iota move", the core sheet of figure 10 with the six
+versions G12/H and the paths t and tu; the symmetry H = {E, b} grows to G12. Bottom: the correlation diagram, each
+rigid species of H with its spin weight (A' 20, A'' 12; even parity) fanning into its tunnelling multiplet
+Ind_H^{G6} (A' -> A1 12 + E 8, A'' -> A2 4 + E 8), the weights adding up. Computed: the H decomposition of the spin
+space and the induced multiplets (checks/verify_spin.py, Frobenius reciprocity); the weights are figure 8's. No
+energies: the vertical order within a multiplet is not an energy order (declared on the plate). Odd parity exchanges
+A1 with A2 and 20 with 12 (text).

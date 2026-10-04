@@ -717,6 +717,11 @@ def main():
     for sp in ('A1', 'A2', 'E'):
         num.append(f'\\def\\localCopies{spname[sp]}{{{local[sp]}}}')
     num.append(f'\\def\\spinDim{{{2**5}}}')
+    # the rigid limit (closing page): spin space under H = {E, b}; chi_spin(b) = 2^(cycles of (23)(45) on five protons)
+    chi_b = 2 ** 3
+    rigid = {'Ap': (2**5 + chi_b)//2, 'App': (2**5 - chi_b)//2}
+    num.append(f'\\def\\rigidWeightAp{{{rigid["Ap"]}}}\\def\\rigidWeightApp{{{rigid["App"]}}}')
+    summary['rigid_spin_weights'] = rigid
 
     # ---- Gaussian shares (figure 9)
     with open(os.path.join(DATA, 'gaussian-shares.dat'), 'w') as f:

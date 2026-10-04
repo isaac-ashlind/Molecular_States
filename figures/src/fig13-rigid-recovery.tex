@@ -1,0 +1,56 @@
+% Rigid recovery (unnumbered plate, the closing page). What the reader must see at a squint: one point becomes six
+% points joined by paths (freeze the shape, let it move), and one level becomes a multiplet whose weights add up.
+% Top: the frozen molecule over its one version H (left); the core sheet of figure 10 with the six versions G12/H and
+% the paths t, tu (right). Bottom: the correlation diagram, each rigid species of H with its spin weight (20, 12)
+% fanning into its tunnelling multiplet of G6 (A1 12 + E 8; A2 4 + E 8), even parity. Colours: red = versions, teal =
+% the core sheet, blue nitrogen; actions ink (solid t, dashed tu). Numbers from figures/data (verify_spin.py).
+% No energies: the order within a multiplet is not an energy order (caption notes).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk}]
+\path[use as bounding box] (0,0) rectangle (15,9.6);
+% ------------------------------------------------ top row: the shape frozen (one version) and free along the family (six)
+\node[sub,anchor=north] at (2.6,9.55) {shape frozen at $\X_0$: one version};
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.6] at (2.6,8.1) {mol3d-mla-ref};\end{scope}
+% the drop from the mass-centred molecule (the C--N rod's lower edge) to its version point, dotted as on the cover
+\draw[hidden,shorten <=1.6pt] (2.6,6.55)--(2.6,8.058);
+\hatom{2.6}{6.55}{.08}{ColDot} \node[lab,anchor=north] at (2.6,6.4) {$H$};
+\node[sub,anchor=north] at (2.6,6.0) {symmetry $H=\{E,b\}$};
+\draw[harrow] (4.7,7.5)--(6.5,7.5); \node[sub,anchor=south,align=center] at (5.6,7.62) {let $\tau$ and $\iota$ move};
+\node[sub,anchor=north,align=center] at (5.6,7.38) {freeze them again};
+\node[sub,anchor=north] at (10.2,9.55) {shape free along the family: six versions $G_{12}/H$};
+\begin{scope}[shift={(10.2,7.6)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
+  \pic (bd) at (0,0) {thicktube};
+  \draw[tpath] plot[domain=0:112,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
+  \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot60,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
+  \draw[ghost,fill=ColDot!45] (bd-bot180) circle[radius=.08];
+  \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.1); \node[lab,anchor=north east,inner sep=1.5pt] at (-.55,-1.1) {$H$};
+  \node[lab,anchor=west] at (1.42,.5) {$t$}; \node[lab,anchor=east,inner sep=1pt] at (-1.36,-.5) {$tu$};   % outside the sheet, level with the path's end
+\end{scope}
+\node[sub,anchor=north] at (10.2,6.0) {symmetry $G_{12}=\langle b,t,u\rangle\supset G_6=\langle b,t\rangle$};
+% ------------------------------------------------ bottom row: each rigid level becomes a tunnelling multiplet, the weights add up
+\node[sub,anchor=north west] at (.3,5.2) {rigid level: a species of $H$, its spin weight};
+\node[sub,anchor=north east] at (14.7,5.2) {tunnelling multiplet $\mathrm{Ind}_H^{G_6}$: species of $G_6$, their weights};
+\def\yAp{3.7}\def\yApp{1.6}
+\draw[heavy] (2.2,\yAp)--(3.6,\yAp); \node[lab,anchor=base east] at (2.05,{\yAp-.1}) {$\mathrm A'$}; \node[lab,anchor=base west] at (3.75,{\yAp-.1}) {$\rigidWeightAp$};
+\draw[heavy] (2.2,\yApp)--(3.6,\yApp); \node[lab,anchor=base east] at (2.05,{\yApp-.1}) {$\mathrm A''$}; \node[lab,anchor=base west] at (3.75,{\yApp-.1}) {$\rigidWeightApp$};
+% the multiplets at the right: A1 and E from A', A2 and E from A''; E as a double level
+\def\yAone{4.25}\def\yEa{3.15}\def\yAtwo{2.15}\def\yEb{1.05}
+\draw[heavy] (9.4,\yAone)--(10.8,\yAone); \node[lab,anchor=base east] at (9.25,{\yAone-.1}) {$\mathrm A_1$}; \node[lab,anchor=base west] at (10.95,{\yAone-.1}) {$\weightEvenAone$};
+\draw[heavy] (9.4,\yEa)--(10.8,\yEa) (9.4,{\yEa+.09})--(10.8,{\yEa+.09}); \node[lab,anchor=base east] at (9.25,{\yEa-.055}) {$\mathrm E$}; \node[lab,anchor=base west] at (10.95,{\yEa-.055}) {$\weightEvenE$};
+\draw[heavy] (9.4,\yAtwo)--(10.8,\yAtwo); \node[lab,anchor=base east] at (9.25,{\yAtwo-.1}) {$\mathrm A_2$}; \node[lab,anchor=base west] at (10.95,{\yAtwo-.1}) {$\weightEvenAtwo$};
+\draw[heavy] (9.4,\yEb)--(10.8,\yEb) (9.4,{\yEb+.09})--(10.8,{\yEb+.09}); \node[lab,anchor=base east] at (9.25,{\yEb-.055}) {$\mathrm E$}; \node[lab,anchor=base west] at (10.95,{\yEb-.055}) {$\weightEvenE$};
+% the joins: from the right end of each rigid level to the left end of each member of its multiplet
+\draw[jn] (4.3,\yAp)--(8.7,\yAone); \draw[jn] (4.3,\yAp)--(8.7,{\yEa+.045});
+\draw[jn] (4.3,\yApp)--(8.7,\yAtwo); \draw[jn] (4.3,\yApp)--(8.7,{\yEb+.045});
+\node[sub,anchor=base west] at (11.6,{\yAone-.1}) {$\weightEvenAone+\weightEvenE=\rigidWeightAp$};
+\node[sub,anchor=base west] at (11.6,{\yAtwo-.1}) {$\weightEvenAtwo+\weightEvenE=\rigidWeightApp$};
+\node[sub,anchor=north] at (7.5,.45) {even parity; no energies: the order within a multiplet is not an energy order};
+\end{tikzpicture}
+\end{document}

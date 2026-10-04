@@ -403,6 +403,10 @@
   "A2": 0,
   "E": 1
  },
+ "rigid_spin_weights": {
+  "Ap": 20,
+  "App": 12
+ },
  "gaussian_shown": {
   "Delta_over_d": 0.3333333333333333,
   "c": 0.32465246735834974,

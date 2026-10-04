@@ -46,6 +46,19 @@ def main():
     prod = {'A1': methyl['A1'] * 3, 'A2': methyl['A1'] * 1, 'E': methyl['E'] * (3 + 1)}
     ok &= prod == five
     print('product of the fragments:', prod, 'matches' if prod == five else 'MISMATCH')
+    # ---- the rigid limit (closing page): under H = {E, b} the spin space is 20 A' + 12 A''; each rigid species induces
+    # a tunnelling multiplet of G6 (Frobenius: <Ind chi, Gamma> = <chi, Gamma|H>), A' -> A1 + E and A'' -> A2 + E, and
+    # the weights add up, 20 = 12 + 8 and 12 = 4 + 8
+    chi_b = np.trace(perm_matrix(b5, 5))
+    rigid = {"A'": round((32 + chi_b) / 2), "A''": round((32 - chi_b) / 2)}
+    ok &= rigid == {"A'": 20, "A''": 12}
+    print('five protons under H = {E, b}:', rigid)
+    restrict = {g: {"A'": (TAB[g][0] + TAB[g][2]) // 2, "A''": (TAB[g][0] - TAB[g][2]) // 2} for g in TAB}
+    induced = {h: {g: restrict[g][h] for g in TAB} for h in ("A'", "A''")}
+    ok &= induced["A'"] == {'A1': 1, 'A2': 0, 'E': 1} and induced["A''"] == {'A1': 0, 'A2': 1, 'E': 1}
+    sums = {h: sum(induced[h][g] * five[g] for g in TAB) for h in induced}
+    ok &= sums == rigid
+    print('induced multiplets:', induced, '| weights add up:', sums)
     if not ok:
         sys.exit('verify_spin: mismatch')
     print('verify_spin: all checks pass')

@@ -91,3 +91,11 @@ The closing box of Section 12 inserted from the author's draft after verificatio
 12 pointers repaired; the bibliography entry names the version consulted. Checks: verify.py, verify_symbolic.py,
 the GAP cross-check, verify_spin.py and verify_antiprism.py all pass; the manuscript compiles to 21 pages with no
 errors, no over- or underfull boxes and no unresolved references. The prose diff is 86 lines (two files).
+
+## 2026-10-04, late night, the closing page
+
+The rigid-formulation box replaced by a one-page explanation with an unnumbered plate (fig13-rigid-recovery): frozen
+shape and one version against the free family and six versions, and the correlation diagram A' -> A1 + E (20 = 12 +
+8), A'' -> A2 + E (12 = 4 + 8). The rigid weights are emitted by make_data and checked in verify_spin.py (Frobenius).
+Notation and References on their own pages. Minimal captions on all figures; the cover without its caption line.
+Build clean, 22 pages.

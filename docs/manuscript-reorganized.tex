@@ -817,53 +817,45 @@ methylamine lies outside the present example.
 \caption{Momentum representation. The $K$ ladder on the sphere $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$ for $J=2$, with a vector $\mathbf J$ of body-axis component $K=1$; the $(m,K)$ lattice in the periodic frame and sheared in the twisted frame, $\kappa=m+\tfrac12K$; the periodic torsion modes and their $G_6$ species. No energies are assigned.}\label{fig:12}
 \end{figure}
 
-% ---- closing box: the rigid formulation as a kinematic specialization (author's draft, 2026-10-04; one box, kept whole)
-\begingroup\setlength{\fboxsep}{7pt}\setlength{\fboxrule}{.4pt}
-% the box is typeset once into a register so that its height is known: if it does not fit on the current page it
-% opens the next one whole (it never breaks)
-\newsavebox{\rigidbox}
-\begin{lrbox}{\rigidbox}\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}\setlength{\parskip}{3pt}
-\noindent\textbf{Recovery of the rigid formulation.}\quad
-Freeze the internal shape at $\X_0$, retaining orientation and nuclear spin.
-The rigid reference component is $SO(3)\X_0$, with component symmetry $H$;
-retain its symmetry-related copies indexed by $S/H$. The rigid state space
-uses the induced rotational measure (the Haar measure $dr$ of
-Section~\ref{sec:position-coordinates}, on the orbit) rather than the ambient
-configuration-space volume.
-
-Let $H_{\mathrm{rot}}\le SO(3)$ be the proper rotational symmetry group
-corresponding to the unstarred elements of $H$: the rotations $\Rmat_h$ of
-Section~\ref{sec:feasible-regimes} for unstarred $h\in H$. Under the same
-assumption of trivial electronic and vibrational symmetry factors as Albert
-et al., the physical-state condition selects compatible rotational and
-nuclear-spin species:
-\[
-\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{spin}}\supset\stat,
-\]
-where the permutation action and statistics character are transported to
-$H_{\mathrm{rot}}$ through $h\mapsto\Rmat_h^{-1}$, the homomorphism for the
-right action $s\act\X=\X\Pmat{s}$ (under which $h\mapsto\Rmat_h$ reverses
-products); the other reading conjugates the characters, and the two agree
-for real characters. For the selected spin species, the corresponding
-rotational representation is
-\[
-\operatorname{Ind}_{H_{\mathrm{rot}}}^{SO(3)}\Gamma_{\mathrm{rot}}.
-\]
-The orientation description over $SO(3)/H_{\mathrm{rot}}$ and its
-symmetry-adapted Wigner expansion recover the rigid rotational--spin
-construction of Albert et al.~\cite{AlbertEtAlOrientation}. The present
-permutation--inversion formulation additionally retains the inversion-parity
-condition. The description assumes a nonlinear $\X_0$, for which $\Rmat_h$
-is unique (Section~\ref{sec:feasible-regimes}); linear configurations carry
-the axial redundancy noted in Section~\ref{sec:position-coordinates}.
-\end{minipage}\end{lrbox}
-% placement (2026-10-04): figure 12 fills the top of its page and the box cannot share the rest, so the box opens the
-% next page, ahead of the notation table; the \Needspace guard below keeps it whole wherever it lands later
 \clearpage
-\Needspace*{\dimexpr\ht\rigidbox+\dp\rigidbox+2\fboxsep+2\fboxrule+12pt\relax}
-\noindent\fbox{\usebox{\rigidbox}}
-\endgroup
+% ---- closing page (author, 2026-10-04): the rigid formulation recovered, on one page with its plate; unnumbered
+\section*{Recovery of the rigid formulation}
+\begin{center}\includegraphics[width=.8\linewidth]{fig13-rigid-recovery}\end{center}
+\begin{itemize}
+\item Freeze the shape at $\X_0$: orientation and spin remain. The configurations
+are the rotational orbit $SO(3)\X_0$, one version, with symmetry $H=\{E,b\}$
+($b$ acts on $\X_0$ as the rotation $\Rmat_b$, Section~\ref{sec:feasible-regimes});
+the copies are indexed by $S/H$, and the state space carries the Haar measure
+$dr$ on the orbit, not the ambient volume.
+\item On the orbit the physical-state condition is the rigid rotor--spin
+construction: with $H_{\mathrm{rot}}\le SO(3)$ the rotations $\Rmat_h$ of the
+unstarred $h\in H$, a rotational species $\Gamma_{\mathrm{rot}}$ of
+$H_{\mathrm{rot}}$ pairs with the spin species for which
+$\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{spin}}\supset\stat$, on the
+rotational space $\operatorname{Ind}_{H_{\mathrm{rot}}}^{SO(3)}\Gamma_{\mathrm{rot}}$,
+as in Albert et al.~\cite{AlbertEtAlOrientation} with their assumption of
+trivial electronic and vibrational factors.\footnote{The species are read on
+$H_{\mathrm{rot}}$ through $h\mapsto\Rmat_h^{-1}$, the homomorphism for the right
+action $s\act\X=\X\Pmat{s}$ (the other reading conjugates the characters; they
+agree for real ones). $\X_0$ is nonlinear; linear configurations carry the axial
+redundancy of Section~\ref{sec:position-coordinates}.} The starred elements of
+$H$ add the parity condition, kept here; for methylamine $H_{\mathrm{rot}}$ is
+trivial and $b$ carries all of it.
+\item Let $\tau$ and $\iota$ move: the one version becomes the six versions
+$G_{12}/H$ on the core sheet, joined by the paths $t$ and $tu$
+(Figure~\ref{fig:6}); the symmetry grows from $H$ to $G_{12}$ and the copies are
+indexed by $S/G_{12}$.
+\item Each rigid level of $H$-species $\Gamma$ becomes a tunnelling multiplet
+$\operatorname{Ind}_H^{G_6}\Gamma$: $\mathrm A'\to\mathrm A_1\oplus\mathrm E$,
+$\mathrm A''\to\mathrm A_2\oplus\mathrm E$, and its spin weight is the sum over
+the multiplet: the spin space is $20\,\mathrm A'\oplus12\,\mathrm A''$ under $H$,
+with $20=12+8$ and $12=4+8$ (Section~\ref{sec:weights}; even parity, odd parity
+exchanges $\mathrm A_1$ with $\mathrm A_2$ and $20$ with $12$). Freezing again
+collapses each multiplet to its level. Kinematics only: no energies, and no claim
+about which regime a molecule is in.
+\end{itemize}
 
+\clearpage
 \FloatBarrier
 \section*{Notation}
 {\small
@@ -897,6 +889,7 @@ $b_A$, $z_A$ & amino offset and height in the reference family\\
 \hline
 \end{longtable}}
 
+\clearpage
 \bibliographystyle{unsrt}
 \bibliography{refs}
 
