@@ -76,6 +76,20 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None):
             lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
     return lines
 
+def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7):
+    """Newman projection down the C-N axis (viewer on the N side): back carbon as a large circle,
+    its hydrogens on bonds from the rim; front nitrogen as a dot at the centre with its hydrogens on
+    bonds from the centre.  Page coordinates are the molecular (x, y) in angstrom."""
+    lines = []
+    for k in methyl:
+        x, y, _ = X[k-1]
+        lines.append(f'\\nmback{{{fmt(x)}}}{{{fmt(y)}}}{{{k}}}')
+    lines.append('\\nmcentre')
+    for k in amino:
+        x, y, _ = X[k-1]
+        lines.append(f'\\nmfront{{{fmt(x)}}}{{{fmt(y)}}}{{{k}}}')
+    return lines
+
 def emit_pic(out, name, lines):
     out.append(f'\\tikzset{{pics/{name}/.style={{code={{%')
     for l in lines:
@@ -295,6 +309,9 @@ def main():
     for deg in (60, 120):
         emit_pic(mol, f'mla-tau-{deg}', pic_code(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     summary['tau_shapes_deg'] = [0, 60, 120]
+    for deg in (0, 60, 120, 240):
+        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS))
+    emit_pic(mol, 'newman-tau-0-eta-minus', pic_code_newman(G.methylamine(0.0, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)
     P0 = G.project(X0, CAM_MLA)
     for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7]), ('all', [1, 2, 3, 4, 5, 6, 7])):

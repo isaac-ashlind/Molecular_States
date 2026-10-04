@@ -91,3 +91,11 @@
 \newcommand\levelrule[5]{\foreach \k in {1,...,#5} \draw[heavy] (#1,{#2+.06*(\k-1)})--({#1+#3},{#2+.06*(\k-1)}); \node[sub,anchor=south west] at (#1,{#2+.06*#5}) {#4};}
 % ---- atom at a named coordinate: \hatomat{coordinate name}{r}{fill}
 \newcommand\hatomat[3]{\begin{scope}[shift={(#1)}]\hatom{0}{0}{#2}{#3}\end{scope}}
+% ---- Newman projection macros (used by the newman-* pics; coordinates in angstrom, pic scale sets the size)
+% back carbon: a circle of radius \nmR; back bonds start at the rim; front nitrogen at the centre.
+\def\nmR{.55}
+\newcommand\nmback[3]{\pgfmathsetmacro{\nml}{sqrt((#1)*(#1)+(#2)*(#2))}
+  \draw[line width=.4pt,draw=PlateInk,double distance=1.1pt,double=white] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
+  \hatom{#1}{#2}{.17}{white}}
+\newcommand\nmcentre{\draw[line width=.5pt,draw=PlateInk,fill=white] (0,0) circle[radius=\nmR];\hatom{0}{0}{.13}{ColNitrogen}}
+\newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=1.1pt,double=white] (0,0)--(#1,#2);\hatom{#1}{#2}{.17}{white}}

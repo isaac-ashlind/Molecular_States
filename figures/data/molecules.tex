@@ -462,6 +462,46 @@
   \molbond{-0.6969}{0.6384}{-0.6910}{0.3089}%
   \molatom{H}{\molB}{-0.6969}{0.6384}%
 }}}
+\tikzset{pics/newman-tau-0/.style={code={%
+  \nmback{0.9932}{0.0000}{1}%
+  \nmback{-0.5445}{-0.8878}{2}%
+  \nmback{-0.5445}{0.8878}{3}%
+  \nmcentre%
+  \nmfront{0.4596}{0.8119}{4}%
+  \nmfront{0.4596}{-0.8119}{5}%
+}}}
+\tikzset{pics/newman-tau-60/.style={code={%
+  \nmback{0.4806}{0.8878}{1}%
+  \nmback{0.4806}{-0.8878}{2}%
+  \nmback{-1.0570}{0.0000}{3}%
+  \nmcentre%
+  \nmfront{0.4596}{0.8119}{4}%
+  \nmfront{0.4596}{-0.8119}{5}%
+}}}
+\tikzset{pics/newman-tau-120/.style={code={%
+  \nmback{-0.5445}{0.8878}{1}%
+  \nmback{0.9932}{0.0000}{2}%
+  \nmback{-0.5445}{-0.8878}{3}%
+  \nmcentre%
+  \nmfront{0.4596}{0.8119}{4}%
+  \nmfront{0.4596}{-0.8119}{5}%
+}}}
+\tikzset{pics/newman-tau-240/.style={code={%
+  \nmback{-0.5445}{-0.8878}{1}%
+  \nmback{-0.5445}{0.8878}{2}%
+  \nmback{0.9932}{0.0000}{3}%
+  \nmcentre%
+  \nmfront{0.4596}{0.8119}{4}%
+  \nmfront{0.4596}{-0.8119}{5}%
+}}}
+\tikzset{pics/newman-tau-0-eta-minus/.style={code={%
+  \nmback{1.0570}{0.0000}{1}%
+  \nmback{-0.4806}{-0.8878}{2}%
+  \nmback{-0.4806}{0.8878}{3}%
+  \nmcentre%
+  \nmfront{-0.4596}{0.8119}{4}%
+  \nmfront{-0.4596}{-0.8119}{5}%
+}}}
 \tikzset{pics/mla-ref-eplus/.style={code={%
   \molbond{0.8997}{0.9174}{0.7739}{0.4484}%
   \molatom{H}{\molD}{0.8997}{0.9174}%

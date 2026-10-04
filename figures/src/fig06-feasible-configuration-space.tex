@@ -1,0 +1,69 @@
+% Figure 6. Feasible configuration space. What the reader must see: F is a solid, the thickened
+% reference family; the family is a band inside its wall; the versions sit on the band's edges;
+% the symmetry images of F are twenty disjoint copies carved out of C.
+% Colours: blue = t path, red dashed = tu path, gold = version points, blue tint = the solid's wall.
+% Hatch = cut material (the cut faces of the wedge; the part of C outside the images).
+% Disclosures for the caption notes: one radial thickness stands for the 13 normal coordinates;
+% the SO(3) factor is suppressed; the tube's topology is not a claim about F; assumptions are an
+% embedded tubular neighbourhood and separation of the images.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,13.0);
+% ------------------------------------------------ the solid F, cut open
+\pic (tb) at (4.6,9.3) {thicktube};
+% paths on the band: t along the top edge (visible), tu through the interior to the bottom edge
+\draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{9.3+.62-.42*2.15*cos(\a)});
+\draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{9.3+.62-2*.62*\s-.42*2.15*cos(60*\s)});
+\foreach \p in {top0,top120,top240} \hatomat{tb-\p}{.09}{ColGold}
+\hatomat{tb-bot300}{.09}{ColGold}
+\leaderlabel{4.6}{8.95}{.0}{-.55}{north}{$H$}
+\leaderlabel{6.46}{10.37}{.5}{.35}{west}{$tH$}
+\leaderlabel{2.74}{10.37}{-.55}{-.3}{east}{$t^2H$}
+\leaderlabel{2.74}{8.23}{-.5}{-.4}{east}{$tuH$}
+\node[lab] at (6.05,10.95) {$t$}; \node[lab] at (2.65,9.1) {$tu$};
+\node[sub,anchor=west] at (7.7,10.0) {$\tau$ around}; \node[sub,anchor=west] at (7.7,9.6) {$\eta$ along the height}; \node[sub,anchor=west] at (7.7,9.2) {$Q$ across the wall};
+\node[sub,anchor=west] at (7.7,8.5) {$uH,\,t^2uH$ on the lower edge, behind};
+% zoom bubble: the normal slice at the cut face
+\zoombubble{2.95}{9.4}{.32}{1.45}{11.85}{1.1}
+\begin{scope}[shift={(1.45,11.85)}]
+  \path[cut] (-.72,-.6) rectangle (.72,.6); \draw[heavy] (-.72,-.6) rectangle (.72,.6);
+  \draw[ColNitrogen,line width=.9pt] (0,-.6)--(0,.6);
+  \draw[harrow] (0,0)--(.6,0); \node[lab,anchor=west] at (.62,.0) {$Q$};
+  \node[sub,anchor=south] at (0,.65) {$\eta$};
+\end{scope}
+\node[sub,anchor=west] at (2.7,12.3) {the cut face is a normal slice,}; \node[sub,anchor=west] at (2.7,11.9) {$X_0(q)+\sum_a Q_ae_a(q)$, $|Q|<\varepsilon$};
+% ------------------------------------------------ versions along the t path, as Newman projections
+\node[sub,anchor=west] at (.2,6.55) {looking down the C--N axis along the $t$ path};
+\foreach \x/\deg/\l in {1.6/0/{$H$},4.3/60/{eclipsed, $\tau=\pi/3$},7.0/120/{$tH$}} {
+  \pic[scale=.62] at (\x,5.1) {newman-tau-\deg};
+  \node[sub] at (\x,3.85) {\l};
+}
+\draw[harrow] (2.75,5.1)--(3.3,5.1); \draw[harrow] (5.45,5.1)--(6.0,5.1);
+\pic[scale=.62] at (10.6,5.1) {newman-tau-0-eta-minus}; \node[sub] at (10.6,3.85) {$\eta\mapsto-\eta$, through $\eta=0$};
+\draw[upath] (8.2,5.1)--(9.4,5.1);
+% ------------------------------------------------ the images of F inside C
+\begin{scope}[shift={(0,.3)}]
+  \draw[heavy,rounded corners=8pt] (.3,.2) rectangle (14.7,3.0);
+  \path[cut] (.3,.2) [rounded corners=8pt] rectangle (14.7,3.0);
+  \node[tag,anchor=north west] at (.45,2.9) {$\conf$};
+  \foreach \i in {0,...,9} \foreach \j in {0,1} {
+    \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{.95+1.0*\j}
+    \path[fill=white] ({\cx-.5},{\cy-.17}) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- ({\cx+.5},{\cy+.17}) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
+    \draw[fine] ({\cx-.5},{\cy-.17}) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- ({\cx+.5},{\cy+.17}) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
+    \draw[fine,fill=white] (\cx,{\cy+.17}) ellipse[x radius=.5,y radius=.21];
+    \draw[fine] (\cx,{\cy+.17}) ellipse[x radius=.33,y radius=.14];
+  }
+  \path[fill=ColGold!55] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
+  \draw[fine] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
+  \draw[fine,fill=ColGold!55] (1.35,1.12) ellipse[x radius=.5,y radius=.21]; \draw[fine] (1.35,1.12) ellipse[x radius=.33,y radius=.14];
+  \node[tag] at (1.35,.35) {$\mathcal F$};
+  \node[tag,anchor=north east] at (14.55,2.9) {$|S/G_{12}|=20$ images of $\mathcal F$; the rest of $\conf$ is cut away};
+\end{scope}
+\end{tikzpicture}
+\end{document}
