@@ -15,14 +15,14 @@
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.2);
 % ------------------------------------------------ A. the K ladder on the sphere |J| = sqrt(J(J+1)), J = 2
-\begin{scope}[shift={(2.3,9.25)}]
+\begin{scope}[shift={(3.0,9.25)}]
   \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.32}
   \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.45}) {body axis $z$};
   \hatom{0}{0}{\R}{white}
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s}
     \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
-    \node[sub,anchor=west] at ({\R+.16},\h) {$K=\K$};}
+    \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
   \draw[harrow] (0,0)--({sqrt(5)*\s*cos(-40)},{\s+\E*sqrt(5)*\s*sin(-40)});
   \node[lab,anchor=north west,inner sep=1pt] at ({sqrt(5)*\s*cos(-40)+.02},{\s+\E*sqrt(5)*\s*sin(-40)-.02}) {$\mathbf J$};
   \node[sub,anchor=north] at (0,{-\R-.3}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}$};

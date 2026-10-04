@@ -12,6 +12,7 @@
 \usepackage[section]{placeins}
 \usepackage{needspace}
 \usepackage{etoolbox}
+\usepackage{array}
 % structure: the four parts are roman-numbered sections, the twelve sections are subsections numbered 1-12 straight through
 \renewcommand{\thesection}{\Roman{section}}
 \counterwithout{subsection}{section}
@@ -760,10 +761,10 @@ Extend to methylamine's coupled torsion and inversion.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:12}
 \end{figure}
 
-\FloatBarrier
+\clearpage
 \section*{Notation}
 \begin{center}\small
-\begin{tabular}{@{}p{5.0cm}p{9.3cm}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.9cm}>{\raggedright\arraybackslash}p{8.4cm}@{}}
 \hline
 $\conf$; $\hamb$, $\hilb$; $\spin$; $\hilb_\pm$ & centred configuration space; ambient and physical Hilbert spaces; nuclear spin space; parity sectors\\
 $\mathcal F$; $\mathcal U$ & feasible region; a chart cell\\

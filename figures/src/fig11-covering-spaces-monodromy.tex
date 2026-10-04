@@ -24,8 +24,8 @@
   % the base: a patch of the quotient, one sheet's size, both columns over it; the two loops inside it
   \sheet{0}{0}{heavy}{white}
   \coordinate (bx) at (.35,.35);
-  \draw[tlift] (bx) .. controls (-1.3,.68) and (-1.3,.02) .. (bx); \draw[blift] (bx) .. controls (2.0,.02) and (2.0,.68) .. (bx);
-  \node[sub,inner sep=.5pt] at (-.62,.35) {$\ell_t$}; \node[sub,inner sep=.5pt] at (1.32,.35) {$\ell_b$};
+  \draw[tlift] (bx) .. controls (-1.7,.64) and (-1.7,.06) .. (bx); \draw[blift] (bx) .. controls (2.4,.06) and (2.4,.64) .. (bx);
+  \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.06) {$\ell_t$}; \node[sub,anchor=north,inner sep=1.5pt] at (1.65,-.06) {$\ell_b$};
   \node[sub,anchor=west,inner sep=1pt] at (2.62,.35) {$\mathcal F/G$};
   \foreach \k/\ga/\gb/\pl in {0/{\X}/{b\X}/H,1/{t\X}/{tb\X}/tH,2/{t^2\X}/{t^2b\X}/t^2H} {
     \pgfmathsetmacro{\y}{1.6+1.7*\k}
@@ -39,7 +39,7 @@
   \draw[blift] (pa0) .. controls (.35,{1.6+.35+1.25}) .. (pb0);
   \draw[tlift] (pb0) .. controls (4.8,{1.6+.35+1.0}) and (4.8,{1.6+3.4+.35-1.0}) .. (pb2);
   \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
-  \hatomat{bx}{.07}{ColDot} \node[sub,anchor=north west,inner sep=1.5pt] at ($(bx)+(.08,-.04)$) {$[\X]$};
+  \hatomat{bx}{.07}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
   \goldring{pb1} \goldring{pb2}
   \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
 \end{scope}

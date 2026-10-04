@@ -36,7 +36,11 @@ object. Set with `\caption*` so the figure counter is untouched.
 The six version points on the core sheet are the vertices of a trigonal antiprism; their symmetry group within the
 cylinder's symmetries is of order 12 and isomorphic to G12 (checks/verify_antiprism.py), so the decorated solid
 carries exactly the molecular symmetry group, which the caption may say. The solid's decoration is drawn turned
-15 degrees so that the projection line from H to [X] crosses no other version point.
+15 degrees so that the projection line from H to [X] crosses no other version point. The four headings carry the
+roman numerals of the four sections (the former parts) with their subsection ranges. At the top left, under heading
+III, the bond interval [H, B] of figure 5 as a small Hasse diagram in grey (ink thinned), covers in the line grammar
+(solid t, dashed u, dotted a starred generator), the vertices H, B and G (= G_12, the regime) named; no colour. The
+base patch of the sheets is unnamed (the quotient is named on the projection, F -> F/G_12).
 
 ## Figure 1, configuration space
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,

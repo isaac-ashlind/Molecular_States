@@ -220,3 +220,22 @@ a 1.6 pt underlay. The plain arrow reads cleanly, because the hatch is light and
 white gash through the face edge and the teal strip. Kept: the plain arrow. The author's original complaint was the
 label's white box covering the arrowhead, which the label's move outside the face already fixed. Lesson: diagnose
 the actual collision before adding a device.
+
+## Round 4: the author's plate-by-plate notes (2026-10-04)
+
+Applied in order of arrival, each with a build and a look at size: cover (C off the hatch; numerals; the bond
+interval as a grey lattice, three pitches A/B/C then A tuned: smaller, lower, a step right, G named, the right-hand
+group slid .45), figure 1 (shorter, smaller glyphs, air at the left), figure 3 (ink spin arrows, Psi from each
+configuration to its value, the fibre row named as the configuration row), figure 4 (heads on the nucleus edges,
+the pair on the nucleus rows' midline), figure 5 (axis upright by turning every glyph -19.53 degrees, straight
+arrows, one baseline of labels, the 36-subgroup lattice placed by the fewest-crossing sweep of a small family),
+figure 6 (mirrored: cut face left, solid right in the cover's orientation; the strip of images with an exact
+miniature and one grey image named sF; the Newman row beneath), figures 7 and 8 (tighter; no bundle end strokes),
+figure 9 (the share chart across the rows, dots named by their ratios), figure 10 (the sequence solid, core sheet,
+chart; the reconstruction as shape, displaced, rotated; side camera at azimuth 75 so no hydrogen sits on the
+carbon's line of sight), figure 11 (the quotient patch one sheet's size and named F/G, loops inside it, lifts
+routed off the sheet edges, [X] red with a short leader to its name, glyphs at figure 5's scale), figure 12 (K
+numbers with an axis on the lattice, the sphere's K labels on its left, titles and captions on one baseline).
+Lessons: a label near a point must not sit where projection lines converge; a loop drawn on a thin patch wants
+its name outside the patch; two columns of similar labels side by side read as one misaligned column.
+

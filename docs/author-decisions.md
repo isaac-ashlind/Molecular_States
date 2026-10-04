@@ -66,3 +66,17 @@ bold; the umbrella coordinate iota (was eta) and the fixed amino offset b_A (was
 omega_tu (was alpha); the packet width Delta (was lambda, earlier sigma), same formula c = exp(-d^2/8 Delta^2), no
 rescaling; H_amb (was H_ambient); H_+, H_- (were superscripts). The record of what was mapped where is
 docs/notation-migration.md.
+
+## Round of plate notes (author, 2026-10-04, afternoon)
+
+- Cover: the bond interval [H, B] joins the cover in grey at the top left (pitch A of three, with the lattice smaller
+  and a step down and right, a vertex named G, the tube, sheets and their headings slid right by .45 for balance);
+  the free-domain label V is dropped everywhere (the quotient is named on the projection; figure 11's base is F/G).
+- Structure: the four parts become roman-numbered sections, the twelve sections subsections numbered 1-12 straight
+  through; the cover maps the four sections. A notation table stands before the references.
+- Actions and spins in ink: figure 3's spin arrows are ink (the coloured ones were hard to see).
+- Figure 6 reads as three levels of zoom (C with twenty images, one an exact miniature; F; the cut face), figure 10
+  as a sequence (solid, core sheet, chart) with the two fibres over a point drawn as the reconstruction.
+- Figures 7, 8 and 9 take less room; figure 8's bundles have no end strokes; figure 9's share chart spans the rows
+  with the three ratios written at their dots.
+
