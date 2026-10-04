@@ -154,7 +154,7 @@ side by side: the X-side column at the left headed by X, the bX-side at the righ
 the one point [X], a red point like the version points; no rotation carries one to the
 other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
 climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
-ends at btX = t^2 bX two levels up on the right (gold rings): the lifts of the same loops end apart. At the right the
+ends at btX = t^2 bX two levels up on the right: the lifts of the same loops end apart. At the right the
 six t,b-sheets as a graph: t turns the outer triangle one way and the inner the other (btb = t^-1). The u-half of
 the twelve sheets is alike. Loop figure after Harter (1993), Fig. 5.4.2 in spirit.
 

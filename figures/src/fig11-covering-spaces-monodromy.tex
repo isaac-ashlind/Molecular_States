@@ -16,7 +16,6 @@
 \input{numbers.tex}
 % sheet parallelogram: \sheet{x}{y}{style}{fill}  (3.6 wide, .7 deep; the base patch below is the same shape, so every sheet maps onto it)
 \newcommand\sheet[4]{\path[fill=#4] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.7})--({#1-1.1},{#2+.7})--cycle; \draw[#3] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.7})--({#1-1.1},{#2+.7})--cycle;}
-\newcommand\goldring[1]{\draw[line width=1.6pt,draw=ColGold] (#1) circle[radius=.17];}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,11.0);
@@ -40,7 +39,6 @@
   \draw[tlift] (pb0) .. controls (4.8,{1.6+.35+1.0}) and (4.8,{1.6+3.4+.35-1.0}) .. (pb2);
   \foreach \k in {0,1,2} {\hatomat{pa\k}{.08}{ColDot} \hatomat{pb\k}{.08}{ColDot}}
   \hatomat{bx}{.08}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
-  \goldring{pb1} \goldring{pb2}
   \node[sub,anchor=south] at ($(pb1)+(0,.42)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.42)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns, drawn at the scale of figure 5
@@ -55,7 +53,6 @@
   \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (no\k) to[bend right=24] (no\n);
   \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (ni\k) to[bend left=30] (ni\n);
   \foreach \k in {0,1,2} \draw[blift] (no\k)--(ni\k);
-  \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i1) {}; \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i2) {};
 \end{scope}
 \end{tikzpicture}
 \end{document}
