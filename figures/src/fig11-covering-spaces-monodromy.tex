@@ -22,7 +22,7 @@
   \node[lab,anchor=west] at (3.9,.3) {$V\subset\mathcal F/G_{12}$};
   \coordinate (b) at (1.9,.3); \fill[PlateInk] (b) circle[radius=1.3pt]; \node[sub,anchor=north,inner sep=2pt] at (b) {$[X]$};
   \draw[tpath] (b) .. controls (.4,1.0) and (.3,-.5) .. (b); \draw[upath] (b) .. controls (3.4,-.5) and (3.5,1.0) .. (b);
-  \node[sub,text=ColTorsion] at (.75,.5) {$\ell_t$}; \node[sub,text=ColUmbrella] at (3.05,.5) {$\ell_b$};
+  \node[sub] at (.75,.5) {$\ell_t$}; \node[sub] at (3.05,.5) {$\ell_b$};
   % twelve plates in six version pairs: pair k at height 1.5 + 1.45 k, the b-sheet .34 above the g-sheet
   \foreach \ga/\gb [count=\k from 0] in \sheetPairs {
     \pgfmathsetmacro{\ya}{1.5+1.45*\k}\pgfmathsetmacro{\yb}{\ya+.34}
@@ -40,8 +40,8 @@
   \draw[upath] (pa0) .. controls (3.3,{1.5+.3+.1}) and (3.3,{1.5+.34+.3-.1}) .. (pb0);
   \draw[tpath] (pb0) .. controls (.0,{1.5+.34+.3+1.0}) and (.0,{1.5+2.9+.34+.3-1.0}) .. (pb2);
   \hatomat{pb1}{.09}{ColDot} \hatomat{pb2}{.09}{ColDot}
-  \node[sub,anchor=east,text=ColUmbrella,text width=1.9cm,align=right] at (-.15,{1.5+1.45+.34+.3}) {$t$ then $b$ ends here};
-  \node[sub,anchor=east,text=ColTorsion,text width=1.9cm,align=right] at (-.15,{1.5+2.9+.34+.3}) {$b$ then $t$ ends here};
+  \node[sub,anchor=east,text width=1.9cm,align=right] at (-.15,{1.5+1.45+.34+.3}) {$t$ then $b$ ends here};
+  \node[sub,anchor=east,text width=1.9cm,align=right] at (-.15,{1.5+2.9+.34+.3}) {$b$ then $t$ ends here};
 \end{scope}
 \node[sub,anchor=north west,text width=6.2cm] at (.3,13.45) {twelve sheets over $V$ in six version pairs $\{gX,\,gbX\}$; a lift of $\ell_s$ from the sheet $gX$ ends on the sheet $gsX$};
 % ------------------------------------------------ B. bookkeeping: the six t,b-sheets as a graph

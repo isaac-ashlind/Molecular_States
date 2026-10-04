@@ -4,12 +4,15 @@ Reference: the ink plates of Harter (1993). The drawing shows the structure itse
 
 - Ink `#303438`; line weights 0.9 pt (silhouettes, retained structure) and 0.4 pt (construction, fine detail);
   hidden lines dashed; leaders 0.3 pt.
-- Gouache: hydrogen white, oxygen `#D56860`, nitrogen `#397BA8`, potassium `#91A653`, rubidium `#AD8BC0`,
-  gold `#E0B84F` for marked points and retained regions; the solid's wall in a blue tint.
-- Spheres: flat fill, ink outline, one solid crescent lower right (light from the upper left).
+- Gouache, anchored on the cover plate (2026-10-04) and used exclusively: red `#D56860` (oxygen on the water
+  plates, version points on the methylamine plates), blue `#397BA8` (nitrogen only), teal `#4F9C97` (the reference
+  family as a pale surface tint; rubidium at full strength), gold `#E0B84F` (retained regions; potassium), white
+  (cladding, hydrogen), grey as thinned ink. No other hue appears anywhere in the suite.
+- Spheres: two tones of one gouache, the darker as the shadow lower right (light from the upper left), ink outline.
 - Rods: white band with ink edges, the shadow edge heavier, starting on the junction curve of the far sphere.
 - Curved walls: generatrix lines crowding toward the silhouettes; cut faces hatched at 45 degrees.
-- Paths: t blue solid, tu or b red dashed, both with Stealth heads; version points gold, hidden ones faded dashed.
+- Actions carry no colour; the line style says which: solid = t, dashed = u or tu, dotted (beaded) = a starred
+  operation (b, E*). Stealth heads only where a path has a direction. Version points red, hidden ones faded dashed.
 - Projection: one oblique camera for molecules (azimuth 50, elevation 25), one ellipse ratio 0.42 for solids.
 - Type: Computer Modern, 9 pt labels, 8 pt notes; digits inside hydrogen discs at 6.5 pt.
 - 2D on purpose where the idea is 2D (chart, lattice, correlation diagram, radial plots); depth only where it

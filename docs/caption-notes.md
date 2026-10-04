@@ -14,9 +14,11 @@ Symmetry, Dynamics, and Spectroscopy* (Wiley, 1993), to be cited as "after Harte
 }
 ```
 
-Common to all plates: colours are the gouache set (ink, oxygen red, nitrogen blue, potassium green, rubidium
-violet, gold for marked points and retained regions); blue solid lines are the path of t, red dashed lines the path
-of tu (or b where stated), gold dots the version points; hatching marks cut or removed material only; molecules are
+Common to all plates: colours are the anchored gouache set (ink; red for oxygen on the water plates and for the
+version points on the methylamine plates; blue for nitrogen; teal as a pale tint for the reference family where it
+is a surface and at full strength for rubidium; gold for retained regions and for potassium; white cladding and
+hydrogen); actions are ink, solid for t, dashed for u or tu, dotted for a starred operation (b, E*); red dots are
+the version points; hatching marks cut or removed material only; molecules are
 drawn from the computed configurations at 0.95 cm per angstrom in one oblique projection (camera azimuth 50 deg,
 elevation 25 deg); digits inside hydrogen discs are the column labels 1 to 5.
 

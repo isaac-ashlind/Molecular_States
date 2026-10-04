@@ -63,9 +63,9 @@
   \pic[scale=.9] at (8.7,5.2) {newman-tau-60};
   \pic[scale=.9] at (12.1,5.2) {newman-tau-120};
 \end{scope}
-\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,text=ColUmbrella,anchor=south] at (3.6,5.28) {$tu$};
-\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,text=ColTorsion,anchor=south] at (7.0,5.28) {$t$};
-\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,text=ColTorsion,anchor=south] at (10.4,5.28) {$t$};
+\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,anchor=south] at (3.6,5.28) {$tu$};
+\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,anchor=south] at (7.0,5.28) {$t$};
+\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,anchor=south] at (10.4,5.28) {$t$};
 \foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\eta=-\eta_0$},5.3/{$H$}/{$\tau=0$, $\eta=\eta_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\eta=\eta_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\eta=\eta_0$}} {
   \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
 % ------------------------------------------------ the images of F inside C

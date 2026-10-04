@@ -4,34 +4,24 @@
 \usetikzlibrary{arrows.meta,calc,positioning,patterns,patterns.meta,decorations.pathreplacing,backgrounds}
 \pgfplotsset{compat=1.18}
 
-% ---- shared base palette (author supplement, 2026-10-03): textbook ink with gouache-like flat colour.
-% Base hues are defined once here; figures use the subset they need and document each meaning.
-\definecolor{PlateInk}{HTML}{303438}       % ink and carbon
-\definecolor{ColOxygen}{HTML}{D56860}      % oxygen
-\definecolor{ColNitrogen}{HTML}{397BA8}    % nitrogen
-\definecolor{ColPotassium}{HTML}{91A653}   % potassium (avocado green)
-\definecolor{ColRubidium}{HTML}{AD8BC0}    % rubidium (lilac)
-\definecolor{ColGold}{HTML}{E0B84F}        % gold, a mathematical accent (fills)
-% Mathematical accents borrow the base hues (one meaning per figure).  Thin gold strokes on white
-% are darkened once, centrally, for legibility; gold fills use the pure hue.
-\colorlet{ColGoldStroke}{ColGold!70!PlateInk}
+% ---- the palette, anchored on the cover plate (author decision, 2026-10-04): every plate draws from these alone.
+\definecolor{PlateInk}{HTML}{303438}       % ink: contours, text, hatching, and every action path
+\definecolor{ColRed}{HTML}{D56860}         % oxygen on the water plates; the version points on the methylamine plates
+\definecolor{ColBlue}{HTML}{397BA8}        % nitrogen, nothing else
+\definecolor{ColTeal}{HTML}{4F9C97}        % the reference family as a surface (pale tint); rubidium (full strength)
+\definecolor{ColGold}{HTML}{E0B84F}        % retained regions (a packet, the reference cell, the one image); potassium
+% White is the cladding and the hydrogen; grey is ink thinned.  Green and violet left the palette with this decision.
+\colorlet{ColOxygen}{ColRed}\colorlet{ColNitrogen}{ColBlue}\colorlet{ColPotassium}{ColGold}\colorlet{ColRubidium}{ColTeal}
+\colorlet{ColGoldStroke}{ColGold!70!PlateInk}   % thin gold strokes on white are darkened once, centrally
 
-% ---- colour roles (change these six lines to re-key the whole suite)
-\colorlet{ColTorsion}{ColPotassium}     % the t path and its lifts
-\colorlet{ColUmbrella}{ColRubidium}     % the tu or b path and its lifts (dashed)
-\colorlet{ColDot}{ColOxygen}            % version points, packet centres
-\colorlet{ColBand}{ColGold!70}          % the reference family (core sheet) where it is a surface
-\colorlet{ColBandLine}{ColGold!70!PlateInk}  % the band's eta-line on a cut face
-\colorlet{ColWall}{white}               % the cladding of the solid
-\colorlet{ColRetained}{ColGold}         % a retained region (the reference cell, the packets, the one image of F)
-\colorlet{ColDualA}{ColPotassium}       % the first of a dual pair (two components of one object)
-\colorlet{ColDualB}{ColRubidium}        % the second of a dual pair
-% re-keyed 2026-10-04 at the author's request (previous keys: torsion blue, umbrella red dashed, dots gold, band and wall blue tints)
-\colorlet{PlateBlue}{ColNitrogen}
-\colorlet{PlateRed}{ColOxygen}
-\colorlet{PlateViolet}{ColRubidium}
-\colorlet{PlateGreen}{ColPotassium}
-\colorlet{PlateOchre}{ColGoldStroke}
+% ---- colour roles (the only places a hue is spent)
+\colorlet{ColDot}{ColRed}                    % version points, packet centres
+\colorlet{ColBand}{ColTeal!38}               % the reference family (core sheet) where it is a surface
+\colorlet{ColBandLine}{ColTeal!80!PlateInk}  % the band's eta-line on a cut face
+\colorlet{ColWall}{white}                    % the cladding of the solid
+\colorlet{ColRetained}{ColGold}              % a retained region (the reference cell, the packets, the one image of F)
+% Actions carry no colour.  Line style says which: solid = t, dashed = u or tu, dotted = a starred operation (b, E*).
+% The styles tpath, upath, bpath and the lift styles live in primitives.tex.
 
 % ---- line grammar: contours .65pt, guides .35pt, operations .8pt, labels 9pt (8pt minimum)
 \tikzset{
@@ -62,7 +52,7 @@
   atomO/.style={atomH,fill=ColOxygen,text=PlateInk,minimum size=4.4mm},
   atomK/.style={atomH,fill=ColPotassium,text=PlateInk,minimum size=4.8mm},
   atomRb/.style={atomH,fill=ColRubidium,text=PlateInk,minimum size=5.2mm},
-  molarrow/.style={line width=.8pt,draw=PlateRed,-{Stealth[length=1.5mm,width=1.2mm]},shorten <=1.6mm},
+  molarrow/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.5mm,width=1.2mm]},shorten <=1.6mm},
   minimol/.style={atomH/.append style={minimum size=2.0mm,line width=.4pt},
     atomC/.append style={minimum size=2.4mm},atomN/.append style={minimum size=2.4mm},
     atomO/.append style={minimum size=2.4mm},atomK/.append style={minimum size=2.4mm},
