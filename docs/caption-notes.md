@@ -28,6 +28,11 @@ out of it with its band, the two paths and the six version points (hidden ones f
 above one version, one configuration as a point of the space. Schematic throughout; the solid is the figure 6
 object. Set with `\caption*` so the figure counter is untouched.
 
+The six version points on the core sheet are the vertices of a trigonal antiprism; their symmetry group within the
+cylinder's symmetries is of order 12 and isomorphic to G12 (checks/verify_antiprism.py), so the decorated solid
+carries exactly the molecular symmetry group, which the caption may say. The solid's decoration is drawn turned
+15 degrees so that the projection line from H to [X] crosses no other version point.
+
 ## Figure 1, configuration space
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
 l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (gold cross, 0.06 A from

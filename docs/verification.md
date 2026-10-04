@@ -21,3 +21,15 @@ swap give 3 symmetric + 1 antisymmetric (triplet, singlet); the five together un
 12 A1 + 4 A2 + 8 E, equal to the product (4 A1 + 2 E) x (3 A1 + 1 A2). This is the mosaic of figure 8: 8 methyl
 states across by 4 amino states down, four blocks of 12, 4, 12 (6 E pairs) and 4 (2 E pairs) cells. It agrees
 with the GAP character computation (checks/verify.g) that produced the counts in figures/data/numbers.tex.
+
+## The decorated band as a trigonal antiprism (cover, figure 6; added 2026-10-04)
+
+`checks/verify_antiprism.py`: G12 = <b, t, u> modelled as signed permutations has order 12 with element orders
+(1, 7, 2, 2 of orders 1, 2, 3, 6), the profile of D6 = S3 x C2; it acts faithfully on the six cosets G12/H, H = <b>,
+i.e. on the six version points; and the stabiliser of the six points {(0,+), (2pi/3,+), (4pi/3,+), (pi,-), (5pi/3,-),
+(pi/3,-)} inside the symmetries of the (tau, eta) cylinder (rotations by multiples of pi/3, tau -> -tau, eta -> -eta;
+order 24) has order 12 with the same profile. So the band decorated by the orbit of the reference has exactly the
+molecular symmetry group as its symmetry: t is the third turn, u the inversion through the centre (tau + pi, -eta),
+tu the sixfold rotation-reflection, b a vertical mirror; the six points are the vertices of a trigonal antiprism
+(point group D3d, isomorphic to G12). The undecorated band has the continuous symmetry of a cylinder; the orbit cuts
+it down to G12 and to nothing less, because the reference X0 is generic (its stabiliser in G12 is only H).
