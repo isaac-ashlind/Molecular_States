@@ -118,3 +118,11 @@ The zoom must be the same face at a larger scale: same quadrilateral, same hatch
 scaled, the version point where it sits in the small view (the lower end of the eta-line). Labels never on
 hatching or on generatrix lines. The band tint in the wedge gap is painted after the cut faces so it meets the
 blue eta-lines.
+
+## Colour language (author proposal, tested on the front page)
+
+Roles now live in figurestyle.sty (ColTorsion, ColUmbrella, ColDot, ColBand, ColBandLine, ColWall, ColRetained).
+Proposed re-keying: torsion green, umbrella purple, version dots red, the core sheet gold, cladding white, blue
+left to nitrogen. Test: studies/alternatives/palette-guide.tex. Collision check: green and purple are also the
+potassium and rubidium atoms, which never share a plate with the paths; red dots never share a plate with red
+oxygen; gold stays the family and what lives on it. Switch pending the author's go (a six-line edit).
