@@ -33,6 +33,12 @@ assistant is the scientific illustrator. No swarms: one coordinator, at most two
 
 ## Status (end of 2026-10-04)
 
+Evening update: the notation migration is in (docs/notation-migration.md) and the author's round-4 notes are
+applied on every plate and the cover (docs/illustration-notes.md, round 4; docs/author-decisions.md). Open for the
+author: the 36-subgroup lattice of figure 5 is placed by the fewest-crossing sweep but remains busy; the
+alpha type index and the lab-rotation letter r_0 are flagged in the migration record.
+
+
 Done this round: cover accepted; figures 7, 8, 9, 10, 11, 12, 4 and 5 redrawn and installed (studies and critiques in
 `studies/alternatives/round3/` and `docs/illustration-notes.md`); palette, ink-first rule and line-style budget
 written into the style files. Open: the author's review of the installed plates; touch-ups to figures 1 to 3;

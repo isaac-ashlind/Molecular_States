@@ -47,3 +47,12 @@ unroll, chart; slice beside q; both normal directions), figure 11 (version pairs
 two orders end apart), figure 12 (labels only, red marks, gold shear line), figure 4 (the reaction plate with gold and
 teal strands), figure 5 (generator line styles over a gold chain halo). `checks/verify_spin.py` added to the build.
 Full build, manuscript and zip refreshed at the end (see git log).
+
+## 2026-10-04, evening
+
+Notation migration (docs/notation-migration.md): the approved symbol table applied role by role across the
+manuscript, the plates, the style, the exposed data names and the live docs; checks pass; no undefined macros. Then
+the author's plate-by-plate round (docs/illustration-notes.md, round 4): cover with the grey bond interval at the
+top left (pitch A of three, tuned), figures 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 reworked to the notes; the parts are
+roman-numbered sections, the sections subsections 1-12; a notation table before the references. Full build,
+manuscript (20 pages) and zip refreshed at each commit; everything pushed to figures-v2.
