@@ -212,3 +212,11 @@ state in figure 2 (the author asked for a physical one; the caption note now say
 data-layer pass). Open physics question from the physicist reviewer for the author: in figure 4 the strands descend
 from S to G_K and G_Rb; if these are the fragment groups the caption should say so, and if the channel group of the
 separated products is meant it is S.
+
+### The Q arrow on a hatched face (study `q-arrow.tex`)
+
+Three treatments at 300 dpi: the plain arrow on the hatch with the label outside and no box; a 3 pt white underlay;
+a 1.6 pt underlay. The plain arrow reads cleanly, because the hatch is light and the arrow heavy; the underlays cut a
+white gash through the face edge and the teal strip. Kept: the plain arrow. The author's original complaint was the
+label's white box covering the arrowhead, which the label's move outside the face already fixed. Lesson: diagnose
+the actual collision before adding a device.

@@ -104,8 +104,9 @@ computation (GAP, verify.py); the same counts arise as the product of the methyl
 amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 
 ## Figure 9, localized states
-The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows,
-sigma/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3; the overlap c = <g0, g1> = exp(-d^2 / 8 sigma^2) is the darker
+The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows
+of width/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (the plate writes "width" rather than sigma, since sigma is
+the exchange on the water plates; the caption can identify the width with the text's symbol); the overlap c = <g0, g1> = exp(-d^2 / 8 sigma^2) is the darker
 gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
 (open); the small chart marks the three rows on the share curves (figures/data/gaussian-shares.dat, exact in
 verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
