@@ -1,0 +1,31 @@
+% Candidate colour pairs for potassium and rubidium if green and violet leave the palette (study).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\input{nicker.tex}
+\definecolor{ColTeal}{HTML}{4F9C97}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,17.5);
+\newcommand\row[4]{% y, K colour, Rb colour, caption
+  \begin{scope}[shift={(0,#1)}]
+    \colorlet{ColPotassium}{#2}\colorlet{ColRubidium}{#3}
+    \begin{scope}\molsolid\mollabelsfalse
+      \pic[scale=.62] at (2.2,1.2) {mol3d-krb-in}; \pic[scale=.62] at (5.6,1.2) {mol3d-krb-complex}; \pic[scale=.62] at (9.0,1.2) {mol3d-krb-out};
+      \pic[scale=.55] at (11.9,1.2) {mol3d-mla-ref}; \pic[scale=.55] at (13.9,1.2) {mol3d-water-X};
+    \end{scope}
+    \path[fill=ColTeal!38] (.3,2.45) rectangle (.9,2.75); \path[fill=ColGold!55] (1.0,2.45) rectangle (1.6,2.75);
+    \node[sub,anchor=west] at (1.8,2.6) {#4};
+  \end{scope}}
+\row{14.3}{NkOcher}{ColTeal}{1. K ocher, Rb teal}
+\row{11.5}{ColTeal}{NkOcher}{2. K teal, Rb ocher}
+\row{8.7}{NkSienna}{NkFrenchGray}{3. K burnt sienna, Rb French gray}
+\row{5.9}{NkOcher}{NkSienna}{4. K ocher, Rb burnt sienna}
+\row{3.1}{NkFrenchGray}{NkPrussian}{5. K French gray, Rb Prussian blue (blue is then no longer nitrogen's alone)}
+\row{.3}{ColGold}{PlateInk!55}{6. K gold, Rb mid grey}
+\node[sub,anchor=north west] at (.3,17.4) {each row: reactants, complex, products; then methylamine and water for the suite context; the two swatches are the teal sheet tint and the gold retained tint};
+\end{tikzpicture}
+\end{document}
