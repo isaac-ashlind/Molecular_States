@@ -820,39 +820,44 @@ methylamine lies outside the present example.
 \clearpage
 % ---- closing page (author, 2026-10-04): the rigid formulation recovered, on one page with its plate; unnumbered
 \section*{Recovery of the rigid formulation}
-\begin{center}\includegraphics[width=.8\linewidth]{fig13-rigid-recovery}\end{center}
+\begin{center}\includegraphics[width=.78\linewidth]{fig13-rigid-recovery}\end{center}
 \begin{itemize}
-\item Freeze the shape at $\X_0$: orientation and spin remain. The configurations
-are the rotational orbit $SO(3)\X_0$, one version, with symmetry $H=\{E,b\}$
-($b$ acts on $\X_0$ as the rotation $\Rmat_b$, Section~\ref{sec:feasible-regimes});
-the copies are indexed by $S/H$, and the state space carries the Haar measure
-$dr$ on the orbit, not the ambient volume.
-\item On the orbit the physical-state condition is the rigid rotor--spin
-construction: with $H_{\mathrm{rot}}\le SO(3)$ the rotations $\Rmat_h$ of the
-unstarred $h\in H$, a rotational species $\Gamma_{\mathrm{rot}}$ of
-$H_{\mathrm{rot}}$ pairs with the spin species for which
-$\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{spin}}\supset\stat$, on the
-rotational space $\operatorname{Ind}_{H_{\mathrm{rot}}}^{SO(3)}\Gamma_{\mathrm{rot}}$,
-as in Albert et al.~\cite{AlbertEtAlOrientation} with their assumption of
-trivial electronic and vibrational factors.\footnote{The species are read on
-$H_{\mathrm{rot}}$ through $h\mapsto\Rmat_h^{-1}$, the homomorphism for the right
-action $s\act\X=\X\Pmat{s}$ (the other reading conjugates the characters; they
-agree for real ones). $\X_0$ is nonlinear; linear configurations carry the axial
-redundancy of Section~\ref{sec:position-coordinates}.} The starred elements of
-$H$ add the parity condition, kept here; for methylamine $H_{\mathrm{rot}}$ is
-trivial and $b$ carries all of it.
-\item Let $\tau$ and $\iota$ move: the one version becomes the six versions
-$G_{12}/H$ on the core sheet, joined by the paths $t$ and $tu$
-(Figure~\ref{fig:6}); the symmetry grows from $H$ to $G_{12}$ and the copies are
-indexed by $S/G_{12}$.
-\item Each rigid level of $H$-species $\Gamma$ becomes a tunnelling multiplet
-$\operatorname{Ind}_H^{G_6}\Gamma$: $\mathrm A'\to\mathrm A_1\oplus\mathrm E$,
-$\mathrm A''\to\mathrm A_2\oplus\mathrm E$, and its spin weight is the sum over
-the multiplet: the spin space is $20\,\mathrm A'\oplus12\,\mathrm A''$ under $H$,
-with $20=12+8$ and $12=4+8$ (Section~\ref{sec:weights}; even parity, odd parity
-exchanges $\mathrm A_1$ with $\mathrm A_2$ and $20$ with $12$). Freezing again
-collapses each multiplet to its level. Kinematics only: no energies, and no claim
-about which regime a molecule is in.
+\item Rigid methane, one to one with Albert et al.~\cite{AlbertEtAlOrientation}
+(their Examples~21, 23 and 42 and the $T$ block of their Table~II). Freeze the
+shape at the regular tetrahedron $\X_0$, protons $1$ to $4$. Every relabelling
+carries $\X_0$ into its rotational orbit, the even ones unstarred and the odd
+ones starred: $H=T_d(\mathrm M)\cong S_4$, each element a proper rotation
+$\Rmat_h$ (Section~\ref{sec:feasible-regimes}); the unstarred part
+$H_{\mathrm{rot}}=T\cong A_4$ is the twelve symmetry rotations, their group
+$\mathsf G$. Four protons give $16$ spin states, $5\,\mathrm A_1\oplus\mathrm
+E\oplus3\,\mathrm T_2$ under $H$ (Section~\ref{sec:weights}) and $5\,\mathrm
+A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus3\,\mathrm T$ under
+$H_{\mathrm{rot}}$, their Example~23.
+\item Pairing. On $H$ the character $\stat\chi_\pm$ is $\mathrm A_2$ for even
+parity and $\mathrm A_1$ for odd (odd relabellings carry $\stat=-1$), so a level
+of species $\Gamma$ carries, in one parity only, one physical state per copy of
+its partner species: $\mathrm A_1^-$, $\mathrm A_2^+$ five; $\mathrm E^\pm$ one
+each; $\mathrm T_2^-$, $\mathrm T_1^+$ three. On $H_{\mathrm{rot}}$ these are
+their isomers $(\mathrm A,\mathrm A)$, $({}^1\mathrm E,{}^2\mathrm E)$,
+$({}^2\mathrm E,{}^1\mathrm E)$, $(\mathrm T,\mathrm T)$ with $5$, $1$, $1$, $3$
+states, $\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{nuc}}\ni\Gamma_{\mathrm{mol}}
+=\mathrm A$ (their eq.~1 and Table~II), each on
+$\operatorname{Ind}_T^{SO(3)}\Gamma_{\mathrm{rot}}$ (their theorem); parity is
+the one addition.\footnote{Species are read on $H_{\mathrm{rot}}$ through
+$h\mapsto\Rmat_h^{-1}$, the homomorphism for $s\act\X=\X\Pmat{s}$; the other
+reading conjugates both sides, exchanging ${}^1\mathrm E$ with ${}^2\mathrm E$
+together, and leaves the pairing unchanged.}
+\item Entanglement. The physical state of a $\mathrm T$ level with one copy of
+$\mathrm T$ spins is the invariant of $\mathrm T\otimes\mathrm T$ (Section~3),
+of Schmidt rank $3$: their $\mathfrak d=\dim\Gamma_{\mathrm{rot}}=3$, eq.~44a;
+its $9$ states are $9/16$ of the spin space, their ``over $56\%$'' of
+Example~23.
+\item Monodromy. $SO(3)\X_0\to SO(3)/T$ is a covering with deck group $T$
+(Section~11); a species sees $g$ through $\Gamma(g)$, so the monodromy group is
+$T/\ker\Gamma$: trivial for $\mathrm A$, $C_3$ for ${}^1\mathrm E$ and
+${}^2\mathrm E$, $T$ for $\mathrm T$, their eq.~127 and Example~42. Kinematics
+only, under their assumption of trivial electronic and vibrational factors; no
+energies are assigned.
 \end{itemize}
 
 \clearpage

@@ -99,3 +99,11 @@ shape and one version against the free family and six versions, and the correlat
 8), A'' -> A2 + E (12 = 4 + 8). The rigid weights are emitted by make_data and checked in verify_spin.py (Frobenius).
 Notation and References on their own pages. Minimal captions on all figures; the cover without its caption line.
 Build clean, 22 pages.
+
+## 2026-10-04, late night, the closing page on methane
+
+The rigid-recovery page rebuilt on rigid methane for a one-to-one check against Albert et al.: a methane geometry and
+glyph in the data layer, the closing-page numbers emitted by make_data, an independent check (verify_methane.py:
+24 relabellings as proper rotations, 5 A1 + E + 3 T2, the parity weights, the four isomers of Table II, Schmidt rank
+3, monodromy orders 1, 3, 3, 12) registered in build.py, the plate fig13-rigid-recovery redrawn, the page text
+rewritten. Build clean, 22 pages. Flagged: the Newton Kabsch routine fails on third-turns.

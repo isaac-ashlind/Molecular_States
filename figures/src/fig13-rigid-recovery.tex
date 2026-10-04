@@ -1,10 +1,11 @@
-% Rigid recovery (unnumbered plate, the closing page). What the reader must see at a squint: one point becomes six
-% points joined by paths (freeze the shape, let it move), and one level becomes a multiplet whose weights add up.
-% Top: the frozen molecule over its one version H (left); the core sheet of figure 10 with the six versions G12/H and
-% the paths t, tu (right). Bottom: the correlation diagram, each rigid species of H with its spin weight (20, 12)
-% fanning into its tunnelling multiplet of G6 (A1 12 + E 8; A2 4 + E 8), even parity. Colours: red = versions, teal =
-% the core sheet, blue nitrogen; actions ink (solid t, dashed tu). Numbers from figures/data (verify_spin.py).
-% No energies: the order within a multiplet is not an energy order (caption notes).
+% Rigid recovery (unnumbered plate, the closing page): rigid methane against Albert, Kubischta, Lemeshko and Liu
+% (arXiv:2403.04572v4; Examples 21, 23, 42 and the T block of Table II). What the reader must see at a squint: a
+% tetrahedron, three bars fanning into four bars (our rotational species by parity, their isomers), and a fibre over
+% a loop (monodromy). Left: methane with its digits; H = Td(M) = S4, even relabellings unstarred, odd ones starred;
+% H_rot = T. Middle: our species with their physical-state counts against their isomer rows (Gamma_rot, Gamma_nuc,
+% d), joined by the restriction Td -> T. Bottom: the covering SO(3) -> SO(3)/T, a loop in the base and the fibre of
+% the T isomer (three components) turned by T(g). Colours: red = the base point, gold = the patch, ink elsewhere.
+% Every number from figures/data (make_data) and recomputed in checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -13,44 +14,42 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk}]
-\path[use as bounding box] (0,0) rectangle (15,9.6);
-% ------------------------------------------------ top row: the shape frozen (one version) and free along the family (six)
-\node[sub,anchor=north] at (2.6,9.55) {shape frozen at $\X_0$: one version};
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.6] at (2.6,8.1) {mol3d-mla-ref};\end{scope}
-% the drop from the mass-centred molecule (the C--N rod's lower edge) to its version point, dotted as on the cover
-\draw[hidden,shorten <=1.6pt] (2.6,6.55)--(2.6,8.058);
-\hatom{2.6}{6.55}{.08}{ColDot} \node[lab,anchor=north] at (2.6,6.4) {$H$};
-\node[sub,anchor=north] at (2.6,6.0) {symmetry $H=\{E,b\}$};
-\draw[harrow] (4.7,7.5)--(6.5,7.5); \node[sub,anchor=south,align=center] at (5.6,7.62) {let $\tau$ and $\iota$ move};
-\node[sub,anchor=north,align=center] at (5.6,7.38) {freeze them again};
-\node[sub,anchor=north] at (10.2,9.55) {shape free along the family: six versions $G_{12}/H$};
-\begin{scope}[shift={(10.2,7.6)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
-  \pic (bd) at (0,0) {thicktube};
-  \draw[tpath] plot[domain=0:112,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
-  \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
-  \foreach \p in {top0,top120,top240,bot60,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
-  \draw[ghost,fill=ColDot!45] (bd-bot180) circle[radius=.08];
-  \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.1); \node[lab,anchor=north east,inner sep=1.5pt] at (-.55,-1.1) {$H$};
-  \node[lab,anchor=west] at (1.42,.5) {$t$}; \node[lab,anchor=east,inner sep=1pt] at (-1.36,-.5) {$tu$};   % outside the sheet, level with the path's end
+\path[use as bounding box] (0,0) rectangle (15,10.4);
+% ------------------------------------------------ left: rigid methane, its groups, its spin space
+\node[sub,anchor=north] at (2.3,10.35) {rigid methane};
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.75] at (2.3,8.3) {mol3d-ch4-ref};\end{scope}
+\node[sub,anchor=north] at (2.3,6.45) {$H=T_d(\mathrm M)\cong S_4$};
+\node[sub,anchor=north] at (2.3,6.1) {even relabellings; odd ones starred};
+\node[sub,anchor=north] at (2.3,5.75) {$H_{\mathrm{rot}}=T\cong A_4$, twelve rotations};
+\node[sub,anchor=north] at (2.3,5.3) {spin $16=\methaneSpinAone\,\mathrm A_1\oplus\mathrm E\oplus\methaneSpinTtwo\,\mathrm T_2$ ($H$)};
+\node[sub,anchor=north] at (2.3,4.95) {$\phantom{16}=\methaneTA\,\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus\methaneTT\,\mathrm T$ ($H_{\mathrm{rot}}$)};
+% ------------------------------------------------ middle: the correspondence, species by parity against the isomer table
+\node[sub,anchor=north] at (7.4,10.35) {this paper, by parity};
+\node[sub,anchor=north] at (12.4,10.35) {Albert et al., Table II};
+\def\yA{8.9}\def\yE{7.2}\def\yT{5.5}
+\draw[heavy] (6.9,\yA)--(8.1,\yA); \node[lab,anchor=base east] at (6.75,{\yA-.1}) {$\mathrm A_1^{-}$, $\mathrm A_2^{+}$}; \node[lab,anchor=base west] at (8.25,{\yA-.1}) {$\methaneOddAone$ each};
+\draw[heavy] (6.9,\yE)--(8.1,\yE) (6.9,{\yE+.09})--(8.1,{\yE+.09}); \node[lab,anchor=base east] at (6.75,{\yE-.055}) {$\mathrm E^{-}$, $\mathrm E^{+}$}; \node[lab,anchor=base west] at (8.25,{\yE-.055}) {$\methaneOddE$ each};
+\draw[heavy] (6.9,\yT)--(8.1,\yT) (6.9,{\yT+.09})--(8.1,{\yT+.09}) (6.9,{\yT+.18})--(8.1,{\yT+.18}); \node[lab,anchor=base east] at (6.75,{\yT-.01}) {$\mathrm T_2^{-}$, $\mathrm T_1^{+}$}; \node[lab,anchor=base west] at (8.25,{\yT-.01}) {$\methaneOddTtwo$ each};
+\def\yiA{9.5}\def\yiEa{8.1}\def\yiEb{6.8}\def\yiT{5.3}
+\draw[heavy] (10.8,\yiA)--(12.0,\yiA); \node[lab,anchor=base west] at (12.15,{\yiA-.1}) {$(\mathrm A,\mathrm A,1)$: $\methaneTA$};
+\draw[heavy] (10.8,\yiEa)--(12.0,\yiEa); \node[lab,anchor=base west] at (12.15,{\yiEa-.1}) {$({}^1\mathrm E,{}^2\mathrm E,1)$: $\methaneTEtwo$};
+\draw[heavy] (10.8,\yiEb)--(12.0,\yiEb); \node[lab,anchor=base west] at (12.15,{\yiEb-.1}) {$({}^2\mathrm E,{}^1\mathrm E,1)$: $\methaneTEone$};
+\draw[heavy] (10.8,\yiT)--(12.0,\yiT) (10.8,{\yiT+.09})--(12.0,{\yiT+.09}) (10.8,{\yiT+.18})--(12.0,{\yiT+.18}); \node[lab,anchor=base west] at (12.15,{\yiT-.01}) {$(\mathrm T,\mathrm T,3)$: $\methaneTT$};
+\draw[jn] (9.45,\yA)--(10.2,\yiA); \draw[jn] (9.45,{\yE+.045})--(10.2,\yiEa); \draw[jn] (9.45,{\yE+.045})--(10.2,\yiEb); \draw[jn] (9.45,{\yT+.09})--(10.2,{\yiT+.09});
+\node[sub,anchor=north] at (9.9,4.6) {restriction $T_d\to T$: $\mathrm A_{1,2}\to\mathrm A$, $\mathrm E\to{}^1\mathrm E\oplus{}^2\mathrm E$, $\mathrm T_{1,2}\to\mathrm T$; parity is ours alone};
+% ------------------------------------------------ bottom: monodromy, the covering SO(3) -> SO(3)/T and the fibre of the T isomer
+\begin{scope}[shift={(2.6,.8)}]
+  \path[fill=ColRetained!50] (-1.8,0)--(1.8,0)--(2.5,.9)--(-1.1,.9)--cycle; \draw[heavy] (-1.8,0)--(1.8,0)--(2.5,.9)--(-1.1,.9)--cycle;
+  \coordinate (bx) at (.35,.45);
+  \draw[tlift] (bx) .. controls (-1.7,.84) and (-1.7,.06) .. (bx);
+  \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.06) {$\ell_g$}; \node[sub,anchor=west,inner sep=1pt] at (2.62,.45) {$SO(3)/T$};
+  \draw[fine] (bx)--($(bx)+(0,2.3)$);
+  \foreach \k in {1,2,3} {\fill[PlateInk] ($(bx)+(0,.55*\k+.1)$) circle[radius=1.4pt];}
+  \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] ($(bx)+(.36,2.3)$) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
+  \hatomat{bx}{.08}{ColDot}
+  \node[sub,anchor=west,inner sep=1pt] at ($(bx)+(.5,1.2)$) {the fibre of the $\mathrm T$ isomer, $\mathfrak d=3$};
+  \node[sub,anchor=south west,inner sep=1pt] at ($(bx)+(.45,2.3)$) {turned by $\mathrm T(g)$};
 \end{scope}
-\node[sub,anchor=north] at (10.2,6.0) {symmetry $G_{12}=\langle b,t,u\rangle\supset G_6=\langle b,t\rangle$};
-% ------------------------------------------------ bottom row: each rigid level becomes a tunnelling multiplet, the weights add up
-\node[sub,anchor=north west] at (.3,5.2) {rigid level: a species of $H$, its spin weight};
-\node[sub,anchor=north east] at (14.7,5.2) {tunnelling multiplet $\mathrm{Ind}_H^{G_6}$: species of $G_6$, their weights};
-\def\yAp{3.7}\def\yApp{1.6}
-\draw[heavy] (2.2,\yAp)--(3.6,\yAp); \node[lab,anchor=base east] at (2.05,{\yAp-.1}) {$\mathrm A'$}; \node[lab,anchor=base west] at (3.75,{\yAp-.1}) {$\rigidWeightAp$};
-\draw[heavy] (2.2,\yApp)--(3.6,\yApp); \node[lab,anchor=base east] at (2.05,{\yApp-.1}) {$\mathrm A''$}; \node[lab,anchor=base west] at (3.75,{\yApp-.1}) {$\rigidWeightApp$};
-% the multiplets at the right: A1 and E from A', A2 and E from A''; E as a double level
-\def\yAone{4.25}\def\yEa{3.15}\def\yAtwo{2.15}\def\yEb{1.05}
-\draw[heavy] (9.4,\yAone)--(10.8,\yAone); \node[lab,anchor=base east] at (9.25,{\yAone-.1}) {$\mathrm A_1$}; \node[lab,anchor=base west] at (10.95,{\yAone-.1}) {$\weightEvenAone$};
-\draw[heavy] (9.4,\yEa)--(10.8,\yEa) (9.4,{\yEa+.09})--(10.8,{\yEa+.09}); \node[lab,anchor=base east] at (9.25,{\yEa-.055}) {$\mathrm E$}; \node[lab,anchor=base west] at (10.95,{\yEa-.055}) {$\weightEvenE$};
-\draw[heavy] (9.4,\yAtwo)--(10.8,\yAtwo); \node[lab,anchor=base east] at (9.25,{\yAtwo-.1}) {$\mathrm A_2$}; \node[lab,anchor=base west] at (10.95,{\yAtwo-.1}) {$\weightEvenAtwo$};
-\draw[heavy] (9.4,\yEb)--(10.8,\yEb) (9.4,{\yEb+.09})--(10.8,{\yEb+.09}); \node[lab,anchor=base east] at (9.25,{\yEb-.055}) {$\mathrm E$}; \node[lab,anchor=base west] at (10.95,{\yEb-.055}) {$\weightEvenE$};
-% the joins: from the right end of each rigid level to the left end of each member of its multiplet
-\draw[jn] (4.3,\yAp)--(8.7,\yAone); \draw[jn] (4.3,\yAp)--(8.7,{\yEa+.045});
-\draw[jn] (4.3,\yApp)--(8.7,\yAtwo); \draw[jn] (4.3,\yApp)--(8.7,{\yEb+.045});
-\node[sub,anchor=base west] at (11.6,{\yAone-.1}) {$\weightEvenAone+\weightEvenE=\rigidWeightAp$};
-\node[sub,anchor=base west] at (11.6,{\yAtwo-.1}) {$\weightEvenAtwo+\weightEvenE=\rigidWeightApp$};
-\node[sub,anchor=north] at (7.5,.45) {even parity; no energies: the order within a multiplet is not an energy order};
+\node[sub,anchor=north west,align=left] at (8.4,3.7) {$\ell_g$ lifts to $r\mapsto rg$; a species sees $g$ through $\Gamma(g)$\\monodromy group $T/\ker\Gamma$:\\$\mathrm A\mapsto1$,\quad ${}^1\mathrm E,{}^2\mathrm E\mapsto C_3$,\quad $\mathrm T\mapsto T$\\the $\mathrm T$ state is the invariant of $\mathrm T\otimes\mathrm T$:\\Schmidt rank $3$; $9$ of the $16$ spin states};
 \end{tikzpicture}
 \end{document}

@@ -172,3 +172,11 @@ docs/notation-migration.md.
 - Closing pages (author, 2026-10-04): the rigid formulation is recovered on one unnumbered page with its own plate
   (one version becomes six, one level becomes a multiplet whose weights add up, verified in verify_spin.py), then
   Notation and References each on their own page. The box is gone; its content is the page's bullets and footnote.
+- The closing page rebuilt on methane (author, 2026-10-04): the rigid formulation is checked one to one against
+  Albert et al. on their own example (Examples 21, 23, 42; Table II, T block; eqs. 1, 44a, 127): groups, spin
+  decomposition, the four isomers with their state counts, the entangled T isomer (Schmidt rank 3, 9 of 16), and the
+  monodromy groups T/ker Gamma; parity is the one addition. Methylamine's collapse picture (one version to six) was
+  the practice attempt and is gone; methane has no nonrigid regime, so the page is a recovery, not a collapse.
+- Flag for the shared layer: geometry.kabsch_rotation (a Newton polar iteration) does not converge for third-turns
+  (residual 3.1 on the tetrahedron's 3-cycles) though it is exact for the suite's small turns and half-turns; the
+  methane check fits by SVD instead. Not changed in this bounded edit.

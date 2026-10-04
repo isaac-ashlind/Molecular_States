@@ -179,6 +179,20 @@ def water(delta_ratio, theta_deg, ell=WATER_ELL):
     O = (0.0, 0.0, 0.0)
     return center([H1, H2, O], WATER_MASSES)
 
+# ----------------------------------------------------------------- methane ---
+
+CH4_ELEMENTS = ['H', 'H', 'H', 'H', 'C']          # labels 1..5
+CH4_MASSES = [MASS[e] for e in CH4_ELEMENTS]
+CH4_BONDS = [(5, 1), (5, 2), (5, 3), (5, 4)]       # 1-based
+CH4_CH = 1.087                                    # C-H bond length (angstrom)
+
+def methane(ch=CH4_CH):
+    """Centred regular tetrahedron: hydrogen 1 on +z, hydrogens 2, 3, 4 below it at the tetrahedral angle, a third of
+    a turn apart (labels 1..4); the carbon at the origin, which is the mass centre."""
+    th = math.acos(-1.0/3.0)
+    H = [(0.0, 0.0, ch)] + [(ch*math.sin(th)*math.cos(math.radians(a)), ch*math.sin(th)*math.sin(math.radians(a)), ch*math.cos(th)) for a in (90.0, 210.0, 330.0)]
+    return center(H + [(0.0, 0.0, 0.0)], CH4_MASSES)
+
 # ------------------------------------------------------------ methylamine ---
 
 MLA_ELEMENTS = ['H', 'H', 'H', 'H', 'H', 'C', 'N']   # labels 1..7

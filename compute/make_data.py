@@ -5,7 +5,7 @@ Everything emitted here is recomputed from declared masses, model parameters
 and group definitions; nothing is typed in by hand.  checks/verify.py
 re-derives the same quantities independently and asserts them.
 """
-import json, math, os, sys
+import json, math, cmath, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 import geometry as G
 import groups as Q
@@ -354,6 +354,39 @@ def main():
     for k, (d, th) in enumerate(samples):
         emit_pic(mol, f'water-sample-{k+1}', pic_code(G.water(d, th), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     summary['water_samples'] = samples
+
+    # ---- methane (the closing page): the glyph with its digits, and the rigid-limit numbers against Albert et al.
+    CH4 = G.methane()
+    summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
+    CAM_CH4 = G.camera(azimuth_deg=15.0, elevation_deg=45.0)   # chosen by scan: every hydrogen 0.77 A clear of the carbon disc, depth kept
+    emit_pic(mol, 'mol3d-ch4-ref', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_CH4, labels=True))
+    # Td(M) = S4 on the four protons, classes (size, cycles, odd?, starred?): E, 3-cycles, double transpositions,
+    # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star
+    cls = [(1, 4, 1, 0), (8, 2, 1, 0), (3, 2, 1, 0), (6, 1, -1, 1), (6, 3, -1, 1)]
+    TD = {'A1': [1, 1, 1, 1, 1], 'A2': [1, 1, 1, -1, -1], 'E': [2, -1, 2, 0, 0], 'T1': [3, 0, -1, 1, -1], 'T2': [3, 0, -1, -1, 1]}
+    chi_spin = [2**c[1] for c in cls]
+    spin_td = {k: int(round(sum(n*chi_spin[i]*v[i] for i, (n, _, _, _) in enumerate(cls))/24)) for k, v in TD.items()}
+    weights = {}
+    for par, tag in ((1, 'Even'), (-1, 'Odd')):
+        total = [c[2]*(par if c[3] else 1) for c in cls]          # chi_stat chi_pm on each class
+        weights[tag] = {k: int(round(sum(n*v[i]*chi_spin[i]*total[i] for i, (n, _, _, _) in enumerate(cls))/24)) for k, v in TD.items()}
+    # under the proper rotations T = A4: classes E, 3 C2, 4 C3, 4 C3' with chi_spin 16, 4, 4, 4; A, 1E, 2E, T
+    w3 = cmath.exp(2j*math.pi/3)
+    TT = {'A': [1, 1, 1, 1], '1E': [1, 1, w3, w3**2], '2E': [1, 1, w3**2, w3], 'T': [3, -1, 0, 0]}
+    tcls = [1, 3, 4, 4]; tspin = [16, 4, 4, 4]
+    spin_t = {k: int(round((sum(n*s*v.conjugate() for n, s, v in zip(tcls, tspin, map(complex, ch)))/12).real)) for k, ch in TT.items()}
+    isomers = [('A', 'A', 1), ('1E', '2E', 1), ('2E', '1E', 1), ('T', 'T', 3)]      # (Gamma_rot, Gamma_nuc, d): Gamma_rot x Gamma_nuc contains A
+    kernel_index = {k: int(round(12/sum(n for n, v in zip(tcls, ch) if abs(complex(v) - ch[0]) < 1e-9))) for k, ch in TT.items()}
+    summary['methane_rigid'] = {'spin_Td': spin_td, 'weights': weights, 'spin_T': spin_t,
+                                'isomers': [(r, nu, d, spin_t[nu]) for r, nu, d in isomers],
+                                'entangled_fraction': [3*spin_t['T'], 16], 'monodromy_orders': kernel_index}
+    for k, v in spin_td.items():
+        num.append(f'\\def\\methaneSpin{k.replace("1", "one").replace("2", "two")}{{{v}}}')
+    for tag in ('Even', 'Odd'):
+        for k, v in weights[tag].items():
+            num.append(f'\\def\\methane{tag}{k.replace("1", "one").replace("2", "two")}{{{v}}}')
+    for k, v in spin_t.items():
+        num.append(f'\\def\\methaneT{k.replace("1E", "Eone").replace("2E", "Etwo")}{{{v}}}')
 
     # ---- methylamine
     X0 = G.methylamine(0.0, ETA0)

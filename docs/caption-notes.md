@@ -192,13 +192,19 @@ suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
 
-## Rigid recovery (unnumbered plate, the closing page)
-What the reader sees at a squint: one point becomes six points joined by paths, and one level becomes a multiplet.
-Top: the mass-centred molecule X0 over its single version H (the family frozen to a point; the SO(3) factor
-suppressed as on every plate) and, after the arrow "let tau and iota move", the core sheet of figure 10 with the six
-versions G12/H and the paths t and tu; the symmetry H = {E, b} grows to G12. Bottom: the correlation diagram, each
-rigid species of H with its spin weight (A' 20, A'' 12; even parity) fanning into its tunnelling multiplet
-Ind_H^{G6} (A' -> A1 12 + E 8, A'' -> A2 4 + E 8), the weights adding up. Computed: the H decomposition of the spin
-space and the induced multiplets (checks/verify_spin.py, Frobenius reciprocity); the weights are figure 8's. No
-energies: the vertical order within a multiplet is not an energy order (declared on the plate). Odd parity exchanges
-A1 with A2 and 20 with 12 (text).
+## Rigid recovery (unnumbered plate, the closing page): methane against Albert et al.
+What the reader sees at a squint: a tetrahedron, three bars fanning into four, and a loop with a fibre over it.
+Left: rigid methane (computed tetrahedron, C-H 1.087 A, hydrogen 1 up, camera 15 deg azimuth, 45 deg elevation chosen
+by scan so that every hydrogen disc clears the carbon), H = Td(M) = S4 with the even relabellings unstarred and the odd
+ones starred, H_rot = T = A4, the spin space 5 A1 + E + 3 T2 under H and 5 A + 1E + 2E + 3 T under H_rot. Middle:
+our rotational species with their physical-state counts by parity (A1-, A2+: 5 each; E-, E+: 1 each; T2-, T1+: 3
+each) joined by the restriction Td -> T to their isomer rows (Gamma_rot, Gamma_nuc, d) with their state counts
+(A, A, 1): 5; (1E, 2E, 1): 1; (2E, 1E, 1): 1; (T, T, 3): 3, the T block of Table II of Albert, Kubischta, Lemeshko and
+Liu (arXiv:2403.04572v4; their Examples 21, 23, 42, eqs. 1, 44a, 127). Bottom: the covering SO(3) -> SO(3)/T drawn
+as the gold patch of figure 11 with a loop l_g, the fibre of the T isomer as three components over the base point,
+turned by T(g); the monodromy groups T/ker Gamma = 1, C3, C3, T; the T state as the invariant of T x T (Schmidt rank
+3; 9 of 16 spin states). Every number is emitted by make_data (summary.json, methane_rigid) and recomputed from
+explicit permutation and rotation matrices in checks/verify_methane.py, which also checks that the twelve even
+relabellings act as a closed group of proper rotations of the computed tetrahedron and that 1E is a homomorphism.
+Declared: no energies; parity (the starred elements) is this paper's addition to their construction; the labels 1E,
+2E are exchanged together by the other reading of the transport (footnote on the page).
