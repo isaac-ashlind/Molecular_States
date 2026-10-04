@@ -1,6 +1,7 @@
 # Style of the suite
 
-Reference: the ink plates of Harter (1993). The drawing shows the structure itself; text is bookkeeping.
+Reference: the ink plates of Harter (1993); for line and flat colour also Winsor McCay (clean contour, restrained
+flat fills, air around every figure), named by the author on 2026-10-04. The drawing shows the structure itself; text is bookkeeping.
 The plates read as black-and-white ink drawings; colour is spent only where it speeds comprehension or guides the
 eye (author decision, 2026-10-04). Surfaces that carry no meaning stay white.
 
