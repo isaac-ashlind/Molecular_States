@@ -12,39 +12,39 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,cellv/.style={draw=PlateInk,line width=.4pt,minimum width=.56cm,minimum height=.44cm,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont}]
-\path[use as bounding box] (0,0) rectangle (15,16.2);
+\path[use as bounding box] (0,0) rectangle (15,14.9);
 % ------------------------------------------------ the atlas (delta, theta)
-\begin{scope}[shift={(1.5,7.1)}]
-  \draw[fine] (-.3,0)--(12.2,0); \draw[fine] (0,-.3)--(0,8.3);
+\begin{scope}[shift={(1.5,6.6)}]
+  \draw[fine] (-.3,0)--(12.2,0); \draw[fine] (0,-.3)--(0,7.55);
   \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {\draw[fine] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08); \node[lab,anchor=north] at ({1.1+2.3*\i},-.14) {$\lab$};}
-  \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.65*\j})--(.08,{.9+1.65*\j}); \node[lab,anchor=east] at (-.14,{.9+1.65*\j}) {$\lab$};}
-  \node[lab,anchor=west] at (12.3,-.05) {$\delta$}; \node[lab,anchor=south] at (0,8.35) {$\theta$};
-  \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (5.7,.08)--(5.7,8.45);
-  \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (0,7.5)--(12.2,7.5);
-  \node[sub,anchor=south] at (5.7,8.5) {$\delta=0$}; \node[sub,anchor=west] at (12.3,7.5) {$\theta=\pi$};
+  \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.5*\j})--(.08,{.9+1.5*\j}); \node[lab,anchor=east] at (-.14,{.9+1.5*\j}) {$\lab$};}
+  \node[lab,anchor=west] at (12.3,-.05) {$\delta$}; \node[lab,anchor=south] at (0,7.6) {$\theta$};
+  \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (5.7,.08)--(5.7,7.7);
+  \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (0,6.9)--(12.2,6.9);
+  \node[sub,anchor=south] at (5.7,7.75) {$\delta=0$}; \node[sub,anchor=west] at (12.3,6.9) {$\theta=\pi$};
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
-    \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.75] at ({1.1+2.3*\i},{.9+1.65*\j}) {mol3d-water-grid-\i\j};}
+    \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.75] at ({1.1+2.3*\i},{.9+1.5*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
   \node[sub,anchor=north west] at (0,-.55) {$r_1=\ell+\delta$, $r_2=\ell-\delta$};
 \end{scope}
 % ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
 \begin{scope}\molsolid\mollabelsinside
-  \pic[scale=.95] at (3.15,4.3) {mol3d-water-minusX};
-  \pic[scale=.95] at (5.7,4.3) {mol3d-water-X}; \pic[scale=.95] at (10.9,4.3) {mol3d-water-RX};
-  \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.95] at (5.7,1.3) {mol3d-water-X}; \pic[scale=.95] at (10.9,1.3) {mol3d-water-RX};\end{scope}
+  \pic[scale=.8] at (4.0,4.0) {mol3d-water-minusX};
+  \pic[scale=.8] at (6.5,4.0) {mol3d-water-X}; \pic[scale=.8] at (11.0,4.0) {mol3d-water-RX};
+  \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.8] at (6.5,1.3) {mol3d-water-X}; \pic[scale=.8] at (11.0,1.3) {mol3d-water-RX};\end{scope}
 \end{scope}
 % column strips beside each glyph: the matrix as three columns
-\foreach \x/\y/\ca/\cb/\cc in {5.7/4.3/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},10.9/4.3/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},5.7/1.3/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},10.9/1.3/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3}} {
-  \draw[fine] ({\x+1.15},{\y-.22}) rectangle ({\x+3.01},{\y+.22}); \draw[fine] ({\x+1.77},{\y-.22})--({\x+1.77},{\y+.22}) ({\x+2.39},{\y-.22})--({\x+2.39},{\y+.22}); \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+1.46},\y) {$\ca$}; \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+2.08},\y) {$\cb$}; \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+2.7},\y) {$\cc$};}
-\draw[fine] (.35,4.08) rectangle (2.21,4.52); \draw[fine] (.97,4.08)--(.97,4.52) (1.59,4.08)--(1.59,4.52); \node[font=\fontsize{7.5}{8}\selectfont] at (.66,4.3) {$-\mathbf x_1$}; \node[font=\fontsize{7.5}{8}\selectfont] at (1.28,4.3) {$-\mathbf x_2$}; \node[font=\fontsize{7.5}{8}\selectfont] at (1.9,4.3) {$-\mathbf x_3$};
+\foreach \x/\y/\ca/\cb/\cc in {7.5/4.0/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},12.0/4.0/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},7.5/1.3/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},12.0/1.3/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3}} {
+  \draw[fine] (\x,{\y-.22}) rectangle ({\x+1.8},{\y+.22}); \draw[fine] ({\x+.6},{\y-.22})--({\x+.6},{\y+.22}) ({\x+1.2},{\y-.22})--({\x+1.2},{\y+.22}); \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+.3},\y) {$\ca$}; \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+.9},\y) {$\cb$}; \node[font=\fontsize{7.5}{8}\selectfont] at ({\x+1.5},\y) {$\cc$};}
+\draw[fine] (1.1,3.78) rectangle (2.9,4.22); \draw[fine] (1.7,3.78)--(1.7,4.22) (2.3,3.78)--(2.3,4.22); \node[font=\fontsize{7.5}{8}\selectfont] at (1.4,4.0) {$-\mathbf x_1$}; \node[font=\fontsize{7.5}{8}\selectfont] at (2.0,4.0) {$-\mathbf x_2$}; \node[font=\fontsize{7.5}{8}\selectfont] at (2.6,4.0) {$-\mathbf x_3$};
 % arrows: R to the right (left action), P_sigma down (right action), E* to the left (right action by -1)
-\draw[harrow] (8.9,4.3)--(9.65,4.3); \node[lab,anchor=south] at (9.27,4.36) {$\Rmat$};
-\draw[harrow] (8.9,1.3)--(9.65,1.3); \node[lab,anchor=south] at (9.27,1.36) {$\Rmat$};
-\draw[harrow] (5.7,3.5)--(5.7,2.25); \node[lab,anchor=east] at (5.56,2.87) {$\Pmat{\sigma}$};
-\draw[harrow] (10.9,3.5)--(10.9,2.25); \node[lab,anchor=east] at (10.76,2.87) {$\Pmat{\sigma}$};
-\draw[bpath] (4.8,4.3)--(4.15,4.3); \node[lab,anchor=south] at (4.48,4.38) {$E^*$};
+\draw[harrow] (9.45,4.0)--(10.0,4.0); \node[lab,anchor=south] at (9.72,4.06) {$\Rmat$};
+\draw[harrow] (9.45,1.3)--(10.0,1.3); \node[lab,anchor=south] at (9.72,1.36) {$\Rmat$};
+\draw[harrow] (6.5,3.3)--(6.5,2.05); \node[lab,anchor=east] at (6.36,2.67) {$\Pmat{\sigma}$};
+\draw[harrow] (11.0,3.3)--(11.0,2.05); \node[lab,anchor=east] at (10.86,2.67) {$\Pmat{\sigma}$};
+\draw[bpath] (5.55,4.0)--(4.95,4.0); \node[lab,anchor=south] at (5.25,4.08) {$E^*$};
 % names under the glyphs
-\node[lab] at (5.7,5.35) {$\X$}; \node[lab] at (10.6,5.45) {$\Rmat\X$}; \node[lab] at (3.15,5.35) {$E^*\X=-\X$};
-\node[lab] at (5.7,.35) {$\X\Pmat{\sigma}$}; \node[lab] at (10.9,.35) {$\Rmat\X\Pmat{\sigma}$};
+\node[lab] at (6.5,4.9) {$\X$}; \node[lab] at (10.9,5.0) {$\Rmat\X$}; \node[lab] at (4.0,4.9) {$E^*\X=-\X$};
+\node[lab] at (6.5,.4) {$\X\Pmat{\sigma}$}; \node[lab] at (11.0,.4) {$\Rmat\X\Pmat{\sigma}$};
 \end{tikzpicture}
 \end{document}

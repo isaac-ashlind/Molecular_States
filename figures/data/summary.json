@@ -309,6 +309,12 @@
   "G_{12}": "b,t,u",
   "\\langle G_6,u^*\\rangle": "b,t,u^*"
  },
+ "interval_HS_layout": {
+  "crossings": 145,
+  "pull": 0.35,
+  "median": false,
+  "sweeps": 8
+ },
  "interval_HS": {
   "subgroups": 36,
   "covers": 73,

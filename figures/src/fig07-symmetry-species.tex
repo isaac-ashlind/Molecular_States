@@ -23,9 +23,9 @@
 \def\sA{.5774}\def\sB{.8165}\def\sC{.4082}\def\sD{.7071}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,11.6);
+\path[use as bounding box] (0,0) rectangle (15,10.6);
 % key: the three version sites on the torsion circle
-\begin{scope}[shift={(2.5,8.2)}]
+\begin{scope}[shift={(2.5,7.45)}]
   \pgfmathsetmacro{\R}{1.4}
   \draw[fine] (0,0) circle[radius=\R];
   \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
@@ -37,22 +37,22 @@
 \end{scope}
 % the grid
 \foreach \col/\x/\a/\b/\c/\ta/\tb/\tc/\ba/\bb/\bc in {1/7.0/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA, 2/10.0/\sB/-\sC/-\sC/-\sC/\sB/-\sC/\sB/-\sC/-\sC, 3/13.0/0/\sD/-\sD/-\sD/0/\sD/0/-\sD/\sD} {
-  \modepic{\x}{9.6}{.62}{\a}{\b}{\c}{1}
-  \modepic{\x}{7.5}{.62}{\ta}{\tb}{\tc}{1}
-  \modepic{\x}{5.4}{.62}{\ba}{\bb}{\bc}{1}
-  \node[lab] at (\x,10.55) {$v_\col$};}
-\node[lab,anchor=east] at (5.9,9.6) {$v$}; \node[lab,anchor=east] at (5.9,7.5) {$t\,v$}; \node[lab,anchor=east] at (5.9,5.4) {$b\,v$};
-\draw[fine] (6.2,11.05)--(6.2,10.9)--(7.8,10.9)--(7.8,11.05); \node[lab,anchor=south] at (7.0,11.07) {$\mathrm A_1$};
-\draw[fine] (9.2,11.05)--(9.2,10.9)--(13.8,10.9)--(13.8,11.05); \node[lab,anchor=south] at (11.5,11.07) {$\mathrm E$};
+  \modepic{\x}{8.7}{.62}{\a}{\b}{\c}{1}
+  \modepic{\x}{6.75}{.62}{\ta}{\tb}{\tc}{1}
+  \modepic{\x}{4.8}{.62}{\ba}{\bb}{\bc}{1}
+  \node[lab] at (\x,9.65) {$v_\col$};}
+\node[lab,anchor=east] at (5.9,8.7) {$v$}; \node[lab,anchor=east] at (5.9,6.75) {$t\,v$}; \node[lab,anchor=east] at (5.9,4.8) {$b\,v$};
+\draw[fine] (6.2,10.15)--(6.2,10.0)--(7.8,10.0)--(7.8,10.15); \node[lab,anchor=south] at (7.0,10.17) {$\mathrm A_1$};
+\draw[fine] (9.2,10.15)--(9.2,10.0)--(13.8,10.0)--(13.8,10.15); \node[lab,anchor=south] at (11.5,10.17) {$\mathrm E$};
 % beneath: the fixed point and the E plane
-\begin{scope}[shift={(2.5,2.6)}]
+\begin{scope}[shift={(2.5,2.35)}]
   \pgfmathsetmacro{\L}{1.25}
   \draw[blift] (0,-\L-.35)--(0,\L+.05); \draw[fine] (-\L-.25,0)--(\L+.25,0); \node[lab,anchor=west] at (.12,-\L-.2) {$b$};
   \node[sub,anchor=west] at (\L+.28,0) {$v_3$};
   \foreach \a/\l/\anc in {90/{v_2}/south,210/{t\,v_2}/north east,330/{t^2v_2}/north west} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.16}) {$\l$};}
   \draw[tpath] (98:.55) arc[start angle=98,end angle=204,radius=.55];
 \end{scope}
-\node[sub,anchor=north] at (10.0,.55) {disc area is the amplitude; ink positive, white negative, a tick for zero};
-\node[lab,anchor=north] at (10.0,1.5) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
+\node[sub,anchor=north] at (10.0,.5) {disc area is the amplitude; ink positive, white negative, a tick for zero};
+\node[lab,anchor=north] at (10.0,1.45) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
 \end{tikzpicture}
 \end{document}

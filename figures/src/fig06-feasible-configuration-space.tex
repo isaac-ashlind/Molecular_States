@@ -1,9 +1,11 @@
-% Figure 6. Feasible configuration space. What the reader must see: F is a solid, the thickened
-% reference family; the family is a band inside its wall; the versions sit on the band's edges;
-% the two generators are two paths on the band, and the same paths are followed below as Newman projections;
-% the symmetry images of F are twenty disjoint copies carved out of C.
-% Colours: blue = t path, red dashed = tu path, gold = version points (faded, dashed = hidden behind the wall),
-% blue tint = the solid's wall. Hatch = cut material (the cut faces of the wedge; the part of C outside the images).
+% Figure 6. Feasible configuration space. What the reader must see, as three levels of zoom: C holds twenty
+% disjoint images of F (middle strip, one image white, the rest grey); F is a solid, the thickened reference family,
+% drawn as a short thick tube cut open in the orientation of the cover (top right); its cut face enlarged (top left)
+% shows the family as a thin sheet with the normal coordinate q across the wall and iota along the height; the
+% versions sit on the sheet's edges and the two generators are two paths on the sheet, followed again beneath as
+% Newman projections down the C-N axis. Colours: teal = the core sheet (band and strip), red = version points
+% (faded, dashed = hidden behind the wall), blue = nitrogen; actions carry no colour (t solid, tu dashed).
+% Hatch = cut material (the cut faces; the part of C outside the images). Grey = the inactive images.
 % Disclosures for the caption notes: one radial thickness stands for the 13 normal coordinates;
 % the SO(3) factor is suppressed; the tube's topology is not a claim about F; assumptions are an
 % embedded tubular neighbourhood and separation of the images.
@@ -15,30 +17,34 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,-.45) rectangle (15,14.4);
-% ------------------------------------------------ the solid F, cut open
-\pic (tb) at (4.6,11.4) {thicktube};
-% paths on the band: t along the top edge (visible), through the eclipsed point; tu through the interior to the bottom edge
-\draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{11.4+.62-.42*2.15*cos(\a)});
-\draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{11.4+.62-2*.62*\s-.42*2.15*cos(60*\s)});
-\draw[fine,fill=white] (tb-top60) circle[radius=.075];
-\foreach \p in {top0,top120,top240} {\hatomat{tb-\p}{.09}{ColDot}}
-\hatomat{tb-bot300}{.09}{ColDot}
-\foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (tb-\p) circle[radius=.09];}
-\leaderlabel{4.6}{11.05}{.0}{-.5}{north}{$H$}
-\leaderlabel{6.46}{12.47}{.5}{.35}{west}{$tH$}
-\leaderlabel{2.74}{12.47}{-.45}{.4}{east}{$t^2H$}
-\leaderlabel{2.74}{10.33}{.75}{-.42}{west}{$tuH$}
-\draw[leader,shorten >=3pt] (tb-top60)++(.06,-.04)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at ($(tb-top60)+(.66,-.42)$) {eclipsed};
-\draw[leader,shorten >=3pt] (tb-bot60)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at ($(tb-bot60)+(.6,-.38)$) {$t^2uH$};
-\draw[leader,shorten >=3pt] (tb-bot180)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at ($(tb-bot180)+(-.9,1.15)$) {$uH$};
-\node[lab] at (6.75,13.0) {$t$}; \node[lab,inner sep=1pt] at (3.3,10.75) {$tu$};
-\node[sub,anchor=north west] at (8.9,12.9) {the core sheet is the family $\X_0(\tau,\iota)$};
-
-% ------------------------------------------------ zoom: the cut face itself, enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m, the version point tuH at the lower end of the eta-line)
-\zoombubble{2.70}{10.45}{.95}{1.55}{8.35}{1.4}
-\begin{scope}[shift={(1.55,8.35)}]
-  \pgfmathsetmacro{\m}{1.4/.72}\pgfmathsetmacro{\fa}{-62}\pgfmathsetmacro{\E}{.42}
+\path[use as bounding box] (0,-.2) rectangle (15,12.5);
+% ------------------------------------------------ level 2: the solid F, cut open as on the cover (window from -47 to 23 degrees),
+% the decoration turned by 15 degrees as there, so the tu path stays inside the window
+\pgfmathsetmacro{\ph}{15}
+\begin{scope}[shift={(10.3,9.9)}]\tikzset{tube/a1=-47,tube/a2=23}
+  \pic (tb) at (0,0) {thicktube};
+  \foreach \a in {0,120,240} {\coordinate (vt\a) at ({2.15*sin(\a+\ph)},{.62-.42*2.15*cos(\a+\ph)});}
+  \foreach \a in {60,180,300} {\coordinate (vb\a) at ({2.15*sin(\a+\ph)},{-.62-.42*2.15*cos(\a+\ph)});}
+  \coordinate (ecl) at ({2.15*sin(60+\ph)},{.62-.42*2.15*cos(60+\ph)});
+  % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
+  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});
+  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
+  \draw[fine,fill=white] (ecl) circle[radius=.075];
+  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.09}{ColDot}}
+  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.09];}
+\end{scope}
+\leaderlabel{10.86}{9.65}{.0}{-.55}{north}{$H$}
+\leaderlabel{11.82}{11.16}{.45}{.4}{west}{$tH$}
+\leaderlabel{8.22}{10.75}{-.5}{.45}{east}{$t^2H$}
+\draw[leader,shorten >=3pt] (12.38,10.29)++(.06,-.04)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.87) {eclipsed};
+\draw[leader,shorten >=3pt] (12.38,9.05)--++(.6,-.4); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (12.98,8.65) {$t^2uH$};
+\draw[leader,shorten >=3pt] (9.74,10.15)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at (8.84,11.3) {$uH$};
+\node[lab] at (12.8,10.78) {$t$}; \node[lab,inner sep=1pt] at (9.33,9.12) {$tu$};
+% ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
+% the version point tuH at the lower end of the iota line)
+\zoombubble{8.73}{9.28}{.95}{3.0}{9.9}{1.5}
+\begin{scope}[shift={(3.0,9.9)}]
+  \pgfmathsetmacro{\m}{1.5/.95}\pgfmathsetmacro{\fa}{-47}\pgfmathsetmacro{\E}{.42}
   \pgfmathsetmacro{\cx}{2.15*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*2.15*cos(\fa)}
   \coordinate (p1) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(.62-\E*1.8*cos(\fa)-\cy)});
   \coordinate (p2) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(.62-\E*2.5*cos(\fa)-\cy)});
@@ -53,31 +59,33 @@
   \draw[harrow] (0,.2)--(-.52,.2); \node[lab,anchor=east,inner sep=1pt] at (-.74,.2) {$q$};
   \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\iota$};
 \end{scope}
-\node[sub,anchor=north west] at (3.5,9.2) {the cut face enlarged};
+\node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
+\node[sub,anchor=north] at (3.0,7.85) {the core sheet is the family $\X_0(\tau,\iota)$};
+% ------------------------------------------------ level 1: the images of F inside C; the active image is an exact miniature of the solid above
+\draw[heavy] (.3,3.5) rectangle (14.7,6.3); \path[cut] (.3,3.5) rectangle (14.7,6.3);
+\node[lab,anchor=south west] at (.35,6.35) {$\conf$};
+\foreach \i in {0,...,9} \foreach \j in {0,1} {
+  \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
+  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!22,tube/topfill=PlateInk!22,tube/innerfill=PlateInk!22,tube/bandfill=PlateInk!40}\pic at (\cx,\cy) {thicktube};\end{scope}}
+\draw[leader,shorten >=3pt] (2.68,5.8)--(2.68,6.5); \node[sub,anchor=south,inner sep=2.5pt] at (2.68,6.5) {$s\mathcal F$};
+\begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=-47,tube/a2=23,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
+\foreach \a in {0,120,240} {\fill[ColDot] ({10.66+.43*sin(\a+\ph)},{5.45+.13-.42*.43*cos(\a+\ph)}) circle[radius=.032];}
+\fill[ColDot] ({10.66+.43*sin(300+\ph)},{5.45-.13-.42*.43*cos(300+\ph)}) circle[radius=.032];
+\draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(7.85,9.05); \draw[fine] (11.22,5.77)--(12.75,9.05);
+\node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
+\node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
-\node[sub,anchor=north west] at (3.15,7.35) {the same two paths seen down the C--N axis, N in front};
+\node[sub,anchor=south] at (7.0,2.85) {the same two paths seen down the C--N axis, N in front};
 \begin{scope}\def\nmR{.5}
-  \pic[scale=.9] at (1.9,5.2) {newman-tuH};
-  \pic[scale=.9] at (5.3,5.2) {newman-tau-0};
-  \pic[scale=.9] at (8.7,5.2) {newman-tau-60};
-  \pic[scale=.9] at (12.1,5.2) {newman-tau-120};
+  \pic[scale=.9] at (1.9,1.65) {newman-tuH};
+  \pic[scale=.9] at (5.3,1.65) {newman-tau-0};
+  \pic[scale=.9] at (8.7,1.65) {newman-tau-60};
+  \pic[scale=.9] at (12.1,1.65) {newman-tau-120};
 \end{scope}
-\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,anchor=south] at (3.6,5.28) {$tu$};
-\draw[tpath] (6.45,5.2)--(7.55,5.2);
-\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,anchor=south] at (8.7,5.3) {$t$};
+\draw[upath] (4.15,1.65)--(3.05,1.65); \node[lab,anchor=south] at (3.6,1.73) {$tu$};
+\draw[tpath] (6.45,1.65)--(7.55,1.65);
+\draw[tpath] (9.85,1.65)--(10.95,1.65); \node[lab,anchor=south] at (8.7,1.75) {$t$};
 \foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\iota=-\iota_0$},5.3/{$H$}/{$\tau=0$, $\iota=\iota_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\iota=\iota_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\iota=\iota_0$}} {
-  \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
-% ------------------------------------------------ the images of F inside C
-\begin{scope}[shift={(0,.3)}]
-  \draw[heavy,rounded corners=0pt] (.3,.2) rectangle (14.7,3.0);
-  \path[cut] (.3,.2) [rounded corners=0pt] rectangle (14.7,3.0);
-  \node[lab,anchor=south west] at (.35,3.05) {$\conf$};
-  \foreach \i in {0,...,9} \foreach \j in {0,1} {
-    \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{.95+1.0*\j}
-    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!14,tube/topfill=PlateInk!14,tube/innerfill=PlateInk!14,tube/bandfill=PlateInk!30}\pic at (\cx,\cy) {thicktube};\end{scope}}
-  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (1.35,.95) {thicktube};\end{scope}
-  \node[lab,anchor=east] at (.22,.95) {$\mathcal F$};
-  \node[sub,anchor=north east] at (14.6,-.02) {$|S/G_{12}|=20$ images of $\mathcal F$};
-\end{scope}
+  \node[lab] at (\x,.4) {\l}; \node[sub] at (\x,.05) {\s};}
 \end{tikzpicture}
 \end{document}

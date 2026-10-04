@@ -12,6 +12,11 @@
 \usepackage[section]{placeins}
 \usepackage{needspace}
 \usepackage{etoolbox}
+% structure: the four parts are roman-numbered sections, the twelve sections are subsections numbered 1-12 straight through
+\renewcommand{\thesection}{\Roman{section}}
+\counterwithout{subsection}{section}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\pretocmd{\subsection}{\FloatBarrier}{}{}
 \usepackage[hidelinks]{hyperref}
 
 \AtBeginEnvironment{itemize}{\setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}}
@@ -48,8 +53,8 @@
 \clearpage
 
 
-\part{Configurations and States}
-\section{Configuration Space}
+\section{Configurations and States}
+\subsection{Configuration Space}
 
 Consider $N$ labeled nuclei in Euclidean space. 
 Take
@@ -138,7 +143,7 @@ We drop the dots when the action is understood.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:1}
 \end{figure}
 
-\section{Ambient Hilbert Space}
+\subsection{Ambient Hilbert Space}
 
 The \emph{ambient Hilbert space} for our configuration space,
 including the spin of the nuclei, is
@@ -200,7 +205,7 @@ difference has zero norm
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:2}
 \end{figure}
 
-\section{Physical Hilbert Space}
+\subsection{Physical Hilbert Space}
 
 Exchange statistics select the \emph{physical Hilbert
 space} $\hilb\subseteq\hamb$.
@@ -275,8 +280,8 @@ while $s\cdot\Psi_\pm$ acts on the spin factors.
 \end{figure}
 
 
-\part{Fragments and Feasible Regimes}
-\section{Molecules, Fragments, and Complexes}
+\section{Fragments and Feasible Regimes}
+\subsection{Molecules, Fragments, and Complexes}
 \begin{itemize}
 \item Partition the nuclei into fragments. One molecule is the
 one-fragment case. Relative fragment positions and orientations remain in $\conf$.
@@ -309,7 +314,7 @@ Symmetry gives allowed sectors, not yields.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:4}
 \end{figure}
 
-\section{Symmetry Groups and Versions}
+\subsection{Symmetry Groups and Versions}
 \label{sec:feasible-regimes}
 
 The construction so far accommodates all possible
@@ -415,7 +420,7 @@ The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:5}
 \end{figure}
 
-\section{Feasible Configuration Space}
+\subsection{Feasible Configuration Space}
 \label{sec:feasible-space}
 \begin{itemize}
 \item Sweep chosen rearrangement paths through rotations and $G$.
@@ -458,8 +463,8 @@ does not specify geometric inclusion.
 \end{figure}
 
 
-\part{Symmetry and Localization}
-\section{Symmetry Species}
+\section{Symmetry and Localization}
+\subsection{Symmetry Species}
 \begin{itemize}
 \item The irreducible representations of $G$ are its \emph{species}.
 Pair spatial species with nuclear spin and compute spin weights.
@@ -496,7 +501,7 @@ version states.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:7}
 \end{figure}
 
-\section{Nuclear Spin Weights}
+\subsection{Nuclear Spin Weights}
 % author text to come: the pairing of spatial species with nuclear spin and the weights shown in the figure
 
 \begin{figure}[tb]
@@ -505,7 +510,7 @@ version states.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:8}
 \end{figure}
 
-\section{Localized States}
+\subsection{Localized States}
 \label{sec:localized-states}
 \begin{itemize}
 \item In $G_6$, choose a normalized real scalar packet $g_0$, fixed
@@ -546,8 +551,8 @@ of Section~\ref{sec:feasible-space}, when required.
 \end{figure}
 
 
-\part{Representations and Global Structure}
-\section{Position Representation}
+\section{Representations and Global Structure}
+\subsection{Position Representation}
 \label{sec:position-coordinates}
 \begin{itemize}
 \item Choose a body frame and a mass-orthogonal normal frame $\mathbf e_\alpha(a)$.
@@ -659,7 +664,7 @@ dynamical rotational transport.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:10}
 \end{figure}
 
-\section{Covering Spaces and Monodromy}
+\subsection{Covering Spaces and Monodromy}
 \begin{itemize}
 \item Versions label rotational orbits in $G/H$. Charts give local coordinates.
 \item For methylamine, choose an $H$-invariant cell $\mathcal U$ whose
@@ -700,7 +705,7 @@ a specified state family and connection.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:11}
 \end{figure}
 
-\section{Momentum Representation}
+\subsection{Momentum Representation}
 \label{sec:momentum}
 \begin{itemize}
 \item Expand the same states in rotational, internal, and normal modes,

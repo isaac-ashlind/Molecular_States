@@ -629,22 +629,64 @@ def main():
     yof = {K: math.log(len(K)/2)/math.log(120) for K in big}      # height by log of the version count
     below = {K: [a for a, b in bigcov if b == K] for K in big}
     above = {K: [b for a, b in bigcov if a == K] for K in big}
-    xpos = {K: 0.5 for K in big}
-    for sweep in range(8):
-        for L in (levels if sweep % 2 == 0 else levels[::-1]):
-            row = [K for K in bigsorted if len(K) == L]
-            def bary(K):
-                nb = below[K] + above[K]
-                v = sum(xpos[a] for a in nb)/len(nb) if nb else 0.5
-                return v + (-0.25 if K <= Q.B else 0.0)          # pull the bond interval to the left
-            order = sorted(row, key=lambda K: (bary(K), bigkey[K]))
-            for i, K in enumerate(order):
-                xpos[K] = (i + 0.5)/len(order)
+    rows = {L: [K for K in bigsorted if len(K) == L] for L in levels}
+
+    def layout(pull, median, sweeps):
+        """Layered placement: y by level; x by repeated barycentre (or median) ordering of each level from its
+        neighbours, alternating the sweep direction, nodes spread evenly in each level; the bond interval pulled
+        left by `pull` so that [H, B] reads as one side of the picture."""
+        xpos = {K: 0.5 for K in big}
+        for sweep in range(sweeps):
+            for L in (levels if sweep % 2 == 0 else levels[::-1]):
+                row = rows[L]
+                def key(K):
+                    nb = (below[K] if sweep % 2 == 0 else above[K]) or (below[K] + above[K])
+                    vals = sorted(xpos[a] for a in nb)
+                    if not vals:
+                        v = xpos[K]
+                    elif median:
+                        v = vals[len(vals)//2] if len(vals) % 2 else (vals[len(vals)//2 - 1] + vals[len(vals)//2])/2
+                    else:
+                        v = sum(vals)/len(vals)
+                    return v + (-pull if K <= Q.B else 0.0)
+                order = sorted(row, key=lambda K: (key(K), bigkey[K]))
+                for i, K in enumerate(order):
+                    xpos[K] = (i + 0.5)/len(order)
+        return xpos
+
+    def crossings(xpos):
+        """Number of pairs of cover segments that cross in the drawing (shared endpoints do not count)."""
+        def seg(a, b): return (xpos[a], yof[a], xpos[b], yof[b])
+        def cross(p, q):
+            (x1, y1, x2, y2), (x3, y3, x4, y4) = p, q
+            def orient(ax, ay, bx, by, cx, cy): return (bx - ax)*(cy - ay) - (by - ay)*(cx - ax)
+            o1, o2 = orient(x1, y1, x2, y2, x3, y3), orient(x1, y1, x2, y2, x4, y4)
+            o3, o4 = orient(x3, y3, x4, y4, x1, y1), orient(x3, y3, x4, y4, x2, y2)
+            return o1*o2 < 0 and o3*o4 < 0
+        n = 0
+        for i, (a1, b1) in enumerate(bigcov):
+            for a2, b2 in bigcov[i+1:]:
+                if len({a1, b1, a2, b2}) < 4: continue
+                if cross(seg(a1, b1), seg(a2, b2)): n += 1
+        return n
+
+    best = None
+    for pull in (0.0, 0.15, 0.25, 0.35):
+        for median in (False, True):
+            for sweeps in (8, 16, 24):
+                xp = layout(pull, median, sweeps)
+                score = (crossings(xp), -pull)      # fewest crossings; among equals, the bond interval further left
+                if best is None or score < best[0]:
+                    best = (score, xp, (pull, median, sweeps))
+    xpos = best[1]
+    summary['interval_HS_layout'] = {'crossings': best[0][0], 'pull': best[2][0], 'median': best[2][1], 'sweeps': best[2][2]}
     num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
     num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}/{1 if (a <= Q.B and b <= Q.B) else 0}' for a, b in bigcov) + '}')
     num.append(f'\\def\\bigLevels{{{len(levels)}}}')
     chain_keys = {names[K]: bigkey[K] for K in big if K in names and names[K] in ('H', 'G_6', 'G_{12}', 'B')}
     num.append('\\def\\bigChain{' + ','.join(str(chain_keys[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
+    chain_seq = [chain_keys[n] for n in ('H', 'G_6', 'G_{12}', 'B')]
+    num.append('\\def\\bigChainCovers{' + ','.join(f'{a}/{b}' for a, b in zip(chain_seq, chain_seq[1:])) + '}')
     summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
                               'orders': sorted(len(K) for K in big)}
     summary['interval'] = {'subgroups': len(subs), 'covers': len(cov),
