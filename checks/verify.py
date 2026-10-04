@@ -96,15 +96,15 @@ report['torsion_species'] = 'm=0: A1; m not divisible by 3: E pair; nonzero mult
 for c in (Fr(0), Fr(1, 3), Fr(1, 2), Fr(1)):
     assert Fr(1 + 2*c, 3) + Fr(2*(1 - c), 3) == 1
 assert (Fr(1, 3), Fr(2, 3)) == (Fr(1 + 0, 3), Fr(2*(1 - 0), 3)) and (Fr(3, 3), Fr(0)) == (Fr(1 + 2, 3), Fr(0))
-# numerical confirmation of c = exp(-d^2/(8 sigma^2)) for density variance sigma^2 (2D grid quadrature)
-def overlap_numeric(d, sigma, n=400, L=8.0):
+# numerical confirmation of c = exp(-d^2/(8 Delta^2)) for density variance Delta^2 (2D grid quadrature)
+def overlap_numeric(d, Delta, n=400, L=8.0):
     h = 2*L/n; s = 0.0; nrm = 0.0
     for i in range(n):
         x = -L + (i + .5)*h
         for j in range(n):
             y = -L + (j + .5)*h
-            g0 = math.exp(-(x*x + y*y)/(4*sigma*sigma))
-            g1 = math.exp(-((x - d)**2 + y*y)/(4*sigma*sigma))
+            g0 = math.exp(-(x*x + y*y)/(4*Delta*Delta))
+            g1 = math.exp(-((x - d)**2 + y*y)/(4*Delta*Delta))
             s += g0*g1; nrm += g0*g0
     return s/nrm
 for d, sg in ((1.0, 0.5), (1.0, 1.0), (2.0, 0.8)):

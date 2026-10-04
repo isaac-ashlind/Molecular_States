@@ -28,7 +28,7 @@
     \node[sub,anchor=north] at (-.3333,-1.08) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.08) {$t^2uH$}; \node[sub,anchor=north] at (1,-1.08) {$uH$}; \node[sub,anchor=north] at (-1,-1.08) {$uH$};
     \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.3) {$\l$};
     \node[sub,anchor=north] at (.5,-1.3) {$\tau$};
-    \node[sub,anchor=east] at (-1.06,1) {$\eta_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\eta_0$};
+    \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
 \begin{document}
 \begin{tikzpicture}[plate]
@@ -42,20 +42,20 @@
 \node[sub,anchor=west] at ($(bd-top0)+(.14,-.04)$) {$H$};
 \draw[harrow] (4.5,8.0)--(5.3,8.0); \node[sub,anchor=south] at (4.9,8.1) {unroll};
 \chartpic{10.1}{8.0}{3.9cm}{1.5cm}{white}
-% beneath: the slice at q, and the molecule with e_- arrows
+% beneath: the slice at the shape point a, and the molecules with the e_- and e_+ arrows
 \coordinate (q) at (10.1,9.5);
 \zoombubble{10.1}{9.5}{.14}{13.1}{11.3}{1.15}
 \begin{scope}[shift={(13.1,11.3)}]
   \path[cut] (-.45,-.78) rectangle (.45,.78); \draw[heavy] (-.45,-.78) rectangle (.45,.78);
   \path[fill=ColBand] (-.07,-.78) rectangle (.07,.78); \draw[line width=.4pt,draw=PlateInk] (-.07,-.78)--(-.07,.78) (.07,-.78)--(.07,.78);
   \hatom{0}{.78}{.07}{ColDot}
-  \node[sub,anchor=south west,inner sep=1pt] at (.08,.82) {$q$};
-  \draw[harrow] (0,.5)--(-.4,.5); \node[sub,anchor=east,inner sep=1pt] at (-.5,.5) {$Q$};
-  \node[sub,anchor=north] at (0,-.82) {$\eta$};
+  \node[sub,anchor=south west,inner sep=1pt] at (.08,.82) {$a$};
+  \draw[harrow] (0,.5)--(-.4,.5); \node[sub,anchor=east,inner sep=1pt] at (-.5,.5) {$q$};
+  \node[sub,anchor=north] at (0,-.82) {$\iota$};
 \end{scope}
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (5.0,3.2) {mol3d-mla-ref-eminus-side};\end{scope}
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (10.6,3.2) {mol3d-mla-ref-eplus-side};\end{scope}
-\node[sub,anchor=north,text width=5.2cm,align=center] at (5.0,1.7) {$e_-(q)$, the amino twist};
-\node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$e_+(q)$, the C--N stretch};
+\node[sub,anchor=north,text width=5.2cm,align=center] at (5.0,1.7) {$\mathbf e_-(a)$, the amino twist};
+\node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$\mathbf e_+(a)$, the C--N stretch};
 \end{tikzpicture}
 \end{document}

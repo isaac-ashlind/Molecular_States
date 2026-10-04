@@ -24,11 +24,19 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\hilb}{\mathcal{H}}
+\newcommand{\hamb}{\mathcal{H}_{\mathrm{amb}}}
 \newcommand{\conf}{\mathcal{C}}
 \newcommand{\spin}{\mathcal{H}_{\mathrm{spin}}}
 \newcommand{\act}{\mathbin{\cdot}}
 \newcommand{\stat}{\chi_{\mathrm{stat}}}
 \newcommand{\parity}{\chi_{\varepsilon}}
+% notation (approved 2026-10-04): coordinate arrays bold, abstract operators sans serif, chart density j_varphi
+\newcommand{\X}{\mathbf{X}}                 % configuration matrix; \X_0 the reference
+\newcommand{\Pmat}[1]{\mathbf{P}_{#1}}      % signed right-action matrix
+\newcommand{\Rmat}{\mathbf{R}}              % rotation matrix: \Rmat(r), \Rmat_h, \Rmat_z(\omega)
+\newcommand{\Uop}[1]{\mathsf{U}_{#1}}       % spatial action operator
+\newcommand{\Pproj}[1]{\mathsf{P}_{#1}}     % isotypic projector
+\newcommand{\jdens}{j_\varphi}              % positive chart density
 
 \begin{document}
 \maketitle
@@ -46,11 +54,11 @@
 Consider $N$ labeled nuclei in Euclidean space. 
 Take
 the \emph{configuration space} to be the set of all linear
-maps $X: \R^N \to\R^3$ that place the center of mass
+maps $\X: \R^N \to\R^3$ that place the center of mass
 at the origin.
-In a Cartesian basis, represent $X$ by a $3\times N$ matrix whose $i$th column is the position of nucleus $i$
+In a Cartesian basis, represent $\X$ by a $3\times N$ matrix whose $i$th column is the position of nucleus $i$
 \[
-X=
+\X=
 \begin{pmatrix}
     x_1 & x_2 & \cdots & x_N \\
     y_1 & y_2 & \cdots & y_N \\
@@ -64,7 +72,7 @@ space is
 \conf
 =
 \left\{
-X\in\hom(\R^N,\R^3):X\mathbf m=0
+\X\in\hom(\R^N,\R^3):\X\mathbf m=0
 \right\},
 \qquad
 \dim\conf=3N-3.
@@ -89,14 +97,14 @@ a star indicates inversion. Each element $s\in S$ is
 therefore a permutation $\sigma$ or a
 permutation--inversion $\sigma^*$.
 
-As matrices, the $X\in\conf$ form a vector space on which
+As matrices, the $\X\in\conf$ form a vector space on which
 permutations act by multiplication from the right
 \[
-s\act X=XP_s,
+s\act\X=\X\Pmat{s},
 \qquad
-P_{\sigma^*}=-P_\sigma.
+\Pmat{\sigma^*}=-\Pmat{\sigma}.
 \]
-Here $P_\sigma$ reorders the columns according to
+Here $\Pmat{\sigma}$ reorders the columns according to
 \[
 \sigma\act(\mathbf x_1,\ldots, \mathbf x_N)
 =
@@ -104,23 +112,23 @@ Here $P_\sigma$ reorders the columns according to
 \]
 With this convention,
 \[
-s\act(t\act X)
-=(XP_t)P_s
-=XP_tP_s
-=(st)\act X.
+s\act(t\act\X)
+=(\X\Pmat{t})\Pmat{s}
+=\X\Pmat{t}\Pmat{s}
+=(st)\act\X.
 \]
-The matrices satisfy $P_{st}=P_tP_s$. Multiplication by
+The matrices satisfy $\Pmat{st}=\Pmat{t}\Pmat{s}$. Multiplication by
 these matrices on the right therefore defines a left
 action of $S$ on $\conf$.
 
-We can also act on $X$ from the left with rotations
-$r\in SO(3)$ via $3\times3$ rotation matrices
+We can also act on $\X$ from the left with rotations
+$r\in SO(3)$ via $3\times3$ rotation matrices $\Rmat(r)$
 \[
-r\act X=RX.
+r\act\X=\Rmat(r)\X.
 \]
 The actions commute by associativity
 \[
-r\act(s\act X)=RXP_s=s\act(r\act X).
+r\act(s\act\X)=\Rmat(r)\X\Pmat{s}=s\act(r\act\X).
 \]
 We drop the dots when the action is understood.
 
@@ -135,12 +143,12 @@ We drop the dots when the action is understood.
 The \emph{ambient Hilbert space} for our configuration space,
 including the spin of the nuclei, is
 \[
-\hilb_{\mathrm{ambient}}=L^2(\conf)\otimes\spin,
+\hamb=L^2(\conf)\otimes\spin,
 \qquad
 \spin=\bigotimes_{i=1}^{N}\mathbb C^{2I_i+1}.
 \]
 Here $L^2(\conf)$ uses the translation-invariant volume
-measure $dX$ up to normalization.
+measure $d\X$ up to normalization.
 The $i$th nucleus has spin number $I_i$, and its
 spin vectors lie in $\mathbb C^{2I_i+1}$. A general vector
 in $\spin$ is a linear combination of products
@@ -165,16 +173,16 @@ A wavefunction is a square-integrable map
 \qquad
 \|\Psi\|^2
 =
-\int_{\conf}\|\Psi(X)\|_{\spin}^2\,dX<\infty.
+\int_{\conf}\|\Psi(\X)\|_{\spin}^2\,d\X<\infty.
 \]
 For example, if $\xi,\zeta\in\spin$ are orthonormal and
-$\Psi(X)=a(X)\xi+b(X)\zeta$, then
+$\Psi(\X)=a(\X)\xi+b(\X)\zeta$, then
 \[
-\|\Psi(X)\|_{\spin}^2=|a(X)|^2+|b(X)|^2,
+\|\Psi(\X)\|_{\spin}^2=|a(\X)|^2+|b(\X)|^2,
 \qquad
 \|\Psi\|^2
 =
-\int_{\conf}\bigl(|a(X)|^2+|b(X)|^2\bigr)\,dX.
+\int_{\conf}\bigl(|a(\X)|^2+|b(\X)|^2\bigr)\,d\X.
 \]
 
 As in $L^2(\R^n)$, we identify wavefunctions whose
@@ -183,7 +191,7 @@ difference has zero norm
 \Psi\sim\Phi
 \quad\Longleftrightarrow\quad
 \int_{\conf}
-\|\Psi(X)-\Phi(X)\|_{\spin}^2\,dX=0.
+\|\Psi(\X)-\Phi(\X)\|_{\spin}^2\,d\X=0.
 \]
 
 \begin{figure}[tb]
@@ -195,7 +203,7 @@ difference has zero norm
 \section{Physical Hilbert Space}
 
 Exchange statistics select the \emph{physical Hilbert
-space} $\hilb\subseteq\hilb_{\mathrm{ambient}}$.
+space} $\hilb\subseteq\hamb$.
 
 Inversion imposes no additional exchange-statistics
 constraint, so we pass to $S/\langle E^*\rangle$,
@@ -209,16 +217,16 @@ spin number $I_\alpha$. The statistics character is
 \prod_\alpha
 \bigl(\operatorname{sgn}\sigma_\alpha\bigr)^{2I_\alpha}.
 \]
-Recall that $\Psi(X)$ is a spin vector and $\sigma$ permutes
+Recall that $\Psi(\X)$ is a spin vector and $\sigma$ permutes
 spin factors. Write
-$(\Psi\circ\sigma)(X)=\Psi(\sigma X)$ and
-$(\sigma\cdot\Psi)(X)=\sigma\cdot\Psi(X)$. Using the equivalence relation defined above,
+$(\Psi\circ\sigma)(\X)=\Psi(\sigma\X)$ and
+$(\sigma\cdot\Psi)(\X)=\sigma\cdot\Psi(\X)$. Using the equivalence relation defined above,
 the physical Hilbert space is
 \[
 \hilb
 =
 \left\{
-\Psi\in\hilb_{\mathrm{ambient}}
+\Psi\in\hamb
 :
 \Psi\circ\sigma
 \sim
@@ -232,16 +240,16 @@ space, with the spin factors reorganized accordingly.
 
 The parity sectors of the physical Hilbert space are
 \[
-\hilb^\pm=\{\Psi\in\hilb:\Psi\circ E^*\sim\pm\Psi\},
+\hilb_\pm=\{\Psi\in\hilb:\Psi\circ E^*\sim\pm\Psi\},
 \]
-where $(\Psi\circ E^*)(X)=\Psi(-X)$.
+where $(\Psi\circ E^*)(\X)=\Psi(-\X)$.
 They give the orthogonal decomposition
 \[
-\hilb=\hilb^+\oplus\hilb^-,
+\hilb=\hilb_+\oplus\hilb_-,
 \qquad
 \Psi=\Psi_++\Psi_-,
 \qquad
-\Psi_\pm(X)=\frac12\bigl(\Psi(X)\pm\Psi(-X)\bigr).
+\Psi_\pm(\X)=\frac12\bigl(\Psi(\X)\pm\Psi(-\X)\bigr).
 \]
 Extend $\stat$ to $S$ by ignoring the star, and define
 the parity characters by
@@ -307,7 +315,7 @@ Symmetry gives allowed sectors, not yields.
 The construction so far accommodates all possible
 arrangements of nuclei without imposing energetic or
 experimental restrictions. Experimental resolution informs the choice of a feasible
-regime with a group $G\leq S$ of feasible operations. For a given configuration $X$,
+regime with a group $G\leq S$ of feasible operations. For a given configuration $\X$,
 there is a natural minimal symmetry $H$ consisting of the
 permutation--inversions equivalent to rotations in $SO(3)$. By looking at the subgroup lattice for $H\leq G\leq S$
 along with a reference configuration and chosen paths,
@@ -316,40 +324,40 @@ their symmetries without first specifying a potential.
 This is a kinematic model. Which
 regimes are accessible in practice is left to experiment.
 
-Choose a reference configuration $X_0$ and look at its orbit
+Choose a reference configuration $\X_0$ and look at its orbit
 under rigid rotations,
 \[
-SO(3)X_0=\{rX_0:r\in SO(3)\}.
+SO(3)\X_0=\{r\X_0:r\in SO(3)\}.
 \]
 Its point group is the subgroup
 \[
 H
 =
-\{h\in S:hX_0\in SO(3)X_0\}.
+\{h\in S:h\X_0\in SO(3)\X_0\}.
 \]
-The point group $H$ stabilizes the rotational orbit of $X_0$.
-Thus, for every $h\in H$, there is a rotation $R_h\in SO(3)$
+The point group $H$ stabilizes the rotational orbit of $\X_0$.
+Thus, for every $h\in H$, there is a rotation $\Rmat_h\in SO(3)$
 such that
 \[
-hX_0=R_hX_0.
+h\X_0=\Rmat_h\X_0.
 \]
-For nonlinear $X_0$, this rotation is unique. The rotational
-orbit $SO(3)X_0$ describes the rigid reference, and $G=H$ is
+For nonlinear $\X_0$, this rotation is unique. The rotational
+orbit $SO(3)\X_0$ describes the rigid reference, and $G=H$ is
 the minimal feasible regime.
 
 A rearrangement is described by a continuous path
 \[
 \gamma:[0,1]\to\conf
 \]
-beginning at $X_0$ and ending at a rotated,
-permutation--inverted copy of $X_0$,
+beginning at $\X_0$ and ending at a rotated,
+permutation--inverted copy of $\X_0$,
 \[
-\gamma(0)=X_0,
+\gamma(0)=\X_0,
 \qquad
-\gamma(1)=rsX_0,
+\gamma(1)=rs\X_0,
 \]
 for some $r\in SO(3)$ and $s\in S$. The motion is
-nonrigid if the path leaves $SO(3)X_0$.
+nonrigid if the path leaves $SO(3)\X_0$.
 
 If the resolved motions correspond to
 $s_1,\ldots,s_k\in S$, they generate the feasible group
@@ -466,12 +474,12 @@ $\chi_\Gamma=\operatorname{tr}\Gamma$ and $d_\Gamma=\dim\Gamma$.
 The projector retains all copies of that species.
 \end{itemize}
 \[
-(U_gf)(X)=f(g^{-1}X),\qquad
-P_\Gamma=\frac{d_\Gamma}{|G|}
-\sum_{g\in G}\overline{\chi_\Gamma(g)}\,U_g.
+(\Uop{g}f)(\X)=f(g^{-1}\X),\qquad
+\Pproj{\Gamma}=\frac{d_\Gamma}{|G|}
+\sum_{g\in G}\overline{\chi_\Gamma(g)}\,\Uop{g}.
 \]
 \[
-w_\Gamma(f)=\frac{\|P_\Gamma f\|^2}{\|f\|^2},
+w_\Gamma(f)=\frac{\|\Pproj{\Gamma} f\|^2}{\|f\|^2},
 \qquad \sum_\Gamma w_\Gamma(f)=1,\qquad f\ne0.
 \]
 \begin{itemize}
@@ -505,7 +513,7 @@ by $H$ and localized near the reference rotational orbit.
 Its translates sit at $H,tH,t^2H$.
 \end{itemize}
 \[
-g_j(X)=g_0(t^{-j}X),\qquad j=0,1,2.
+g_j(\X)=g_0(t^{-j}\X),\qquad j=0,1,2.
 \]
 \begin{itemize}
 \item All pairwise overlaps equal $c=\langle g_0,g_1\rangle$.
@@ -518,10 +526,10 @@ w_{\mathrm E}=\frac{2(1-c)}{3},\qquad w_{\mathrm A_2}=0.
 \begin{itemize}
 \item Independent packets span $\mathrm A_1\oplus\mathrm E$.
 For a planar illustration, take equal Gaussians of position variance
-$\lambda^2$ on an equilateral triangle of side $d$.
+$\Delta^2$ on an equilateral triangle of side $d$.
 \end{itemize}
 \[
-c=\exp\!\left(-\frac{d^2}{8\lambda^2}\right).
+c=\exp\!\left(-\frac{d^2}{8\Delta^2}\right).
 \]
 \begin{itemize}
 \item Add $u$-related packets for the six versions in $G_{12}/H$.
@@ -542,26 +550,26 @@ of Section~\ref{sec:feasible-space}, when required.
 \section{Position Representation}
 \label{sec:position-coordinates}
 \begin{itemize}
-\item Choose a body frame and a mass-orthogonal normal frame $e_a(q)$.
-Use $r$ for orientation, $q$ for internal shape, and $Q$ for normal coordinates.
+\item Choose a body frame and a mass-orthogonal normal frame $\mathbf e_\alpha(a)$.
+Use $r$ for orientation, $a$ for internal shape, and $q$ for normal coordinates.
 \end{itemize}
 \[
-\varphi(r,q,Q)=r\left(X_0(q)+\sum_{a=1}^{d}Q_a e_a(q)\right),
-\qquad\psi(r,q,Q)=\Psi\bigl(\varphi(r,q,Q)\bigr).
+\varphi(r,a,q)=\Rmat(r)\left(\X_0(a)+\sum_{\alpha=1}^{n_q}q_\alpha\mathbf e_\alpha(a)\right),
+\qquad\psi(r,a,q)=\Psi\bigl(\varphi(r,a,q)\bigr).
 \]
 \begin{itemize}
 \item On a regular chart, pull back the configuration measure.
-Here $dr$ is normalized Haar measure and $\mathcal J$ is the chart density.
+Here $dr$ is normalized Haar measure and $\jdens$ is the chart density.
 \end{itemize}
 \[
-d\mu=\mathcal J(q,Q)\,dr\,dq\,dQ,
+d\mu=\jdens(a,q)\,dr\,da\,dq,
 \qquad
 \|\Psi\|_{\varphi(\mathcal U)}^2
-=\int_{\mathcal U}\|\psi(r,q,Q)\|_{\spin}^2\,d\mu.
+=\int_{\mathcal U}\|\psi(r,a,q)\|_{\spin}^2\,d\mu.
 \]
 \begin{itemize}
-\item The generalized states $|r,q,Q\rangle$ resolve the chart identity with $d\mu$.
-\item Write $x=(r,q,Q)$. Carry each configuration action through the
+\item The generalized states $|r,a,q\rangle$ resolve the chart identity with $d\mu$.
+\item Write $x=(r,a,q)$. Carry each configuration action through the
 source and target charts. For $s\in S$, solve for $x'=T_sx$.
 \end{itemize}
 \[
@@ -569,36 +577,36 @@ T_s=\varphi_{\mathrm{target}}^{-1}\circ s\circ\varphi_{\mathrm{source}},
 \]
 \begin{itemize}
 \item On a symmetry-invariant reference family, first find the new
-shape $q'$ and compensating rotation $A_s(q)$. Expand the transformed
-normal frame in the target frame to obtain $M_s(q)$.
+shape $a'$ and compensating rotation $\mathbf A_s(a)$. Expand the transformed
+normal frame in the target frame to obtain $\mathbf M_s(a)$.
 \end{itemize}
 \[
 \begin{aligned}
-X_0(q)P_s&=A_s(q)X_0(q'),\\
-e_a(q)P_s&=A_s(q)\sum_b e_b(q')\,[M_s(q)]_{ba},\\
-T_s(r,q,Q)&=\bigl(rA_s(q),q',M_s(q)Q\bigr).
+\X_0(a)\Pmat{s}&=\mathbf A_s(a)\X_0(a'),\\
+\mathbf e_\alpha(a)\Pmat{s}&=\mathbf A_s(a)\sum_\beta\mathbf e_\beta(a')\,[\mathbf M_s(a)]_{\beta\alpha},\\
+T_s(r,a,q)&=\bigl(r\mathbf A_s(a),a',\mathbf M_s(a)q\bigr).
 \end{aligned}
 \]
 \begin{itemize}
-\item This is exact on the normal chart. Finding $q'$ uses the chosen
+\item This is exact on the normal chart. Finding $a'$ uses the chosen
 shape coordinates, and the normal-frame expansion is linear algebra.
-\item A lab rotation $R$ gives $T_R(r,q,Q)=(Rr,q,Q)$.
+\item A lab rotation $r_0$ gives $T_{r_0}(r,a,q)=(r_0r,a,q)$.
 The induced spatial operator is the inverse pullback. Permuting the
 spin factors gives the physical-state condition.
 \end{itemize}
 \[
-(U_s\psi)(x)=\psi(T_s^{-1}x),\qquad U_s|x\rangle=|T_sx\rangle.
+(\Uop{s}\psi)(x)=\psi(T_s^{-1}x),\qquad \Uop{s}|x\rangle=|T_sx\rangle.
 \]
 \[
 \psi(T_\sigma x)\sim\stat(\sigma)\,\sigma\act\psi(x).
 \]
 \begin{itemize}
-\item With $\widetilde\psi=\mathcal J^{1/2}\psi$, the same operator in
-the measure $dr\,dq\,dQ$ includes the density ratio.
+\item With $\widetilde\psi=\jdens^{1/2}\psi$, the same operator in
+the measure $dr\,da\,dq$ includes the density ratio.
 \end{itemize}
 \[
-(\widetilde U_s\widetilde\psi)(x)
-=\left(\frac{\mathcal J(x)}{\mathcal J(T_s^{-1}x)}\right)^{1/2}
+(\widetilde{\mathsf U}_s\widetilde\psi)(x)
+=\left(\frac{\jdens(x)}{\jdens(T_s^{-1}x)}\right)^{1/2}
 \widetilde\psi(T_s^{-1}x).
 \]
 \begin{itemize}
@@ -608,27 +616,27 @@ Treat axial redundancy at linear configurations.
 
 \begin{itemize}
 \item For an explicit methylamine model, take the C--N axis as body $z$
-and use $\eta$ for the umbrella coordinate. In a periodic body frame,
+and use $\iota$ for the umbrella coordinate. In a periodic body frame,
 $tu$ gives a half-turn of the frame, a $-\pi/3$ torsional shift,
-and $\eta\mapsto-\eta$.\footnote{One reference family places the amino
-hydrogens at $(\eta,\pm a,z_A)$ and the methyl hydrogens at angles
+and $\iota\mapsto-\iota$.\footnote{One reference family places the amino
+hydrogens at $(\iota,\pm b_A,z_A)$ and the methyl hydrogens at angles
 $\tau-2\pi(k-1)/3$, $k=1,2,3$, at fixed radius and height about
 the C--N axis. Center the whole configuration as before.}
-\item Twist the body frame by $R_z(-\rho\tau)$, with $\rho$ a chosen
+\item Twist the body frame by $\Rmat_z(-\rho\tau)$, with $\rho$ a chosen
 frame parameter. Retain two normal
-coordinates $Q_+,Q_-$ chosen to transform evenly and oddly under $tu$.
+coordinates $q_+,q_-$ chosen to transform evenly and oddly under $tu$.
 These are symmetry-adapted coordinates, not vibrational eigenmodes.
 \end{itemize}
 \[
-\alpha=\pi-\frac{\rho\pi}{3},\qquad
-x=(r,\tau,\eta,Q_+,Q_-),
+\omega_{tu}=\pi-\frac{\rho\pi}{3},\qquad
+x=(r,\tau,\iota,q_+,q_-),
 \]
 \[
-T_{tu}x=\bigl(rR_z(\alpha),\tau-\pi/3,-\eta,Q_+,-Q_-\bigr),
+T_{tu}x=\bigl(r\Rmat_z(\omega_{tu}),\tau-\pi/3,-\iota,q_+,-q_-\bigr),
 \]
 \[
-(U_{tu}\psi)(x)
-=\psi\bigl(rR_z(-\alpha),\tau+\pi/3,-\eta,Q_+,-Q_-\bigr).
+(\Uop{tu}\psi)(x)
+=\psi\bigl(r\Rmat_z(-\omega_{tu}),\tau+\pi/3,-\iota,q_+,-q_-\bigr).
 \]
 \begin{itemize}
 \item Six applications close through the seam of Section~\ref{sec:momentum}.
@@ -636,7 +644,7 @@ For proton exchange, $\stat(tu)=-1$.
 \end{itemize}
 \[
 T_{tu}^{\,6}x
-=\bigl(rR_z(-2\pi\rho),\tau-2\pi,\eta,Q_+,Q_-\bigr)\sim x,
+=\bigl(r\Rmat_z(-2\pi\rho),\tau-2\pi,\iota,q_+,q_-\bigr)\sim x,
 \qquad \psi(T_{tu}x)\sim-(tu)\act\psi(x).
 \]
 \begin{itemize}
@@ -665,7 +673,7 @@ normal coordinates, and wavefunctions across the walls.
 \item For a free action, $\mathcal F\to\mathcal F/G$ is a covering
 with deck group $G$. A lifted chart transition induced by $g$
 is a local expression of its deck transformation.
-\item A path $X\to gX$ projects to a loop. Its lift stays in one
+\item A path $\X\to g\X$ projects to a loop. Its lift stays in one
 feasible component and records the sheet change, or
 \emph{monodromy}.\footnote{Hatcher~\cite{Hatcher2002}, Section 1.3.}
 \item Near a free reference configuration, twelve local sheets group
@@ -697,18 +705,18 @@ a specified state family and connection.
 \begin{itemize}
 \item Expand the same states in rotational, internal, and normal modes,
 subject to the chart identifications.
-\item For the product model $SO(3)\times S^1\times\R^d$, absorb
-the density into $\widetilde\psi=\mathcal J^{1/2}\psi$.
-Use the measure $dr\,d\tau\,dQ$, denoted by the subscript $0$.
+\item For the product model $SO(3)\times S^1\times\R^{n_q}$, absorb
+the density into $\widetilde\psi=\jdens^{1/2}\psi$.
+Use the measure $dr\,d\tau\,dq$, denoted by the subscript $0$.
 \end{itemize}
 \[
-\langle r,\tau,Q\mid JMK,m,p\rangle_0
-=\frac{\sqrt{2J+1}\,D^J_{MK}(r)\,e^{im\tau}e^{ip\cdot Q/\hbar}}
-{\sqrt{2\pi}\,(2\pi\hbar)^{d/2}}.
+\langle r,\tau,q\mid JMK,m,p\rangle_0
+=\frac{\sqrt{2J+1}\,D^J_{MK}(r)\,e^{im\tau}e^{ip\cdot q/\hbar}}
+{\sqrt{2\pi}\,(2\pi\hbar)^{n_q/2}}.
 \]
 \[
 J\in\mathbb N_0,\qquad -J\le M,K\le J,\qquad m\in\mathbb Z,
-\qquad p\in\R^d.
+\qquad p\in\R^{n_q}.
 \]
 \begin{itemize}
 \item The coefficients $\widehat\psi_{JMKm}(p)$ are spin vectors.
@@ -717,8 +725,8 @@ No energies are assigned. Check the product assumption.
 \item Let the body frame close with a turn while the normal frame closes on itself.
 \end{itemize}
 \[
-(r,\tau+2\pi,Q)\sim\bigl(rR_z(-2\pi\rho),\tau,Q\bigr),
-\qquad D^J_{MK}(rR_z(\alpha))=e^{-iK\alpha}D^J_{MK}(r).
+(r,\tau+2\pi,q)\sim\bigl(r\Rmat_z(-2\pi\rho),\tau,q\bigr),
+\qquad D^J_{MK}(r\Rmat_z(\omega))=e^{-iK\omega}D^J_{MK}(r).
 \]
 \[
 e^{2\pi i\kappa}=e^{2\pi i\rho K},\qquad
@@ -733,8 +741,8 @@ the same states. Include normal-frame gluing when present.
 with $t:\tau\mapsto\tau+2\pi/3$ and $b:\tau\mapsto-\tau$.
 \end{itemize}
 \[
-U_gf=f\circ g^{-1},\qquad
-U_tf_m=e^{-2\pi im/3}f_m,\qquad U_bf_m=f_{-m}.
+\Uop{g}f=f\circ g^{-1},\qquad
+\Uop{t}f_m=e^{-2\pi im/3}f_m,\qquad \Uop{b}f_m=f_{-m}.
 \]
 \begin{itemize}
 \item Find the species and spin partners of the modes.

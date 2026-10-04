@@ -54,3 +54,15 @@
 The current hues are final: ink 303438, red D56860, blue 397BA8, teal 4F9C97, gold E0B84F, white, grey as thinned
 ink. The grayscale study (L* 21, 49, 57, 60, 77; even and wide respacings; a nitrogen nudge to L* 45) was reviewed
 and set aside: hues are used pure, never darkened; fades mark only obscured elements.
+
+## Notation migration (approved instructions, 2026-10-04)
+
+Applied as a bounded update across the manuscript source, the plate sources, the shared style, the exposed data
+names and the live documentation. Role by role: configuration matrices X, X0 bold; the signed right-action matrix
+P_s, the rotation matrices R(r), R_h, R_z, R_y and the chart matrices A_s, M_s bold; the spatial operators U_s and the
+projector P_Gamma sans serif; the chart density j_varphi (was script J); the shape tuple a (was q), the normal
+coordinates q (was Q), the normal index alpha with n_q coordinates (was a, d); the normal-frame vectors e_alpha(a)
+bold; the umbrella coordinate iota (was eta) and the fixed amino offset b_A (was a); the compensating angle
+omega_tu (was alpha); the packet width Delta (was lambda, earlier sigma), same formula c = exp(-d^2/8 Delta^2), no
+rescaling; H_amb (was H_ambient); H_+, H_- (were superscripts). The record of what was mapped where is
+docs/notation-migration.md.

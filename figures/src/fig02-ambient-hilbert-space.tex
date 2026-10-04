@@ -19,7 +19,7 @@
 \begin{scope}[shift={(1.6,6.9)}]
   \draw[heavy] (-.2,0)--(9.6,0);
     \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}\draw[fine] (\x,0)--(\x,2.6);}
-  \node[sub,anchor=south] at (4.7,2.65) {$\spin$ over every $X$; on each fibre $\Psi(X)=a\,|{\uparrow\downarrow}\rangle\omega+b\,|{\downarrow\uparrow}\rangle\omega$};
+  \node[sub,anchor=south] at (4.7,2.65) {$\spin$ over every $\X$; on each fibre $\Psi(\X)=a\,|{\uparrow\downarrow}\rangle\omega+b\,|{\downarrow\uparrow}\rangle\omega$};
   \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}
     \pgfmathsetmacro{\av}{exp(-((\th-104.5)/14.0)^2/2)}\pgfmathsetmacro{\bv}{-\av}
     \draw[line width=2.2pt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
@@ -31,7 +31,7 @@
     \draw[line width=2.2pt,draw=ColDualB] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});
     \fill[PlateInk] (\x,0) circle[radius=1.6pt];
     \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\pic[scale=.75] at (\x,-.8) {mol3d-water-sample-\k};\end{scope}
-    \node[lab] at (\x,-1.42) {$X_\k$};}
+    \node[lab] at (\x,-1.42) {$\X_\k$};}
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on 2pt off 1.4pt] (-.2,1.3)--(9.6,1.3); \node[sub,anchor=west] at (9.7,1.3) {$0$ in $\spin$};
   \end{scope}
 % ------------------------------------------------ the component functions on the same theta scale
@@ -43,6 +43,6 @@
   \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone}) (\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo}) (\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree})};
   \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.03) {$a$}; \node[lab,anchor=south west,text=ColDualB] at (axis cs:121,-.78) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:118,1.55) {$|a|^2+|b|^2$};
 \end{axis}
-\node[lab,anchor=north west,align=left] at (11.4,4.6) {$\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,dX$};
+\node[lab,anchor=north west,align=left] at (11.4,4.6) {$\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,d\X$};
 \end{tikzpicture}
 \end{document}

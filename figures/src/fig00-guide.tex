@@ -56,7 +56,7 @@
   \coordinate (bx) at (.35,.25); \fill[PlateInk] (bx) circle[radius=1.2pt];
   \draw[tlift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
   \draw[ulift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
-  \node[sub,anchor=west,inner sep=1pt] at (2.6,.25) {$V$};
+  \node[sub,anchor=west,inner sep=1pt] at (2.6,.25) {$\mathcal V$};
   \foreach \k/\la in {0/H,1/uH,2/tH,3/tuH,4/{t^2H},5/{t^2uH}} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
     \sheet{\yy}{fine}{white}
     \coordinate (p\k) at (.35,{\yy+.25});

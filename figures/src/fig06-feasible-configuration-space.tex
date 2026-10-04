@@ -33,7 +33,7 @@
 \draw[leader,shorten >=3pt] (tb-bot60)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at ($(tb-bot60)+(.6,-.38)$) {$t^2uH$};
 \draw[leader,shorten >=3pt] (tb-bot180)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at ($(tb-bot180)+(-.9,1.15)$) {$uH$};
 \node[lab] at (6.75,13.0) {$t$}; \node[lab,inner sep=1pt] at (3.3,10.75) {$tu$};
-\node[sub,anchor=north west] at (8.9,12.9) {the core sheet is the family $X_0(\tau,\eta)$};
+\node[sub,anchor=north west] at (8.9,12.9) {the core sheet is the family $\X_0(\tau,\iota)$};
 
 % ------------------------------------------------ zoom: the cut face itself, enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m, the version point tuH at the lower end of the eta-line)
 \zoombubble{2.70}{10.45}{.95}{1.55}{8.35}{1.4}
@@ -50,8 +50,8 @@
   \path[fill=ColBand] ({-.07*\m},{\m*.62}) rectangle ({.07*\m},{-\m*.62}); \draw[line width=.4pt,draw=PlateInk] ({-.07*\m},{\m*.62})--({-.07*\m},{-\m*.62}) ({.07*\m},{\m*.62})--({.07*\m},{-\m*.62});
   \hatom{0}{-\m*.62}{.09}{ColDot}
   \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.14}) {$tuH$};
-  \draw[harrow] (0,.2)--(-.52,.2); \node[lab,anchor=east,inner sep=1pt] at (-.74,.2) {$Q$};
-  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\eta$};
+  \draw[harrow] (0,.2)--(-.52,.2); \node[lab,anchor=east,inner sep=1pt] at (-.74,.2) {$q$};
+  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\iota$};
 \end{scope}
 \node[sub,anchor=north west] at (3.5,9.2) {the cut face enlarged};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
@@ -65,7 +65,7 @@
 \draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,anchor=south] at (3.6,5.28) {$tu$};
 \draw[tpath] (6.45,5.2)--(7.55,5.2);
 \draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,anchor=south] at (8.7,5.3) {$t$};
-\foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\eta=-\eta_0$},5.3/{$H$}/{$\tau=0$, $\eta=\eta_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\eta=\eta_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\eta=\eta_0$}} {
+\foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\iota=-\iota_0$},5.3/{$H$}/{$\tau=0$, $\iota=\iota_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\iota=\iota_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\iota=\iota_0$}} {
   \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
 % ------------------------------------------------ the images of F inside C
 \begin{scope}[shift={(0,.3)}]

@@ -398,7 +398,7 @@
   "E": 1
  },
  "gaussian_shown": {
-  "sigma_over_d": 0.3333333333333333,
+  "Delta_over_d": 0.3333333333333333,
   "c": 0.32465246735834974,
   "wA1": 0.5497683115722332,
   "wE": 0.45023168842776684
@@ -457,5 +457,5 @@
    "A2"
   ]
  ],
- "kappa_rule": "kappa = m + rho K from (r,tau+2pi,Q) ~ (r R_z(-2 pi rho),tau,Q) and D^J_MK(r R_z(a)) = e^{-iKa} D^J_MK(r)"
+ "kappa_rule": "kappa = m + rho K from (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q) and D^J_MK(r R_z(omega)) = e^{-iK omega} D^J_MK(r)"
 }

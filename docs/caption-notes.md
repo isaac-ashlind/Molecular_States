@@ -1,5 +1,10 @@
 # Caption notes (disclosures for the author's captions)
 
+Symbols below are written in plain ASCII. In the plates and the manuscript they follow the approved notation
+(2026-10-04): configuration matrices X, X0 and the action matrices P_s, R, A_s, M_s are bold; the spatial operators
+U_s and the projector P_Gamma are sans serif; the umbrella coordinate is iota, the shape tuple a, the normal
+coordinates q, the packet width Delta, the free domain of figure 11 calligraphic V.
+
 No final captions are written here. For each plate: what is drawn, what is computed (and by which check), what
 is declared schematic or illustrative, and which compositions adapt a plate of W. G. Harter, *Principles of
 Symmetry, Dynamics, and Spectroscopy* (Wiley, 1993), to be cited as "after Harter (1993), Fig. x.y.z".
@@ -37,8 +42,8 @@ carries exactly the molecular symmetry group, which the caption may say. The sol
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
 l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (no mark drawn, 0.06 A from
 the oxygen in the upper-left shape, `\waterOxygenOffset`); dotted loci delta = 0 and theta = pi, their intersection
-circled. Commuting square: R = R_z(40 deg) on the left, P_sigma with sigma = (12) on the right; the matrix X and
-X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
+circled. Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
+matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
 
 ## Figure 2, ambient Hilbert space
 A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
@@ -55,8 +60,8 @@ Top row: X with spin arrows beside the nuclei (up teal on 1, down gold on 2, the
 with the digits moved and the spins left with the places; -X P_sigma = E* sigma X with every column sent through the
 origin. The two operations as arrows carrying their sign: sigma = (12) with chi_stat(sigma) = -1 (solid), E* with
 chi_pm(E*) = +-1 (dotted, a starred operation). Bottom row: the spin value itself, two coloured arrows in a bracket
-in slot order (1, 2): Psi(X); Psi(X P_sigma) = chi_stat(sigma) P_sigma Psi(X), the arrows permuted and the sign in
-front; Psi(-X P_sigma) = chi_pm Psi(X P_sigma), the parity sign in front. Water is planar, so -X P_sigma is also a
+in slot order (1, 2): Psi(X); Psi(X P_sigma) = chi_stat(sigma) sigma.Psi(X), the arrows permuted (the spin action of
+sigma, as the text writes it) and the sign in front; Psi(-X P_sigma) = chi_pm Psi(X P_sigma), the parity sign in front. Water is planar, so -X P_sigma is also a
 rotated copy of X (caption, not plate). Configurations computed (compute/geometry.py).
 
 ## Figure 4, molecules, fragments, complexes
@@ -78,7 +83,7 @@ Row C: the six versions G12/H, the same positions with the digits moved, positio
 lattice data, generator forms and cover labels computed (compute/, checks/verify.g).
 
 ## Figure 6, feasible configuration space
-The solid F as a short thick tube cut open: band at mid-thickness, tau around, eta along the height, Q across the
+The solid F as a short thick tube cut open: band at mid-thickness, tau around, iota along the height, q across the
 wall; one radial thickness stands for the 13 normal coordinates; SO(3) suppressed; the tube's topology is not a
 claim about F; assumed: an embedded tubular neighbourhood and separation of the images. Version positions, the
 t and tu paths and the eclipsed point are the computed family positions. Newman projections are computed from the
@@ -106,27 +111,27 @@ amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 
 ## Figure 9, localized states
 The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows
-of lambda/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (lambda is the packet width; it replaces the earlier sigma,
-which is the permutation symbol throughout the text); the overlap c = <g0, g1> = exp(-d^2 / 8 lambda^2) is the
+of Delta/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (Delta is the packet width, the density standard deviation per
+coordinate; sigma stays the permutation symbol); the overlap c = <g0, g1> = exp(-d^2 / 8 Delta^2) is the
 gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
 (open); the small chart marks the three rows on the share curves (figures/data/gaussian-shares.dat, exact in
 verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
 
 ## Figure 10, position representation
-The band of figure 6 (the reference family X0(tau, eta) at mid-thickness) with its six version points and the two
-paths, cut at the seam tau = +-pi (cut marks) and unrolled into the chart [-pi, pi] x [-eta0, eta0]; the six
+The band of figure 6 (the reference family X0(tau, iota) at mid-thickness) with its six version points and the two
+paths, cut at the seam tau = +-pi (cut marks) and unrolled into the chart [-pi, pi] x [-iota0, iota0]; the six
 H-cells computed (chartCells), the reference cell U in pale gold, the same six red points and the two paths (t
-solid, tu dashed); eta = 0 is the planar amino locus. The zoom at q = H is the normal slice, the hatched cut face
-of figure 6, with the band's eta-line (teal) and the coordinate Q across the wall. Below, the two normal
-directions at q, e_-(q) (the amino twist, hydrogens 4 and 5 against each other along the axis) and e_+(q) (the C-N
+solid, tu dashed); iota = 0 is the planar amino locus. The zoom at the shape point a = H is the normal slice, the
+hatched cut face of figure 6, with the band's iota-line (teal) and the normal coordinate q across the wall. Below, the
+two normal directions at a, e_-(a) (the amino twist, hydrogens 4 and 5 against each other along the axis) and e_+(a) (the C-N
 stretch, carbon against nitrogen along the axis), drawn on the molecule seen from the side (camera azimuth 90,
 elevation 18, so the C-N axis lies in the page); each direction's arrows are scaled so that its largest arrow is 1.1 A on
 the page (the direction is the content; the mass-orthonormal stretch moves the heavy atoms far less than the twist
 moves the hydrogens), declared (mol3d-mla-ref-eminus-side, -eplus-side; mass-orthonormal, orthogonal to the family and to the rotations in
-the mass metric). The formulas X0(q) P_tu = A_tu X0(q'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
+the mass metric). The formulas X0(a) P_tu = A_tu X0(a'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
 
 ## Figure 11, covering spaces and monodromy
-Over a free domain V, the version pairs {gX, gbX} drawn side by side: the X-side column at the left headed by X,
+Over a free domain cal V, the version pairs {gX, gbX} drawn side by side: the X-side column at the left headed by X,
 the bX-side at the right headed by bX (two configurations over the one point [X]; no rotation carries one to the
 other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
 climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t

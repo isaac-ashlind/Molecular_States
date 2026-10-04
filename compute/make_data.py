@@ -443,7 +443,7 @@ def main():
     summary['normal_frame'] = {'gram': nf['gram'], 'ortho': nf['ortho'], 'M': nf['M'],
                                'resid': nf['resid'], 'cfg_res': nf['cfg_res'],
                                'tangent_dim': nf['tangent_dim']}
-    amp = 0.42        # actual displacement amplitude Q (angstrom) used for the displaced drawing
+    amp = 0.42        # actual normal displacement q (angstrom) used for the displaced drawing
     arrow_gain = 3.0  # arrows are drawn 2.5 x longer than the displacement; declared in the figure
     def arrows_for(e):
         Pe = [(G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1])) for v in e]
@@ -677,7 +677,7 @@ def main():
             f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f} 0\n')
     x_show = 1/3; c_show = math.exp(-1/(8*x_show*x_show))
     num.append(f'\\def\\shareShownA{{{(1+2*c_show)/3:.3f}}}\\def\\shareShownE{{{2*(1-c_show)/3:.3f}}}')
-    summary['gaussian_shown'] = {'sigma_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
+    summary['gaussian_shown'] = {'Delta_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
 
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
     # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X) = -(b xi + a eta),
@@ -704,7 +704,7 @@ def main():
     tms = torsion_mode_species()
     num.append('\\def\\torsionSpecies{' + ','.join(f'{m}/{c}/{s if s else "none"}' for m, c, s in tms) + '}')
     summary['torsion_species'] = tms
-    summary['kappa_rule'] = 'kappa = m + rho K from (r,tau+2pi,Q) ~ (r R_z(-2 pi rho),tau,Q) and D^J_MK(r R_z(a)) = e^{-iKa} D^J_MK(r)'
+    summary['kappa_rule'] = 'kappa = m + rho K from (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q) and D^J_MK(r R_z(omega)) = e^{-iK omega} D^J_MK(r)'
 
     with open(os.path.join(DATA, 'molecules.tex'), 'w') as f:
         f.write('\n'.join(mol) + '\n')

@@ -58,8 +58,8 @@ Mtot = sum(masses)
 assert sp.simplify(sum((m*x for m, x in zip(masses, X)), sp.zeros(3, 1))) == sp.zeros(3, 1)
 print('centred family: X m = 0 identically')
 
-# Gaussian overlap: amplitudes with density variance sigma^2 in the plane
-x, y, d, sg = sp.symbols('x y d sigma', real=True, positive=True)
+# Gaussian overlap: amplitudes with density variance Delta^2 in the plane (width Delta, approved notation)
+x, y, d, sg = sp.symbols('x y d Delta', real=True, positive=True)
 g0 = sp.exp(-(x**2 + y**2)/(4*sg**2)); g1 = sp.exp(-((x - d)**2 + y**2)/(4*sg**2))
 num = sp.integrate(sp.integrate(g0*g1, (x, -sp.oo, sp.oo)), (y, -sp.oo, sp.oo))
 den = sp.integrate(sp.integrate(g0*g0, (x, -sp.oo, sp.oo)), (y, -sp.oo, sp.oo))
@@ -67,7 +67,7 @@ c = sp.simplify(num/den)
 assert sp.simplify(c - sp.exp(-d**2/(8*sg**2))) == 0
 var = sp.integrate(sp.integrate(x**2*g0**2, (x, -sp.oo, sp.oo)), (y, -sp.oo, sp.oo))/den
 assert sp.simplify(var - sg**2) == 0
-print('Gaussian: density variance sigma^2 and c = exp(-d^2/(8 sigma^2)) hold exactly')
+print('Gaussian: density variance Delta^2 and c = exp(-d^2/(8 Delta^2)) hold exactly')
 cc = sp.symbols('c')
 wA1 = (1 + 2*cc)/3; wE = 2*(1 - cc)/3
 assert sp.simplify(wA1 + wE - 1) == 0
@@ -86,7 +86,7 @@ assert BE == sp.diag(1, -1)
 assert T*v1 == v1 and Bm*v1 == v1
 print('E pair: t -> rotation by 2pi/3, b -> diag(1,-1); A1 vector fixed: exact')
 
-# seam and Wigner phase: D(r R_z(alpha)) = e^{-iK alpha} D(r) with (r,tau+2pi,Q) ~ (r R_z(-2 pi rho),tau,Q)
+# seam and Wigner phase: D(r R_z(omega)) = e^{-iK omega} D(r) with (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q)
 K, m, rho, kappa = sp.symbols('K m rho kappa')
 lhs = sp.exp(2*sp.pi*sp.I*kappa)                       # from e^{i kappa (tau + 2 pi)}
 rhs = sp.exp(-sp.I*K*(-2*sp.pi*rho))                    # from D(r R_z(-2 pi rho))
