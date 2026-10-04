@@ -60,12 +60,13 @@
 % ---- thick tube with a near-side cut-away wedge. Keys: tube/Ro, Ri, H (half height), E (ellipse ratio), a1, a2 (wedge, degrees; tau = 0 faces the viewer).
 % Order: far inner wall, outer wall pieces, cut faces (hatched = cut material), the band in the wedge gap (nearer than the faces),
 % top face as the annulus minus the wedge sector, then the band edge. Named coordinates: -top0 -top120 -top240 (top edge), -bot60 -bot180 -bot300 (bottom edge).
-\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/linecol/.initial=ColBandLine,
+\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/linecol/.initial=ColBandLine,tube/istep/.initial=6,tube/gstep/.initial=3,tube/lw/.initial=1,
   pics/thicktube/.style={code={
     \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
     \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
     \pgfmathsetmacro{\wa}{\pgfkeysvalueof{/tikz/tube/a1}}\pgfmathsetmacro{\wb}{\pgfkeysvalueof{/tikz/tube/a2}}
     \pgfmathsetmacro{\hs}{\pgfkeysvalueof{/tikz/tube/hs}}
+    \pgfmathsetmacro{\istep}{\pgfkeysvalueof{/tikz/tube/istep}}\pgfmathsetmacro{\gstep}{\pgfkeysvalueof{/tikz/tube/gstep}}\pgfmathsetmacro{\lws}{\pgfkeysvalueof{/tikz/tube/lw}}\pgfmathsetmacro{\lwh}{\lws*.9}\pgfmathsetmacro{\lwf}{\lws*.4}
     % 1. far inner wall, full height, seen through the hole (from above) and through the wedge gap:
     %    generatrix lines uniform in tau, so they crowd toward both silhouettes; heavier on the shadow (left) side;
     %    the inner bottom rim is a visible edge.
@@ -73,16 +74,16 @@
       \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]
             plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- cycle;
       \path[fill=white] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
-      \foreach \a in {94,100,...,266} {\pgfmathsetmacro{\lw}{0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
-      \draw[heavy] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
+      \pgfmathtruncatemacro{\ni}{(266-94)/\istep}\foreach \k in {0,...,\ni} {\pgfmathsetmacro{\a}{94+\k*\istep}\pgfmathsetmacro{\lw}{\lws*(0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a)))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
+      \draw[line width=\lwh pt,draw=PlateInk] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
     \end{scope}
     % 2. outer wall, front, minus the wedge; solid shadow band on the right
     \foreach \ta/\tb in {-90/\wa,\wb/90} {\path[fill=\pgfkeysvalueof{/tikz/tube/wallfill}] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;}
-    \foreach \a in {40,43,...,88} {\pgfmathsetmacro{\lw}{0.2+0.5*((\a-40)/48)}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
-    \foreach \a in {-88,-85,...,-70} {\pgfmathsetmacro{\lw}{0.2+0.3*((-70-\a)/18)}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
-    \draw[heavy] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
-    \draw[heavy] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
-    \draw[heavy] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
+    \pgfmathtruncatemacro{\ng}{48/\gstep}\foreach \k in {0,...,\ng} {\pgfmathsetmacro{\a}{40+\k*\gstep}\pgfmathsetmacro{\lw}{\lws*(0.2+0.5*((\a-40)/48))}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
+    \pgfmathtruncatemacro{\nh}{18/\gstep}\foreach \k in {0,...,\nh} {\pgfmathsetmacro{\a}{-88+\k*\gstep}\pgfmathsetmacro{\lw}{\lws*(0.2+0.3*((-70-\a)/18))}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
+    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=PlateInk] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
     % 3. cut faces: hatched (cut material), with the band's eta-line in blue
     \foreach \a in {\wa,\wb} {
       \path[fill=white] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
@@ -98,9 +99,9 @@
     \foreach \a in {\wa,\wb} {\draw[draw=\pgfkeysvalueof{/tikz/tube/linecol},line width=1.3pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
     % 5. top face: the annulus minus the wedge sector
     \path[fill=white] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
-    \draw[heavy] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
-    \draw[heavy] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
-    \draw[fine] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
+    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
     \coordinate (-top0) at ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)});
     \coordinate (-top120) at ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)});
     \coordinate (-top240) at ({\Rm*sin(240)},{\Hh-\E*\Rm*cos(240)});

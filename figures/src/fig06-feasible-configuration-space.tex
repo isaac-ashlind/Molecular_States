@@ -75,14 +75,8 @@
   \node[tag,anchor=north west] at (.45,2.9) {$\conf$};
   \foreach \i in {0,...,9} \foreach \j in {0,1} {
     \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{.95+1.0*\j}
-    \path[fill=white] ({\cx-.5},{\cy-.17}) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- ({\cx+.5},{\cy+.17}) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
-    \draw[fine] ({\cx-.5},{\cy-.17}) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- ({\cx+.5},{\cy+.17}) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
-    \draw[fine,fill=white] (\cx,{\cy+.17}) ellipse[x radius=.5,y radius=.21];
-    \draw[fine] (\cx,{\cy+.17}) ellipse[x radius=.33,y radius=.14];
-  }
-  \path[fill=ColRetained!55] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
-  \draw[fine] (.85,.78) arc[start angle=180,end angle=360,x radius=.5,y radius=.21] -- (1.85,1.12) arc[start angle=0,end angle=-180,x radius=.5,y radius=.21] -- cycle;
-  \draw[fine,fill=ColRetained!55] (1.35,1.12) ellipse[x radius=.5,y radius=.21]; \draw[fine] (1.35,1.12) ellipse[x radius=.33,y radius=.14];
+    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (\cx,\cy) {thicktube};\end{scope}}
+  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=ColRetained!60}\pic at (1.35,.95) {thicktube};\end{scope}
   \node[tag] at (1.35,.35) {$\mathcal F$};
   \node[tag,anchor=north east] at (14.55,2.9) {$|S/G_{12}|=20$ images of $\mathcal F$; the rest of $\conf$ is cut away};
 \end{scope}
