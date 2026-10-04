@@ -297,6 +297,18 @@
  },
  "krb_subgroups": 16,
  "krb_covers": 35,
+ "bond_interval_generators": {
+  "\\langle G_6,E^*\\rangle": "b,t^*",
+  "G_6": "b,t",
+  "\\langle H,u^*\\rangle": "b,u^*",
+  "\\langle H,u,E^*\\rangle": "b,u,E^*",
+  "H": "b",
+  "\\langle H,E^*\\rangle": "b,E^*",
+  "\\langle H,u\\rangle": "b,u",
+  "B": "b,t,u,E^*",
+  "G_{12}": "b,t,u",
+  "\\langle G_6,u^*\\rangle": "b,t,u^*"
+ },
  "interval_HS": {
   "subgroups": 36,
   "covers": 73,

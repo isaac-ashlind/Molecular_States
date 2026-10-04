@@ -1,11 +1,11 @@
-% Figure 4. Molecules, fragments, complexes. What the reader must see: a grouping is a choice of boundaries drawn
-% on one configuration, not a change of positions; for KRb + KRb the three groupings carry three channel groups
-% that sit inside S, meet in <E*>, and any two generate S; group inclusion says nothing about accessibility.
-% Drawing: methylamine once with one boundary and once with two (fine dashed contours); the K2Rb2 scheme as
-% labelled spheres with thin grouping lines, potassium above and rubidium below; the sixteen subgroups of S as a
-% line lattice with the channel groups and their core in black and the rest in grey, the carving idiom of figure 5.
-% Colours: potassium green, rubidium violet; gold unused. Hatch unused. K2Rb2 positions are schematic (declared);
-% the lattice, the orders, the core and the generation facts are computed (compute/, checks/).
+% Figure 4. Molecules, fragments, complexes: the reaction KRb + KRb -> K2Rb2 -> K2 + Rb2 as groupings of one set
+% of four nuclei and as a path in the subgroup lattice of S. What the reader must see: a grouping is a choice of
+% boundaries on the same configuration; each grouping has its channel group; the reaction climbs from the incoming
+% channel group to the complex group S and descends to one of the two product channel groups; the three channel
+% groups meet in <E*>; any two generate S. Drawing: the three groupings with grouping lines coloured by what they
+% join (potassium green, rubidium violet, mixed in ink), the sixteen subgroups of S with the path in the same two
+% colours side by side until they split at S. K2Rb2 positions are schematic (declared); the lattice, the orders,
+% the core and the generation facts are computed (compute/groups.py, checks/verify.g). Hatch unused; gold unused.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -13,41 +13,33 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,boundary/.style={line width=.5pt,draw=PlateInk,dash pattern=on 2.2pt off 1.6pt}]
-\path[use as bounding box] (0,0) rectangle (15,11.8);
-% ------------------------------------------------ A. methylamine: one fragment, or two
-\node[sub,anchor=north west,text width=7.0cm] at (.3,11.6) {methylamine: one fragment, or two; a boundary is drawn on the configuration, the positions do not move};
-\begin{scope}[shift={(2.0,9.2)}]
-  \begin{scope}[scale=.85]\draw[boundary,rounded corners=6pt] plot coordinates {\fragloopall} -- cycle;\end{scope}
-  \begin{scope}\molsolid\mollabelsfalse\pic[scale=.85] at (0,0) {mol3d-mla-ref};\end{scope}
-  \node[sub,text width=3.4cm,align=center,anchor=north] at (0,-1.7) {one fragment $\{1,2,3,4,5,6,7\}$};
-\end{scope}
-\begin{scope}[shift={(5.8,9.2)}]
-  \begin{scope}[scale=.85]\draw[boundary,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \draw[boundary,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle;\end{scope}
-  \begin{scope}\molsolid\mollabelsfalse\pic[scale=.85] at (0,0) {mol3d-mla-ref};\end{scope}
-  \node[sub,text width=4.2cm,align=center,anchor=north] at (0,-1.7) {two fragments: methyl $\{1,2,3,6\}$, amino $\{4,5,7\}$};
-\end{scope}
-\node[sub,anchor=north west,text width=7.0cm] at (.3,6.35) {relative position and orientation of the fragments remain coordinates in $\conf$; rigid fragments are a modelling approximation};
-% ------------------------------------------------ B. KRb + KRb: three groupings of the same four nuclei
-\node[sub,anchor=north west,text width=6.8cm] at (8.0,11.6) {KRb\,+\,KRb: three groupings of the same four nuclei, potassium $1,2$ and rubidium $3,4$; a line joins grouped nuclei (positions schematic)};
-\foreach \x/\pname/\cap/\grp in {9.2/in/{incoming pair}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},11.6/complex/{one complex}/{$S=\langle(12),(34),E^*\rangle$},14.0/out/{outgoing pair}/{$G_{\mathrm K}=\langle(12),E^*\rangle$\\$G_{\mathrm{Rb}}=\langle(34),E^*\rangle$}} {
-  \begin{scope}[shift={(\x,9.15)}]
-    \begin{scope}\molsolid\def\radK{.30}\def\radRb{.36}\pic[scale=.55] at (0,0) {mol3d-krb-\pname};\end{scope}
-    \node[sub] at (0,-1.2) {\cap};
-    \node[sub,text width=2.3cm,align=center,anchor=north] at (0,-1.42) {\grp};
+\begin{tikzpicture}[plate,kline/.style={line width=1.4pt,draw=ColPotassium},rbline/.style={line width=1.4pt,draw=ColRubidium}]
+\path[use as bounding box] (0,0) rectangle (15,11.2);
+% ------------------------------------------------ A. one set of four nuclei, grouped three ways along the reaction
+\foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$G_{\mathrm K}=\langle(12),E^*\rangle$,\ $G_{\mathrm{Rb}}=\langle(34),E^*\rangle$}} {
+  \begin{scope}[shift={(\x,9.0)}]
+    \begin{scope}\molsolid\mollabelsinsideall\def\radK{.30}\def\radRb{.36}\pic[scale=.8] at (0,0) {mol3d-krb-\pname};\end{scope}
+    \node[lab,anchor=north] at (0,-1.25) {\cap}; \node[lab,anchor=north] at (0,-1.7) {\grp};
   \end{scope}
 }
-\draw[harrow] (10.25,9.15)--(10.55,9.15); \draw[harrow] (12.65,9.15)--(12.95,9.15);
-\node[sub,anchor=north west,text width=6.8cm] at (8.0,6.55) {each channel group has order $4$; grouping is not bond formation};
-% ------------------------------------------------ C. the sixteen subgroups of S, the channel groups in black
-\node[sub,anchor=north west,text width=3.9cm] at (.3,4.7) {the $16$ subgroups of $S\cong C_2^3$, by order; the three channel groups, their common core $\langle E^*\rangle$ and $S$ in black; any two channel groups generate $S$; this is inclusion, neither accessibility nor yield};
-\begin{scope}[shift={(5.4,.75)}]
-  \foreach \i/\x/\y/\m/\name in \krbNodes {\coordinate (k\i) at ({9.2*\x},{1.3*\y});}
-  \foreach \a/\b/\m in \krbCovers {\ifnum\m=1\else\draw[line width=.3pt,draw=PlateInk!40] (k\a)--(k\b);\fi}
-  \foreach \a/\b/\m in \krbCovers {\ifnum\m=1\draw[line width=.9pt,draw=PlateInk] (k\a)--(k\b);\fi}
-  \foreach \i/\x/\y/\m/\name in \krbNodes {\ifnum\m=1\draw[line width=.5pt,draw=PlateInk,fill=white] (k\i) circle[radius=1.9pt];\else\fill[PlateInk!45] (k\i) circle[radius=1.1pt];\fi}
-  \foreach \i/\x/\y/\m/\name in \krbNodes {\ifnum\m=1\ifdim\y pt=20pt\node[lab,anchor=south] at ($(k\i)+(0,.1)$) {$\name$};\else\ifdim\y pt=30pt\node[lab,anchor=south] at ($(k\i)+(0,.1)$) {$\name$};\else\node[lab,anchor=north] at ($(k\i)+(0,-.1)$) {$\name$};\fi\fi\fi}
-  \foreach \y/\l in {0/{order $1$},1/{$2$},2/{$4$},3/{$8$}} \node[sub,anchor=east] at (-.3,{1.3*\y}) {\l};
+\draw[harrow] (4.6,9.0)--(5.5,9.0); \draw[harrow] (9.5,9.0)--(10.4,9.0);
+\node[sub,anchor=north,text width=9cm,align=center] at (7.5,6.75) {the same four nuclei, potassium $1,2$ and rubidium $3,4$; a line joins grouped nuclei; positions schematic};
+% ------------------------------------------------ B. the sixteen subgroups of S with the reaction path
+\begin{scope}[shift={(3.4,.8)}]
+  \foreach \i/\x/\y/\m/\name in \krbNodes {\coordinate (k\i) at ({10.4*\x},{1.6*\y});}
+  \foreach \a/\b/\m in \krbCovers {\draw[line width=.3pt,draw=PlateInk!40] (k\a)--(k\b);}
+  \draw[kline] ($(k\krbIdxIn)+(-.05,0)$)--($(k\krbIdxS)+(-.05,0)$); \draw[rbline] ($(k\krbIdxIn)+(.05,0)$)--($(k\krbIdxS)+(.05,0)$);
+  \draw[kline] (k\krbIdxS)--(k\krbIdxK); \draw[rbline] (k\krbIdxS)--(k\krbIdxRb);
+  \draw[line width=.7pt,draw=PlateInk] (k\krbIdxCore)--(k\krbIdxIn) (k\krbIdxCore)--(k\krbIdxK) (k\krbIdxCore)--(k\krbIdxRb) (k\krbIdxE)--(k\krbIdxCore);
+  \foreach \i/\x/\y/\m/\name in \krbNodes {\ifnum\m=1\else\fill[PlateInk!45] (k\i) circle[radius=1.1pt];\fi}
+  \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxE) circle[radius=2.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxCore) circle[radius=2.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxS) circle[radius=2.6pt];
+  \draw[line width=.5pt,draw=PlateInk,fill=ColPotassium] (k\krbIdxK) circle[radius=2.6pt]; \draw[line width=.5pt,draw=PlateInk,fill=ColRubidium] (k\krbIdxRb) circle[radius=2.6pt];
+  \begin{scope}\clip (k\krbIdxIn) circle[radius=2.6pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=2.6pt];
+  \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.13)$) {$S$, the complex}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.13)$) {$E$};
+  \node[lab,anchor=west] at ($(k\krbIdxCore)+(.13,0)$) {$\langle E^*\rangle$, the common core};
+  \node[lab,anchor=north] at ($(k\krbIdxK)+(0,-.13)$) {$G_{\mathrm K}$}; \node[lab,anchor=north] at ($(k\krbIdxRb)+(0,-.13)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=north] at ($(k\krbIdxIn)+(0,-.13)$) {$G_{\mathrm{in}}$};
+  \foreach \y/\l in {0/{order $1$},1/{$2$},2/{$4$},3/{$8$}} \node[sub,anchor=east] at (-.5,{1.6*\y}) {\l};
 \end{scope}
+\node[sub,anchor=north west,text width=2.2cm] at (.3,3.9) {the $16$ subgroups of $S\cong C_2^3$; the reaction as a path: up from $G_{\mathrm{in}}$ to $S$, down to $G_{\mathrm K}$ or $G_{\mathrm{Rb}}$; inclusion, not accessibility};
 \end{tikzpicture}
 \end{document}

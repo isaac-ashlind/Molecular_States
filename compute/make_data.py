@@ -548,6 +548,10 @@ def main():
             if A < B and len(B) == 2*len(A):
                 cov_.append((key_[A], key_[B], 1 if (A in named and B in named) else 0))
     num.append('\\def\\krbNodes{' + ','.join(f'{i}/{x:.4f}/{y:.1f}/{m}/{{{nm}}}' for i, x, y, m, nm in nodes) + '}')
+    idx = {named[K_]: key_[K_] for K_ in named}
+    core_name = '\\langle E^*\\rangle'; in_name = 'G_{\\mathrm{in}}'; k_name = 'G_{\\mathrm K}'; rb_name = 'G_{\\mathrm{Rb}}'
+    num.append('\\def\\krbIdxE{%d}\\def\\krbIdxCore{%d}\\def\\krbIdxIn{%d}\\def\\krbIdxK{%d}\\def\\krbIdxRb{%d}\\def\\krbIdxS{%d}'
+               % (idx['E'], idx[core_name], idx[in_name], idx[k_name], idx[rb_name], idx['S']))
     num.append('\\def\\krbCovers{' + ','.join(f'{a}/{b}/{m}' for a, b, m in cov_) + '}')
     summary['krb_subgroups'] = len(allsubs); summary['krb_covers'] = len(cov_)
 
@@ -556,14 +560,51 @@ def main():
     order_of = {K: len(K)//2 for K in subs}     # |K/H|
     # drawing x-slots per node (design choice); y = log2 of the version count |K/H|
     xslot = {'H': 0.0, '\\langle H,u\\rangle': 4.6, '\\langle H,E^*\\rangle': -0.4, '\\langle H,u^*\\rangle': -2.9,
-             'G_6': 2.6, '\\langle H,u,E^*\\rangle': -2.6, 'G_{12}': 2.4, '\\langle G_6,E^*\\rangle': 0.5,
-             '\\langle G_6,u^*\\rangle': -4.6, 'B': 0.0}
+             'G_6': 2.6, '\\langle H,u,E^*\\rangle': -2.6, 'G_{12}': 3.2, '\\langle G_6,E^*\\rangle': -0.6,
+             '\\langle G_6,u^*\\rangle': -4.4, 'B': 0.0}
     ordered = sorted(subs, key=lambda K: (len(K), names[K]))
     key = {names[K]: i for i, K in enumerate(ordered)}
     num.append('\\def\\hasseNodes{' + ','.join(
         f'{key[names[K]]}/{xslot[names[K]]}/{math.log2(len(K)//2):.4f}/{len(K)//2}/{{{names[K]}}}' for K in ordered) + '}')
     num.append('\\def\\hasseCovers{' + ','.join(f'{key[names[a]]}/{key[names[b]]}' for a, b in cov) + '}')
     num.append('\\def\\hasseChain{' + ','.join(str(key[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
+    # the generator added along each cover of [H, B], and a minimal generator form of every subgroup (b always first)
+    from itertools import combinations
+    cands = [('t', Q.t), ('u', Q.u), ('E^*', Q.Estar), ('u^*', Q.mul(Q.u, Q.Estar)), ('t^*', Q.mul(Q.t, Q.Estar))]
+    labels = []
+    for a_, b_ in cov:
+        lab = '?'
+        for nm, g in cands:
+            if frozenset(Q.close(list(a_) + [g], Q.N)) == frozenset(b_):
+                lab = nm; break
+        assert lab != '?', 'cover without a single added generator'
+        labels.append((key[names[a_]], key[names[b_]], lab))
+    num.append('\\def\\hasseCoverLabels{' + ','.join(f'{a}/{b}/{{{nm}}}' for a, b, nm in labels) + '}')
+    gens = {}
+    chain_forms = {'H': [], 'G_6': ['t'], 'G_{12}': ['t', 'u'], 'B': ['t', 'u', 'E^*']}
+    cand_by_name = dict(cands)
+    for K_ in subs:
+        found = None
+        if names[K_] in chain_forms:
+            form = chain_forms[names[K_]]
+            assert frozenset(Q.close([Q.b] + [cand_by_name[nm] for nm in form], Q.N)) == frozenset(K_), names[K_]
+            found = ','.join(['b'] + form)
+        else:
+            for r in range(0, 4):
+                for combo in combinations(cands, r):
+                    if frozenset(Q.close([Q.b] + [g for _, g in combo], Q.N)) == frozenset(K_):
+                        found = ','.join(['b'] + [nm for nm, _ in combo]); break
+                if found: break
+        assert found, 'no generator form'
+        gens[key[names[K_]]] = found
+    num.append('\\def\\hasseGens{' + ','.join(f'{k}/{{\\langle {v}\\rangle}}' for k, v in sorted(gens.items())) + '}')
+    summary['bond_interval_generators'] = {names[K_]: gens[key[names[K_]]] for K_ in subs}
+    chainnames = {'H': 'H', 'G_6': 'G_6', 'G_{12}': 'G_{12}', 'B': 'B'}
+    labs = []
+    for K_ in subs:
+        k = key[names[K_]]; gform = '\\langle ' + gens[k] + '\\rangle'
+        labs.append((k, (chainnames[names[K_]] + '=' + gform) if names[K_] in chainnames else gform))
+    num.append('\\def\\hasseLabels{' + ','.join(f'{k}/{{{l}}}' for k, l in sorted(labs)) + '}')
     # the whole interval [H, S]: every subgroup containing H, with covers; the bond interval is a sub-poset
     big = Q.interval(Q.H, Q.S, Q.N)
     bigcov = Q.covers(big)

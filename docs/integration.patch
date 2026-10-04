@@ -8,7 +8,7 @@
  
  \usepackage[font=small,labelfont=bf]{caption}
  \usepackage[section]{placeins}
-@@ -32,7 +33,10 @@
+@@ -32,9 +33,14 @@
  \begin{document}
  \maketitle
  
@@ -19,8 +19,12 @@
 +\end{center}
  \clearpage
  
++
++\part{Configurations and States}
  \section{Configuration Space}
-@@ -118,7 +122,11 @@
+ 
+ Consider $N$ labeled nuclei in Euclidean space. 
+@@ -118,7 +124,11 @@
  \]
  We drop the dots when the action is understood.
  
@@ -33,7 +37,7 @@
  
  \section{Ambient Hilbert Space}
  
-@@ -175,6 +183,12 @@
+@@ -175,6 +185,12 @@
  \int_{\conf}
  \|\Psi(X)-\Phi(X)\|_{\spin}^2\,dX=0.
  \]
@@ -46,7 +50,7 @@
  
  \section{Physical Hilbert Space}
  
-@@ -244,9 +258,13 @@
+@@ -244,9 +260,15 @@
  Here composition acts on the configuration argument,
  while $s\cdot\Psi_\pm$ acts on the spin factors.
  
@@ -59,11 +63,13 @@
 +\caption{(author caption; see docs/caption-notes.md)}\label{fig:3}
 +\end{figure}
 +
++
++\part{Fragments and Feasible Regimes}
 +\section{Molecules, Fragments, and Complexes}
  \begin{itemize}
  \item Partition the nuclei into fragments. One molecule is the
  one-fragment case. Relative fragment positions and orientations remain in $\conf$.
-@@ -272,9 +290,14 @@
+@@ -272,9 +294,14 @@
  Symmetry gives allowed sectors, not yields.
  \item Choose a reference geometry to count versions.
  \end{itemize}
@@ -81,16 +87,15 @@
  \label{sec:feasible-regimes}
  
  The construction so far accommodates all possible
-@@ -339,7 +362,7 @@
+@@ -339,7 +366,6 @@
  
  Adding an operation $s$ moves from $G$ to $\langle G,s\rangle$.
  
 -\section{Methylamine}
-+\subsection{Methylamine}
  \begin{itemize}
  \item Take CH$_3$NH$_2$ with five hydrogens of the same isotope.
  Label methyl hydrogens $1,2,3$, amino hydrogens $4,5$, carbon $6$, and nitrogen $7$.
-@@ -350,7 +373,6 @@
+@@ -350,7 +376,6 @@
  S=S_5\times\{E,E^*\},\qquad |S|=240,
  \qquad H=\langle b\rangle,\qquad b=(23)(45)^*.
  \]
@@ -98,7 +103,7 @@
  \begin{itemize}
  \item Keeping bonds restricts the candidates to $[H,B]$.
  Here $S_A$ permutes the labels in $A$.
-@@ -375,9 +397,56 @@
+@@ -375,9 +400,58 @@
  \item Compare the candidates through species and spin weights.
  The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
  \end{itemize}
@@ -154,11 +159,13 @@
 +\caption{(author caption; see docs/caption-notes.md)}\label{fig:6}
 +\end{figure}
 +
++
++\part{Symmetry and Localization}
 +\section{Symmetry Species}
  \begin{itemize}
  \item The irreducible representations of $G$ are its \emph{species}.
  Pair spatial species with nuclear spin and compute spin weights.
-@@ -407,7 +476,21 @@
+@@ -407,7 +481,21 @@
  \[
  \mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E.
  \]
@@ -181,7 +188,7 @@
  
  \section{Localized States}
  \label{sec:localized-states}
-@@ -442,44 +525,12 @@
+@@ -442,45 +530,15 @@
  of Section~\ref{sec:feasible-space}, when required.
  \item Treat symmetry-enforced nodes with the required pointwise regularity.
  \end{itemize}
@@ -223,16 +230,20 @@
 -\item Nested regions give nested state spaces. Group inclusion alone
 -does not specify geometric inclusion.
 -\end{itemize}
+-
 +
 +\begin{figure}[tb]
 +\centering
 +\includegraphics[width=\linewidth]{fig09-localized-states}
 +\caption{(author caption; see docs/caption-notes.md)}\label{fig:9}
 +\end{figure}
- 
++
++
++\part{Representations and Global Structure}
  \section{Position Representation}
  \label{sec:position-coordinates}
-@@ -547,7 +598,6 @@
+ \begin{itemize}
+@@ -547,7 +605,6 @@
  \item Use these formulas wherever the source and target charts apply.
  Treat axial redundancy at linear configurations.
  \end{itemize}
@@ -240,7 +251,7 @@
  
  \begin{itemize}
  \item For an explicit methylamine model, take the C--N axis as body $z$
-@@ -588,6 +638,12 @@
+@@ -588,6 +645,12 @@
  dynamical rotational transport.
  \end{itemize}
  
@@ -253,7 +264,7 @@
  \section{Covering Spaces and Monodromy}
  \begin{itemize}
  \item Versions label rotational orbits in $G/H$. Charts give local coordinates.
-@@ -598,7 +654,6 @@
+@@ -598,7 +661,6 @@
  \[
  (G_{12}\times_H\mathcal U)/{\sim}\cong\mathcal F.
  \]
@@ -261,7 +272,7 @@
  \begin{itemize}
  \item For a free action, $\mathcal F\to\mathcal F/G$ is a covering
  with deck group $G$. A lifted chart transition induced by $g$
-@@ -612,7 +667,6 @@
+@@ -612,7 +674,6 @@
  \[
  t^3=b^2=E,\qquad btb=t^{-1},\qquad bt=t^2b\ne tb.
  \]
@@ -269,7 +280,7 @@
  \begin{itemize}
  \item A species sees $g$ through $\Gamma(g)$, with
  $\Gamma(G)\cong G/\ker\Gamma$. On $G_6$, $\mathrm A_1$ sees no change,
-@@ -625,6 +679,12 @@
+@@ -625,6 +686,12 @@
  a specified state family and connection.
  \end{itemize}
  
@@ -282,7 +293,7 @@
  \section{Momentum Representation}
  \label{sec:momentum}
  \begin{itemize}
-@@ -661,7 +721,6 @@
+@@ -661,7 +728,6 @@
  \item Periodic and twisted frames give integer and shifted labels for
  the same states. Include normal-frame gluing when present.
  \end{itemize}
@@ -290,7 +301,7 @@
  \begin{itemize}
  \item For periodic scalar torsion, take $f_m(\tau)=e^{im\tau}$,
  with $t:\tau\mapsto\tau+2\pi/3$ and $b:\tau\mapsto-\tau$.
-@@ -674,7 +733,12 @@
+@@ -674,7 +740,12 @@
  \item Find the species and spin partners of the modes.
  Extend to methylamine's coupled torsion and inversion.
  \end{itemize}

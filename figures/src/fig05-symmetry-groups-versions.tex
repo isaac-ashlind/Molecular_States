@@ -1,9 +1,11 @@
-% Figure 5. Symmetry groups and versions. What the reader must see: (A) the operation b relabels and inverts,
-% and a half-turn about the axis normal to the mirror plane reproduces the result, so H = {E, b} stabilises the
-% rotational orbit; (B) the feasible regime is carved from the whole interval [H, S] (36 subgroups, grey) down to
-% the bond interval [H, B] (10 subgroups, black), with the chain H < G6 < G12 < B in blue on both sides;
-% (C) versions are the same positions with the labels moved by g. Colours: blue = the chain; gold unused here.
-% Hatch unused. Lattice data computed (compute/, checks/verify.g); digits inside the hydrogen discs are the column labels.
+% Figure 5. Symmetry groups and versions. What the reader must see: (A) methylamine as two fragments, the reference
+% X0 with its half-turn axis, and bX0 = X0 P_b drawn solid with digits: the half-turn reproduces it, so H = {E, b};
+% the mirror plane seen edge-on down the C-N axis; (B) the feasible regime carved from the whole interval [H, S]
+% (36 subgroups, grey) to the bond interval [H, B] (10 subgroups, black) with the chain H < G6 < G12 < B in blue;
+% in the bond interval every node is named by its generators and every cover is labelled by the generator it adds,
+% so the climb reads as generators being adjoined; (C) versions are the same positions with the digits moved by g.
+% Colours: blue = the chain; gold unused. Hatch unused. All lattice data, generator forms and cover labels computed
+% (compute/groups.py, compute/make_data.py, checks/verify.g); digits inside the hydrogens are the column labels.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -11,54 +13,60 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,17.0);
-% ------------------------------------------------ A. b is a rotation: mirror plane and half-turn axis
-\begin{scope}[shift={(3.0,14.2)}]
-  \begin{scope}[scale=.85]
-    \path[fill=PlateInk!6] plot coordinates {\mirrorplane} -- cycle; \draw[fine] plot coordinates {\mirrorplane} -- cycle;
-    \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] plot coordinates {\mirroraxis};
-  \end{scope}
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.85] at (0,0) {mol3d-mla-ref};\end{scope}
-  \draw[harrow] ($(0,0)+(.85*1.05,.85*1.55)+(-.42,.0)$) arc[start angle=180,end angle=-60,x radius=.42,y radius=.16];
-  \node[lab,anchor=west] at ($(0,0)+(.85*1.05,.85*1.55)+(.5,.05)$) {$R_b$};
-  \node[sub,anchor=north,text width=5.4cm,align=center] at (0,-2.0) {$X_0$: the mirror plane through $\mathrm H_1$, C, N and the axis normal to it; digits are the column labels $1$--$5$ of the hydrogens};
+\begin{tikzpicture}[plate,covlab/.style={font=\fontsize{6.5}{7}\selectfont,fill=white,inner sep=.8pt,text=PlateInk}]
+\path[use as bounding box] (0,0) rectangle (15,20.6);
+% ------------------------------------------------ A. the molecule: two fragments, X0 with its half-turn axis, bX0, the mirror plane edge-on
+\begin{scope}[shift={(1.9,18.2)}]
+  \begin{scope}[scale=.8]\draw[line width=.5pt,draw=PlateInk,dash pattern=on 2.2pt off 1.6pt,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \draw[line width=.5pt,draw=PlateInk,dash pattern=on 2.2pt off 1.6pt,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle;\end{scope}
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \node[sub,anchor=north,text width=3.4cm,align=center] at (0,-1.55) {methyl and amino, two fragments};
 \end{scope}
-\draw[harrow] (5.7,14.2)--(7.1,14.2);
-\node[lab,anchor=south] at (6.4,14.3) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (6.4,14.1) {$=R_y(\pi)$};
-\begin{scope}[shift={(9.6,14.2)}]
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.85] at (0,0) {mol3d-mla-bref};\end{scope}
-  \node[sub,anchor=north,text width=5.6cm,align=center] at (0,-2.0) {$bX_0=X_0P_b$: column $k$ moves to $-x_{b(k)}$: $2$ to $-x_3$, $3$ to $-x_2$, $4$ to $-x_5$, $5$ to $-x_4$; the half-turn $R_bX_0$ is the same, so $H=\{E,b\}$};
+\begin{scope}[shift={(6.3,18.2)}]
+  \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] plot coordinates {\mirroraxis};
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \draw[harrow] ($(0,0)+(.8*1.05,.8*1.55)+(-.42,.0)$) arc[start angle=180,end angle=-60,x radius=.42,y radius=.16];
+  \node[lab,anchor=west] at ($(0,0)+(.8*1.05,.8*1.55)+(.5,.05)$) {$R_b$};
+  \node[sub,anchor=north,text width=3.4cm,align=center] at (0,-1.55) {$X_0$ and its half-turn axis};
 \end{scope}
-% ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval
-\begin{scope}[shift={(.6,5.7)}]
-  \node[sub,anchor=south west] at (0,4.45) {$36$ subgroups between $H$ and $S$ (grey), the $10$ keeping the bonds (black), the chain $H<G_6<G_{12}<B$ (blue)};
-  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+7.4*\x},{.15+3.9*\yy});}
-  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.3pt,draw=PlateInk!40] (n\a)--(n\b);\fi}
+\draw[harrow] (8.4,18.2)--(9.6,18.2);
+\node[lab,anchor=south] at (9.0,18.3) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (9.0,18.1) {$=R_y(\pi)$};
+\begin{scope}[shift={(11.3,18.2)}]
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-bref};\end{scope}
+  \node[sub,anchor=north,text width=3.6cm,align=center] at (0,-1.55) {$bX_0=X_0P_b=R_bX_0$, so $H=\{E,b\}$};
+\end{scope}
+\begin{scope}[shift={(14.0,18.2)}]
+  \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] (0,-1.15)--(0,1.15);
+  \begin{scope}\def\nmR{.5}\pic[scale=.62] at (0,0) {newman-tau-0};\end{scope}
+  \node[sub,anchor=north,text width=1.9cm,align=center] at (0,-1.3) {the mirror plane edge-on};
+\end{scope}
+% ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
+\node[sub,anchor=west] at (.3,15.0) {the $36$ subgroups between $H$ and $S$, grey; the $10$ that keep the bonds, black; the chain $H<G_6<G_{12}<B$, blue};
+\begin{scope}[shift={(.5,7.6)}]
+  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.0*\x},{.2+6.3*\yy});}
+  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.25pt,draw=PlateInk!32] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}
   \foreach \a/\b in {0/6,6/19,19/28} {\draw[line width=1.4pt,draw=ColNitrogen] (n\a)--(n\b);}
-  \foreach \i/\x/\yy/\inb/\name in \bigNodes {
-    \ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!45] (n\i) circle[radius=1.1pt];\fi}
+  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!40] (n\i) circle[radius=1.0pt];\fi}
   \foreach \i in \bigChain {\fill[ColNitrogen] (n\i) circle[radius=1.9pt];}
-  \node[lab,anchor=north] at (n0) {\;$H$}; \node[lab,anchor=south] at (n35) {$S$};
+  \node[lab,anchor=north] at ($(n0)+(0,-.1)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.1)$) {$S$};
   \node[sub,anchor=east] at ($(n6)+(-.12,0)$) {$G_6$}; \node[sub,anchor=east] at ($(n19)+(-.12,.02)$) {$G_{12}$}; \node[sub,anchor=east] at ($(n28)+(-.12,0)$) {$B$};
 \end{scope}
-\draw[harrow] (8.75,9.0)--(9.55,9.0); \node[sub,anchor=south] at (9.15,9.1) {keep the bonds};
-\begin{scope}[shift={(12.15,6.2)},x=.52cm,y=.9cm]
+\draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south,text width=1.6cm,align=center] at (7.7,11.0) {keep the bonds};
+\begin{scope}[shift={(11.5,8.1)},x=.68cm,y=1.6cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
-  \foreach \a/\b in \hasseCovers {\draw[line width=.7pt,draw=PlateInk] (h\a)--(h\b);}
+  \foreach \a/\b in \hasseCovers {\draw[line width=.6pt,draw=PlateInk] (h\a)--(h\b);}
   \draw[line width=1.4pt,draw=ColNitrogen] (h0)--(h4)--(h6)--(h9);
-  \foreach \i/\x/\y/\v/\name in \hasseNodes {\node[font=\fontsize{8}{9}\selectfont,fill=white,inner sep=1pt] at (h\i) {$\name$};}
+  \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,text width=5.4cm,align=center] at (12.15,5.6) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers, the same chain in blue};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers, every node written by its generators, so each step up adjoins one generator; the same chain in blue};
 % ------------------------------------------------ C. versions: the same positions, the digits move
-\node[sub,anchor=west] at (.2,4.5) {versions $G_{12}/H$: the same positions; position $j$ carries label $g(j)$, so only the digits change};
+\node[sub,anchor=west] at (.3,6.1) {versions $G_{12}/H$: the same positions, position $j$ carries label $g(j)$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
-  \begin{scope}[shift={({1.4+2.45*\k},2.7)}]
+  \begin{scope}[shift={({1.45+2.42*\k},3.6)}]
     \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
-    \begin{scope}\molsolid\mollabelsinside\pic[scale=.72] at (0,0) {mol3d-mla-ref};\end{scope}
-    \node[lab] at (0,-1.4) {$\cname$};
-    \node[sub] at (0,-1.8) {$g=\gname$};
+    \begin{scope}\molsolid\mollabelsinside\pic[scale=.78] at (0,0) {mol3d-mla-ref};\end{scope}
+    \node[lab] at (0,-1.55) {$\cname$};
+    \node[sub] at (0,-1.95) {$g=\gname$};
   \end{scope}
 }
 \end{tikzpicture}
