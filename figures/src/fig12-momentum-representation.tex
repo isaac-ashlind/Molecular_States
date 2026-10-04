@@ -3,7 +3,8 @@
 % fig. 5.5.3, no energies); the seam turn shears the (m, K) lattice of torsional labels to kappa = m + rho K;
 % periodic torsion modes drawn as radial plots on the torsion circle (the circle of figure 9) sort into A1, A2
 % and E pairs, with level-rule typography (after fig. 4.2.3).
-% Colours: gold = the shear line kappa = rho K; ink elsewhere. Hatch unused. rho = 0.3 is illustrative (declared);
+% Colours: gold = the shear line kappa = rho K; red = the version marks on the torsion circle; ink elsewhere. Hatch unused.
+% Text reduced to labels (2026-10-04). rho = 0.3 is illustrative (declared);
 % the species table and kappa rows are computed (compute/, checks/). Chosen from studies/alternatives/alt-fig12.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -12,8 +13,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,12.6);
-\node[sub,anchor=north west,text width=14.4cm] at (.3,12.45) {one state, two bases: $|r,\tau,Q\rangle_0$ and $|JMK,m,p\rangle$, the chart density absorbed in $\widetilde\psi=\mathcal J^{1/2}\psi$; no energies};
+\path[use as bounding box] (0,0) rectangle (15,12.2);
 % ------------------------------------------------ A. the K ladder on the sphere |J| = sqrt(J(J+1)), J = 2
 \begin{scope}[shift={(2.3,9.25)}]
   \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.32}
@@ -25,7 +25,7 @@
     \draw[fine] ({\R+.05},\h)--({\R+.2},\h); \node[sub,anchor=west] at ({\R+.22},\h) {$K=\K$};}
   \draw[harrow] (0,0)--({sqrt(5)*\s*cos(-40)},{\s+\E*sqrt(5)*\s*sin(-40)});
   \node[lab,anchor=north west,inner sep=1pt] at ({sqrt(5)*\s*cos(-40)+.02},{\s+\E*sqrt(5)*\s*sin(-40)-.02}) {$\mathbf J$};
-  \node[sub,anchor=north,text width=4.9cm,align=center] at (.5,{-\R-.3}) {$J=2$: $\mathbf J$ of length $\sqrt{J(J+1)}$ on a latitude ring at height $K$, one row at right per $K$};
+  \node[sub,anchor=north] at (0,{-\R-.3}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}$};
 \end{scope}
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame
 \node[sub,anchor=south] at (8.0,10.95) {periodic frame};
@@ -40,19 +40,19 @@
 \draw[fine] ({12.7-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.7-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 \foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.7+\dm*\k},\y) circle[radius=1.5pt];}
 \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (12.7,{9.4-2.5*\dk-.05})--(12.7,{9.4+2.5*\dk+.05});
-\draw[line width=1.1pt,draw=PlateInk] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
+\draw[line width=1.1pt,draw=ColGoldStroke] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
 \node[sub,anchor=south west] at ({12.7+2.5*\sh+.05},{9.4+2.5*\dk-.02}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.7,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=west] at ({12.7+3.5*\dm+2.5*\sh+.08},{9.4-2.5*\dk-.2}) {$\kappa$};
-\node[sub,anchor=north west,text width=8.6cm] at (6.1,7.65) {a turn of the body frame at the seam, $(r,\tau+2\pi,Q)\sim(rR_z(-2\pi\rho),\tau,Q)$, shears the torsional labels row by row: $\kappa=m+\rho K$};
+\node[sub,anchor=north] at (10.35,7.7) {a turn of the body frame at the seam shears the labels: $\kappa=m+\rho K$};
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6
-\node[sub,anchor=north west,text width=14.4cm] at (.3,6.1) {periodic torsion modes on the circle of figure 9, the three version marks at $\tau=0,2\pi/3,4\pi/3$; $U_tf_m=e^{-2\pi im/3}f_m$, $U_bf_m=f_{-m}$};
+\node[sub,anchor=north west] at (.3,6.1) {periodic torsion modes on the circle of figure 9};
 \node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=east] at (1.55,5.1) {$m$};
 \foreach \m/\cs/\ss in \torsionSpecies {
   \pgfmathsetmacro{\cx}{2.55+1.78*\m}
   \node[lab] at (\cx,5.1) {$\m$};
   \foreach \yc/\f in {4.4/cos,3.2/sin} {
     \draw[line width=.35pt,draw=PlateInk!55] (\cx,\yc) circle[radius=.4];
-    \foreach \a in {90,210,330} \draw[fine] ({\cx+.4*cos(\a)},{\yc+.4*sin(\a)})--({\cx+.5*cos(\a)},{\yc+.5*sin(\a)});
+    \foreach \a in {90,210,330} {\hatom{\cx+.4*cos(\a)}{\yc+.4*sin(\a)}{.045}{ColDot}}
     \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)});}
   \ifnum\m=0 \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$}; \node[sub,anchor=north] at (\cx,2.1) {$\sin0=0$};
   \else
@@ -65,6 +65,5 @@
     \fi
   \fi
 }
-\node[sub,anchor=north west,text width=14.4cm] at (.3,1.1) {a single rule for a one-dimensional species, a double rule for $\mathrm E$; the modes with $3\mid m$ are the ones invariant under the third-turn $t$};
 \end{tikzpicture}
 \end{document}

@@ -1,69 +1,60 @@
-% Figure 11. Covering spaces and monodromy. What the reader must see: over a free domain V the twelve sheets
-% group in six version pairs; a loop downstairs lifts to a path that climbs from one sheet to another, and
-% continuation multiplies the sheet label on the right, so t-then-b and b-then-t end on different sheets.
-% Drawing: twelve oblique plates in six pairs over the tinted base V with the two loops through [X] and the
-% two lifted paths climbing to different plates (the loop figure after Harter (1993) fig. 5.4.2 in spirit:
-% a closed path downstairs whose lift does not close); the six t,b-sheets as a graph for the bookkeeping;
-% X and bX as two solid configurations in a magnifier. Colours: blue = t, red dashed = b, gold = endpoints.
-% Hatch unused. The relations bt = t^2 b, btb = t^-1, the residual 0.76 A and the free-action margin are computed.
-% Chosen from studies/alternatives/alt-fig04-08-11 (stack of plates as the drawing, graph as bookkeeping).
+% Figure 11. Covering spaces and monodromy. What the reader must see: over a free domain V the sheets group in
+% version pairs {gX, gbX}; a loop downstairs lifts to a path from one sheet to another; t then b and b then t end on
+% different sheets. Drawing: the pairs side by side over V, the X-side column at the left and the bX-side at the
+% right, each headed by its configuration; t climbs a column (solid), b hops across (dotted, the starred generator);
+% t then b ends one level up on the right, b then t two levels up on the right (gold rings); the six sheets as a
+% graph at the right for the bookkeeping, where t turns the outer triangle one way and the inner the other.
+% The loop figure after Harter (1993) fig. 5.4.2 in spirit (a closed path downstairs whose lift does not close).
+% Colours: red = the points over [X] (versions), gold = the endpoints, blue = nitrogen; ink elsewhere. Hatch unused.
+% The u-half of the twelve sheets is alike and left to the caption. The relations bt = t^2 b, btb = t^-1 and the
+% best-fit residual between X and bX are computed (checks/).
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
+% sheet parallelogram: \sheet{x}{y}{style}{fill}  (3.6 wide, as on the cover)
+\newcommand\sheet[4]{\path[fill=#4] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle; \draw[#3] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle;}
+\newcommand\goldring[1]{\draw[line width=1pt,draw=ColGoldStroke] (#1) circle[radius=.16];}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,13.6);
-% ------------------------------------------------ A. sheets over V and the two lifts
-\begin{scope}[shift={(2.2,1.7)}]
-  \path[fill=white] (0,0)--(3.0,0)--(3.8,.6)--(.8,.6)--cycle; \draw[heavy] (0,0)--(3.0,0)--(3.8,.6)--(.8,.6)--cycle;
-  \node[lab,anchor=west] at (3.9,.3) {$V\subset\mathcal F/G_{12}$};
-  \coordinate (b) at (1.9,.3); \fill[PlateInk] (b) circle[radius=1.3pt]; \node[sub,anchor=north,inner sep=2pt] at (b) {$[X]$};
-  \draw[tpath] (b) .. controls (.4,1.0) and (.3,-.5) .. (b); \draw[upath] (b) .. controls (3.4,-.5) and (3.5,1.0) .. (b);
-  \node[sub] at (.75,.5) {$\ell_t$}; \node[sub] at (3.05,.5) {$\ell_b$};
-  % twelve plates in six version pairs: pair k at height 1.5 + 1.45 k, the b-sheet .34 above the g-sheet
-  \foreach \ga/\gb [count=\k from 0] in \sheetPairs {
-    \pgfmathsetmacro{\ya}{1.5+1.45*\k}\pgfmathsetmacro{\yb}{\ya+.34}
-    \path[fill=white] (0,\ya)--(3.0,\ya)--(3.8,\ya+.6)--(.8,\ya+.6)--cycle; \draw[fine] (0,\ya)--(3.0,\ya)--(3.8,\ya+.6)--(.8,\ya+.6)--cycle;
-    \path[fill=white] (0,\yb)--(3.0,\yb)--(3.8,\yb+.6)--(.8,\yb+.6)--cycle; \draw[fine] (0,\yb)--(3.0,\yb)--(3.8,\yb+.6)--(.8,\yb+.6)--cycle;
-    \coordinate (pa\k) at (1.9,{\ya+.3}); \coordinate (pb\k) at (1.9,{\yb+.3});
-    \node[sub,anchor=west,inner sep=1pt] at (2.35,{\ya+.17}) {$\ga X$}; \node[sub,anchor=west,inner sep=1pt] at (2.35,{\yb+.51}) {$\gb X$};
-    \draw[fine] (3.95,\ya)--(4.1,\ya)--(4.1,{\yb+.6})--(3.95,{\yb+.6});}
-  \foreach \v [count=\k from 0] in {H,tH,t^2H,uH,tuH,t^2uH} \node[lab,anchor=west] at (4.2,{1.5+1.45*\k+.47}) {$\v$};
-  \foreach \k in {0,...,5} \fill[PlateInk] (pa\k) circle[radius=1.1pt];
-  \foreach \k in {0,...,5} \fill[PlateInk] (pb\k) circle[radius=1.1pt];
-  % lifts: t then b, from X (pa0) to tX (pa1) along the blue loop's lift, then to tbX (pb1); b then t: X to bX (pb0), then to t^2 bX (pb2)
-  \draw[tpath] (pa0) .. controls (.2,{1.5+.3+.5}) and (.2,{1.5+1.45+.3-.5}) .. (pa1);
-  \draw[upath] (pa1) .. controls (3.2,{1.5+1.45+.3+.1}) and (3.2,{1.5+1.45+.34+.3-.1}) .. (pb1);
-  \draw[upath] (pa0) .. controls (3.3,{1.5+.3+.1}) and (3.3,{1.5+.34+.3-.1}) .. (pb0);
-  \draw[tpath] (pb0) .. controls (.0,{1.5+.34+.3+1.0}) and (.0,{1.5+2.9+.34+.3-1.0}) .. (pb2);
-  \hatomat{pb1}{.09}{ColDot} \hatomat{pb2}{.09}{ColDot}
-  \node[sub,anchor=east,text width=1.9cm,align=right] at (-.15,{1.5+1.45+.34+.3}) {$t$ then $b$ ends here};
-  \node[sub,anchor=east,text width=1.9cm,align=right] at (-.15,{1.5+2.9+.34+.3}) {$b$ then $t$ ends here};
+\path[use as bounding box] (0,0) rectangle (15,12.0);
+\begin{scope}[shift={(5.6,1.0)}]
+  % V, wide, both columns over it
+  \path[fill=white] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle; \draw[heavy] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle;
+  \coordinate (bx) at (0,.25); \fill[PlateInk] (bx) circle[radius=1.2pt]; \node[sub,anchor=north,inner sep=2pt] at (bx) {$[X]$};
+  \draw[tlift] (bx) .. controls (-1.9,.72) and (-1.9,-.22) .. (bx); \draw[blift] (bx) .. controls (1.9,-.22) and (1.9,.72) .. (bx);
+  \node[sub] at (-1.5,.5) {$\ell_t$}; \node[sub] at (1.5,.5) {$\ell_b$}; \node[sub,anchor=west,inner sep=1pt] at (5.3,.25) {$V$};
+  \foreach \k/\ga/\gb/\pl in {0/X/bX/H,1/tX/tbX/tH,2/t^2X/t^2bX/t^2H} {
+    \pgfmathsetmacro{\y}{1.5+1.7*\k}
+    \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
+    \coordinate (pa\k) at (-1.95,{\y+.25}); \coordinate (pb\k) at (2.65,{\y+.25});
+    \node[sub,anchor=west,inner sep=1pt] at (-.5,{\y+.08}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (4.1,{\y+.08}) {$\gb$};
+    \node[lab,anchor=west] at (5.3,{\y+.25}) {$\pl$};}
+  \draw[hidden] (bx)--(pa0); \draw[hidden] (bx)--(pb0);
+  \draw[tlift] (pa0) .. controls (-3.6,{1.5+.25+.6}) and (-3.6,{1.5+1.7+.25-.6}) .. (pa1);
+  \draw[blift] (pa1) .. controls (0,{1.5+1.7+.25+.35}) .. (pb1);
+  \draw[blift] (pa0) .. controls (0,{1.5+.25+.35}) .. (pb0);
+  \draw[tlift] (pb0) .. controls (4.3,{1.5+.25+1.2}) and (4.3,{1.5+3.4+.25-1.2}) .. (pb2);
+  \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
+  \goldring{pb1} \goldring{pb2}
+  \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
 \end{scope}
-\node[sub,anchor=north west,text width=6.2cm] at (.3,13.45) {twelve sheets over $V$ in six version pairs $\{gX,\,gbX\}$; a lift of $\ell_s$ from the sheet $gX$ ends on the sheet $gsX$};
-% ------------------------------------------------ B. bookkeeping: the six t,b-sheets as a graph
-\begin{scope}[shift={(10.6,10.0)}]
-  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.85*cos(\a)},{.85*sin(\a)});}
-  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (o\k) to[bend right=22] (o\n);
-  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (i\k) to[bend left=22] (i\n);
-  \foreach \k in {0,1,2} \draw[upath,-] (o\k)--(i\k);
-  \foreach \k/\l in {0/{X},1/{tX},2/{t^2X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont] at (o\k) {$\l$};
-  \foreach \k/\l in {0/{bX},1/{tbX},2/{t^2bX}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont] at (i\k) {$\l$};
-  \hatomat{i1}{.09}{ColDot} \hatomat{i2}{.09}{ColDot}
-  \node[sub,anchor=north,text width=5.6cm,align=center] at (0,-2.05) {the six $t,b$-sheets as a graph: $t$ then $b$ reaches $tbX$, $b$ then $t$ reaches $t^2bX$; the $u$-half is alike};
+% the two configurations over [X] head their columns
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.5] at (3.3,10.6) {mol3d-mla-X}; \pic[scale=.5] at (7.9,10.6) {mol3d-mla-bX};\end{scope}
+\node[lab] at (3.3,9.5) {$X$}; \node[lab] at (7.9,9.5) {$bX$}; \draw[blift] (4.3,9.5)--(6.9,9.5);
+% the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other
+\begin{scope}[shift={(12.6,4.6)}]
+  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.8*cos(\a)},{.8*sin(\a)});}
+  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (o\k) to[bend right=24] (o\n);
+  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (i\k) to[bend left=30] (i\n);
+  \foreach \k in {0,1,2} \draw[blift] (o\k)--(i\k);
+  \foreach \k/\l in {0/{X},1/{tX},2/{t^2X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7}{8}\selectfont] at (o\k) {$\l$};
+  \foreach \k/\l in {0/{bX},1/{tbX},2/{t^2bX}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7}{8}\selectfont] at (i\k) {$\l$};
+  \node[circle,draw=ColGoldStroke,line width=1pt,minimum size=7.4mm] at (i1) {}; \node[circle,draw=ColGoldStroke,line width=1pt,minimum size=7.4mm] at (i2) {};
 \end{scope}
-\node[lab,anchor=north west] at (7.6,13.45) {$t^3=b^2=E,\quad btb=t^{-1},\quad bt=t^2b\neq tb$};
-\node[sub,anchor=north west,text width=7.2cm] at (7.6,12.85) {continuation along $\ell_s$ multiplies the sheet label on the right};
-% ------------------------------------------------ C. X and bX: two configurations over one point
-\zoombubble{4.1}{3.4}{.55}{11.5}{4.2}{1.75}
-\begin{scope}[shift={(11.5,4.2)}]
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.46] at (-.9,.25) {mol3d-mla-X}; \pic[scale=.46] at (.95,.25) {mol3d-mla-bX};\end{scope}
-  \node[lab] at (-.9,-.85) {$X$}; \node[lab] at (.95,-.85) {$bX$};
-  \draw[upath] (-.35,-.85)--(.4,-.85);
-\end{scope}
-\node[sub,anchor=north,text width=6.0cm,align=center] at (11.5,2.3) {two configurations over one point $[X]$: no rotation carries $X$ to $bX$ (best-fit residual $\bXresidual$\,\AA); the action is free near $X_0$ (nearest image $\minDispG$\,\AA\ away)};
+  \node[lab] at (-1.0,-1.05) {$X$}; \node[lab] at (1.1,-1.05) {$bX$}; \draw[blift] (-.5,-1.05)--(.6,-1.05);
+
 \end{tikzpicture}
 \end{document}

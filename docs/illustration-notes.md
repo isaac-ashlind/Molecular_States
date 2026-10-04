@@ -171,3 +171,12 @@ the structure the picture: the spin space in the centre as three bundles of hair
 even-parity levels at the left pairing straight across, odd-parity levels at the right pairing with one visible
 crossing of A1 and A2. One line of text. Installed as figure 8. Lesson: when a plate's content is a rule, draw the
 rule acting (the swap), not its outcome (the numbers).
+
+### Figure 11, three approaches (same day)
+
+**11A** the cover's stack with all twelve sheets: the eight unvisited pairs add height and their labels crowd the
+sheet edges; the lifts tangle in one column. **11B** the six-sheet graph alone: the structure (the inner triangle
+turns the other way) in one glance, but the sheets, the paper's object, vanish. **11C** version pairs side by side:
+t climbs a column, b hops across, so "t then b" ends one level up on the right and "b then t" two levels up; the
+two endpoints are apart without a word. Installed: C, each column headed by its configuration (X, bX), the graph of
+B small at the right as bookkeeping, endpoints as gold rings, never a dot over a label.
