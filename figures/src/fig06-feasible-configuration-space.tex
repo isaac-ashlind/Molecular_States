@@ -75,8 +75,8 @@
   \node[tag,anchor=north west] at (.45,2.9) {$\conf$};
   \foreach \i in {0,...,9} \foreach \j in {0,1} {
     \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{.95+1.0*\j}
-    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (\cx,\cy) {thicktube};\end{scope}}
-  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=ColRetained!60}\pic at (1.35,.95) {thicktube};\end{scope}
+    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!14,tube/linecol=PlateInk!55}\pic at (\cx,\cy) {thicktube};\end{scope}}
+  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (1.35,.95) {thicktube};\end{scope}
   \node[tag] at (1.35,.35) {$\mathcal F$};
   \node[tag,anchor=north east] at (14.55,2.9) {$|S/G_{12}|=20$ images of $\mathcal F$; the rest of $\conf$ is cut away};
 \end{scope}

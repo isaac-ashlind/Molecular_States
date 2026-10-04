@@ -40,14 +40,14 @@
   \node[sub,anchor=north,text width=1.9cm,align=center] at (0,-1.3) {the mirror plane edge-on};
 \end{scope}
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
-\node[sub,anchor=west] at (.3,15.0) {the $36$ subgroups between $H$ and $S$, grey; the $10$ that keep the bonds, black; the chain $H<G_6<G_{12}<B$, heavy};
+\node[sub,anchor=west] at (.3,15.0) {the $36$ subgroups between $H$ and $S$, grey; the $10$ that keep the bonds, black; the chain $H<G_6<G_{12}<B$, gold};
 \begin{scope}[shift={(.5,7.6)}]
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.0*\x},{.2+6.3*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.25pt,draw=PlateInk!32] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}
-  \foreach \a/\b in {0/6,6/19,19/28} {\draw[line width=1.4pt,draw=PlateInk] (n\a)--(n\b);}
+  \foreach \a/\b in {0/6,6/19,19/28} {\draw[line width=1.4pt,draw=ColGoldStroke] (n\a)--(n\b);}
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!40] (n\i) circle[radius=1.0pt];\fi}
-  \foreach \i in \bigChain {\fill[PlateInk] (n\i) circle[radius=1.9pt];}
+  \foreach \i in \bigChain {\fill[ColGoldStroke] (n\i) circle[radius=1.9pt];}
   \node[lab,anchor=north] at ($(n0)+(0,-.1)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.1)$) {$S$};
   \node[sub,anchor=east] at ($(n6)+(-.12,0)$) {$G_6$}; \node[sub,anchor=east] at ($(n19)+(-.12,.02)$) {$G_{12}$}; \node[sub,anchor=east] at ($(n28)+(-.12,0)$) {$B$};
 \end{scope}
@@ -55,10 +55,10 @@
 \begin{scope}[shift={(11.5,8.1)},x=.68cm,y=1.6cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \foreach \a/\b in \hasseCovers {\draw[line width=.6pt,draw=PlateInk] (h\a)--(h\b);}
-  \draw[line width=1.4pt,draw=PlateInk] (h0)--(h4)--(h6)--(h9);
+  \draw[line width=1.4pt,draw=ColGoldStroke] (h0)--(h4)--(h6)--(h9);
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers, every node written by its generators, so each step up adjoins one generator; the same chain heavy};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {the bond interval $[H,B]$: $10$ subgroups, $17$ covers, every node written by its generators, so each step up adjoins one generator; the same chain in gold};
 % ------------------------------------------------ C. versions: the same positions, the digits move
 \node[sub,anchor=west] at (.3,6.1) {versions $G_{12}/H$: the same positions, position $j$ carries label $g(j)$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {

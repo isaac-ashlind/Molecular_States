@@ -2,7 +2,7 @@
 % assigns to each configuration a vector of that space (two components here); the norm is the integral of the
 % squared length over C. Drawing: a slice of C as a baseline with a comb of fibres, three configurations standing
 % on it, the two components as bars on each fibre; the component functions plotted beneath on the same theta scale.
-% Colours: red is oxygen only; the two components are ink, a solid and b dashed (the suite grammar for a dual pair). Hatch unused.
+% Colours: red is oxygen only; the two components a and b are the dual pair teal and gold (free on this plate). Hatch unused.
 % The state is physical on this slice: rotation-invariant and exchange-antisymmetric, so b = -a (the proton
 % singlet times f(theta), f an illustrative Gaussian, declared); samples and functions from figures/data.
 \documentclass[10pt,border=1mm]{standalone}
@@ -23,27 +23,27 @@
   \node[sub,anchor=south] at (4.7,2.65) {the same $\spin$ over every $X$: on each fibre the value $\Psi(X)$ as its two components $a$, $b$};
   \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}
     \pgfmathsetmacro{\av}{exp(-((\th-104.5)/14.0)^2/2)}\pgfmathsetmacro{\bv}{-\av}
-    \draw[line width=2.2pt,draw=PlateInk] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
-    \draw[line width=2.2pt,draw=PlateInk,dash pattern=on 1.3pt off 1.1pt] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});}
+    \draw[line width=2.2pt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
+    \draw[line width=2.2pt,draw=ColDualB] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});}
   \foreach \th/\k/\av/\bv in {\sampleThetaone/1/\sampleAone/\sampleBone,\sampleThetatwo/2/\sampleAtwo/\sampleBtwo,\sampleThetathree/3/\sampleAthree/\sampleBthree} {
     \pgfmathsetmacro{\x}{(\th-80)/100*9.4}
     \draw[fine] (\x,0)--(\x,2.6);
-    \draw[line width=2.2pt,draw=PlateInk] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
-    \draw[line width=2.2pt,draw=PlateInk,dash pattern=on 1.3pt off 1.1pt] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});
+    \draw[line width=2.2pt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
+    \draw[line width=2.2pt,draw=ColDualB] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});
     \fill[PlateInk] (\x,0) circle[radius=1.6pt];
     \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\pic[scale=.75] at (\x,-.8) {mol3d-water-sample-\k};\end{scope}
     \node[lab] at (\x,-1.55) {$X_\k$};}
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on 2pt off 1.4pt] (-.2,1.3)--(9.6,1.3); \node[sub,anchor=west] at (9.7,1.3) {$0$ in $\spin$};
-  \draw[line width=2.2pt,draw=PlateInk] (9.95,.6)--(9.95,.95); \node[sub,anchor=west] at (10.05,.78) {$a(X)$}; \draw[line width=2.2pt,draw=PlateInk,dash pattern=on 1.3pt off 1.1pt] (11.15,.6)--(11.15,.95); \node[sub,anchor=west] at (11.25,.78) {$b(X)$};
+  \draw[line width=2.2pt,draw=ColDualA] (9.95,.6)--(9.95,.95); \node[sub,anchor=west] at (10.05,.78) {$a(X)$}; \draw[line width=2.2pt,draw=ColDualB] (11.15,.6)--(11.15,.95); \node[sub,anchor=west] at (11.25,.78) {$b(X)$};
 \end{scope}
 % ------------------------------------------------ the component functions on the same theta scale
 \begin{axis}[at={(1.6cm,1.1cm)},scale only axis,width=9.4cm,height=3.3cm,xmin=80,xmax=180,ymin=-1.25,ymax=2.2,ytick={-1,0,1,2},xtick={80,100,120,140,160,180},
   xlabel={$\theta$},xlabel style={at={(axis description cs:1,0)},anchor=west,xshift=3pt},axis lines=left,axis line style={-},tick align=outside,clip=false]
-  \addplot[PlateInk,line width=.9pt] table[x=theta,y=a] {component-functions.dat};
-  \addplot[PlateInk,line width=.9pt,dash pattern=on 2.6pt off 1.6pt] table[x=theta,y=b] {component-functions.dat};
+  \addplot[ColDualA,line width=.9pt] table[x=theta,y=a] {component-functions.dat};
+  \addplot[ColDualB,line width=.9pt] table[x=theta,y=b] {component-functions.dat};
   \addplot[PlateInk,line width=.6pt,dash pattern=on .6pt off 1.3pt] table[x=theta,y=n2] {component-functions.dat};
   \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone}) (\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo}) (\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree})};
-  \node[lab,anchor=south] at (axis cs:104.5,1.03) {$a$}; \node[lab,anchor=north west] at (axis cs:121,-.9) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:118,1.55) {$|a|^2+|b|^2$};
+  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.03) {$a$}; \node[lab,anchor=north west,text=ColDualB] at (axis cs:121,-.9) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:118,1.55) {$|a|^2+|b|^2$};
 \end{axis}
 \node[lab,anchor=north west,text width=3.5cm,align=left] at (11.5,4.6) {$\Psi(X)=a(X)\,\xi+b(X)\,\eta$\\[6pt] $\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,dX$};
 \node[sub,anchor=north west,text width=14.4cm] at (.3,.6) {$\xi=\uparrow\downarrow\omega$, $\eta=\downarrow\uparrow\omega$ orthonormal in $\spin$; $b=-a$, so $\Psi=a\,(\xi-\eta)$ is the proton singlet, as exchange requires of a rotation-invariant state on this slice; $a(\theta)$ illustrative; the dots are $\|\Psi(X_k)\|^2$};

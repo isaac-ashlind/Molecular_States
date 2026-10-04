@@ -1,11 +1,11 @@
-% Guide (unnumbered). The whole story as one carved scene, read outside in and bottom to top: the configuration
-% space C as a hatched slab with the hole the carving leaves and one configuration as a point of it; the feasible
-% solid F lifted out, cut open, with the two generator paths and the version points on its band and a packet on
-% one version; above, the quotient patch V with the two loops and the six sheets over it with the two lifts ending
-% apart (monodromy). The four parts of the paper are callouts beside their objects.
-% Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the packet, white = cladding,
-% blue = nitrogen; the two actions are ink, t solid and tu dashed, on the solid and lifted on the sheets alike.
-% Hatch = cut material. Arrowheads only on the two generator paths on the solid.
+% Guide (unnumbered). The whole story as one carved scene, read bottom to top: the configuration space C as a
+% hatched slab with the hole the carving leaves and one configuration as a point of it; the feasible solid F lifted
+% out and cut open, with the two generator paths and the version points on its core sheet and a packet on one
+% version; above, the quotient patch V with the two loops, and over V four of the sheets, pieces of the same core sheet,
+% on which the two loops lift: neither lift closes, and they end on different sheets (monodromy).
+% Colours (the anchored palette): red = versions, teal tint = the core sheet and its six sheets over V, gold = the
+% packet, white = cladding and the quotient patch, blue = nitrogen. The two actions are ink, t solid and tu dashed,
+% on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -13,21 +13,21 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt},lift/.style={tlift},bliftl/.style={blift}]
-\path[use as bounding box] (0,0) rectangle (15,13.8);
+\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt}]
+\path[use as bounding box] (0,0) rectangle (15,14.2);
 \pgfmathsetmacro{\Ro}{2.3}\pgfmathsetmacro{\Ri}{1.62}\pgfmathsetmacro{\E}{.42}
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
-\path[cut] (.5,.9)--(12.1,.9)--(14.5,3.1)--(2.9,3.1)--cycle; \draw[heavy] (.5,.9)--(12.1,.9)--(14.5,3.1)--(2.9,3.1)--cycle;
-\node[tag,anchor=north west] at (3.05,3.0) {$\conf$};
-\path[fill=white,even odd rule] (7.6,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
-\draw[fine] (7.6,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
-% ------------------------------------------------ one configuration, a point of C, standing beside the slab
-\fill[PlateInk] (2.7,2.35) circle[radius=1.4pt];
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (2.0,5.0) {mol3d-mla-ref};\end{scope}
-\draw[leader] (2.25,4.1)--(2.7,2.45);
-\node[head,anchor=west] at (.5,7.5) {Configurations and States}; \node[rng,anchor=north west,text width=4.2cm] at (.5,7.28) {\S\S\,1--3\quad a configuration is a point of $\conf$};
-% ------------------------------------------------ the feasible solid F lifted out, with its band, paths and versions
-\begin{scope}[shift={(7.6,5.3)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-62,tube/a2=8}
+\path[cut] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle; \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
+\node[tag,anchor=north west] at (3.05,3.9) {$\conf$};
+\path[fill=white,even odd rule] (7.6,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+\draw[fine] (7.6,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+% ------------------------------------------------ one configuration, a point of C
+\fill[PlateInk] (2.7,3.25) circle[radius=1.4pt];
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (2.0,5.9) {mol3d-mla-ref};\end{scope}
+\draw[leader] (2.25,5.0)--(2.7,3.35);
+\node[head,anchor=west] at (.5,8.4) {Configurations and States}; \node[rng,anchor=north west,text width=4.2cm] at (.5,8.18) {\S\S\,1--3\quad a configuration is a point of $\conf$};
+% ------------------------------------------------ the feasible solid F lifted out: core sheet, two paths, versions, a packet
+\begin{scope}[shift={(7.6,6.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-62,tube/a2=8}
   \draw[hidden] (-\Ro,-3.3)--(-\Ro,-.55) (\Ro,-3.3)--(\Ro,-.55);
   \pic (ft) at (0,0) {thicktube};
   \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});
@@ -37,29 +37,28 @@
   \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (ft-\p) circle[radius=.085];}
   \node[tag,anchor=west] at (2.5,-1.15) {$\mathcal F$};
 \end{scope}
-\node[head,anchor=west] at (10.7,5.2) {Fragments and}; \node[head,anchor=west] at (10.7,4.8) {Feasible Regimes}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,4.58) {\S\S\,4--6\quad $\mathcal F$ carved out of $\conf$, its versions on the band};
-\node[head,anchor=west] at (10.7,7.4) {Symmetry and}; \node[head,anchor=west] at (10.7,7.0) {Localization}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,6.78) {\S\S\,7--9\quad species on the versions, a packet on one of them};
-\draw[leader] (10.6,7.2)--(9.55,6.45);
-% ------------------------------------------------ the quotient patch V with the two loops, the six sheets over it with the two lifts
-\draw[fine,dash pattern=on 1.6pt off 1.3pt] (7.6,5.03)--(7.9,8.52);
-\node[sub,anchor=west,inner sep=1pt] at (7.85,7.3) {$\mathcal F\to\mathcal F/G_{12}$};
-\begin{scope}[shift={(7.6,8.3)}]
-  \path[fill=white] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle; \draw[heavy] (-1.2,0)--(1.2,0)--(1.8,.45)--(-.6,.45)--cycle;
-  \coordinate (bx) at (.3,.22); \fill[PlateInk] (bx) circle[radius=1.2pt];
-  \draw[tlift] (bx) .. controls (-.9,.6) and (-.9,-.15) .. (bx);
-  \draw[blift] (bx) .. controls (1.5,-.15) and (1.5,.6) .. (bx);
-  \node[sub,anchor=west,inner sep=1pt] at (1.9,.22) {$V$};
-  \foreach \k in {0,1,2} {\pgfmathsetmacro{\ya}{1.15+1.2*\k}\pgfmathsetmacro{\yb}{\ya+.32}
-    \path[fill=white] (-1.2,\ya)--(1.2,\ya)--(1.8,\ya+.45)--(-.6,\ya+.45)--cycle; \draw[fine] (-1.2,\ya)--(1.2,\ya)--(1.8,\ya+.45)--(-.6,\ya+.45)--cycle;
-    \path[fill=white] (-1.2,\yb)--(1.2,\yb)--(1.8,\yb+.45)--(-.6,\yb+.45)--cycle; \draw[fine] (-1.2,\yb)--(1.2,\yb)--(1.8,\yb+.45)--(-.6,\yb+.45)--cycle;
-    \coordinate (pa\k) at (.3,{\ya+.22}); \coordinate (pb\k) at (.3,{\yb+.22});}
+\node[head,anchor=west] at (10.7,6.1) {Fragments and}; \node[head,anchor=west] at (10.7,5.7) {Feasible Regimes}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,5.48) {\S\S\,4--6\quad $\mathcal F$ carved out of $\conf$, its versions on the core sheet};
+\node[head,anchor=west] at (10.7,8.3) {Symmetry and}; \node[head,anchor=west] at (10.7,7.9) {Localization}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,7.68) {\S\S\,7--9\quad species on the versions, a packet on one of them};
+\draw[leader] (10.6,8.1)--(9.55,7.35);
+% ------------------------------------------------ the quotient patch V with the two loops; over it the six sheets with the two lifts
+\draw[fine,dash pattern=on 1.6pt off 1.3pt] (7.6,5.93)--(7.55,9.52);
+\node[sub,anchor=west,inner sep=1pt] at (7.75,8.25) {$\mathcal F\to\mathcal F/G_{12}$};
+\begin{scope}[shift={(7.2,9.3)}]
+  \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
+  \sheet{0}{heavy}{white}
+  \coordinate (bx) at (.35,.25); \fill[PlateInk] (bx) circle[radius=1.2pt];
+  \draw[tlift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
+  \draw[ulift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
+  \node[sub,anchor=west,inner sep=1pt] at (2.6,.25) {$V$};
+  \foreach \k/\la/\lb in {0/H/uH,1/tH/tuH} {\pgfmathsetmacro{\ya}{1.3+1.5*\k}\pgfmathsetmacro{\yb}{\ya+.42}
+    \sheet{\ya}{fine}{ColBand} \sheet{\yb}{fine}{ColBand}
+    \coordinate (pa\k) at (.35,{\ya+.25}); \coordinate (pb\k) at (.35,{\yb+.25});
+    \node[sub,anchor=west,inner sep=1pt] at (2.6,{\ya+.25}) {$\la$}; \node[sub,anchor=west,inner sep=1pt] at (2.6,{\yb+.25}) {$\lb$};}
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
-  \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
-  \draw[tlift] (pa0) .. controls (-.9,{1.15+.22+.4}) and (-.9,{1.15+1.2+.22-.4}) .. (pa1);
-  \draw[ulift] (pa0) .. controls (1.5,{1.15+.22+.3}) and (1.5,{1.15+1.2+.32+.22-.3}) .. (pb1);
-  \node[sub,anchor=west,inner sep=1pt] at (1.9,{1.15+.22}) {$H$}; \node[sub,anchor=west,inner sep=1pt] at (1.9,{1.15+1.2+.22}) {$tH$}; \node[sub,anchor=west,inner sep=1pt] at (1.9,{1.15+1.2+.32+.22}) {$tuH$};
+  \draw[tlift] (pa0) .. controls (-1.5,{1.3+.25+.5}) and (-1.5,{1.3+1.5+.25-.5}) .. (pa1);
+  \draw[ulift] (pa0) .. controls (2.2,{1.3+.25+.35}) and (2.2,{1.3+1.5+.42+.25-.35}) .. (pb1);
+  \foreach \k in {0,1} {\hatomat{pa\k}{.075}{ColDot} \hatomat{pb\k}{.075}{ColDot}}
 \end{scope}
-\node[head,anchor=west] at (10.7,12.1) {Representations and}; \node[head,anchor=west] at (10.7,11.7) {Global Structure}; \node[rng,anchor=north west,text width=3.9cm] at (10.7,11.48) {\S\S\,10--12\quad charts, sheets and modes; the lifts of the two loops end on different sheets};
-\draw[leader] (10.6,11.9)--(9.5,11.6);
+\node[head,anchor=west] at (11.2,12.5) {Representations and}; \node[head,anchor=west] at (11.2,12.1) {Global Structure}; \node[rng,anchor=north west,text width=3.6cm] at (11.2,11.88) {\S\S\,10--12\quad charts, sheets and modes; the lifts of the two loops end on different sheets};
 \end{tikzpicture}
 \end{document}
