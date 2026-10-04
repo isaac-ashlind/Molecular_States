@@ -43,7 +43,8 @@ X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/veri
 ## Figure 2, ambient Hilbert space
 A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
 configuration; on each fibre the value Psi(X) as its two components a (teal) and b (gold) in the basis
-|up down> omega, |down up> omega; three configurations X1, X2, X3 standing on the slice; the component functions
+|up down> omega, |down up> omega (the text's xi and zeta; zeta replaces the earlier eta, which is the amino
+coordinate elsewhere); three configurations X1, X2, X3 standing on the slice; the component functions
 plotted beneath on the same theta scale with the norm density dotted and the three sampled values as dots. The
 state drawn is physical on this slice by the author's choice: rotation-invariant and exchange-antisymmetric, so
 b = -a (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
@@ -105,8 +106,8 @@ amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 
 ## Figure 9, localized states
 The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows
-of width/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (the plate writes "width" rather than sigma, since sigma is
-the exchange on the water plates; the caption can identify the width with the text's symbol); the overlap c = <g0, g1> = exp(-d^2 / 8 sigma^2) is the darker
+of lambda/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (lambda is the packet width; it replaces the earlier sigma,
+which is the permutation symbol throughout the text); the overlap c = <g0, g1> = exp(-d^2 / 8 lambda^2) is the
 gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
 (open); the small chart marks the three rows on the share curves (figures/data/gaussian-shares.dat, exact in
 verify_symbolic.py). Planar Gaussian illustration as in the manuscript.

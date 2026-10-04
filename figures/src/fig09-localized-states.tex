@@ -1,7 +1,7 @@
 % Figure 9. Localized states. What the reader must see: three version packets stand on the torsion circle, here
 % unrolled; their width sets the overlap c, which sets the projection shares; narrow packets are 1/3 A1 and 2/3 E,
-% broad packets nearly all A1. Drawing: three rows (width/d = 1/6, 1/3 as drawn elsewhere, 2/3; the plate avoids the
-% symbol sigma, which the water plates use for the exchange) of periodic Gaussians
+% broad packets nearly all A1. Drawing: three rows (lambda/d = 1/6, 1/3 as drawn elsewhere, 2/3; lambda is the packet
+% width, since sigma is the permutation symbol throughout the text) of periodic Gaussians
 % at tau = 0, 2pi/3, 4pi/3, the overlap as the darker gold; at the right of each row the A1 share as the filled part
 % of a bar; the share curves small with the three rows marked. Colours: gold = the overlap and the A1 share it sets (small areas only), red = the
 % version points; ink elsewhere. Hatch unused. Shares from figures/data (verified exactly in checks/verify_symbolic.py).
@@ -34,10 +34,10 @@
 \node[lab,anchor=south] at (6.0,9.95) {$g_0$}; \node[lab,anchor=south] at (8.8,9.95) {$g_1$}; \node[lab,anchor=south] at (3.2,9.95) {$g_2$};
 \node[sub,anchor=north] at (6.0,3.45) {$H$}; \node[sub,anchor=north] at (8.8,3.45) {$tH$}; \node[sub,anchor=north] at (3.2,3.45) {$t^2H$};
 \node[sub,anchor=south] at (12.05,9.3) {$w_{\mathrm A_1}$}; \node[sub,anchor=south] at (13.55,9.3) {$w_{\mathrm E}$};
-\node[sub,anchor=east] at (1.55,9.6) {width$/d$};
+\node[sub,anchor=east] at (1.55,9.6) {$\lambda/d$};
 \node[lab] at (4.6,6.8) {$c$};
 % the share curves, small, with the three rows marked
-\begin{axis}[at={(8.6cm,.6cm)},width=5.6cm,height=2.9cm,xmin=0,xmax=1,ymin=0,ymax=1.05,restrict x to domain=0:1,xtick={0,0.3333,0.6667,1},xticklabels={$0$,$1/3$,$2/3$,$1$},ytick={0,0.3333,0.6667,1},yticklabels={$0$,$1/3$,$2/3$,$1$},axis lines=left,axis line style={-},tick align=outside,clip=false,xlabel={width$/d$},xlabel style={at={(axis description cs:1,0)},anchor=north west,xshift=2pt,yshift=-1pt}]
+\begin{axis}[at={(8.6cm,.6cm)},width=5.6cm,height=2.9cm,xmin=0,xmax=1,ymin=0,ymax=1.05,restrict x to domain=0:1,xtick={0,0.3333,0.6667,1},xticklabels={$0$,$1/3$,$2/3$,$1$},ytick={0,0.3333,0.6667,1},yticklabels={$0$,$1/3$,$2/3$,$1$},axis lines=left,axis line style={-},tick align=outside,clip=false,xlabel={$\lambda/d$},xlabel style={at={(axis description cs:1,0)},anchor=north west,xshift=2pt,yshift=-1pt}]
   \addplot[PlateInk,line width=.9pt] table[x=x,y=wA1] {gaussian-shares.dat};
   \addplot[PlateInk!55,line width=.9pt] table[x=x,y=wE] {gaussian-shares.dat};
   \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(0.1667,0.341) (0.3333,0.550) (0.6667,0.837)};

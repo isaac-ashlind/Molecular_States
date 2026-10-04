@@ -40,3 +40,11 @@
 - Leaders start and end on the things they join; labels sit on the object they name.
 - The cover's sheets lift the same two loops as the solid; the non-abelian point is left to figure 11.
 - A plate's content that is a rule is drawn as the rule acting, not as its outcome (figure 8).
+
+## 2026-10-04, night: symbol clashes resolved document-wide
+
+- The packet width is lambda (was sigma, which is the permutation symbol in 31 of its 33 uses): text lines on the
+  Gaussian overlap, figure 9, caption notes.
+- The second spin basis vector in the ambient-space example is zeta (was eta, which is the amino coordinate
+  everywhere else): one sentence of the text, figure 2's caption note.
+- Free letters checked before choosing: lambda, zeta, nu and Delta are unused elsewhere.
