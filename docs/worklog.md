@@ -37,3 +37,13 @@ cd "$ROOT/build/alt" && pdflatex -interaction=nonstopmode -halt-on-error -output
   && pdftoppm -r "$DPI" -png -singlefile "$ROOT/build/alt/$(basename "$SRC" .tex).pdf" "$ROOT/build/alt/$(basename "$SRC" .tex)"
 ```
 Next: figure 7 (fix the disc size test in `fig07-common.tex`: compare in cm, not pt), then 8, 9.
+
+## 2026-10-04, end of day
+
+Installed from the round-3 studies: figure 7 (sites on the torsion circle, disc-picture grid, the E plane), figure 8
+(spin space as hairline bundles between the two parity columns; the dot stacks and the mosaic were rejected as
+tables), figure 9 (unrolled packets in three rows, gold only on the overlap and the A1 share), figure 10 (band,
+unroll, chart; slice beside q; both normal directions), figure 11 (version pairs side by side, t climbs, b hops, the
+two orders end apart), figure 12 (labels only, red marks, gold shear line), figure 4 (the reaction plate with gold and
+teal strands), figure 5 (generator line styles over a gold chain halo). `checks/verify_spin.py` added to the build.
+Full build, manuscript and zip refreshed at the end (see git log).

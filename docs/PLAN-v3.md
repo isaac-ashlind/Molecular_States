@@ -31,6 +31,13 @@ assistant is the scientific illustrator. No swarms: one coordinator, at most two
 5. Adopted elements propagate (version dots, torsion circle, band and chart, disc pictures, line grammar).
 6. Record the critique in `docs/illustration-notes.md`; commit after every plate.
 
+## Status (end of 2026-10-04)
+
+Done this round: cover accepted; figures 7, 8, 9, 10, 11, 12, 4 and 5 redrawn and installed (studies and critiques in
+`studies/alternatives/round3/` and `docs/illustration-notes.md`); palette, ink-first rule and line-style budget
+written into the style files. Open: the author's review of the installed plates; touch-ups to figures 1 to 3;
+the reviewer-subagent close-up pass; the final QA list below.
+
 ## Per plate (order: 7, 8, 9; then 10, 11, 12; then 4, 5; then 1 to 3 touch-ups)
 
 - **7 species.** Sites on the torsion circle as in 9 and 12; t the arc, b the mirror line through H; modes as disc

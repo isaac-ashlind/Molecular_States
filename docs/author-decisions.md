@@ -27,3 +27,16 @@
 2. Final captions, from docs/caption-notes.md.
 3. Whether to keep the schematic K2Rb2 positions or replace them with a computed complex geometry.
 4. The illustrative component functions of figure 2 and rho = 0.3 of figure 12, if real values are preferred.
+
+## 2026-10-04, late: palette anchored on the cover; ink first; line styles as a budget
+
+- The cover fixes the palette and every plate draws from it alone: ink, red (oxygen on the water plates, versions
+  on the methylamine plates), blue (nitrogen only), teal (the reference family as a pale tint; rubidium), gold
+  (retained regions; potassium), white, grey. Green and violet left the palette.
+- Plates read as black-and-white ink drawings; colour only where it speeds comprehension or guides the eye;
+  surfaces that carry no meaning stay white; walls of colour are harsh.
+- Actions carry no colour: solid t, dashed u or tu, dotted a starred operation. Line styles and hatching are a
+  budget per plate like colour; hidden lines are dotted because dashed is spent.
+- Leaders start and end on the things they join; labels sit on the object they name.
+- The cover's sheets lift the same two loops as the solid; the non-abelian point is left to figure 11.
+- A plate's content that is a rule is drawn as the rule acting, not as its outcome (figure 8).

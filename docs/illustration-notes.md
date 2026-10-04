@@ -180,3 +180,14 @@ turns the other way) in one glance, but the sheets, the paper's object, vanish. 
 t climbs a column, b hops across, so "t then b" ends one level up on the right and "b then t" two levels up; the
 two endpoints are apart without a word. Installed: C, each column headed by its configuration (X, bX), the graph of
 B small at the right as bookkeeping, endpoints as gold rings, never a dot over a label.
+
+### Figures 4 and 5, and figure 12 (same day)
+
+Figure 4 became the reaction plate: the arrows between the three groupings are now the two strands themselves
+(gold potassium, teal rubidium), side by side into the complex and split at the products, and the same strands
+climb and descend the lattice with G_in at the left; the paragraph went. Figure 5 lost the Newman mirror glyph
+(hard to read), the Hasse covers now carry the generator they adjoin in the line grammar (solid t, dashed u,
+dotted starred) over a gold halo for the chain, and the three sentences became labels. Figure 12 kept its three
+parts and lost its three paragraphs; the version marks on the radial plots are red as in figures 7 and 9, and the
+shear line is gold. Lesson from the day: a block removed by searching for its text can match the header comment;
+anchor edits on code, not prose.

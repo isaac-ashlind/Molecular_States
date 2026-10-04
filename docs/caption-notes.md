@@ -47,17 +47,22 @@ nuclei carrying each digit; the statistics sign and the parity rule as the only 
 also a rotated copy (stated on the plate); the inversion triad on a sphere is after Harter (1993), Fig. 5.1.1.
 
 ## Figure 4, molecules, fragments, complexes
-Methylamine once with one fragment boundary and once with two (fine dashed contours around the computed
-positions). K2Rb2: positions schematic (declared), potassium above and rubidium below, a thin line joins grouped
-nuclei; the three channel groups, their orders, their common core <E*>, the fact that any two generate S, and the
-sixteen subgroups of S with their covers are computed (compute/groups.py, checks/verify.g).
+The reaction plate. One set of four nuclei (potassium 1, 2; rubidium 3, 4) grouped three ways along the reaction,
+KRb + KRb (G_in = <(12)(34), E*>), the complex K2Rb2 (S = <(12), (34), E*>), K2 + Rb2 (G_K = <(12), E*>,
+G_Rb = <(34), E*>); a line joins grouped nuclei; positions schematic (declared). The two product channels are two
+strands, gold for potassium and teal for rubidium, side by side from the reactants into the complex and split at
+the products; the same strands on the lattice of the sixteen subgroups of S (congruent to C_2^3, computed in
+checks/verify.g), up from G_in to S and down to G_K and G_Rb; the common core <E*> below, E at the bottom; the
+lattice shows inclusion, not accessibility. Named nodes gold (G_K), teal (G_Rb), half and half (G_in).
 
 ## Figure 5, symmetry groups and versions
-X0 with the mirror plane through H1, C, N and the half-turn axis; bX0 = X0 P_b drawn solid with digits, equal to
-R_y(pi) X0 to 1e-15 (verify.py, verify_symbolic.py). The 36 subgroups between H and S (grey) with the 10 of the
-bond interval [H, B] (black) and the chain H < G6 < G12 < B (blue), the same chain in the Hasse diagram of [H, B]
-(10 subgroups, 17 covers); all computed and cross-checked in GAP. Six versions as the same positions with the
-digits moved by g (position j carries label g(j)).
+Row A: methylamine as two fragments, methyl and amino (dashed hulls); X0 with its half-turn axis and the version
+equation b = (23)(45)* = R_y(pi), bX0 = X0 P_b = R_b X0, so H = {E, b}. Row B: the 36 subgroups between H and S
+(grey) carved to the 10 that keep the bonds (black), the chain H < G6 < G12 < B in gold; at the right the bond
+interval [H, B] as a Hasse diagram, every node written by its generators, each cover drawn in the line grammar of
+the generator it adjoins (solid t, dashed u, dotted a starred one: E*, u*, t*), the same chain as a gold halo.
+Row C: the six versions G12/H, the same positions with the digits moved, position j carrying label g(j). All
+lattice data, generator forms and cover labels computed (compute/, checks/verify.g).
 
 ## Figure 6, feasible configuration space
 The solid F as a short thick tube cut open: band at mid-thickness, tau around, eta along the height, Q across the
@@ -65,6 +70,9 @@ wall; one radial thickness stands for the 13 normal coordinates; SO(3) suppresse
 claim about F; assumed: an embedded tubular neighbourhood and separation of the images. Version positions, the
 t and tu paths and the eclipsed point are the computed family positions. Newman projections are computed from the
 family (digits are column labels). Twenty images since |S/G12| = 20 (GAP).
+
+In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 8 degrees on the page so that both
+sets of hydrogens show, the usual drawing convention (declared; the geometry itself is exactly eclipsed).
 
 ## Figure 7, symmetry species
 The three version sites on the torsion circle (tau = 0, 2pi/3, 4pi/3); t turns them by a third, b is the mirror

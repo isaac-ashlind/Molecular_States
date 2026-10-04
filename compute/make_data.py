@@ -133,14 +133,17 @@ def pic_code_grouped(X, elements, lines_, cam):
     out += pic_code_rods(X, elements, [], cam, labels=True)
     return out
 
-def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7):
+def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7, twist_deg=0.0):
     """Newman projection down the C-N axis (viewer on the N side): back carbon as a circle with its
     hydrogens on fine bonds from the rim; front nitrogen as a disc at the centre with its hydrogens on
     rod bonds from the centre.  Page coordinates are the molecular (x, y) in angstrom; the digit is the
-    column label (version labels are supplied by the \\molA.. macros)."""
+    column label (version labels are supplied by the \\molA.. macros).  twist_deg turns the back set on
+    the page by a small angle, the drawing convention for an eclipsed projection (declared, not geometry)."""
     lines = []
+    c, s_ = math.cos(math.radians(twist_deg)), math.sin(math.radians(twist_deg))
     for k in methyl:
         x, y, _ = X[k-1]
+        x, y = c*x - s_*y, s_*x + c*y
         lines.append(f'\\nmback{{{fmt(x)}}}{{{fmt(y)}}}{{\\mol{"ABCDEFG"[k-1]}}}')
     lines.append('\\nmcircle')
     for k in amino:
@@ -390,7 +393,7 @@ def main():
         emit_pic(mol, f'mla-tau-{deg}', pic_code(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     summary['tau_shapes_deg'] = [0, 60, 120]
     for deg in (0, 60, 120, 240):
-        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS))
+        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(8.0 if deg == 60 else 0.0)))
     emit_pic(mol, 'newman-tau-0-eta-minus', pic_code_newman(G.methylamine(0.0, -ETA0), G.MLA_ELEMENTS))
     emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)

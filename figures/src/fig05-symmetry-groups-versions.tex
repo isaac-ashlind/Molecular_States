@@ -55,7 +55,7 @@
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,anchor=north] at (11.5,7.5) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move
 \node[sub,anchor=west] at (.3,6.1) {versions $G_{12}/H$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
