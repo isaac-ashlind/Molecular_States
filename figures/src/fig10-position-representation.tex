@@ -21,36 +21,39 @@
     \foreach \n/\a/\b/\e/\f in \chartCells {\draw[fine] (\a,\e) rectangle (\b,\f);}
     \path[fill=ColRetained!50] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
     \draw[heavy] (-1,-1) rectangle (1,1);
-    \node[lab] at (0,.5) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
+    \node[lab] at (.1,.5) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
     \node[lab] at (.8333,-.5) {$u\,\mathcal U$}; \node[lab] at (-.8333,-.5) {$u\,\mathcal U$};
     \node[lab] at (-.5,-.5) {$tu\,\mathcal U$}; \node[lab] at (.3333,-.5) {$t^2u\,\mathcal U$};
-    \draw[tpath] (0,.94)--(.62,.94);
+    \draw[tpath] (.03,.95) to[bend right=14] (.63,.95);
     \draw[upath] (0,1)--(-.3333,-1);
-    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColDot] (\x,\y) circle[radius=2.1pt];
+    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColDot] (\x,\y) circle[radius=.08cm];
     \node[sub,anchor=south west] at (.03,1.06) {$H$}; \node[sub,anchor=south] at (.6667,1.06) {$tH$}; \node[sub,anchor=south] at (-.6667,1.06) {$t^2H$};
     \node[sub,anchor=north] at (-.3333,-1.08) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.08) {$t^2uH$}; \node[sub,anchor=north] at (1,-1.08) {$uH$}; \node[sub,anchor=north] at (-1,-1.08) {$uH$};
     \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.48) {$\l$};
-    \node[sub,anchor=north] at (.5,-1.48) {$\tau$};
+    \node[sub,anchor=north west] at (1.1,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
+% the undisplaced shape beneath its displaced copy: faded solid outlines (dotted is for starred operations and hidden lines)
+\newcommand\molfaded{\renewcommand\molrodj[8]{\draw[line width=.4pt,draw=PlateInk!40] (##1,##2)--(##3,##4);}
+  \renewcommand\molatom[4]{\if##1H\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radH];\else\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.3);
 % ------------------------------------------------ row 1: the solid, its core sheet, the chart
 \begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/E=.42,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}
   \pic (sf) at (0,0) {thicktube};
-  \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.29*sin(\a)},{.37-.42*1.29*cos(\a)});
-  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.29*sin(-60*\s)},{.37-2*.37*\s-.42*1.29*cos(60*\s)});
-  \foreach \p in {top0,top120,top240,bot300} {\hatomat{sf-\p}{.065}{ColDot}}
-  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (sf-\p) circle[radius=.065];}
+  \draw[tpath] plot[domain=0:116.5,samples=30,variable=\a] ({1.29*sin(\a)},{.37-.42*1.29*cos(\a)});
+  \draw[upath] plot[domain=0:.955,samples=30,variable=\s] ({1.29*sin(-60*\s)},{.37-2*.37*\s-.42*1.29*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot300} {\hatomat{sf-\p}{.08}{ColDot}}
+  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (sf-\p) circle[radius=.08];}
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
 \draw[harrow] (3.8,10.3)--(4.75,10.3); \node[sub,anchor=south,align=center] at (4.28,10.42) {strip the\\cladding};
 \begin{scope}[shift={(6.3,10.3)}]\tikzset{band/R=1.2,band/H=.37}
   \pic (bd) at (0,0) {band};
-  \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
-  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
-  \foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.065}{ColDot}}
+  \draw[tpath] plot[domain=0:116.2,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
+  \draw[upath] plot[domain=0:.955,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
   \draw[leader,shorten >=3pt] (0,{.37+.42*1.2+.05})--(0,{.37+.42*1.2+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.2+.5}) {cut at the seam, $\tau=\pm\pi$};
   \node[sub,anchor=west] at ($(bd-top0)+(.12,-.04)$) {$H$};
 \end{scope}
@@ -59,15 +62,15 @@
 % ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
 \node[sub,anchor=west] at (.5,7.8) {over each point $a$ of the chart sit every normal displacement $q$ and every orientation $r$: $x=(r,a,q)$};
 \begin{scope}\molsolid\mollabelsfalse
-  \pic[scale=.72] at (2.5,6.05) {mol3d-mla-ref};
-  \begin{scope}\molghost\pic[scale=.72] at (7.5,6.05) {mol3d-mla-ref};\end{scope}
-  \pic[scale=.72] at (7.5,6.05) {mla-disp};
-  \pic[scale=.72] at (12.15,6.05) {mla-rot-disp};
+  \pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
+  \begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mol3d-mla-ref};\end{scope}
+  \pic[scale=.8] at (7.5,6.05) {mla-disp};
+  \pic[scale=.8] at (12.15,6.05) {mla-rot-disp};
 \end{scope}
 \draw[harrow] (4.35,6.05)--(5.65,6.05); \node[lab,anchor=south] at (5.0,6.15) {$q$};
 \draw[harrow] (9.35,6.05)--(10.45,6.05); \node[lab,anchor=south] at (9.9,6.15) {$r$};
-\node[sub,anchor=north,align=center] at (2.5,4.7) {$\X_0(a)$\\the shape, a point of the chart};
-\node[sub,anchor=north,align=center] at (7.5,4.7) {$\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)$\\displaced along the normal frame};
+\node[sub,anchor=north,align=center] at (2.5,4.7) {$\X_0(a)\vphantom{\bigl(}$\\the shape, a point of the chart};
+\node[sub,anchor=north,align=center] at (7.5,4.7) {$\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\vphantom{\bigl(}$\\displaced along the normal frame};
 \node[sub,anchor=north,align=center] at (12.15,4.7) {$\varphi(r,a,q)=\Rmat(r)\bigl(\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\bigr)$\\rotated};
 % ------------------------------------------------ row 3: the two normal directions at a, seen from the side
 \node[sub,anchor=west] at (.5,3.55) {the two normal directions at $a$, mass-orthonormal, seen from the side};

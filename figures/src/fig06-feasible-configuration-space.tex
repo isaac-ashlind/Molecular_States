@@ -27,24 +27,24 @@
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({2.15*sin(\a+\ph)},{-.62-.42*2.15*cos(\a+\ph)});}
   \coordinate (ecl) at ({2.15*sin(60+\ph)},{.62-.42*2.15*cos(60+\ph)});
   % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
-  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});
-  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
+  \draw[tpath] plot[domain=\ph:\ph+117.6,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});
+  \draw[upath] plot[domain=0:.96,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
   \draw[fine,fill=white] (ecl) circle[radius=.075];
-  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.09}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.09];}
+  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
+  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
 \end{scope}
 \leaderlabel{10.86}{9.65}{.0}{-.55}{north}{$H$}
 \leaderlabel{11.82}{11.16}{.45}{.4}{west}{$tH$}
 \leaderlabel{8.22}{10.75}{-.5}{.45}{east}{$t^2H$}
-\draw[leader,shorten >=3pt] (12.38,10.29)++(.06,-.04)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.87) {eclipsed};
-\draw[leader,shorten >=3pt] (12.38,9.05)--++(.6,-.4); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (12.98,8.65) {$t^2uH$};
-\draw[leader,shorten >=3pt] (9.74,10.15)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at (8.84,11.3) {$uH$};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,10.29)--++(.66,-.42); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.87) {eclipsed};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,9.05)--(12.9,9.35); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (12.9,9.35) {$t^2uH$};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (9.74,10.15)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at (8.84,11.3) {$uH$};
 \node[lab] at (13.2,10.72) {$t$}; \node[lab,inner sep=1pt] at (9.33,9.12) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
 % the version point tuH at the lower end of the iota line)
 \zoombubble{8.73}{9.28}{.95}{3.0}{9.9}{1.5}
 \begin{scope}[shift={(3.0,9.9)}]
-  \pgfmathsetmacro{\m}{1.5/.95}\pgfmathsetmacro{\fa}{-47}\pgfmathsetmacro{\E}{.42}
+  \pgfmathsetmacro{\m}{1.45}\pgfmathsetmacro{\fa}{-47}\pgfmathsetmacro{\E}{.42}
   \pgfmathsetmacro{\cx}{2.15*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*2.15*cos(\fa)}
   \coordinate (p1) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(.62-\E*1.8*cos(\fa)-\cy)});
   \coordinate (p2) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(.62-\E*2.5*cos(\fa)-\cy)});
@@ -54,9 +54,9 @@
   \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   \path[fill=ColBand] ({-.07*\m},{\m*.62}) rectangle ({.07*\m},{-\m*.62}); \draw[line width=.4pt,draw=PlateInk] ({-.07*\m},{\m*.62})--({-.07*\m},{-\m*.62}) ({.07*\m},{\m*.62})--({.07*\m},{-\m*.62});
-  \hatom{0}{-\m*.62}{.09}{ColDot}
+  \hatom{0}{-\m*.62}{.08}{ColDot}
   \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.14}) {$tuH$};
-  \draw[harrow] (0,.2)--(-.52,.2); \node[lab,anchor=east,inner sep=1pt] at (-.74,.2) {$q$};
+  \draw[harrow] (0,.2)--(-.40,.2); \node[lab,anchor=east,inner sep=1pt] at (-.72,.2) {$q$};
   \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\iota$};
 \end{scope}
 \node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
@@ -75,7 +75,7 @@
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
-\node[sub,anchor=south] at (7.0,2.85) {the same two paths seen down the C--N axis, N in front};
+\node[sub,anchor=north] at (7.0,3.3) {the same two paths seen down the C--N axis, N in front};
 \begin{scope}\def\nmR{.5}
   \pic[scale=.9] at (1.9,1.65) {newman-tuH};
   \pic[scale=.9] at (5.3,1.65) {newman-tau-0};

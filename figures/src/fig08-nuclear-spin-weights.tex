@@ -13,7 +13,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk},jndash/.style={line width=.5pt,draw=PlateInk,dash pattern=on 2.4pt off 1.6pt}]
-\path[use as bounding box] (0,0) rectangle (15,7.0);
+\path[use as bounding box] (0,.55) rectangle (15,6.75);
 % heights of the three species rows
 \def\yA{5.0}\def\yB{3.4}\def\yE{1.7}
 % ---- the spin space: bundles of hairlines, one line per state, E as pairs
@@ -26,13 +26,13 @@
   \draw[fine] (-1.3,6.05)--(-1.3,5.9)--(1.3,5.9)--(1.3,6.05);
 \end{scope}
 % ---- even-parity levels at the left: straight across
-\node[lab,anchor=south] at (1.8,6.0) {even, $\chi_+$};
+\node[lab,anchor=south] at (1.8,6.2) {even, $\chi_+$};
 \draw[heavy] (1.0,\yA)--(2.6,\yA); \node[lab,anchor=east] at (.85,\yA) {$\mathrm A_1$};
 \draw[heavy] (1.0,\yB)--(2.6,\yB); \node[lab,anchor=east] at (.85,\yB) {$\mathrm A_2$};
 \draw[heavy] (1.0,\yE)--(2.6,\yE) (1.0,{\yE+.06})--(2.6,{\yE+.06}); \node[lab,anchor=east] at (.85,{\yE+.03}) {$\mathrm E$};
 \draw[jn] (2.6,\yA)--(6.4,\yA); \draw[jn] (2.6,\yB)--(6.4,\yB); \draw[jn] (2.6,{\yE+.03})--(6.4,{\yE+.03});
 % ---- odd-parity levels at the right: A1 and A2 swap partners, E keeps E
-\node[lab,anchor=south] at (13.2,6.0) {odd, $\chi_-$};
+\node[lab,anchor=south] at (13.2,6.2) {odd, $\chi_-$};
 \draw[heavy] (12.4,\yA)--(14.0,\yA); \node[lab,anchor=west] at (14.15,\yA) {$\mathrm A_1$};
 \draw[heavy] (12.4,\yB)--(14.0,\yB); \node[lab,anchor=west] at (14.15,\yB) {$\mathrm A_2$};
 \draw[heavy] (12.4,\yE)--(14.0,\yE) (12.4,{\yE+.06})--(14.0,{\yE+.06}); \node[lab,anchor=west] at (14.15,{\yE+.03}) {$\mathrm E$};

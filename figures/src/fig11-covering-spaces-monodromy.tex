@@ -31,29 +31,30 @@
     \pgfmathsetmacro{\y}{1.6+1.7*\k}
     \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
     \coordinate (pa\k) at (-1.95,{\y+.35}); \coordinate (pb\k) at (2.65,{\y+.35});
-    \node[sub,anchor=west,inner sep=1pt] at (-3.55,{\y+.24}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (1.05,{\y+.24}) {$\gb$};
+    \node[sub,anchor=west,inner sep=1pt] at (-3.55,{\y+.24}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (3.0,{\y+.2}) {$\gb$};
     \node[lab,anchor=east] at (-4.3,{\y+.35}) {$\pl$};}
   \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pa0); \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pb0);
   \draw[tlift] (pa0) .. controls (-3.0,{1.6+.35+.35}) and (-3.0,{1.6+1.7+.35-.35}) .. (pa1);
   \draw[blift] (pa1)--(pb1);
   \draw[blift] (pa0)--(pb0);
   \draw[tlift] (pb0) .. controls (4.8,{1.6+.35+1.0}) and (4.8,{1.6+3.4+.35-1.0}) .. (pb2);
-  \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
-  \hatomat{bx}{.07}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
+  \foreach \k in {0,1,2} {\hatomat{pa\k}{.08}{ColDot} \hatomat{pb\k}{.08}{ColDot}}
+  \hatomat{bx}{.08}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
   \goldring{pb1} \goldring{pb2}
   \node[sub,anchor=south] at ($(pb1)+(0,.42)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.42)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns, drawn at the scale of figure 5
 \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (3.3,9.7) {mol3d-mla-X}; \pic[scale=.8] at (7.9,9.7) {mol3d-mla-bX};\end{scope}
 \node[lab] at (3.3,8.3) {$\X$}; \node[lab] at (7.9,8.3) {$b\X$}; \draw[blift] (4.3,8.3)--(6.9,8.3);
-% the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other
-\begin{scope}[shift={(13.1,4.6)}]
-  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.55*cos(\a)},{1.55*sin(\a)}); \coordinate (i\k) at ({.72*cos(\a)},{.72*sin(\a)});}
-  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath,shorten >=3.4mm,shorten <=3mm] (o\k) to[bend right=24] (o\n);
-  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath,shorten >=3.4mm,shorten <=3mm] (i\k) to[bend left=30] (i\n);
-  \foreach \k in {0,1,2} \draw[blift] (o\k)--(i\k);
-  \foreach \k/\l in {0/{\X},1/{t\X},2/{t^2\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (o\k) {$\l$};
-  \foreach \k/\l in {0/{b\X},1/{tb\X},2/{t^2b\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (i\k) {$\l$};
+% the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other;
+% edges run node to node so every head ends on a node's border
+\begin{scope}[shift={(12.9,5.6)}]
+  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.6*cos(\a)},{.6*sin(\a)});}
+  \foreach \k/\l in {0/{\X},1/{t\X},2/{t^2\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] (no\k) at (o\k) {$\l$};
+  \foreach \k/\l in {0/{b\X},1/{tb\X},2/{t^2b\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] (ni\k) at (i\k) {$\l$};
+  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (no\k) to[bend right=24] (no\n);
+  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (ni\k) to[bend left=30] (ni\n);
+  \foreach \k in {0,1,2} \draw[blift] (no\k)--(ni\k);
   \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i1) {}; \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i2) {};
 \end{scope}
 \end{tikzpicture}

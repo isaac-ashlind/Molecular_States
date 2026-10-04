@@ -89,10 +89,17 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
             lines.append(f'\\molrodj{{{fmt(P[far][0])}}}{{{fmt(P[far][1])}}}{{{fmt(P[near][0])}}}{{{fmt(P[near][1])}}}'
                          f'{{{fmt(ux/dn)}}}{{{fmt(uy/dn)}}}{{{fmt(uz)}}}{{{rad}}}')
     if arrows is not None:
+        rad_a = {'H': 0.20, 'C': 0.36, 'N': 0.36, 'O': 0.36, 'K': 0.40, 'Rb': 0.46}
         for k in range(n):
             if arrows[k] is not None:
                 dx, dy = arrows[k]
-                lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
+                # the shaft starts on the atom's silhouette, not at its centre (visible on a light disc)
+                L = math.hypot(dx, dy); r = rad_a.get(elements[k], 0.36)
+                if L > r + 0.15:
+                    ux, uy = dx/L, dy/L
+                    lines.append(f'\\molarrow{{{fmt(P[k][0] + r*ux)}}}{{{fmt(P[k][1] + r*uy)}}}{{{fmt(dx - r*ux)}}}{{{fmt(dy - r*uy)}}}')
+                else:
+                    lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     if labels:
         # label direction: away from the mean page position of the bonded neighbours (or straight up)
         for k in range(n):
@@ -738,7 +745,7 @@ def main():
     summary['sample_components'] = [(th, round(comp_a(th), 4), round(comp_b(th), 4)) for d, th in samples]
 
     # ---- momentum labels (figure 12)
-    rho = 0.3
+    rho = 0.5          # the symmetric frame: each turn of the frame is half the torsion (Mellor, Yurchenko, Mant, Jensen 2019)
     num.append(f'\\def\\rhoIll{{{rho}}}')
     rows = []
     for Kq in (-2, -1, 0, 1, 2):

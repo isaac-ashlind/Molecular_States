@@ -15,7 +15,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,covlab/.style={font=\fontsize{6.5}{7}\selectfont,fill=white,inner sep=.8pt,text=PlateInk}]
-\path[use as bounding box] (0,0) rectangle (15,19.3);
+\path[use as bounding box] (0,.6) rectangle (15,19.9);
 % ------------------------------------------------ A. the fragments drawn apart; X0 with its half-turn axis; the version equation as two arrows into one glyph
 % every methylamine glyph on this plate is turned by -19.53 degrees in the page, which stands the projected half-turn
 % axis (the body y axis, direction (-.6248, 1.7619) in the camera's image) upright; the digits stay upright
@@ -26,7 +26,7 @@
 \end{scope}
 \node[sub,anchor=north] at (1.75,15.9) {methyl}; \node[sub,anchor=north] at (3.65,15.9) {amino};
 \begin{scope}[shift={(7.4,17.4)}]
-  \draw[line width=.4pt,draw=PlateInk] (0,-1.55)--(0,1.5);
+  \draw[line width=.4pt,draw=PlateInk] (0,-1.3)--(0,-.3) (0,.3)--(0,1.5);   % the axis, interrupted where the C--N rod crosses it
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
   \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (.36,1.5) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
 \end{scope}
@@ -47,15 +47,15 @@
   \foreach \i in \bigChain {\draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=2.1pt];}
   \node[lab,anchor=north] at ($(n0)+(0,-.1)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.1)$) {$S$};
 \end{scope}
-\draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south,text width=1.6cm,align=center] at (7.7,11.0) {keep the bonds};
+\draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south] at (7.7,11.0) {keep the bonds};
 \def\gt{t}\def\gu{u}
-\begin{scope}[shift={(11.5,7.3)},x=-.68cm,y=1.7cm]
+\begin{scope}[shift={(11.2,7.3)},x=-.68cm,y=1.7cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \draw[line width=3pt,draw=ColGold!60] (h0)--(h4)--(h6)--(h9);
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,6.75) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.2,6.75) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move
 \node[sub,anchor=west] at (.3,5.25) {versions $G_{12}/H$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {

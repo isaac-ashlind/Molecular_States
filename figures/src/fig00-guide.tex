@@ -24,13 +24,13 @@
 % the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \path[cut] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle; \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
-\node[lab,anchor=north west] at (.6,1.68) {$\conf$};
+\node[lab,anchor=south west] at (3.0,4.07) {$\conf$};
 \path[fill=white,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 % ------------------------------------------------ one configuration, a point of C
-\fill[PlateInk] (4.0,3.25) circle[radius=1.4pt];
+\fill[PlateInk] (3.51,3.25) circle[radius=1.4pt];
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};\end{scope}
-\draw[leader] (4.0,5.28)--(4.0,3.31);
+\draw[leader] (3.51,5.82)--(3.51,3.31);   % from the carbon disc's lower edge to the point
 \node[head,anchor=west] at (.4,4.95) {I\quad Configurations}; \node[head,anchor=west] at (.4,4.55) {and States}; \node[rng,anchor=north west] at (.4,4.33) {\S\S\,1--3};
 % ------------------------------------------------ the feasible solid F lifted out: core sheet, two paths, versions, a packet
 \begin{scope}[shift={(7.6+\dx,6.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-47,tube/a2=23}
@@ -40,11 +40,11 @@
   \pic (ft) at (0,0) {thicktube};
   \foreach \a in {0,120,240} {\coordinate (vt\a) at ({1.96*sin(\a+\ph)},{.55-.42*1.96*cos(\a+\ph)});}
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({1.96*sin(\a+\ph)},{-.55-.42*1.96*cos(\a+\ph)});}
-  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});
-  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.96*sin(\ph-60*\s)},{.55-2*.55*\s-.42*1.96*cos(\ph-60*\s)});
+  \draw[tpath] plot[domain=\ph:\ph+117.5,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});
+  \draw[upath] plot[domain=0:.96,samples=30,variable=\s] ({1.96*sin(\ph-60*\s)},{.55-2*.55*\s-.42*1.96*cos(\ph-60*\s)});
   \path[fill=ColRetained!55] (vt0) circle[radius=.3]; \draw[fine] (vt0) circle[radius=.3];
-  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.085}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.085];}
+  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
+  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
   \node[lab,anchor=east] at ({-\Ro-.18},-1.1) {$\mathcal F$};
   \coordinate (Hpt) at (vt0);
 \end{scope}
@@ -66,7 +66,7 @@
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
   \draw[tlift] (p0) .. controls (2.3,{1.3+.25+.3}) and (2.3,{1.3+.78*2+.25-.3}) .. (p2);
   \draw[ulift] (p0) .. controls (-1.7,{1.3+.25+.4}) and (-1.7,{1.3+.78*3+.25-.4}) .. (p3);
-  \foreach \k in {0,...,5} {\hatomat{p\k}{.075}{ColDot}}
+  \foreach \k in {0,...,5} {\hatomat{p\k}{.08}{ColDot}}
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar

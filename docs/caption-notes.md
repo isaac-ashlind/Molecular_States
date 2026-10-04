@@ -151,7 +151,8 @@ the twelve sheets is alike. Loop figure after Harter (1993), Fig. 5.4.2 in spiri
 
 ## Figure 12, momentum representation
 K ladder as latitude rings on the sphere |J| = sqrt(J(J+1)) for J = 2, after Harter (1993), Fig. 5.5.3; no
-energies. The (m, K) lattice in the periodic frame and sheared in the twisted frame with kappa = m + rho K,
-rho = 0.3 illustrative (declared). Periodic torsion modes as radial plots on the torsion circle of figure 9;
+energies. The (m, K) lattice in the periodic frame and sheared in the twisted frame with kappa = m + rho K and
+rho = 1/2, the symmetric frame of Mellor, Yurchenko, Mant and Jensen (Symmetry 11, 862, 2019), so the twisted
+labels are half-integers. Periodic torsion modes as radial plots on the torsion circle of figure 9;
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
