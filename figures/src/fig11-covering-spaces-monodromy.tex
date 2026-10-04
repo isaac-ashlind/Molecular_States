@@ -53,10 +53,10 @@
   \foreach \k/\l in {0/{X},1/{tX},2/{t^2X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont] at (o\k) {$\l$};
   \foreach \k/\l in {0/{bX},1/{tbX},2/{t^2bX}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont] at (i\k) {$\l$};
   \hatomat{i1}{.09}{ColGold} \hatomat{i2}{.09}{ColGold}
-  \node[sub,anchor=north,text width=5.6cm,align=center] at (0,-2.05) {the six $t,b$-sheets as a graph, $t$ in blue and $b$ in red: $t$ then $b$ reaches $tbX$, $b$ then $t$ reaches $btX=t^2bX$, the gold nodes; the $u$-half is the same picture};
+  \node[sub,anchor=north,text width=5.6cm,align=center] at (0,-2.05) {the six $t,b$-sheets as a graph: $t$ then $b$ reaches $tbX$, $b$ then $t$ reaches $t^2bX$; the $u$-half is alike};
 \end{scope}
 \node[lab,anchor=north west] at (7.6,13.45) {$t^3=b^2=E,\quad btb=t^{-1},\quad bt=t^2b\neq tb$};
-\node[sub,anchor=north west,text width=7.2cm] at (7.6,12.85) {continuation along $\ell_s$ multiplies the sheet label on the right; on $\mathrm A_1$ no change is seen, on $\mathrm E$ the noncommutativity remains};
+\node[sub,anchor=north west,text width=7.2cm] at (7.6,12.85) {continuation along $\ell_s$ multiplies the sheet label on the right};
 % ------------------------------------------------ C. X and bX: two configurations over one point
 \zoombubble{4.1}{3.4}{.55}{11.5}{4.2}{1.75}
 \begin{scope}[shift={(11.5,4.2)}]
@@ -64,6 +64,6 @@
   \node[lab] at (-.9,-.85) {$X$}; \node[lab] at (.95,-.85) {$bX$};
   \draw[upath] (-.35,-.85)--(.4,-.85);
 \end{scope}
-\node[sub,anchor=north,text width=6.0cm,align=center] at (11.5,2.3) {the pair over $[X]$: $bX=-XP_{(23)(45)}$ is a different configuration, and no rotation carries $X$ to $bX$ (best-fit residual $\bXresidual$\,\AA); $H$ stabilises the orbit of $X_0$, not the point $X$; the action is free near $X_0$ (nearest image $\minDispG$\,\AA\ away)};
+\node[sub,anchor=north,text width=6.0cm,align=center] at (11.5,2.3) {two configurations over one point $[X]$: no rotation carries $X$ to $bX$ (best-fit residual $\bXresidual$\,\AA); the action is free near $X_0$ (nearest image $\minDispG$\,\AA\ away)};
 \end{tikzpicture}
 \end{document}

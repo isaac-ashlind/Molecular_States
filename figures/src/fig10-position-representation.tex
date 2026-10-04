@@ -24,7 +24,7 @@
 \foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColGold}}
 \node[sub,anchor=south] at ($(bd-top0)+(0,.1)$) {$H$}; \node[sub,anchor=north east] at ($(bd-bot300)+(-.04,-.06)$) {$tuH$};
 \node[sub,anchor=south] at (2.0,10.7) {seam $\tau=\pm\pi$};
-\node[sub,anchor=north,text width=3.6cm,align=center] at (2.0,8.05) {the band of figure 6 with its six version points, the two paths, and two normal slices standing across it};
+\node[sub,anchor=north,text width=3.6cm,align=center] at (2.0,8.05) {the band of figure 6 with two normal slices standing across it};
 \draw[harrow] (3.95,9.4)--(4.85,9.4); \node[sub,anchor=south,align=center] at (4.4,9.5) {cut at the\\seam, unroll};
 \begin{scope}[shift={(9.9,9.4)}]
   \begin{scope}[x=3.7cm,y=1.35cm]
@@ -50,7 +50,7 @@
     \node[sub,anchor=north] at (.6667,-1.1) {$\tau$};
   \end{scope}
 \end{scope}
-\node[sub,anchor=north,text width=8.0cm,align=center] at (9.9,7.25) {the chart $[-\pi,\pi]\times[-\eta_0,\eta_0]$, seam identified: the six $H$-cells, the reference cell $\mathcal U$ in gold, the same six points and two paths; $\eta=0$ is the planar amino locus; $T_{tu}$ carries $q$ to $q'$};
+\node[sub,anchor=north,text width=8.0cm,align=center] at (9.9,7.25) {the chart, seam identified: six $H$-cells, $\mathcal U$ in gold, the same points and paths; $\eta=0$ is the planar amino locus; $T_{tu}$ carries $q$ to $q^\prime$};
 % ------------------------------------------------ zoom from q: the normal slice is the cut face of figure 6
 \zoombubble{9.9}{10.75}{.14}{13.2}{12.35}{.95}
 \begin{scope}[shift={(13.2,12.35)}]
@@ -61,15 +61,15 @@
   \node[sub,anchor=east,inner sep=1pt,fill=white] at (-.05,.4) {$\eta$};
   \node[sub,anchor=north east,inner sep=1pt,fill=white] at (-.04,-.06) {$q$};
 \end{scope}
-\node[sub,anchor=west,text width=2.3cm,align=left] at (9.9,12.85) {the slice at $q$: the cut face of figure 6, $Q$ across it};
+\node[sub,anchor=west,text width=2.3cm,align=left] at (9.9,12.85) {the slice at $q$: the cut face of figure 6};
 % ------------------------------------------------ B. what the map does (verified), and the reconstruction on one molecule
 \node[lab,anchor=north west,align=left] at (.5,5.9) {
   $X_0(q)P_{tu}=A_{tu}X_0(q'),\quad A_{tu}=R_z(\pi)$\\[4pt]
   $T_{tu}:\ (r,\ \tau,\ \eta,\ Q_+,\ Q_-)\longmapsto\bigl(rR_z(\pi),\ \tau-\tfrac{\pi}{3},\ -\eta,\ Q_+,\ -Q_-\bigr)$\\[4pt]
   $M_{tu}=\mathrm{diag}(1,-1)$ on the normal directions $(e_+,e_-)$};
-\node[sub,anchor=north west,text width=7.4cm] at (.5,3.6) {$e_\pm(q)$: mass-orthonormal, orthogonal to the family and to the rotations at $q$ (in the mass metric, not on the page)};
+\node[sub,anchor=north west,text width=7.4cm] at (.5,3.6) {$e_\pm(q)$ orthogonal to the family and to the rotations in the mass metric};
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.8] at (11.8,3.1) {mol3d-mla-ref-eminus};\end{scope}
 \node[lab] at (11.8,5.3) {$X=r\bigl(X_0(q)+\sum_aQ_ae_a(q)\bigr)$};
-\node[sub,align=center,text width=5.6cm] at (11.8,1.0) {$e_-(q)$: the amino twist projected onto the normal space at $q$; arrows drawn $\arrowGain\times$ the displacement $Q_-=\dispAmp$\,\AA};
+\node[sub,align=center,text width=5.6cm] at (11.8,1.0) {$e_-(q)$, the amino twist, arrows $\arrowGain\times$ the displacement $Q_-=\dispAmp$\,\AA};
 \end{tikzpicture}
 \end{document}
