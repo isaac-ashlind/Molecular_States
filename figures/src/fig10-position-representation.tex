@@ -18,7 +18,7 @@
 \pic (bd) at (2.0,9.4) {band};
 \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({2.0+1.5*sin(\a)},{9.4+.55-.42*1.5*cos(\a)});
 \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.0+1.5*sin(-60*\s)},{9.4+.55-2*.55*\s-.42*1.5*cos(60*\s)});
-\foreach \p in {top0,top120,top240,bot60,bot180,bot300} \hatomat{bd-\p}{.075}{ColGold}
+\foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColGold}}
 \node[sub,anchor=south] at ($(bd-top0)+(0,.1)$) {$H$}; \node[sub,anchor=north east] at ($(bd-bot300)+(-.04,-.06)$) {$tuH$};
 \node[sub,anchor=south] at (2.0,10.7) {seam $\tau=\pm\pi$};
 \node[sub,anchor=north,text width=3.6cm,align=center] at (2.0,8.05) {the band of figure 6: the family $X_0(\tau,\eta)$ with its six version points and the two paths};

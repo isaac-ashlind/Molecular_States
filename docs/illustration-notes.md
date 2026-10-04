@@ -62,3 +62,26 @@ Figure 11, covering. (i) stack of plates over V with lifted loops: keeps the geo
 sheets as a graph (Schreier graph of the t, b action): exact bookkeeping, endpoints visibly apart. (iii) a
 helicoid: wrong in spirit, the deck group is not cyclic; rejected. Chosen: (i) as the drawing, (ii) beneath
 it as the bookkeeping, X and bX as two solid configurations in a magnifier (no ghosts).
+
+## Front page (studies/alternatives/alt-frontpage)
+
+(A) nested regions with hatched bands: a contents page in the carving idiom; formal, framed, the emblems are
+small. (B) one carved scene: the slab C hatched where cut away, the solid F standing in it with paths and
+versions, a packet, the sheets lifted above one version, one configuration as a point of C, the four parts as
+callouts: this is the story as one drawing. (C) a strip of four stages: a table of contents, not a story.
+Chosen: (B), no frames; the part headings become callouts on the scene.
+
+## The feasible solid, twelve approaches (studies/alternatives/explore-solid)
+
+1 wedge cut: the solid stays one piece, the band is visible on the faces, the cut reads as carving. Kept for
+figure 6. 2 quarter removed: more interior, but a version is lost to the cut. 3 sliced loaf: F as a circle of
+normal slices, every face carrying the band; the clearest statement that a normal slice exists at every tau;
+kept in reserve for the position representation. 4 band with a few slices standing across it: thickness as a
+family of slices; adopted for the band glyph of figure 10 (the slice at q stands on the band before unrolling).
+5 wireframe wall: the neighbourhood as an envelope; reserve. 6 plan view: 2D on purpose; honest and clear,
+reserve for a small inset. 7 exploded carving, the solid lifted out of its hole in the hatched slab: this is the
+carving itself; adopted for the front page. 8 window: hides the carving. 9 split halves: four faces, but the
+solid stops being one thing. 10 machine drawing: austere; its hidden-line discipline is worth keeping in mind.
+11 orthographic triple: engineering convention, reserve. 12 layer cake: the eta-foliation, not needed.
+What they teach together: the band is the object, the thickness is a neighbourhood, and the cut must look like
+a cut (hatched faces) rather than a pipe end.

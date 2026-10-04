@@ -1,0 +1,62 @@
+% Exploration: eight ways to shade the nuclei and draw the rods of the ball-and-stick molecule.
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\newcommand\cell[3]{\node[sub,anchor=north,text width=3.4cm,align=center] at (#1,#2) {#3};}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15.4,9.6);
+% 1 crescent (current)
+\begin{scope}[shift={(2.0,7.6)}]\molsolid\mollabelsfalse\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{2.0}{6.2}{1. solid black crescent, lower right (current)}
+% 2 latitude hatching: shading by curved lines following the sphere
+\begin{scope}[shift={(5.8,7.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+    \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
+      \foreach \k in {1,...,6} {\pgfmathsetmacro{\yy}{-#3+2*#3*\k/7}\pgfmathsetmacro{\w}{0.15+0.45*(\k/7)}\draw[line width=\w pt,draw=PlateInk] ({(#1)-#3},{(#2)+\yy}) arc[start angle=180,end angle=360,x radius=#3,y radius={0.35*#3}];}
+    \end{scope}\draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{5.8}{6.2}{2. latitude lines, heavier toward the bottom (engraver's shading)}
+% 3 stipple
+\begin{scope}[shift={(9.6,7.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+    \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
+      \foreach \i in {0,...,15} \foreach \j in {0,...,15} {\pgfmathsetmacro{\px}{(#1)-#3+2*#3*(\i+.5)/16}\pgfmathsetmacro{\py}{(#2)-#3+2*#3*(\j+.5)/16}\pgfmathsetmacro{\dd}{((\px-(#1))/#3+0.45)^2+((\py-(#2))/#3-0.45)^2}\pgfmathsetmacro{\rr}{0.012*max(0,\dd-0.3)*#3/0.36}\fill[PlateInk] (\px,\py) circle[radius=\rr];}
+    \end{scope}\draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{9.6}{6.2}{3. stipple growing away from the highlight}
+% 4 outline only, flat gouache
+\begin{scope}[shift={(13.4,7.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];\draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{13.4}{6.2}{4. flat gouache, outline only, no shading}
+% 5 crescent plus a white highlight dot
+\begin{scope}[shift={(2.0,3.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+    \begin{scope}\clip ({#1},{#2}) circle[radius=#3];\fill[PlateInk,even odd rule] ({#1},{#2}) circle[radius=#3] ({(#1)-0.13*#3},{(#2)+0.13*#3}) circle[radius={0.99*#3}];\end{scope}
+    \fill[white] ({(#1)-0.4*#3},{(#2)+0.4*#3}) circle[radius={0.14*#3}];
+    \draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{2.0}{2.2}{5. crescent with a white highlight: the glass-ball look}
+% 6 Harter 5.1.1 octants: dark lune on the shadow side
+\begin{scope}[shift={(5.8,3.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4] ({#1},{#2}) circle[radius=#3];
+    \begin{scope}\clip ({#1},{#2}) circle[radius=#3];\fill[PlateInk] ({#1},{#2}) ++(-45:#3) arc[start angle=-45,end angle=45,radius=#3] -- ++(0,0) arc[start angle=90,end angle=270,x radius={0.35*#3},y radius={#3*0.707}] -- cycle;\end{scope}
+    \draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{5.8}{2.2}{6. a dark lune on the right, after the octant shading of Harter 5.1.1}
+% 7 two-tone gouache: a darker disc offset for the shadow side (no black)
+\begin{scope}[shift={(9.6,3.6)}]\molsolid\mollabelsfalse
+  \renewcommand\hatom[4]{\fill[#4!60!PlateInk] ({#1},{#2}) circle[radius=#3];
+    \begin{scope}\clip ({#1},{#2}) circle[radius=#3];\fill[#4] ({(#1)-0.18*#3},{(#2)+0.18*#3}) circle[radius={0.92*#3}];\end{scope}
+    \draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
+  \pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{9.6}{2.2}{7. two tones of the same gouache, the darker as the shadow}
+% 8 crescent, thinner rods, smaller hydrogens (proportion study)
+\begin{scope}[shift={(13.4,3.6)}]\molsolid\mollabelsfalse\def\rodw{.035}\def\radH{.17}\def\radX{.38}\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+\cell{13.4}{2.2}{8. the current shading with thinner rods and smaller hydrogens (proportions)}
+\end{tikzpicture}
+\end{document}

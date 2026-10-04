@@ -22,9 +22,9 @@
 \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{11.4+.62-.42*2.15*cos(\a)});
 \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{11.4+.62-2*.62*\s-.42*2.15*cos(60*\s)});
 \draw[fine,fill=white] (tb-top60) circle[radius=.075];
-\foreach \p in {top0,top120,top240} \hatomat{tb-\p}{.09}{ColGold}
+\foreach \p in {top0,top120,top240} {\hatomat{tb-\p}{.09}{ColGold}}
 \hatomat{tb-bot300}{.09}{ColGold}
-\foreach \p in {bot60,bot180} \draw[ghost,fill=ColGold!45] (tb-\p) circle[radius=.09];
+\foreach \p in {bot60,bot180} {\draw[ghost,fill=ColGold!45] (tb-\p) circle[radius=.09];}
 \leaderlabel{4.6}{11.05}{.0}{-.5}{north}{$H$}
 \leaderlabel{6.46}{12.47}{.5}{.35}{west}{$tH$}
 \leaderlabel{2.74}{12.47}{-.45}{.4}{east}{$t^2H$}

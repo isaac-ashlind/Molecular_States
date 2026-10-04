@@ -34,18 +34,18 @@
 % ------------------------------------------------ the two commuting actions, with the matrix as a small inset
 \begin{scope}[shift={(1.6,.45)}]
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.26}
-    \pic[scale=.75] at (1.0,2.3) {mol3d-water-X}; \pic[scale=.75] at (4.2,2.3) {mol3d-water-RX};
-    \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.75] at (1.0,.5) {mol3d-water-X}; \pic[scale=.75] at (4.2,.5) {mol3d-water-RX};\end{scope}
+    \pic[scale=.75] at (1.0,2.3) {mol3d-water-X}; \pic[scale=.75] at (4.6,2.3) {mol3d-water-RX};
+    \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.75] at (1.0,.5) {mol3d-water-X}; \pic[scale=.75] at (4.6,.5) {mol3d-water-RX};\end{scope}
   \end{scope}
-  \draw[harrow] (2.05,2.3)--(3.15,2.3); \node[lab,anchor=south] at (2.6,2.35) {$R$};
-  \draw[harrow] (2.05,.5)--(3.15,.5); \node[lab,anchor=south] at (2.6,.55) {$R$};
+  \draw[harrow] (2.15,2.3)--(3.45,2.3); \node[lab,anchor=south] at (2.8,2.35) {$R$};
+  \draw[harrow] (2.15,.5)--(3.45,.5); \node[lab,anchor=south] at (2.8,.55) {$R$};
   \draw[harrow] (1.0,1.75)--(1.0,1.05); \node[lab,anchor=east] at (.9,1.4) {$P_\sigma$};
-  \draw[harrow] (4.2,1.75)--(4.2,1.05); \node[lab,anchor=west] at (4.3,1.4) {$P_\sigma$};
-  \node[lab,anchor=east] at (.25,2.3) {$X$}; \node[lab,anchor=west] at (5.0,2.3) {$RX$};
-  \node[lab,anchor=east] at (.25,.5) {$XP_\sigma$}; \node[lab,anchor=west] at (5.0,.5) {$RXP_\sigma$};
+  \draw[harrow] (4.6,1.7)--(4.6,1.1); \node[lab,anchor=west] at (4.72,1.4) {$P_\sigma$};
+  \node[lab,anchor=east] at (.25,2.3) {$X$}; \node[lab,anchor=west] at (5.45,2.3) {$RX$};
+  \node[lab,anchor=east] at (.25,.5) {$XP_\sigma$}; \node[lab,anchor=west] at (5.45,.5) {$RXP_\sigma$};
 \end{scope}
-\node[sub,anchor=north west,text width=5.4cm,align=left] at (8.2,3.35) {$\sigma=(12)$ swaps the columns; $R=R_z(\waterRotDeg^\circ)$ multiplies every column; $(RX)P_\sigma=R(XP_\sigma)$};
-\node[lab,anchor=north west] at (8.2,2.25) {$X=\begin{pmatrix}\waterXAx&\waterXBx&\waterXCx\\\waterXAy&\waterXBy&\waterXCy\\0&0&0\end{pmatrix}$\,\AA};
-\node[sub,anchor=north west] at (8.2,.9) {$X\mathbf m=0$, $\mathbf m=(\massH,\massH,\massO)^{\mathsf T}$\,u};
+\node[sub,anchor=north west,text width=5.4cm,align=left] at (8.6,3.35) {$\sigma=(12)$ swaps the columns; $R=R_z(\waterRotDeg^\circ)$ multiplies every column; $(RX)P_\sigma=R(XP_\sigma)$};
+\node[lab,anchor=north west] at (8.6,2.25) {$X=\begin{pmatrix}\waterXAx&\waterXBx&\waterXCx\\\waterXAy&\waterXBy&\waterXCy\\0&0&0\end{pmatrix}$\,\AA};
+\node[sub,anchor=north west] at (8.6,.9) {$X\mathbf m=0$, $\mathbf m=(\massH,\massH,\massO)^{\mathsf T}$\,u};
 \end{tikzpicture}
 \end{document}

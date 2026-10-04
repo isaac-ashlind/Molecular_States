@@ -1,0 +1,53 @@
+% Guide (unnumbered). The whole story as one carved scene, read outside in: the configuration space C as a slab,
+% hatched where it is cut away, with the hole the carving leaves; the feasible solid F lifted out of it, cut open,
+% with the two generator paths and the version points on its band; a packet on one version; the covering sheets
+% lifted above that version; a single configuration as a point of C. The four parts of the paper are callouts on
+% this one drawing. Colours: blue = t path, red dashed = tu path, gold = versions and packet, blue tint = the
+% solid's wall. Hatch = cut material. Chosen from studies/alternatives (front page B, solid exploration 7).
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt}]
+\path[use as bounding box] (0,0) rectangle (15,12.6);
+\pgfmathsetmacro{\Ro}{2.3}\pgfmathsetmacro{\Ri}{1.62}\pgfmathsetmacro{\E}{.42}
+% ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
+\path[cut] (.5,.9)--(12.1,.9)--(14.5,3.1)--(2.9,3.1)--cycle; \draw[heavy] (.5,.9)--(12.1,.9)--(14.5,3.1)--(2.9,3.1)--cycle;
+\node[tag,anchor=north west] at (3.05,3.0) {$\conf$};
+\path[fill=white,even odd rule] (8.2,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}] (8.2,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+\draw[fine] (8.2,2.0) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (8.2,2.0) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+\fill[PlateInk] (4.2,2.2) circle[radius=1.4pt];
+% ------------------------------------------------ the feasible solid F lifted out, with its band, paths and versions
+\begin{scope}[shift={(8.2,5.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-62,tube/a2=8}
+  \draw[hidden] (-\Ro,-3.2)--(-\Ro,-.55) (\Ro,-3.2)--(\Ro,-.55);
+  \pic (ft) at (0,0) {thicktube};
+  \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});
+  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.96*sin(-60*\s)},{.55-2*.55*\s-.42*1.96*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot300} {\hatomat{ft-\p}{.085}{ColGold}}
+  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColGold!45] (ft-\p) circle[radius=.085];}
+  \draw[fine] (ft-top0) circle[radius=.3];
+  \node[tag,anchor=west] at (2.45,-.35) {$\mathcal F$};
+\end{scope}
+% ------------------------------------------------ sheets over one version, a lifted loop
+\begin{scope}[shift={(8.2,9.5)}]
+  \draw[fine,dash pattern=on 1.6pt off 1.3pt] (0,-3.7)--(0,-.25);
+  \foreach \k in {0,1} {\pgfmathsetmacro{\yy}{.55*\k}\path[fill=white] (-1.4,\yy)--(1.2,\yy)--(1.9,\yy+.5)--(-.7,\yy+.5)--cycle; \draw[fine] (-1.4,\yy)--(1.2,\yy)--(1.9,\yy+.5)--(-.7,\yy+.5)--cycle;}
+  \fill[PlateInk] (.25,.25) circle[radius=1.1pt]; \fill[PlateInk] (.25,.8) circle[radius=1.1pt];
+  \draw[tpath] (.25,.25) .. controls (-1.2,.5) and (-1.2,.6) .. (.25,.8);
+\end{scope}
+% ------------------------------------------------ one configuration, a point of C
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (2.0,7.0) {mol3d-mla-ref};\end{scope}
+\draw[leader] (2.3,6.1)--(4.2,2.3);
+% ------------------------------------------------ the four parts as callouts on the one drawing
+\node[head,anchor=west] at (.5,9.5) {Configurations and States}; \node[rng,anchor=west,text width=4.2cm] at (.5,9.05) {\S\S\,1--3\quad a configuration is a point of $\conf$};
+\node[head,anchor=west] at (11.3,6.6) {Fragments and}; \node[head,anchor=west] at (11.3,6.2) {Feasible Regimes}; \node[rng,anchor=west,text width=3.5cm] at (11.3,5.65) {\S\S\,4--6\quad $\mathcal F$ carved out of $\conf$, its versions on the band};
+\node[head,anchor=east] at (5.1,5.5) {Symmetry and}; \node[head,anchor=east] at (5.1,5.1) {Localization}; \node[rng,anchor=east,text width=3.6cm,align=right] at (5.1,4.55) {\S\S\,7--9\quad species on the versions, a packet on one of them};
+\draw[leader] (5.2,5.3)--(6.4,4.75);
+\node[head,anchor=west] at (10.6,10.6) {Representations and}; \node[head,anchor=west] at (10.6,10.2) {Global Structure}; \node[rng,anchor=west,text width=3.9cm] at (10.6,9.65) {\S\S\,10--12\quad charts, sheets and modes over the versions};
+\draw[leader] (10.5,10.35)--(10.1,10.0);
+\node[sub,anchor=north west,text width=14.2cm] at (.5,.6) {read outside in: the configuration space is carved to the feasible solid, the solid to its versions, the versions to their sheets; hatching marks what each cut removes};
+\end{tikzpicture}
+\end{document}
