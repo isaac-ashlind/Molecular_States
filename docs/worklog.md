@@ -22,3 +22,18 @@ Nothing in this tree is yet at the standard of section 8. Keep iterating.
 - Reference material kept in the repository (manuscript export, handoff package, plate scans).
 - build.py: proof sheet, squint sheet, grayscale proof, deliverable PDFs, collision report; scaffold rebuilt.
 - Open for the author: section order of the export against the specification (docs/author-decisions.md).
+
+## 2026-10-04, late: palette anchored, cover accepted, plan v3
+
+Palette pitched on ten cover versions and anchored (see `docs/PLAN-v3.md`); actions moved to ink line styles; the
+cover made cohesive (white sheets, lighter hatch, headings only). Figure 7 drafts A, B, C in
+`studies/alternatives/round3/`. Study helper used this session (recreate in the scratchpad if missing):
+
+```
+#!/bin/bash   # study.sh file.tex [dpi]: compile into build/alt with the shared and data paths, render a png
+ROOT=/home/user/Molecular_States; SRC="$1"; DPI="${2:-110}"
+export TEXINPUTS="$ROOT/figures/shared//:$ROOT/figures/data//:$ROOT/$(dirname "$SRC")//:"
+cd "$ROOT/build/alt" && pdflatex -interaction=nonstopmode -halt-on-error -output-directory "$ROOT/build/alt" "$ROOT/$SRC" > /dev/null \
+  && pdftoppm -r "$DPI" -png -singlefile "$ROOT/build/alt/$(basename "$SRC" .tex).pdf" "$ROOT/build/alt/$(basename "$SRC" .tex)"
+```
+Next: figure 7 (fix the disc size test in `fig07-common.tex`: compare in cm, not pt), then 8, 9.
