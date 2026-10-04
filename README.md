@@ -31,7 +31,8 @@ the stdlib checks always run.
 
 ## Porting to Overleaf
 1. Copy `figures/pdf/` into the project and add the lines of `figures/preamble.tex` to the preamble.
-2. Place each plate with `\includegraphics[width=\linewidth]{figNN-name}`; `docs/integration.patch` shows one
-   placement against the current export (see docs/author-decisions.md on the section order).
+2. Place each plate with `\includegraphics[width=\linewidth]{figNN-name}`. `docs/manuscript-reorganized.tex` is
+   the export with the sections reordered to the figure flow and every plate placed (text moved verbatim);
+   `docs/integration.patch` is the same as a diff from the export.
 3. To recompile a plate inside Overleaf instead, upload `figures/src/figNN-*.tex`, `figures/shared/*` and
    `figures/data/*` and compile that file with pdflatex; each plate is a `standalone` document.

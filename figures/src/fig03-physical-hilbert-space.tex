@@ -11,7 +11,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,slot/.style={draw=PlateInk,line width=.45pt,minimum width=.62cm,minimum height=.48cm,inner sep=1pt,fill=white,font=\fontsize{8}{9}\selectfont}]
-\path[use as bounding box] (0,0) rectangle (15,9.0);
+\path[use as bounding box] (0,0) rectangle (15,8.6);
 % ------------------------------------------------ X, sigma X, E*X with the spin slots
 \foreach \x/\la/\lb/\pname/\sa/\sb/\cap in {2.0/1/2/mol3d-water-X/1/2/{$X$},6.4/2/1/mol3d-water-X/2/1/{$\sigma X=XP_\sigma$},10.8/1/2/mol3d-water-minusX/1/2/{$E^*X=-X$}} {
   \begin{scope}[shift={(\x,7.1)}]\molsolid\def\molA{\la}\def\molB{\lb}\pic[scale=1.0] at (0,0) {\pname};\end{scope}
@@ -27,13 +27,13 @@
 \draw[leader] (10.8-.9,4.95)--(10.8+.93,6.3); \draw[leader] (10.8,4.95)--(10.8-.65,6.5); \draw[leader] (10.8+.9,4.95)--(10.8+.2,7.0);
 \draw[harrow] (3.5,7.1)--(4.9,7.1); \node[lab,anchor=south] at (4.2,7.2) {$\sigma=(12)$}; \node[sub,anchor=north] at (4.2,7.0) {relabel};
 \draw[harrow] (7.9,7.1)--(9.3,7.1); \node[lab,anchor=south] at (8.6,7.2) {$E^*$}; \node[sub,anchor=north] at (8.6,7.0) {invert};
-\node[sub,anchor=north,text width=4.2cm,align=center] at (6.4,4.0) {the same points of space; slot $i$ belongs to the nucleus carrying digit $i$, so the factors follow the labels};
-\node[sub,anchor=north,text width=4.2cm,align=center] at (10.8,4.0) {planar, so $-X$ is also a rotated copy; the triad shows what inversion does};
-\node[sub,anchor=north,text width=4.2cm,align=center] at (2.0,4.0) {a product value $\Psi(X)=\xi_1\otimes\xi_2\otimes\xi_3$; sums of such values by linearity};
+\node[sub,anchor=north,text width=4.2cm,align=center] at (6.4,4.0) {the same points of space; slot $i$ follows digit $i$};
+\node[sub,anchor=north,text width=4.2cm,align=center] at (10.8,4.0) {planar, so $-X$ is also a rotated copy};
+\node[sub,anchor=north,text width=4.2cm,align=center] at (2.0,4.0) {a product value $\Psi(X)=\xi_1\otimes\xi_2\otimes\xi_3$};
 % ------------------------------------------------ the two relations and the statistics sign
-\node[lab,anchor=west] at (.4,2.1) {$\Psi(\sigma X)\sim\stat(\sigma)\,\sigma\act\Psi(X)$,\quad $\stat(\sigma)=\prod_\alpha(\operatorname{sgn}\sigma_\alpha)^{2I_\alpha}$:\ $-1$ for ${}^1\mathrm H$, $+1$ for ${}^2\mathrm H$, ${}^{16}\mathrm O$ not permuted};
-\node[lab,anchor=west] at (.4,1.4) {$\Psi(E^*X)\sim\pm\Psi(X)$ on $\hilb^\pm$:\quad parity is a separate character, $\chi_\pm(\sigma^*)=\pm1$, and $\stat$ ignores the star};
-\node[sub,anchor=west] at (.4,.75) {equalities hold almost everywhere on $\conf$; the physical space $\hilb\subseteq\hilb_{\mathrm{ambient}}$ is cut out by these two conditions};
+\node[lab,anchor=west] at (.4,1.9) {$\Psi(\sigma X)\sim\stat(\sigma)\,\sigma\act\Psi(X)$,\quad $\stat(\sigma)=\prod_\alpha(\operatorname{sgn}\sigma_\alpha)^{2I_\alpha}$:\ $-1$ for ${}^1\mathrm H$, $+1$ for ${}^2\mathrm H$, ${}^{16}\mathrm O$ not permuted};
+\node[lab,anchor=west] at (.4,1.1) {$\Psi(E^*X)\sim\pm\Psi(X)$ on $\hilb^\pm$:\quad parity is a separate character, $\chi_\pm(\sigma^*)=\pm1$, and $\stat$ ignores the star};
+
 % ------------------------------------------------ inversion triad on a sphere
 \begin{scope}[shift={(13.6,7.1)}]
   \hatom{0}{0}{.72}{PlateInk!6}

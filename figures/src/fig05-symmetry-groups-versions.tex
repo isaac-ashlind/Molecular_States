@@ -32,7 +32,7 @@
 \end{scope}
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval
 \begin{scope}[shift={(.6,5.7)}]
-  \node[sub,anchor=south west] at (0,4.45) {the $36$ subgroups between $H$ and $S$ in grey, the $10$ keeping the bonds in black, the chain $H<G_6<G_{12}<B$ in blue};
+  \node[sub,anchor=south west] at (0,4.45) {$36$ subgroups between $H$ and $S$ (grey), the $10$ keeping the bonds (black), the chain $H<G_6<G_{12}<B$ (blue)};
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+7.4*\x},{.15+3.9*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.3pt,draw=PlateInk!40] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}

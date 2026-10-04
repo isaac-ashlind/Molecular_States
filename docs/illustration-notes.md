@@ -94,3 +94,11 @@ engraver's ball, busy at plate size, the hydrogens become striped. 3 stipple: so
 Harter 5.1.1: strong, but the heavier lune halves the small hydrogens; the terminator idea is right, the weight
 too much. 7 two tones of one gouache: painterly rather than drawn. 8 thinner rods and smaller hydrogens:
 weaker. Decision: keep 1; the junction geometry of the rods matters more than any shading choice.
+
+## Figure 7 modes and figure 9 packets (studies/alternatives/explore-modes-packets)
+
+Modes: 1 discs after 4.4.3 (clear), 2 signed bars (busy tips), 3 radial bumps (too subtle), 4 tangent arrows
+(wrong semantics: amplitudes are not motions), 5 tone and colour (sign lost in grayscale), 6 integers (no picture).
+Kept 1. Packets: 1 discs and rings (ring overlaps confuse), 2 Gaussian profiles standing on the circle with the
+union filled gold and the crossings showing c (direct, and the same circle idiom as the radial modes of figure
+12), 3 unrolled line (clear for c, loses the circle), 4 contour maps (busy). Adopted 2 for figure 9.

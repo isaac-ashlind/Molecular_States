@@ -16,14 +16,13 @@
   (12); guide as one scene without frames.
 
 ## Open, for the author
-1. Section order. The approved specification numbers the figures 5 Symmetry groups and versions, 6 Feasible
-   configuration space, 7 Symmetry species, 8 Nuclear spin weights, 9 Localized states. The Overleaf export has
-   sections 5 Symmetry Groups, 6 Methylamine, 7 Versions and Symmetry Species, 8 Localized States, 9 Feasible
-   Configuration Space. File names follow the specification. `docs/integration.patch` places each plate by
-   content in the export (figure 5 in Methylamine, figures 7 and 8 in Versions and Symmetry Species, figure 9 in
-   Localized States, figure 6 in Feasible Configuration Space); LaTeX then numbers them 5, 6, 7, 8, 9 in that order,
-   which differs from the file names for 6 to 9. Either reorder the sections to the specification or accept the
-   counter's numbering.
+1. Section order. The export's sections 5 to 9 (Symmetry Groups, Methylamine, Versions and Symmetry Species,
+   Localized States, Feasible Configuration Space) differ from the figure flow of the approved specification.
+   As agreed, the integration reorganizes the sections to the figure flow: `docs/manuscript-reorganized.tex`
+   is the export with the sections reordered and the plates placed, the author's text moved verbatim (Methylamine
+   becomes a subsection of Symmetry Groups and Versions; Nuclear Spin Weights is a new section holding figure 8
+   and a comment where the author's text goes); `docs/integration.patch` is the diff from the export. It compiles
+   with figures 1 to 12 numbered in section order. To confirm or adjust.
 2. Final captions, from docs/caption-notes.md.
 3. Whether to keep the schematic K2Rb2 positions or replace them with a computed complex geometry.
 4. The illustrative component functions of figure 2 and rho = 0.3 of figure 12, if real values are preferred.
