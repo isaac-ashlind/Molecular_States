@@ -133,7 +133,7 @@
     \path[fill=\pgfkeysvalueof{/tikz/band/farfill}] plot[domain=90:270,samples=40,variable=\a] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)}) -- cycle;
     \foreach \a in {96,104,...,264} {\pgfmathsetmacro{\lw}{0.15+0.35*abs(cos(\a))}\draw[line width=\lw pt,draw=PlateInk!70] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)})--({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});}
     \draw[fine] plot[domain=90:270,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});
-    \draw[heavy,dash pattern=on 2.4pt off 1.6pt] (0,{-\Hh+\E*\R})--(0,{\Hh+\E*\R});
+    \draw[fine] (0,{-\Hh+\E*\R})--(0,{\Hh+\E*\R}); \draw[heavy] (-.09,{\Hh+\E*\R+.04})--(.09,{\Hh+\E*\R+.04}) (-.09,{-\Hh+\E*\R-.04})--(.09,{-\Hh+\E*\R-.04});  % the seam, with cut ticks at its ends
     % near half (outside face)
     \path[fill=\pgfkeysvalueof{/tikz/band/nearfill}] plot[domain=-90:90,samples=40,variable=\a] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)}) -- plot[domain=90:-90,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)}) -- cycle;
     \foreach \a in {40,46,...,88} {\pgfmathsetmacro{\lw}{0.2+0.5*((\a-40)/48)}\draw[line width=\lw pt,draw=PlateInk] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)})--({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});}

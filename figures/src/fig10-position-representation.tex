@@ -38,8 +38,7 @@
 \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({2.4+1.5*sin(\a)},{8.0+.47-.42*1.5*cos(\a)});
 \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.4+1.5*sin(-60*\s)},{8.0+.55-2*.55*\s-.42*1.5*cos(60*\s)});
 \foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColDot}}
-\draw[heavy] (2.4,{8.0-.55-.42*1.5-.2})--(2.4,{8.0-.55-.42*1.5+.12}); \draw[heavy] (2.4,{8.0+.55-.42*1.5-.12})--(2.4,{8.0+.55-.42*1.5+.2});
-\node[sub,anchor=north] at (2.4,{8.0-.55-.42*1.5-.25}) {cut at the seam};
+\draw[leader,shorten >=3pt] (2.4,{8.0+.55+.42*1.5+.05})--(2.4,{8.0+.55+.42*1.5+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (2.4,{8.0+.55+.42*1.5+.5}) {cut at the seam, $\tau=\pm\pi$};
 \node[sub,anchor=west] at ($(bd-top0)+(.14,-.04)$) {$H$};
 \draw[harrow] (4.5,8.0)--(5.3,8.0); \node[sub,anchor=south] at (4.9,8.1) {unroll};
 \chartpic{10.1}{8.0}{3.9cm}{1.5cm}{white}
@@ -54,8 +53,8 @@
   \draw[harrow] (0,.5)--(-.4,.5); \node[sub,anchor=east,inner sep=1pt] at (-.5,.5) {$Q$};
   \node[sub,anchor=north] at (0,-.82) {$\eta$};
 \end{scope}
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (5.0,3.2) {mol3d-mla-ref-eminus};\end{scope}
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (10.6,3.2) {mol3d-mla-ref-eplus};\end{scope}
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (5.0,3.2) {mol3d-mla-ref-eminus-side};\end{scope}
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (10.6,3.2) {mol3d-mla-ref-eplus-side};\end{scope}
 \node[sub,anchor=north,text width=5.2cm,align=center] at (5.0,1.7) {$e_-(q)$, the amino twist};
 \node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$e_+(q)$, the C--N stretch};
 \end{tikzpicture}
