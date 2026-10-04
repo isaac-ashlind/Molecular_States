@@ -51,13 +51,15 @@ def pic_code(X, elements, bonds, cam, arrows=None, label_macros=None):
                 lines.append(f'\\molarrow{{{fmt(px)}}}{{{fmt(py)}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     return lines
 
-def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None):
+def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, labels=False):
     """TikZ pic code for the v2 molecule primitive with correct layering.
 
     Items (atoms and rods) are painted back to front.  A rod is painted just after its farther atom
-    and before its nearer atom, so it emerges from the front of the far sphere and vanishes under the
+    and before its nearer atom.  It starts where the bond cylinder leaves the far sphere (the junction
+    circle, projected as a half-ellipse computed in TeX from the atom radius) and vanishes under the
     silhouette of the near sphere.  Rod depth = depth of the far atom + a small epsilon.
     """
+    right, up, out = cam
     P = G.project(X, cam)
     n = len(X)
     if label_macros is None:
@@ -73,26 +75,65 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None):
         if kind == 0:
             lines.append(f'\\molatom{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
         else:
-            lines.append(f'\\molrod{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
+            far, near = (i, j) if P[i][2] <= P[j][2] else (j, i)
+            u = G.sub(X[near], X[far]); L = math.sqrt(G.dot(u, u)); u = G.scale(u, 1/L)
+            ux, uy, uz = G.dot(u, right), G.dot(u, up), G.dot(u, out)
+            dn = math.hypot(ux, uy)
+            if dn < 1e-6:
+                continue            # end-on bond: hidden under the near sphere
+            rad = RAD_MACRO.get(elements[far], '\\radX')
+            lines.append(f'\\molrodj{{{fmt(P[far][0])}}}{{{fmt(P[far][1])}}}{{{fmt(P[near][0])}}}{{{fmt(P[near][1])}}}'
+                         f'{{{fmt(ux/dn)}}}{{{fmt(uy/dn)}}}{{{fmt(uz)}}}{{{rad}}}')
     if arrows is not None:
         for k in range(n):
             if arrows[k] is not None:
                 dx, dy = arrows[k]
                 lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
+    if labels:
+        # label direction: away from the mean page position of the bonded neighbours (or straight up)
+        for k in range(n):
+            nb = [b-1 for a, b in bonds if a-1 == k] + [a-1 for a, b in bonds if b-1 == k]
+            if nb:
+                mx = sum(P[m][0] for m in nb)/len(nb); my = sum(P[m][1] for m in nb)/len(nb)
+                ax, ay = P[k][0]-mx, P[k][1]-my
+                nrm = math.hypot(ax, ay)
+                ax, ay = (ax/nrm, ay/nrm) if nrm > 1e-6 else (0.0, 1.0)
+            else:
+                ax, ay = 0.0, 1.0
+            lines.append(f'\\mollabel{{{elements[k]}}}{{{label_macros[k]}}}{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(ax)}}}{{{fmt(ay)}}}')
+    return lines
+
+RAD_MACRO = {'H': '\\radH', 'C': '\\radX', 'N': '\\radX', 'O': '\\radX', 'K': '\\radK', 'Rb': '\\radRb'}
+
+def pic_code_graph(X, elements, bonds, cam, label_macros=None):
+    """2D labelled graph of the molecule at the projected positions: all edges first (centre to centre,
+    hidden under the opaque nodes, so no edge enters a node), then the nodes with the label inside."""
+    P = G.project(X, cam)
+    n = len(X)
+    if label_macros is None:
+        label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
+    lines = []
+    for a, b in bonds:
+        i, j = a-1, b-1
+        lines.append(f'\\gedge{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
+    for i in range(n):
+        lines.append(f'\\gnode{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
     return lines
 
 def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7):
-    """Newman projection down the C-N axis (viewer on the N side): back carbon as a large circle,
-    its hydrogens on bonds from the rim; front nitrogen as a dot at the centre with its hydrogens on
-    bonds from the centre.  Page coordinates are the molecular (x, y) in angstrom."""
+    """Newman projection down the C-N axis (viewer on the N side): back carbon as a circle with its
+    hydrogens on fine bonds from the rim; front nitrogen as a disc at the centre with its hydrogens on
+    rod bonds from the centre.  Page coordinates are the molecular (x, y) in angstrom; the digit is the
+    column label (version labels are supplied by the \\molA.. macros)."""
     lines = []
     for k in methyl:
         x, y, _ = X[k-1]
-        lines.append(f'\\nmback{{{fmt(x)}}}{{{fmt(y)}}}{{{k}}}')
-    lines.append('\\nmcentre')
+        lines.append(f'\\nmback{{{fmt(x)}}}{{{fmt(y)}}}{{\\mol{"ABCDEFG"[k-1]}}}')
+    lines.append('\\nmcircle')
     for k in amino:
         x, y, _ = X[k-1]
-        lines.append(f'\\nmfront{{{fmt(x)}}}{{{fmt(y)}}}{{{k}}}')
+        lines.append(f'\\nmfront{{{fmt(x)}}}{{{fmt(y)}}}{{\\mol{"ABCDEFG"[k-1]}}}')
+    lines.append('\\nmcentre')
     return lines
 
 def emit_pic(out, name, lines):
@@ -275,6 +316,7 @@ def main():
     for i, c in enumerate(wX):
         num.append(f'\\def\\waterX{"ABC"[i]}x{{{fmt(c[0],2)}}}\\def\\waterX{"ABC"[i]}y{{{fmt(c[1],2)}}}')
     num.append(f'\\def\\massH{{{G.MASS["H"]:.3f}}}\\def\\massO{{{G.MASS["O"]:.3f}}}')
+    num.append(f'\\def\\waterOxygenOffset{{{math.hypot(wX[2][0], wX[2][1]):.2f}}}')
     num.append(f'\\def\\waterRotDeg{{40}}')
     # shape grid for figure 1(c): delta ratios and angles, drawn mass-centred
     grid_d = [-0.5, -0.25, 0.0, 0.25, 0.5]; grid_t = [60.0, 90.0, 120.0, 150.0, 180.0]
@@ -282,6 +324,7 @@ def main():
         for j, th in enumerate(grid_t):
             Xg = G.water(d, th)
             emit_pic(mol, f'water-grid-{i}{j}', pic_code(Xg, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
+            emit_pic(mol, f'mol3d-water-grid-{i}{j}', pic_code_rods(Xg, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     summary['water_grid'] = {'delta_ratios': grid_d, 'theta_deg': grid_t}
     # three sample configurations for figure 2
     samples = [(0.0, 104.5), (0.15, 125.0), (-0.1, 95.0)]
@@ -295,10 +338,11 @@ def main():
     summary['methylamine_X0'] = [[round(v, 4) for v in c] for c in X0]
     summary['methylamine_X0_Xm'] = [round(v, 12) for v in G.mass_moment(X0, G.MLA_MASSES)]
     emit_pic(mol, 'mla-ref', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
-    emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
-    emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
-    emit_pic(mol, 'mol3d-water-RX', pic_code_rods(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
-    emit_pic(mol, 'mol3d-water-minusX', pic_code_rods(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
+    emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
+    emit_pic(mol, 'mol2d-mla-graph', pic_code_graph(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
+    emit_pic(mol, 'mol3d-water-RX', pic_code_rods(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
+    emit_pic(mol, 'mol3d-water-minusX', pic_code_rods(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     for k, (d, th) in enumerate(samples):
         emit_pic(mol, f'mol3d-water-sample-{k+1}', pic_code_rods(G.water(d, th), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     # b X0 and R_b X0
@@ -307,7 +351,7 @@ def main():
     res_b = G.config_distance(bX0, G.rotate(Rb, X0))
     summary['b_equals_rotation_residual'] = res_b
     emit_pic(mol, 'mla-bref', pic_code(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
-    emit_pic(mol, 'mol3d-mla-bref', pic_code_rods(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    emit_pic(mol, 'mol3d-mla-bref', pic_code_rods(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     # mirror plane (y = 0, through H1, C6, N7) and the R_b axis (the y direction) in page coordinates
     def pg(v): return (G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1]))
     corners = [pg((x, 0.0, z)) for x, z in ((-1.5, -1.9), (1.5, -1.9), (1.5, 2.1), (-1.5, 2.1))]
@@ -325,6 +369,7 @@ def main():
     for deg in (0, 60, 120, 240):
         emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS))
     emit_pic(mol, 'newman-tau-0-eta-minus', pic_code_newman(G.methylamine(0.0, -ETA0), G.MLA_ELEMENTS))
+    emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)
     P0 = G.project(X0, CAM_MLA)
     for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7]), ('all', [1, 2, 3, 4, 5, 6, 7])):
@@ -460,6 +505,8 @@ def main():
     num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
     num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}/{1 if (a <= Q.B and b <= Q.B) else 0}' for a, b in bigcov) + '}')
     num.append(f'\\def\\bigLevels{{{len(levels)}}}')
+    chain_keys = {names[K]: bigkey[K] for K in big if K in names and names[K] in ('H', 'G_6', 'G_{12}', 'B')}
+    num.append('\\def\\bigChain{' + ','.join(str(chain_keys[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
     summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
                               'orders': sorted(len(K) for K in big)}
     summary['interval'] = {'subgroups': len(subs), 'covers': len(cov),

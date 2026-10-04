@@ -19,16 +19,36 @@
   \begin{scope}\clip ({#1},{#2}) circle[radius=#3];
     \fill[PlateInk,even odd rule] ({#1},{#2}) circle[radius=#3] ({(#1)-0.13*#3},{(#2)+0.13*#3}) circle[radius={0.99*#3}];
   \end{scope}\draw[line width=.5pt,draw=PlateInk] ({#1},{#2}) circle[radius=#3];}
-% ---- rod: white band with ink edges, the lower-right edge heavier (a cylinder in ink)
-\newcommand\molrod[4]{\draw[line width=.4pt,draw=PlateInk,double distance=1.4pt,double=white] (#1,#2)--(#3,#4);
-  \pgfmathsetmacro{\rdx}{#3-#1}\pgfmathsetmacro{\rdy}{#4-#2}\pgfmathsetmacro{\rl}{sqrt(\rdx*\rdx+\rdy*\rdy)}
-  \pgfmathsetmacro{\nx}{\rdy/\rl}\pgfmathsetmacro{\ny}{-\rdx/\rl}\pgfmathsetmacro{\sg}{(\nx-\ny)>0 ? 1 : -1}
-  \draw[line width=.7pt,draw=PlateInk] ({#1+\sg*0.026*\nx},{#2+\sg*0.026*\ny})--({#3+\sg*0.026*\nx},{#4+\sg*0.026*\ny});}
+% ---- rod: a cylinder in ink. \molrodj{px}{py}{qx}{qy}{dx}{dy}{uz}{r}: far centre p, near centre q, page unit
+% direction (dx,dy) from p to q, uz = depth component of the bond direction (0 = in the page, 1 = at the viewer),
+% r = radius of the far sphere. The rod starts on the junction circle where the cylinder leaves the far sphere
+% (projected: a half ellipse bulging toward p), runs to q and is hidden there by the near sphere, painted later.
+% White band, fine ink edges, the shadow edge (away from the upper-left light) heavier.
+\def\rodw{.05}
+\tikzset{rodfill/.style={fill=white},rodedge/.style={line width=.4pt,draw=PlateInk},rodshade/.style={line width=.75pt,draw=PlateInk}}
+\newcommand\molrodj[8]{%
+  \pgfmathsetmacro{\rs}{sqrt((#8)*(#8)-\rodw*\rodw)}%
+  \pgfmathsetmacro{\ex}{#1+\rs*(#5)}\pgfmathsetmacro{\ey}{#2+\rs*(#6)}%
+  \pgfmathsetmacro{\nx}{-(#6)}\pgfmathsetmacro{\ny}{#5}\pgfmathsetmacro{\ea}{\rodw*(#7)}%
+  \pgfmathsetmacro{\sg}{(\ny-\nx)<0 ? 1 : -1}%
+  \path[rodfill] ({\ex+\rodw*\nx},{\ey+\rodw*\ny}) \foreach \ph in {105,120,...,255} {-- ({\ex+\ea*cos(\ph)*(#5)+\rodw*sin(\ph)*\nx},{\ey+\ea*cos(\ph)*(#6)+\rodw*sin(\ph)*\ny})}
+     -- ({\ex-\rodw*\nx},{\ey-\rodw*\ny}) -- ({#3-\rodw*\nx},{#4-\rodw*\ny}) -- ({#3+\rodw*\nx},{#4+\rodw*\ny}) -- cycle;
+  \draw[rodedge] ({\ex+\rodw*\nx},{\ey+\rodw*\ny}) \foreach \ph in {105,120,...,255} {-- ({\ex+\ea*cos(\ph)*(#5)+\rodw*sin(\ph)*\nx},{\ey+\ea*cos(\ph)*(#6)+\rodw*sin(\ph)*\ny})} -- ({\ex-\rodw*\nx},{\ey-\rodw*\ny});
+  \ifdim\sg pt>0pt
+    \draw[rodshade] ({\ex+\rodw*\nx},{\ey+\rodw*\ny}) -- ({#3+\rodw*\nx},{#4+\rodw*\ny});
+    \draw[rodedge] ({\ex-\rodw*\nx},{\ey-\rodw*\ny}) -- ({#3-\rodw*\nx},{#4-\rodw*\ny});
+  \else
+    \draw[rodedge] ({\ex+\rodw*\nx},{\ey+\rodw*\ny}) -- ({#3+\rodw*\nx},{#4+\rodw*\ny});
+    \draw[rodshade] ({\ex-\rodw*\nx},{\ey-\rodw*\ny}) -- ({#3-\rodw*\nx},{#4-\rodw*\ny});
+  \fi}
 % ---- molecule modes: \molsolid (coloured atoms), \molghost (dashed outlines), radii in cm at pic scale 1
-\def\radH{.20}\def\radX{.36}
+\def\radH{.20}\def\radX{.36}\def\radK{.40}\def\radRb{.46}
+% ---- labels: \mollabel{El}{label macro}{x}{y}{ax}{ay} puts El_label just outside the sphere along (ax,ay); \mollabelsfalse hides them
+\newcommand\mollabel[6]{\ifmollabels\if#1H\pgfmathsetmacro{\lr}{\radH+.17}\else\pgfmathsetmacro{\lr}{\radX+.2}\fi
+  \node[font=\fontsize{7.5}{8}\selectfont,inner sep=.5pt,fill=white,fill opacity=.85,text opacity=1] at ({#3+\lr*(#5)},{#4+\lr*(#6)}) {$\mathrm{#1}_{#2}$};\fi}
 \newcommand\molsolid{\renewcommand\molatom[4]{%
-  \if##1H\hatom{##3}{##4}{\radH}{white}\else\if##1C\hatom{##3}{##4}{\radX}{PlateInk}\else\if##1N\hatom{##3}{##4}{\radX}{ColNitrogen}\else\if##1O\hatom{##3}{##4}{\radX}{ColOxygen}\else\if##1K\hatom{##3}{##4}{.40}{ColPotassium}\else\hatom{##3}{##4}{.46}{ColRubidium}\fi\fi\fi\fi\fi}}
-\newcommand\molghost{\renewcommand\molrod[4]{\draw[ghost] (##1,##2)--(##3,##4);}
+  \if##1H\hatom{##3}{##4}{\radH}{white}\else\if##1C\hatom{##3}{##4}{\radX}{PlateInk}\else\if##1N\hatom{##3}{##4}{\radX}{ColNitrogen}\else\if##1O\hatom{##3}{##4}{\radX}{ColOxygen}\else\if##1K\hatom{##3}{##4}{\radK}{ColPotassium}\else\hatom{##3}{##4}{\radRb}{ColRubidium}\fi\fi\fi\fi\fi}}
+\newcommand\molghost{\renewcommand\molrodj[8]{\draw[ghost] (##1,##2)--(##3,##4);}
   \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 % ---- leader label: \leaderlabel{x}{y}{dx}{dy}{anchor}{text}
 \newcommand\leaderlabel[6]{\draw[leader] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5] at ({#1+#3},{#2+#4}) {#6};}
@@ -73,7 +93,7 @@
       \begin{scope}\clip ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
         \foreach \y in {-3,-2.8,...,2} \draw[fine] (-3.5,\y)--(3.5,{\y+1.6});\end{scope}
       \draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
-      \draw[ColNitrogen,line width=.9pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
+      \draw[ColNitrogen,line width=1.3pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
     % 5. top face: the annulus minus the wedge sector
     \path[fill=white] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
     \draw[heavy] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
@@ -85,6 +105,29 @@
     \coordinate (-bot300) at ({\Rm*sin(300)},{-\Hh-\E*\Rm*cos(300)});
     \coordinate (-bot60) at ({\Rm*sin(60)},{-\Hh-\E*\Rm*cos(60)});
     \coordinate (-bot180) at ({\Rm*sin(180)},{-\Hh-\E*\Rm*cos(180)});
+    \coordinate (-top60) at ({\Rm*sin(60)},{\Hh-\E*\Rm*cos(60)});
+    \coordinate (-faceC) at ({\Rm*sin(\wa)},{-\E*\Rm*cos(\wa)});
+  }}}
+% ---- the band alone (the reference family as an open cylinder surface), same projection as the tube.
+% Keys band/R, band/H (half height), band/E. Far inner half visible through the opening; seam at tau = pi (back) dashed.
+% Named coordinates as for the tube: -top0 -top120 -top240 -bot60 -bot180 -bot300.
+\tikzset{band/R/.initial=1.5,band/H/.initial=.55,band/E/.initial=.42,
+  pics/band/.style={code={
+    \pgfmathsetmacro{\R}{\pgfkeysvalueof{/tikz/band/R}}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/band/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/band/E}}
+    % far half (inside face), lightly tinted, with generatrices crowding toward the silhouettes
+    \path[fill=ColNitrogen!8] plot[domain=90:270,samples=40,variable=\a] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)}) -- cycle;
+    \foreach \a in {96,104,...,264} {\pgfmathsetmacro{\lw}{0.15+0.35*abs(cos(\a))}\draw[line width=\lw pt,draw=PlateInk!70] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)})--({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});}
+    \draw[fine] plot[domain=90:270,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});
+    \draw[heavy,dash pattern=on 2.4pt off 1.6pt] (0,{-\Hh+\E*\R})--(0,{\Hh+\E*\R});
+    % near half (outside face)
+    \path[fill=ColNitrogen!16] plot[domain=-90:90,samples=40,variable=\a] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)}) -- plot[domain=90:-90,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)}) -- cycle;
+    \foreach \a in {40,46,...,88} {\pgfmathsetmacro{\lw}{0.2+0.5*((\a-40)/48)}\draw[line width=\lw pt,draw=PlateInk] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)})--({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});}
+    \foreach \a in {-88,-82,...,-64} {\pgfmathsetmacro{\lw}{0.2+0.3*((-64-\a)/24)}\draw[line width=\lw pt,draw=PlateInk] ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)})--({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});}
+    \draw[heavy] plot[domain=-90:90,samples=40,variable=\a] ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});
+    \draw[heavy] (-\R,-\Hh)--(-\R,\Hh) (\R,-\Hh)--(\R,\Hh);
+    \draw[heavy] (0,\Hh) ellipse[x radius=\R,y radius={\E*\R}];
+    \foreach \a in {0,120,240} \coordinate (-top\a) at ({\R*sin(\a)},{\Hh-\E*\R*cos(\a)});
+    \foreach \a in {60,180,300} \coordinate (-bot\a) at ({\R*sin(\a)},{-\Hh-\E*\R*cos(\a)});
   }}}
 % ---- oblique plates (covering sheets): \plates{x}{y}{n}{spacing} draws n sheets over a tinted base
 \newcommand\plates[4]{\begin{scope}[shift={(#1,#2)}]
@@ -96,13 +139,22 @@
 % ---- atom at a named coordinate: \hatomat{coordinate name}{r}{fill}
 \newcommand\hatomat[3]{\begin{scope}[shift={(#1)}]\hatom{0}{0}{#2}{#3}\end{scope}}
 % ---- Newman projection macros (used by the newman-* pics; coordinates in angstrom, pic scale sets the size)
-% back carbon: a circle of radius \nmR; back bonds start at the rim; front nitrogen at the centre.
-\def\nmR{.55}
+% back carbon: a circle of radius \nmR with its hydrogens on fine bonds from the rim; front nitrogen: a disc at the
+% centre with its hydrogens on rod bonds. Order of painting: back bonds and atoms, circle, front bonds and atoms, centre.
+\def\nmR{.5}\def\nmr{.2}
 \newcommand\nmback[3]{\pgfmathsetmacro{\nml}{sqrt((#1)*(#1)+(#2)*(#2))}
-  \draw[line width=.4pt,draw=PlateInk,double distance=1.1pt,double=white] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
-  \hatom{#1}{#2}{.17}{white}}
-\newcommand\nmcentre{\draw[line width=.5pt,draw=PlateInk,fill=white] (0,0) circle[radius=\nmR];\hatom{0}{0}{.13}{ColNitrogen}}
-\newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=1.1pt,double=white] (0,0)--(#1,#2);\hatom{#1}{#2}{.17}{white}}
+  \draw[line width=.6pt,draw=PlateInk] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
+  \hatom{#1}{#2}{\nmr}{white}\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at (#1,#2) {#3};}
+\newcommand\nmcircle{\draw[line width=.5pt,draw=PlateInk,fill=white] (0,0) circle[radius=\nmR];}
+\newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=2.4pt,double=white] (0,0)--(#1,#2);
+  \hatom{#1}{#2}{\nmr}{white}\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at (#1,#2) {#3};}
+\newcommand\nmcentre{\hatom{0}{0}{.27}{ColNitrogen}}
+% ---- labelled graph (2D): \gedge{x1}{y1}{x2}{y2}, \gnode{El}{label}{x}{y}; \graphghost dashed outlines, \graphink solid outlines
+\newcommand\gedge[4]{\draw[fine] (#1,#2)--(#3,#4);}
+\newcommand\gnode[4]{\if#1H\draw[ghost,fill=white] (#3,#4) circle[radius=\radH];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (#3,#4) {$\mathrm{#1}_{#2}$};\else\draw[ghost,fill=white] (#3,#4) circle[radius=\radX];\node[font=\fontsize{8}{9}\selectfont,inner sep=0pt] at (#3,#4) {$\mathrm{#1}_{#2}$};\fi}
+\newcommand\graphink{\renewcommand\gnode[4]{\if##1H\draw[line width=.5pt,draw=PlateInk,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\else\draw[line width=.5pt,draw=PlateInk,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{8}{9}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\fi}}
+% ---- digit labels inside the hydrogen discs (C and N unlabelled): \mollabelsinside
+\newcommand\mollabelsinside{\renewcommand\mollabel[6]{\if##1H\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at (##3,##4) {##2};\fi}}
 % ---- ghost molecule with the label inside each disc (versions: same positions, labels moved)
-\newcommand\molghostlabels{\renewcommand\molrod[4]{\draw[ghost] (##1,##2)--(##3,##4);}
+\newcommand\molghostlabels{\renewcommand\molrodj[8]{\draw[ghost] (##1,##2)--(##3,##4);}
   \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\node[font=\fontsize{6}{7}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\node[font=\fontsize{7}{8}\selectfont,inner sep=0pt] at (##3,##4) {$\mathrm{##1}_{##2}$};\fi}}

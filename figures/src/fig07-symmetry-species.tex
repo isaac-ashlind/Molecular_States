@@ -1,0 +1,44 @@
+% Figure 7. Symmetry species. What the reader must see: the three version states are three sites; t cycles them,
+% b fixes one and swaps two; the coefficient vectors on the sites split into one uniform mode (A1) and one E pair.
+% Mode pictures after Harter (1993) fig. 4.4.3: disc area = amplitude, ink = positive, white = negative.
+% Colours: blue = t, red dashed = b; gold unused. Hatch unused. Vectors and matrices verified exactly.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,8.6);
+% ------------------------------------------------ cosets with t and b
+\begin{scope}[shift={(2.4,5.0)}]
+  \coordinate (v0) at (0,1.9); \coordinate (v1) at (-1.5,-.6); \coordinate (v2) at (1.5,-.6);
+  \draw[tpath] (v0) to[bend right=20] (v1); \draw[tpath] (v1) to[bend right=20] (v2); \draw[tpath] (v2) to[bend right=20] (v0);
+  \draw[upath,<->] (v1)--(v2);
+  \draw[upath,-] (v0) ++(60:.42) arc[start angle=-30,end angle=210,radius=.36];
+  \foreach \p/\l in {v0/H,v1/tH,v2/t^2H} \node[circle,draw=PlateInk,fill=white,line width=.55pt,inner sep=1pt,minimum size=6.5mm,font=\fontsize{9}{10}\selectfont] at (\p) {$\l$};
+  \node[lab] at (-1.5,.95) {$t$}; \node[lab] at (0,-1.35) {$t$}; \node[lab] at (1.5,.95) {$t$};
+  \node[lab,anchor=south] at (0,-.45) {$b$}; \node[lab,anchor=south] at (0,2.75) {$b$};
+  \node[sub,align=center] at (0,-2.0) {$G_6/H$: $t$ cycles the three versions,\\$b$ fixes $H$ and swaps $tH,t^2H$};
+\end{scope}
+% ------------------------------------------------ mode pictures on the three sites
+\foreach \cx/\ca/\cb/\cc/\den/\vn/\sp in {7.0/1/1/1/{\sqrt3}/v_1/{\mathrm A_1},10.0/2/-1/-1/{\sqrt6}/v_2/{\mathrm E},13.0/0/1/-1/{\sqrt2}/v_3/{\mathrm E}} {
+  \begin{scope}[shift={(\cx,5.3)}]
+    \draw[fine] (0,1.0)--(-.95,-.6)--(.95,-.6)--cycle;
+    \foreach \px/\py/\c in {0/1.0/\ca,-.95/-.6/\cb,.95/-.6/\cc} {
+      \pgfmathsetmacro{\r}{.33*sqrt(abs(\c)/2)}
+      \pgfmathsetmacro{\pos}{\c>0?1:0}
+      \ifdim\r pt>0.1pt
+        \ifnum\pos=1 \fill[PlateInk] (\px,\py) circle[radius=\r]; \else \draw[heavy,fill=white] (\px,\py) circle[radius=\r]; \fi
+      \else \draw[fine] (\px-.08,\py)--(\px+.08,\py); \fi}
+    \node[lab] at (0,-1.3) {$\vn=\dfrac{(\ca,\cb,\cc)}{\den}$};
+  \end{scope}
+}
+\draw[fine] (6.3,7.3)--(6.3,7.15)--(7.7,7.15)--(7.7,7.3); \node[lab,anchor=south] at (7.0,7.35) {$\mathrm A_1$};
+\draw[fine] (9.2,7.3)--(9.2,7.15)--(13.8,7.15)--(13.8,7.3); \node[lab,anchor=south] at (11.5,7.35) {$\mathrm E$, one two-dimensional subspace};
+\node[sub,align=center,text width=8.6cm,anchor=north] at (10.0,3.45) {disc area is the amplitude, ink positive, white negative, a dash for zero;\\ sites ordered $(H,tH,t^2H)$ as in the triangle at left};
+% ------------------------------------------------ the action on the modes
+\node[lab,anchor=north west,align=left] at (6.3,2.15) {on $v_1$:\quad $t\mapsto1$,\quad $b\mapsto1$\\[4pt] on $(v_2,v_3)$:\quad $t\mapsto\begin{pmatrix}-\tfrac12&-\tfrac{\sqrt3}{2}\\[2pt]\tfrac{\sqrt3}{2}&-\tfrac12\end{pmatrix}$,\quad $b\mapsto\begin{pmatrix}1&0\\0&-1\end{pmatrix}$};
+\node[lab,anchor=north west,align=left] at (.6,2.15) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$,\\ no $\mathrm A_2$};
+\end{tikzpicture}
+\end{document}

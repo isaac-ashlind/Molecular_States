@@ -1,0 +1,20 @@
+\documentclass[10pt,border=2mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\begin{scope}\molsolid
+\pic[scale=.95] at (0,0) {mol3d-mla-ref};
+\pic[scale=.95] at (4.5,0) {mol3d-mla-bref};
+\pic[scale=2.2] at (10,0) {mol3d-mla-ref};
+\pic[scale=.95] at (0,-4) {mol3d-water-X};
+\pic[scale=.95] at (3,-4) {mol3d-water-RX};
+\pic[scale=.75] at (6,-4) {mol3d-water-grid-00};
+\pic[scale=.75] at (8,-4) {mol3d-water-grid-44};
+\pic[scale=.75] at (10,-4) {mol3d-water-grid-24};
+\end{scope}
+\end{tikzpicture}
+\end{document}

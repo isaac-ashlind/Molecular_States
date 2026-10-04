@@ -1,8 +1,9 @@
 % Figure 6. Feasible configuration space. What the reader must see: F is a solid, the thickened
 % reference family; the family is a band inside its wall; the versions sit on the band's edges;
+% the two generators are two paths on the band, and the same paths are followed below as Newman projections;
 % the symmetry images of F are twenty disjoint copies carved out of C.
-% Colours: blue = t path, red dashed = tu path, gold = version points, blue tint = the solid's wall.
-% Hatch = cut material (the cut faces of the wedge; the part of C outside the images).
+% Colours: blue = t path, red dashed = tu path, gold = version points (faded, dashed = hidden behind the wall),
+% blue tint = the solid's wall. Hatch = cut material (the cut faces of the wedge; the part of C outside the images).
 % Disclosures for the caption notes: one radial thickness stands for the 13 normal coordinates;
 % the SO(3) factor is suppressed; the tube's topology is not a claim about F; assumptions are an
 % embedded tubular neighbourhood and separation of the images.
@@ -14,39 +15,57 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,12.2);
+\path[use as bounding box] (0,0) rectangle (15,14.4);
 % ------------------------------------------------ the solid F, cut open
-\pic (tb) at (4.6,9.3) {thicktube};
-% paths on the band: t along the top edge (visible), tu through the interior to the bottom edge
-\draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{9.3+.62-.42*2.15*cos(\a)});
-\draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{9.3+.62-2*.62*\s-.42*2.15*cos(60*\s)});
+\pic (tb) at (4.6,11.4) {thicktube};
+% paths on the band: t along the top edge (visible), through the eclipsed point; tu through the interior to the bottom edge
+\draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({4.6+2.15*sin(\a)},{11.4+.62-.42*2.15*cos(\a)});
+\draw[upath] plot[domain=0:1,samples=30,variable=\s] ({4.6+2.15*sin(-60*\s)},{11.4+.62-2*.62*\s-.42*2.15*cos(60*\s)});
+\draw[fine,fill=white] (tb-top60) circle[radius=.075];
 \foreach \p in {top0,top120,top240} \hatomat{tb-\p}{.09}{ColGold}
 \hatomat{tb-bot300}{.09}{ColGold}
-\leaderlabel{4.6}{8.95}{.0}{-.55}{north}{$H$}
-\leaderlabel{6.46}{10.37}{.5}{.35}{west}{$tH$}
-\leaderlabel{2.74}{10.37}{-.45}{.4}{east}{$t^2H$}
-\leaderlabel{2.74}{8.23}{.7}{-.45}{west}{$tuH$}
-\node[lab] at (6.05,10.95) {$t$}; \node[lab] at (2.65,9.1) {$tu$};
-\node[sub,anchor=west] at (7.7,10.0) {$\tau$ around}; \node[sub,anchor=west] at (7.7,9.6) {$\eta$ along the height}; \node[sub,anchor=west] at (7.7,9.2) {$Q$ across the wall};
-\node[sub,anchor=west] at (7.7,8.5) {$uH,\,t^2uH$ on the lower edge, behind};
-% zoom bubble: the normal slice at the cut face
-\zoombubble{2.95}{9.4}{.32}{.95}{7.25}{.85}
-\begin{scope}[shift={(.95,7.25)}]
-  \path[cut] (-.72,-.6) rectangle (.72,.6); \draw[heavy] (-.72,-.6) rectangle (.72,.6);
-  \draw[ColNitrogen,line width=.9pt] (0,-.6)--(0,.6);
-  \draw[harrow] (0,0)--(.55,0); \node[lab,anchor=south west,inner sep=.5pt] at (.3,.05) {$Q$};
-  \node[sub,anchor=south] at (0,.65) {$\eta$};
+\foreach \p in {bot60,bot180} \draw[ghost,fill=ColGold!45] (tb-\p) circle[radius=.09];
+\leaderlabel{4.6}{11.05}{.0}{-.5}{north}{$H$}
+\leaderlabel{6.46}{12.47}{.5}{.35}{west}{$tH$}
+\leaderlabel{2.74}{12.47}{-.45}{.4}{east}{$t^2H$}
+\leaderlabel{2.74}{10.33}{.75}{-.42}{west}{$tuH$}
+\draw[leader] (tb-top60)++(.06,-.04)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-top60)+(.64,-.4)$) {eclipsed};
+\draw[leader] (tb-bot60)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-bot60)+(.58,-.37)$) {$t^2uH$};
+\draw[leader] (tb-bot180)--++(.0,.55); \node[sub,anchor=south,inner sep=.5pt] at ($(tb-bot180)+(0,.58)$) {$uH$};
+\node[lab] at (6.1,13.05) {$t$}; \node[lab] at (2.65,11.2) {$tu$};
+\node[sub,anchor=west] at (8.9,12.9) {$\tau$ around}; \node[sub,anchor=west] at (8.9,12.5) {$\eta$ along the height}; \node[sub,anchor=west] at (8.9,12.1) {$Q$ across the wall};
+\node[sub,anchor=north west,text width=5.8cm] at (8.9,11.7) {the band at mid-thickness is the reference family $X_0(\tau,\eta)$; its six version points are gold, faded where the wall hides them};
+\node[sub,anchor=north west,text width=5.8cm] at (8.9,10.4) {two paths from $H$: $t$ in blue along the top edge, through the eclipsed point at $\tau=\pi/3$; $tu$ in red through the band to the lower edge};
+% ------------------------------------------------ zoom: the cut face itself, enlarged (same quadrilateral, same eta-line)
+\zoombubble{2.70}{10.11}{.72}{1.55}{8.35}{1.4}
+\begin{scope}[shift={(1.55,8.35)}]
+  \pgfmathsetmacro{\m}{1.4/.72}\pgfmathsetmacro{\fa}{-62}\pgfmathsetmacro{\E}{.42}
+  \pgfmathsetmacro{\cx}{2.15*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*2.15*cos(\fa)}
+  \coordinate (p1) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(.62-\E*1.8*cos(\fa)-\cy)});
+  \coordinate (p2) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(.62-\E*2.5*cos(\fa)-\cy)});
+  \coordinate (p3) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(-.62-\E*2.5*cos(\fa)-\cy)});
+  \coordinate (p4) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(-.62-\E*1.8*cos(\fa)-\cy)});
+  \path[cut] (p1)--(p2)--(p3)--(p4)--cycle; \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
+  \draw[ColNitrogen,line width=1.3pt] (0,{\m*.62})--(0,{-\m*.62});
+  \hatom{0}{0}{.09}{ColGold}
+  \draw[harrow] (0,0)--(-.5,0); \node[lab,anchor=south,inner sep=1pt] at (-.3,.06) {$Q$};
+  \node[lab,anchor=east,inner sep=1pt] at (-.08,{\m*.5}) {$\eta$};
+  \node[sub,anchor=west,inner sep=.5pt] at (.1,-.1) {$q$};
 \end{scope}
-\node[sub,anchor=west] at (2.15,6.95) {the cut face is a normal slice,}; \node[sub,anchor=west] at (2.15,6.6) {$X_0(q)+\sum_a Q_ae_a(q)$, $|Q|<\varepsilon$};
-% ------------------------------------------------ versions along the t path, as Newman projections
-\node[sub,anchor=west] at (.2,5.95) {looking down the C--N axis along the $t$ path};
-\foreach \x/\deg/\l in {1.6/0/{$H$},4.3/60/{eclipsed, $\tau=\pi/3$},7.0/120/{$tH$}} {
-  \pic[scale=.62] at (\x,4.8) {newman-tau-\deg};
-  \node[sub] at (\x,3.6) {\l};
-}
-\draw[harrow] (2.75,4.8)--(3.3,4.8); \draw[harrow] (5.45,4.8)--(6.0,4.8);
-\pic[scale=.62] at (10.6,4.8) {newman-tau-0-eta-minus}; \node[sub] at (10.6,3.6) {$\eta\mapsto-\eta$, through $\eta=0$};
-\draw[upath] (8.2,4.8)--(9.4,4.8);
+\node[sub,anchor=north west,text width=5.2cm] at (3.15,9.2) {the cut face is a normal slice at $q=(\tau,\eta)$: the points $X_0(q)+\sum_a Q_ae_a(q)$, $|Q|<\varepsilon$; the band's $\eta$-line in blue, the cut wall hatched};
+% ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
+\node[sub,anchor=north west,text width=11.6cm] at (3.15,7.35) {the same two paths followed below, seen down the C--N axis: N in front with its hydrogens on rods, C behind with its hydrogens from the rim; the digits are the column labels};
+\begin{scope}\def\nmR{.5}
+  \pic[scale=.9] at (1.9,5.2) {newman-tuH};
+  \pic[scale=.9] at (5.3,5.2) {newman-tau-0};
+  \pic[scale=.9] at (8.7,5.2) {newman-tau-60};
+  \pic[scale=.9] at (12.1,5.2) {newman-tau-120};
+\end{scope}
+\draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,text=ColOxygen,anchor=south] at (3.6,5.28) {$tu$};
+\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,text=ColNitrogen,anchor=south] at (7.0,5.28) {$t$};
+\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,text=ColNitrogen,anchor=south] at (10.4,5.28) {$t$};
+\foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\eta=-\eta_0$},5.3/{$H$}/{$\tau=0$, $\eta=\eta_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\eta=\eta_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\eta=\eta_0$}} {
+  \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
 % ------------------------------------------------ the images of F inside C
 \begin{scope}[shift={(0,.3)}]
   \draw[heavy,rounded corners=8pt] (.3,.2) rectangle (14.7,3.0);
