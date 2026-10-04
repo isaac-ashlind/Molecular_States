@@ -74,6 +74,11 @@ def main():
     else:
         print('    pdftoppm not found: previews skipped')
     if only:
+        out = ROOT / 'figures' / 'pdf'; out.mkdir(exist_ok=True)
+        for pdf in sorted(FIGS.glob('fig*.pdf')):
+            shutil.copy2(pdf, out / pdf.name)   # a single-figure build still refreshes its deliverable
+        r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))], cwd=ROOT, capture_output=True, text=True)
+        print(r.stdout.strip())
         return
     print('[5/6] scaffold')
     for _ in range(2):
