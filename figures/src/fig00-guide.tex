@@ -41,7 +41,7 @@
   \path[fill=ColRetained!55] (vt0) circle[radius=.3]; \draw[fine] (vt0) circle[radius=.3];
   \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.085}{ColDot}}
   \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.085];}
-  \node[tag] at ({1.96*sin(57)},{.55-.42*1.96*cos(57)+.02}) {$\mathcal F$};
+  \node[lab,anchor=east] at ({-\Ro-.18},-.1) {$\mathcal F$};
   \coordinate (Hpt) at (vt0);
 \end{scope}
 \node[head,anchor=west] at (10.7,6.1) {Fragments and}; \node[head,anchor=west] at (10.7,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7,5.48) {\S\S\,4--6};
