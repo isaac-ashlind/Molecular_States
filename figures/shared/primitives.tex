@@ -5,7 +5,7 @@
   fine/.style={line width=.4pt,draw=PlateInk},
   hidden/.style={line width=.45pt,draw=PlateInk,line cap=round,dash pattern=on 0pt off 1.5pt},  % dotted: dashed is spent on the u, tu actions
   ghost/.style={line width=.5pt,draw=PlateInk,line cap=round,dash pattern=on 0pt off 1.5pt},
-  cut/.style={pattern={Lines[angle=45,distance=3.4pt,line width=.28pt]},pattern color=PlateInk!62},  % lightened 2026-10-04 (cover round)
+  cut/.style={pattern={Lines[angle=45,distance=3.4pt,line width=.22pt]},pattern color=PlateInk},  % ink, thin (author, 2026-10-04)
   harrow/.style={heavy,-{Stealth[length=2.2mm,width=1.8mm]}},
   % actions: solid = t, dashed = u or tu, dotted (beaded) = a starred operation (b, E*); arrowheads on the path styles only
   tpath/.style={line width=.9pt,draw=PlateInk,-{Stealth[length=2mm,width=1.6mm]}},
@@ -54,7 +54,7 @@
 \newcommand\molghost{\renewcommand\molrodj[8]{\draw[ghost] (##1,##2)--(##3,##4);}
   \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 % ---- hatch: \hatchregion{angle}{path} fills the path with continuous hatch lines (a tiled pattern breaks at every tile)
-\newcommand\hatchregion[2]{\begin{scope}\clip #2; \begin{scope}[rotate=#1]\foreach \k in {-260,...,260} \draw[line width=.28pt,draw=PlateInk!62] (-32,{\k*.12})--(32,{\k*.12});\end{scope}\end{scope}}
+\newcommand\hatchregion[2]{\begin{scope}\clip #2; \begin{scope}[rotate=#1]\foreach \k in {-260,...,260} \draw[line width=.22pt,draw=PlateInk] (-32,{\k*.12})--(32,{\k*.12});\end{scope}\end{scope}}
 % ---- leader label: \leaderlabel{x}{y}{dx}{dy}{anchor}{text}
 \newcommand\leaderlabel[6]{\draw[leader,shorten >=3pt,shorten <=2.3pt] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5,inner sep=2.5pt] at ({#1+#3},{#2+#4}) {#6};}  % a leader stops short of its label; the label keeps air
 % ---- zoom bubble: \zoombubble{x}{y}{r}{X}{Y}{R} draws the small circle, the large circle and two tangent lines

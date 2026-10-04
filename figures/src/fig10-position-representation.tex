@@ -50,13 +50,18 @@
 \begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
-  \draw[fine] (0,{-.37+.42*1.16})--(0,{.37+.42*1.16}); \draw[heavy] (-.09,{.37+.42*1.24+.04})--(.09,{.37+.42*1.24+.04}) (-.09,{-.37+.42*1.16-.04})--(.09,{-.37+.42*1.16-.04});
+  % the seam, cut: a slit through the back wall from the bottom rim to the top edge (two cut edges, white between),
+  % with cut marks beyond its ends
+  \path[fill=white] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005})--(.035,{.37+.42*1.24+.005})--(.035,{-.37+.42*1.16})--cycle;
+  \draw[heavy] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005}) (.035,{-.37+.42*1.16})--(.035,{.37+.42*1.24+.005});
+  \draw[heavy] (-.13,{.37+.42*1.24+.07})--(.13,{.37+.42*1.24+.07}) (-.13,{-.37+.42*1.16-.07})--(.13,{-.37+.42*1.16-.07});
   \draw[tpath] plot[domain=0:112,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});   % the head stops short of the dot at 120
   \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
   \foreach \p in {top0,top120,top240,bot60,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
   \draw[ghost,fill=ColDot!45] (bd-bot180) circle[radius=.08];
-  \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.06})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
-  \node[sub,anchor=north west,inner sep=1.5pt] at ($(bd-top0)+(.1,-.08)$) {$H$};
+  \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.09})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
+  % H named outside the sheet, below it at the left, its leader crossing the front wall
+  \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.08); \node[sub,anchor=north east,inner sep=1.5pt] at (-.55,-1.08) {$H$};
 \end{scope}
 \draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.42) {unroll};
 \chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}

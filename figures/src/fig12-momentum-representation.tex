@@ -16,15 +16,22 @@
 \path[use as bounding box] (0,1.1) rectangle (15,11.9);
 % ------------------------------------------------ A. the K ladder on the sphere |J| = sqrt(J(J+1)), J = 2
 \begin{scope}[shift={(3.0,9.25)}]
-  \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.42}
-  \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
+  % the sphere is seen from a higher elevation than the tubes (E = .6) so that the ring planes open and a vector from the
+  % centre to a ring reads in depth; the body axis stays upright (author, 2026-10-04)
+  \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.6}
   \hatom{0}{0}{\R}{white}
+  \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
     \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
     \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
-  \draw[harrow] (0,0)--({sqrt(5)*\s*cos(-40)},{\s+\E*sqrt(5)*\s*sin(-40)});
-  \node[lab,anchor=south,inner sep=1pt] at (.48,.2) {$\mathbf J$};   % above the shaft, between the K=1 and K=2 rings, off the shading
+  % the vector J: from the centre (marked) to the front-left of the K = 1 ring, on the lit side; the dotted line is the
+  % ring's radius in its own plane, from the axis at the ring's height to the tip, so the z component reads as K = 1
+  \pgfmathsetmacro{\ja}{215}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
+  \coordinate (jt) at ({\jr*cos(\ja)},{\jh+\E*\jr*sin(\ja)});
+  \draw[hidden] (0,\jh)--(jt);
+  \draw[harrow] (0,0)--(jt); \fill[PlateInk] (0,0) circle[radius=1.3pt];
+  \node[lab,anchor=south east,inner sep=1pt] at ($(jt)+(-.04,.1)$) {$\mathbf J$};
   \node[sub,anchor=north] at (0,{-\R-.4}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$};
 \end{scope}
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame

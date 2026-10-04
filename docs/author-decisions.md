@@ -154,3 +154,15 @@ docs/notation-migration.md.
 - Not changed, for the author: Section 12's reduced torsional model stays; Sections 7 and 8 untouched; figures
   untouched. Observation only: for methylamine H = {E, b} with b starred, so H_rot is trivial (an asymmetric top in
   Albert's classification) and the whole content of H in the rigid limit is the parity condition carried by b.
+
+## Last plate notes before manual control (2026-10-04, late night)
+
+- Figure 12's sphere: the vector J starts at a marked centre, ends on the front of the K = 1 ring, and the ring's
+  radius from the axis to the tip is dotted so the z component reads as K = 1; the sphere is seen from a higher
+  elevation than the tubes (E = .6) so the ring planes open. A tilt of the body axis was tried and rejected by the
+  author as needless complexity; the axis stays upright.
+- Figure 10's seam is a slit (two cut edges, white between) through the back wall with cut marks; H is named outside
+  the sheet on a leader. Leaders carry no white halo (author); where a label would sit in clutter the leader is made
+  longer instead.
+- The hatch of cut material is ink, thinner (.22pt), on the cover and on every plate that uses it.
+- The appendix question (a rigid-recovery appendix with a figure) is answered in the hand-off note and not started.
