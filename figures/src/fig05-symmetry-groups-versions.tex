@@ -15,31 +15,31 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,covlab/.style={font=\fontsize{6.5}{7}\selectfont,fill=white,inner sep=.8pt,text=PlateInk}]
-\path[use as bounding box] (0,0) rectangle (15,20.6);
+\path[use as bounding box] (0,0) rectangle (15,19.3);
 % ------------------------------------------------ A. the fragments drawn apart; X0 with its half-turn axis; the version equation as two arrows into one glyph
 % every methylamine glyph on this plate is turned by -19.53 degrees in the page, which stands the projected half-turn
 % axis (the body y axis, direction (-.6248, 1.7619) in the camera's image) upright; the digits stay upright
 \pgfmathsetmacro{\turn}{-19.53}
-\begin{scope}[shift={(2.5,18.3)},rotate=\turn]
+\begin{scope}[shift={(2.5,17.4)},rotate=\turn]
   \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
   \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
 \end{scope}
-\node[sub,anchor=north] at (1.75,16.8) {methyl}; \node[sub,anchor=north] at (3.65,16.8) {amino};
-\begin{scope}[shift={(7.4,18.3)}]
+\node[sub,anchor=north] at (1.75,15.9) {methyl}; \node[sub,anchor=north] at (3.65,15.9) {amino};
+\begin{scope}[shift={(7.4,17.4)}]
   \draw[line width=.4pt,draw=PlateInk] (0,-1.55)--(0,1.5);
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
   \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (.36,1.5) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
 \end{scope}
-\node[sub,anchor=north] at (7.4,16.8) {$\X_0$};
-\begin{scope}[shift={(12.3,18.3)}]
+\node[sub,anchor=north] at (7.4,15.9) {$\X_0$};
+\begin{scope}[shift={(12.3,17.4)}]
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-bref};\end{scope}
 \end{scope}
-\node[sub,anchor=north] at (12.3,16.8) {$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$};
-\draw[bpath] (9.05,18.85)--(10.65,18.85); \node[lab,anchor=south] at (9.85,18.95) {$b=(23)(45)^*$};
-\draw[harrow] (9.05,17.75)--(10.65,17.75); \node[lab,anchor=north] at (9.85,17.65) {$\Rmat_b=\Rmat_y(\pi)$};
+\node[sub,anchor=north] at (12.3,15.9) {$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$};
+\draw[bpath] (9.05,17.95)--(10.65,17.95); \node[lab,anchor=south] at (9.85,18.05) {$b=(23)(45)^*$};
+\draw[harrow] (9.05,16.85)--(10.65,16.85); \node[lab,anchor=north] at (9.85,16.75) {$\Rmat_b=\Rmat_y(\pi)$};
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
-\begin{scope}[shift={(.5,7.6)}]
-  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+6.6*\yy});}
+\begin{scope}[shift={(.5,6.8)}]
+  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+7.6*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.22pt,draw=PlateInk!28] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}
   \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColGold!60] (n\a)--(n\b);}
@@ -49,19 +49,19 @@
 \end{scope}
 \draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south,text width=1.6cm,align=center] at (7.7,11.0) {keep the bonds};
 \def\gt{t}\def\gu{u}
-\begin{scope}[shift={(11.5,8.1)},x=-.68cm,y=1.6cm]
+\begin{scope}[shift={(11.5,7.3)},x=-.68cm,y=1.7cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \draw[line width=3pt,draw=ColGold!60] (h0)--(h4)--(h6)--(h9);
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,6.75) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move
-\node[sub,anchor=west] at (.3,5.3) {versions $G_{12}/H$};
+\node[sub,anchor=west] at (.3,5.25) {versions $G_{12}/H$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
-  \begin{scope}[shift={({1.45+2.42*\k},3.6)}]
+  \begin{scope}[shift={({1.25+2.5*\k},3.5)}]
     \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
-    \begin{scope}\molsolid\mollabelsinside\pic[scale=.78,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+    \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
     \node[lab] at (0,-1.55) {$\cname$};
     \node[sub] at (0,-1.95) {$g=\gname$};
   \end{scope}

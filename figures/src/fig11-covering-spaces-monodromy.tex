@@ -2,7 +2,7 @@
 % version pairs {gX, gbX}; a loop downstairs lifts to a path from one sheet to another; t then b and b then t end on
 % different sheets. Drawing: the pairs side by side over V, the X-side column at the left and the bX-side at the
 % right, each headed by its configuration; t climbs a column (solid), b hops across (dotted, the starred generator);
-% t then b ends one level up on the right, b then t two levels up on the right (gold rings); the six sheets as a
+% t then b ends one level up on the right, b then t two levels up on the right (gold rings); b hops straight across; the six sheets as a
 % graph at the right for the bookkeeping, where t turns the outer triangle one way and the inner the other.
 % The loop figure after Harter (1993) fig. 5.4.2 in spirit (a closed path downstairs whose lift does not close).
 % Colours: red = the points over [X] (versions), gold = the endpoints, blue = nitrogen; ink elsewhere. Hatch unused.
@@ -31,17 +31,17 @@
     \pgfmathsetmacro{\y}{1.6+1.7*\k}
     \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
     \coordinate (pa\k) at (-1.95,{\y+.35}); \coordinate (pb\k) at (2.65,{\y+.35});
-    \node[sub,anchor=west,inner sep=1pt] at (-3.9,{\y+.2}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (.7,{\y+.2}) {$\gb$};
+    \node[sub,anchor=west,inner sep=1pt] at (-3.55,{\y+.24}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (1.05,{\y+.24}) {$\gb$};
     \node[lab,anchor=east] at (-4.3,{\y+.35}) {$\pl$};}
   \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pa0); \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pb0);
   \draw[tlift] (pa0) .. controls (-3.0,{1.6+.35+.35}) and (-3.0,{1.6+1.7+.35-.35}) .. (pa1);
-  \draw[blift] (pa1) .. controls (.35,{1.6+1.7+.35+1.25}) .. (pb1);
-  \draw[blift] (pa0) .. controls (.35,{1.6+.35+1.25}) .. (pb0);
+  \draw[blift] (pa1)--(pb1);
+  \draw[blift] (pa0)--(pb0);
   \draw[tlift] (pb0) .. controls (4.8,{1.6+.35+1.0}) and (4.8,{1.6+3.4+.35-1.0}) .. (pb2);
   \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
   \hatomat{bx}{.07}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
   \goldring{pb1} \goldring{pb2}
-  \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
+  \node[sub,anchor=south] at ($(pb1)+(0,.42)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.42)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns, drawn at the scale of figure 5
 \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (3.3,9.7) {mol3d-mla-X}; \pic[scale=.8] at (7.9,9.7) {mol3d-mla-bX};\end{scope}
@@ -54,7 +54,7 @@
   \foreach \k in {0,1,2} \draw[blift] (o\k)--(i\k);
   \foreach \k/\l in {0/{\X},1/{t\X},2/{t^2\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (o\k) {$\l$};
   \foreach \k/\l in {0/{b\X},1/{tb\X},2/{t^2b\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (i\k) {$\l$};
-  \node[circle,draw=ColGold,line width=1.6pt,minimum size=7.2mm] at (i1) {}; \node[circle,draw=ColGold,line width=1.6pt,minimum size=7.2mm] at (i2) {};
+  \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i1) {}; \node[circle,draw=ColGold,line width=1.6pt,minimum size=5.6mm,inner sep=0pt] at (i2) {};
 \end{scope}
 \end{tikzpicture}
 \end{document}

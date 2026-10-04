@@ -17,7 +17,8 @@
 \renewcommand{\thesection}{\Roman{section}}
 \counterwithout{subsection}{section}
 \renewcommand{\thesubsection}{\arabic{subsection}}
-\pretocmd{\subsection}{\FloatBarrier}{}{}
+% floats: a plate shares its page with the prose unless it needs the whole page (figure 5, placed [p])
+\renewcommand{\topfraction}{.9}\renewcommand{\bottomfraction}{.6}\renewcommand{\textfraction}{.08}\renewcommand{\floatpagefraction}{.85}
 \usepackage[hidelinks]{hyperref}
 
 \AtBeginEnvironment{itemize}{\setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}}
@@ -415,7 +416,7 @@ represented by $tu$.\footnote{Kleiner and Hougen~\cite{KleinerHougen2015}.}
 The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
 \end{itemize}
 
-\begin{figure}[tb]
+\begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{fig05-symmetry-groups-versions}
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:5}
