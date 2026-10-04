@@ -2,7 +2,8 @@
 % hatched slab with the hole the carving leaves and one configuration as a point of it; the feasible solid F lifted
 % out and cut open, with the two generator paths and the version points on its core sheet and a packet on one
 % version; above, the quotient patch V with the two loops, and over V the six sheets, one per version, on which the two loops
-% lift: neither lift closes, and they end on different sheets (monodromy). The four parts of the paper are headings
+% lift: neither lift closes, and they end on different sheets (monodromy); the sheets carry no names on the cover.
+% The four parts of the paper are headings
 % beside their objects, with section ranges only.
 % The solid's decoration is turned by 15 degrees so that the projection line from H to [X] passes no other point.
 % Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the
@@ -59,12 +60,12 @@
   \foreach \k/\la in {0/H,1/uH,2/tH,3/tuH,4/{t^2H},5/{t^2uH}} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
     \sheet{\yy}{fine}{white}
     \coordinate (p\k) at (.35,{\yy+.25});
-    \node[sub,anchor=west,inner sep=1pt] at (2.6,{\yy+.25}) {$\la$};}
+    }
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
   \draw[tlift] (p0) .. controls (2.3,{1.3+.25+.3}) and (2.3,{1.3+.78*2+.25-.3}) .. (p2);
   \draw[ulift] (p0) .. controls (-1.7,{1.3+.25+.4}) and (-1.7,{1.3+.78*3+.25-.4}) .. (p3);
   \foreach \k in {0,...,5} {\hatomat{p\k}{.075}{ColDot}}
 \end{scope}
-\node[head,anchor=west] at (11.1,13.3) {Representations and}; \node[head,anchor=west] at (11.1,12.9) {Global Structure}; \node[rng,anchor=north west] at (11.1,12.68) {\S\S\,10--12};
+\node[head,anchor=west] at (10.7,13.3) {Representations and}; \node[head,anchor=west] at (10.7,12.9) {Global Structure}; \node[rng,anchor=north west] at (10.7,12.68) {\S\S\,10--12};
 \end{tikzpicture}
 \end{document}
