@@ -41,7 +41,7 @@
   \addplot[ColDualB,line width=.9pt] table[x=theta,y=b] {component-functions.dat};
   \addplot[PlateInk,line width=.6pt,dash pattern=on .6pt off 1.3pt] table[x=theta,y=n2] {component-functions.dat};
   \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(\sampleThetaone,{\sampleAone*\sampleAone+\sampleBone*\sampleBone}) (\sampleThetatwo,{\sampleAtwo*\sampleAtwo+\sampleBtwo*\sampleBtwo}) (\sampleThetathree,{\sampleAthree*\sampleAthree+\sampleBthree*\sampleBthree})};
-  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.03) {$a$}; \node[lab,anchor=south west,text=ColDualB] at (axis cs:121,-.78) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:118,1.55) {$|a|^2+|b|^2$};
+  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.05) {$a$}; \node[lab,anchor=north,text=ColDualB] at (axis cs:104.5,-1.06) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:123,1.62) {$|a|^2+|b|^2$};
 \end{axis}
 \node[lab,anchor=north west,align=left] at (11.4,4.6) {$\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,d\X$};
 \end{tikzpicture}
