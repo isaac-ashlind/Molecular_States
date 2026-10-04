@@ -15,7 +15,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,14.4);
+\path[use as bounding box] (0,-.45) rectangle (15,14.4);
 % ------------------------------------------------ the solid F, cut open
 \pic (tb) at (4.6,11.4) {thicktube};
 % paths on the band: t along the top edge (visible), through the eclipsed point; tu through the interior to the bottom edge
@@ -29,15 +29,14 @@
 \leaderlabel{6.46}{12.47}{.5}{.35}{west}{$tH$}
 \leaderlabel{2.74}{12.47}{-.45}{.4}{east}{$t^2H$}
 \leaderlabel{2.74}{10.33}{.75}{-.42}{west}{$tuH$}
-\draw[leader] (tb-top60)++(.06,-.04)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-top60)+(.64,-.4)$) {eclipsed};
-\draw[leader] (tb-bot60)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-bot60)+(.58,-.37)$) {$t^2uH$};
-\draw[leader] (tb-bot180)--++(.0,1.1); \node[sub,anchor=south,inner sep=.5pt,fill=white] at ($(tb-bot180)+(0,1.12)$) {$uH$};
-\node[lab] at (6.1,13.05) {$t$}; \node[lab,fill=white,inner sep=1pt] at (3.75,11.0) {$tu$};
-\node[sub,anchor=west] at (8.9,12.9) {$\tau$ around}; \node[sub,anchor=west] at (8.9,12.5) {$\eta$ along the height}; \node[sub,anchor=west] at (8.9,12.1) {$Q$ across the wall};
-\node[sub,anchor=north west] at (8.9,11.7) {the core sheet is the family $X_0(\tau,\eta)$};
+\draw[leader,shorten >=3pt] (tb-top60)++(.06,-.04)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at ($(tb-top60)+(.66,-.42)$) {eclipsed};
+\draw[leader,shorten >=3pt] (tb-bot60)--++(.6,-.38); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at ($(tb-bot60)+(.6,-.38)$) {$t^2uH$};
+\draw[leader,shorten >=3pt] (tb-bot180)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at ($(tb-bot180)+(-.9,1.15)$) {$uH$};
+\node[lab] at (6.75,13.0) {$t$}; \node[lab,inner sep=1pt] at (3.3,10.75) {$tu$};
+\node[sub,anchor=north west] at (8.9,12.9) {the core sheet is the family $X_0(\tau,\eta)$};
 
 % ------------------------------------------------ zoom: the cut face itself, enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m, the version point tuH at the lower end of the eta-line)
-\zoombubble{2.70}{10.11}{.72}{1.55}{8.35}{1.4}
+\zoombubble{2.70}{10.45}{.95}{1.55}{8.35}{1.4}
 \begin{scope}[shift={(1.55,8.35)}]
   \pgfmathsetmacro{\m}{1.4/.72}\pgfmathsetmacro{\fa}{-62}\pgfmathsetmacro{\E}{.42}
   \pgfmathsetmacro{\cx}{2.15*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*2.15*cos(\fa)}
@@ -48,11 +47,11 @@
   \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
   \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
-  \draw[ColBandLine,line width=1.3pt] (0,{\m*.62})--(0,{-\m*.62});
+  \path[fill=ColBand] ({-.07*\m},{\m*.62}) rectangle ({.07*\m},{-\m*.62}); \draw[line width=.4pt,draw=PlateInk] ({-.07*\m},{\m*.62})--({-.07*\m},{-\m*.62}) ({.07*\m},{\m*.62})--({.07*\m},{-\m*.62});
   \hatom{0}{-\m*.62}{.09}{ColDot}
-  \node[lab,anchor=north,fill=white,inner sep=1pt] at (0,{-\m*.62-.12}) {$tuH$};
-  \draw[harrow] (0,.2)--(-.5,.2); \node[lab,anchor=south,inner sep=1pt,fill=white] at (-.28,.27) {$Q$};
-  \node[lab,anchor=east,inner sep=1pt,fill=white] at (-.1,{\m*.45}) {$\eta$};
+  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.14}) {$tuH$};
+  \draw[line width=3pt,draw=white] (0,.2)--(-.56,.2); \draw[harrow] (0,.2)--(-.52,.2); \node[lab,anchor=east,inner sep=1pt] at (-.74,.2) {$Q$};
+  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\eta$};
 \end{scope}
 \node[sub,anchor=north west] at (3.5,9.2) {the cut face enlarged};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
@@ -64,21 +63,21 @@
   \pic[scale=.9] at (12.1,5.2) {newman-tau-120};
 \end{scope}
 \draw[upath] (4.15,5.2)--(3.05,5.2); \node[lab,anchor=south] at (3.6,5.28) {$tu$};
-\draw[tpath] (6.45,5.2)--(7.55,5.2); \node[lab,anchor=south] at (7.0,5.28) {$t$};
-\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,anchor=south] at (10.4,5.28) {$t$};
+\draw[tpath] (6.45,5.2)--(7.55,5.2);
+\draw[tpath] (9.85,5.2)--(10.95,5.2); \node[lab,anchor=south] at (8.7,5.3) {$t$};
 \foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\eta=-\eta_0$},5.3/{$H$}/{$\tau=0$, $\eta=\eta_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\eta=\eta_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\eta=\eta_0$}} {
   \node[lab] at (\x,3.95) {\l}; \node[sub] at (\x,3.6) {\s};}
 % ------------------------------------------------ the images of F inside C
 \begin{scope}[shift={(0,.3)}]
-  \draw[heavy,rounded corners=8pt] (.3,.2) rectangle (14.7,3.0);
-  \path[cut] (.3,.2) [rounded corners=8pt] rectangle (14.7,3.0);
-  \node[tag,anchor=north west] at (.45,2.9) {$\conf$};
+  \draw[heavy,rounded corners=0pt] (.3,.2) rectangle (14.7,3.0);
+  \path[cut] (.3,.2) [rounded corners=0pt] rectangle (14.7,3.0);
+  \node[lab,anchor=south west] at (.35,3.05) {$\conf$};
   \foreach \i in {0,...,9} \foreach \j in {0,1} {
     \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{.95+1.0*\j}
-    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!14,tube/linecol=PlateInk!55}\pic at (\cx,\cy) {thicktube};\end{scope}}
+    \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!14,tube/topfill=PlateInk!14,tube/innerfill=PlateInk!14,tube/bandfill=PlateInk!30}\pic at (\cx,\cy) {thicktube};\end{scope}}
   \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white}\pic at (1.35,.95) {thicktube};\end{scope}
-  \node[tag] at (1.35,.35) {$\mathcal F$};
-  \node[tag,anchor=north east] at (14.55,2.9) {$|S/G_{12}|=20$ images of $\mathcal F$; the rest of $\conf$ is cut away};
+  \node[lab,anchor=east] at (.22,.95) {$\mathcal F$};
+  \node[sub,anchor=north east] at (14.6,-.02) {$|S/G_{12}|=20$ images of $\mathcal F$};
 \end{scope}
 \end{tikzpicture}
 \end{document}

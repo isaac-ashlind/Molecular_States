@@ -191,3 +191,24 @@ dotted starred) over a gold halo for the chain, and the three sentences became l
 parts and lost its three paragraphs; the version marks on the radial plots are red as in figures 7 and 9, and the
 shear line is gold. Lesson from the day: a block removed by searching for its text can match the header comment;
 anchor edits on code, not prose.
+
+## Review round (2026-10-04, evening): two Opus reviewers and the author's notes
+
+Reviews in `build/review/review-illustrator.md` and `review-physicist.md` (regenerate from the workflow journal if
+missing). Applied: pure hues for strokes (the darkened gold and teal were rejected; gold strokes are drawn heavier
+instead), fades only for obscured elements; the core sheet given a radial thickness in the tube pic (a strip on
+each cut face, a ring on the top face, the strip continuing across the gap); uncut copies draw no cut faces and the
+inactive images are grey through and through; leaders stop short of their labels and labels keep air; labels off
+hatching everywhere; E* and b drawn dotted on every plate; figure 3 rebuilt with a second row of colour-coded spin
+values permuted and signed, and its third panel corrected to -X P_sigma = E* sigma X; figure 5's row A rethought as
+an exploded molecule, an axis with a wrapped rotation symbol, and two arrows into one bX0; the three chain names
+dropped from the knotted lattice; figure 7's E plane upright under the key and zero drawn as a radial tick; figure
+8's E bundle as eight visible pairs with bracket strokes and solid joins; figure 9's red sites named, the chart
+clipped, the paragraph gone; figure 10's H beside its dot, q at the top of the eta line, Q outward with a white
+underlay, the note and footer gone; figure 11's graph with visible arrowheads, labels inside V, glyphs at scale;
+figure 12's K labels without leaders, the zero mode empty, 'one pair' gone. Not applied: a generic (non-singlet)
+state in figure 2 (the author asked for a physical one; the caption note now says so); renaming the spin basis
+(the plate writes the kets out instead); relaying the big lattice of figure 5 on the Hasse coordinates (left for a
+data-layer pass). Open physics question from the physicist reviewer for the author: in figure 4 the strands descend
+from S to G_K and G_Rb; if these are the fragment groups the caption should say so, and if the channel group of the
+separated products is meant it is S.

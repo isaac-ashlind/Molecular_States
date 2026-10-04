@@ -1,0 +1,25 @@
+% Grayscale test of the anchored palette: each hue pure, as a fill (flat and two-tone), as strokes at the weights
+% in use (0.9, 1.9, 2.6 pt), as a 1.9 pt stroke with ink keylines, and as the pale tints; the darkened strokes the
+% author rejected are shown once for comparison. Rendered in colour and converted to grey beside it.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,9.2);
+\foreach \c/\n/\y in {PlateInk/ink/8.1,ColRed/red/6.7,ColBlue/blue/5.3,ColTeal/teal/3.9,ColGold/gold/2.5} {
+  \node[lab,anchor=east] at (1.2,\y) {\n};
+  \fill[\c] (1.9,\y) circle[radius=.3];
+  \hatom{2.9}{\y}{.3}{\c}
+  \draw[line width=.9pt,draw=\c] (3.7,\y)--(5.1,\y);
+  \draw[line width=1.9pt,draw=\c] (5.5,\y)--(6.9,\y);
+  \draw[line width=2.6pt,draw=\c] (7.3,\y)--(8.7,\y);
+  \draw[line width=2.5pt,draw=PlateInk] (9.1,\y)--(10.5,\y); \draw[line width=1.9pt,draw=\c] (9.1,\y)--(10.5,\y);
+  \path[fill=\c!38] (10.9,{\y-.3}) rectangle (11.7,{\y+.3}); \draw[fine] (10.9,{\y-.3}) rectangle (11.7,{\y+.3});
+  \path[fill=\c!55] (12.0,{\y-.3}) rectangle (12.8,{\y+.3}); \draw[fine] (12.0,{\y-.3}) rectangle (12.8,{\y+.3});
+  \draw[line width=1.9pt,draw=\c!70!PlateInk] (13.2,\y)--(14.6,\y);}
+\foreach \x/\l in {1.9/{fill},2.9/{two-tone},4.4/{0.9 pt},6.2/{1.9 pt},8.0/{2.6 pt},9.8/{1.9 pt, ink keyline},11.3/{38},12.4/{55},13.9/{darkened (rejected)}} {\node[sub,anchor=south,align=center] at (\x,8.65) {\l};}
+\node[sub,anchor=north west] at (1.2,1.7) {L* on white: ink 21, red 57, blue 49, teal 60, gold 77; tints teal 38: 85, gold 55: 87; contrast of a thin stroke against white: ink 12.5, blue 4.6, red 3.5, teal 3.2, gold 1.9};
+\end{tikzpicture}
+\end{document}

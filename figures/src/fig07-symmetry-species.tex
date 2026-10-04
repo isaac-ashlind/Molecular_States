@@ -1,8 +1,8 @@
 % Figure 7. Symmetry species. What the reader must see: the three version states are three sites on the torsion
 % circle; t turns the sites by a third, b is the mirror through H; a vector on the sites is drawn as three discs
-% (area = amplitude, ink positive, white negative, a dash for zero); the grid shows each mode with its t image and
+% (area = amplitude, ink positive, white negative, a tick for zero); the grid shows each mode with its t image and
 % its b image, so A1 reads as unchanged and E as a pair that mixes; beneath, the E plane with the three images of
-% v2 at a third turn and the mirror axis, the same geometry as the sites. Mode pictures after Harter (1993)
+% v2 at a third turn and the mirror axis, drawn upright under the key so that it is visibly the same geometry as the sites. Mode pictures after Harter (1993)
 % fig. 4.4.3 in spirit. Colours: red = the version sites; ink elsewhere; dotted = the starred b. Vectors verified exactly.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -10,14 +10,14 @@
 \input{primitives.tex}
 \input{numbers.tex}
 % shared drawing for the figure 7 drafts: a mode picture is three discs on the three version sites;
-% disc area = |amplitude|, ink positive, white negative, a dash for zero. Sites at 90, 210, 330 degrees.
+% disc area = |amplitude|, ink positive, white negative, a tick for zero. Sites at 90, 210, 330 degrees.
 % \modepic{x}{y}{R}{a}{b}{c}{style}  style: circle (torsion circle) or tri (triangle)
 \newcommand\modepic[7]{\begin{scope}[shift={(#1,#2)}]
   \ifnum#7=1 \draw[fine] (0,0) circle[radius=#3]; \else \draw[fine] (90:#3)--(210:#3)--(330:#3)--cycle; \fi
   \foreach \mang/\mc in {90/#4,210/#5,330/#6} {
     \pgfmathsetmacro{\r}{.42*#3*sqrt(abs(\mc))}\pgfmathsetmacro{\pos}{\mc>0?1:0}
     \ifdim\r cm>0.03cm \ifnum\pos=1 \fill[PlateInk] (\mang:#3) circle[radius=\r]; \else \draw[fine,fill=white] (\mang:#3) circle[radius=\r]; \fi
-    \else \draw[fine] ($(\mang:#3)+(-.07,0)$)--($(\mang:#3)+(.07,0)$); \fi}
+    \else \draw[line width=.5pt,draw=PlateInk] (\mang:{#3-.09})--(\mang:{#3+.09}); \fi}
   \end{scope}}
 % amplitudes: v1=(1,1,1)/sqrt3; v2=(2,-1,-1)/sqrt6; v3=(0,1,-1)/sqrt2; t(a,b,c)=(c,a,b); b(a,b,c)=(a,c,b)
 \def\sA{.5774}\def\sB{.8165}\def\sC{.4082}\def\sD{.7071}
@@ -29,11 +29,11 @@
   \pgfmathsetmacro{\R}{1.4}
   \draw[fine] (0,0) circle[radius=\R];
   \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
-  \draw[tpath] (100:{\R+.28}) arc[start angle=100,end angle=200,radius={\R+.28}];
+  \draw[tpath] (106:{\R+.28}) arc[start angle=106,end angle=200,radius={\R+.28}];
   \foreach \a in {90,210,330} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.09}{ColDot}}
-  \node[lab,anchor=south east] at ($(90:\R)+(-.08,.1)$) {$H$}; \node[lab,anchor=north east] at (210:\R) {$tH$}; \node[lab,anchor=north west] at (330:\R) {$t^2H$};
-  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=west] at (.1,{\R+.42}) {$b$};
-  \node[sub] at (270:{\R+.32}) {$\tau$};
+  \node[lab,anchor=south west] at ($(90:\R)+(.1,.08)$) {$H$}; \node[lab,anchor=north east] at (210:\R) {$tH$}; \node[lab,anchor=north west] at (330:\R) {$t^2H$};
+  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=west] at (.12,{\R+.62}) {$b$};
+  \node[sub] at (305:{\R+.36}) {$\tau$};
 \end{scope}
 % the grid
 \foreach \col/\x/\a/\b/\c/\ta/\tb/\tc/\ba/\bb/\bc in {1/7.0/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA, 2/10.0/\sB/-\sC/-\sC/-\sC/\sB/-\sC/\sB/-\sC/-\sC, 3/13.0/0/\sD/-\sD/-\sD/0/\sD/0/-\sD/\sD} {
@@ -45,13 +45,14 @@
 \draw[fine] (6.2,11.05)--(6.2,10.9)--(7.8,10.9)--(7.8,11.05); \node[lab,anchor=south] at (7.0,11.07) {$\mathrm A_1$};
 \draw[fine] (9.2,11.05)--(9.2,10.9)--(13.8,10.9)--(13.8,11.05); \node[lab,anchor=south] at (11.5,11.07) {$\mathrm E$};
 % beneath: the fixed point and the E plane
-\begin{scope}[shift={(11.5,2.6)}]
+\begin{scope}[shift={(2.5,2.6)}]
   \pgfmathsetmacro{\L}{1.25}
-  \draw[blift] (-\L-.35,0)--(\L+.35,0); \draw[fine] (0,-\L-.25)--(0,\L+.25);
-  \node[sub,anchor=south] at (0,\L+.28) {$v_3$};
-  \foreach \a/\l/\anc in {0/{v_2}/west,120/{t\,v_2}/south east,240/{t^2v_2}/north east} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.18}) {$\l$};}
-  \draw[tpath] (8:.5) arc[start angle=8,end angle=112,radius=.5];
+  \draw[blift] (0,-\L-.35)--(0,\L+.05); \draw[fine] (-\L-.25,0)--(\L+.25,0); \node[lab,anchor=west] at (.12,-\L-.2) {$b$};
+  \node[sub,anchor=west] at (\L+.28,0) {$v_3$};
+  \foreach \a/\l/\anc in {90/{v_2}/south,210/{t\,v_2}/north east,330/{t^2v_2}/north west} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.16}) {$\l$};}
+  \draw[tpath] (98:.55) arc[start angle=98,end angle=204,radius=.55];
 \end{scope}
-\node[sub,anchor=north] at (10.0,.55) {disc area is the amplitude; ink positive, white negative, a dash for zero};
+\node[sub,anchor=north] at (10.0,.55) {disc area is the amplitude; ink positive, white negative, a tick for zero};
+\node[lab,anchor=north] at (10.0,1.5) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
 \end{tikzpicture}
 \end{document}

@@ -16,40 +16,37 @@
 \begin{document}
 \begin{tikzpicture}[plate,covlab/.style={font=\fontsize{6.5}{7}\selectfont,fill=white,inner sep=.8pt,text=PlateInk}]
 \path[use as bounding box] (0,0) rectangle (15,20.6);
-% ------------------------------------------------ A. the molecule: two fragments, X0 with its half-turn axis, bX0, the mirror plane edge-on
-\begin{scope}[shift={(1.9,18.2)}]
-  \begin{scope}[scale=.8]\draw[line width=.5pt,draw=PlateInk,dash pattern=on 2.2pt off 1.6pt,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \draw[line width=.5pt,draw=PlateInk,dash pattern=on 2.2pt off 1.6pt,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle;\end{scope}
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
-  \node[sub,anchor=north] at (0,-1.55) {methyl and amino};
+% ------------------------------------------------ A. the fragments drawn apart; X0 with its half-turn axis; the version equation as two arrows into one glyph
+\begin{scope}[shift={(2.3,18.2)}]
+  \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \node[sub,anchor=north] at (-.55,-1.55) {methyl}; \node[sub,anchor=north] at (1.25,-1.55) {amino};
 \end{scope}
-\begin{scope}[shift={(6.3,18.2)}]
-  \draw[line width=.5pt,draw=PlateInk,dash pattern=on 3pt off 1.2pt on .6pt off 1.2pt] plot coordinates {\mirroraxis};
+\begin{scope}[shift={(6.6,18.2)}]
+  \draw[line width=.4pt,draw=PlateInk] (.6248*.8,-1.7619*.8)--(-.6248*.8,1.7619*.8);
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
-  \draw[harrow] ($(0,0)+(.8*1.05,.8*1.55)+(-.42,.0)$) arc[start angle=180,end angle=-60,x radius=.42,y radius=.16];
-  \node[lab,anchor=west] at ($(0,0)+(.8*1.05,.8*1.55)+(.5,.05)$) {$R_b$};
-  \node[sub,anchor=north] at (0,-1.55) {$X_0$, its half-turn axis};
+  \begin{scope}[shift={(-.6248*.8,1.7619*.8)},rotate=19.5]\draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (.36,0) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];\end{scope}
+  \node[sub,anchor=north] at (0,-1.55) {$X_0$};
 \end{scope}
-\draw[harrow] (8.4,18.2)--(9.6,18.2);
-\node[lab,anchor=south] at (9.0,18.3) {$b=(23)(45)^*$}; \node[lab,anchor=north] at (9.0,18.1) {$=R_y(\pi)$};
-\begin{scope}[shift={(11.3,18.2)}]
+\begin{scope}[shift={(11.8,18.2)}]
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-bref};\end{scope}
   \node[sub,anchor=north] at (0,-1.55) {$bX_0=X_0P_b=R_bX_0$};
 \end{scope}
+\draw[bpath] (8.3,18.75)--(10.1,18.75); \node[lab,anchor=south] at (9.2,18.85) {$b=(23)(45)^*$};
+\draw[harrow] (8.3,17.65) .. controls (8.9,17.2) and (9.5,17.2) .. (10.1,17.65); \node[lab,anchor=north] at (9.2,17.3) {$R_b=R_y(\pi)$};
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
-\node[sub,anchor=west] at (.3,15.0) {the $36$ subgroups between $H$ and $S$; the $10$ that keep the bonds in black; the chain $H<G_6<G_{12}<B$ in gold};
 \begin{scope}[shift={(.5,7.6)}]
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.0*\x},{.2+6.3*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.25pt,draw=PlateInk!32] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}
-  \foreach \a/\b in {0/6,6/19,19/28} {\draw[line width=1.4pt,draw=ColGoldStroke] (n\a)--(n\b);}
+  \foreach \a/\b in {0/6,6/19,19/28} {\draw[line width=3pt,draw=ColGold!60] (n\a)--(n\b);}
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!40] (n\i) circle[radius=1.0pt];\fi}
-  \foreach \i in \bigChain {\fill[ColGoldStroke] (n\i) circle[radius=1.9pt];}
+  \foreach \i in \bigChain {\draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=2.1pt];}
   \node[lab,anchor=north] at ($(n0)+(0,-.1)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.1)$) {$S$};
-  \node[sub,anchor=east] at ($(n6)+(-.12,0)$) {$G_6$}; \node[sub,anchor=east] at ($(n19)+(-.12,.02)$) {$G_{12}$}; \node[sub,anchor=east] at ($(n28)+(-.12,0)$) {$B$};
 \end{scope}
 \draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south,text width=1.6cm,align=center] at (7.7,11.0) {keep the bonds};
 \def\gt{t}\def\gu{u}
-\begin{scope}[shift={(11.5,8.1)},x=.68cm,y=1.6cm]
+\begin{scope}[shift={(11.5,8.1)},x=-.68cm,y=1.6cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \draw[line width=3pt,draw=ColGold!60] (h0)--(h4)--(h6)--(h9);
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
@@ -57,7 +54,7 @@
 \end{scope}
 \node[sub,anchor=north,text width=6.4cm,align=center] at (11.5,7.5) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move
-\node[sub,anchor=west] at (.3,6.1) {versions $G_{12}/H$};
+\node[sub,anchor=west] at (.3,5.3) {versions $G_{12}/H$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
   \begin{scope}[shift={({1.45+2.42*\k},3.6)}]
     \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}

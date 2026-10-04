@@ -12,17 +12,19 @@
 \definecolor{ColTeal}{HTML}{4F9C97}        % the reference family as a surface (pale tint); rubidium (full strength)
 \definecolor{ColGold}{HTML}{E0B84F}        % retained regions (a packet, the reference cell, the one image); potassium
 % White is the cladding and the hydrogen; grey is ink thinned.  Green and violet left the palette with this decision.
+\providecommand\PaletteOverride{}\PaletteOverride   % a study may redefine the hues here, before the roles are derived
+% Hues are used pure; a faded tint marks only an obscured element (a version point behind a wall). Never darken a hue.
 \colorlet{ColOxygen}{ColRed}\colorlet{ColNitrogen}{ColBlue}\colorlet{ColPotassium}{ColGold}\colorlet{ColRubidium}{ColTeal}
-\colorlet{ColGoldStroke}{ColGold!70!PlateInk}   % thin gold strokes on white are darkened once, centrally
+\colorlet{ColGoldStroke}{ColGold}   % strokes keep the pure hue (author, 2026-10-04); gold strokes are drawn heavier instead
 
 % ---- colour roles (the only places a hue is spent)
 \colorlet{ColDot}{ColRed}                    % version points, packet centres
 \colorlet{ColBand}{ColTeal!38}               % the reference family (core sheet) where it is a surface
-\colorlet{ColBandLine}{ColTeal!80!PlateInk}  % the band's eta-line on a cut face
+\colorlet{ColBandLine}{ColTeal}              % the core sheet where it is cut (never darkened)
 \colorlet{ColWall}{white}                    % the cladding of the solid
 \colorlet{ColRetained}{ColGold}              % a retained region (the reference cell, the packets, the one image of F)
 \colorlet{ColDualA}{ColTeal}                 % a dual pair (two components of one object) on a plate with no core
-\colorlet{ColDualB}{ColGoldStroke}           %   sheet and no retained region (figure 2): teal and darkened gold
+\colorlet{ColDualB}{ColGold}                 %   sheet and no retained region (figure 2): teal and gold
 % Actions carry no colour.  Line style says which: solid = t, dashed = u or tu, dotted = a starred operation (b, E*).
 % The styles tpath, upath, bpath and the lift styles live in primitives.tex.
 

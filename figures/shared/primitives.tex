@@ -55,7 +55,7 @@
 \newcommand\molghost{\renewcommand\molrodj[8]{\draw[ghost] (##1,##2)--(##3,##4);}
   \renewcommand\molatom[4]{\if##1H\draw[ghost,fill=white] (##3,##4) circle[radius=\radH];\else\draw[ghost,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 % ---- leader label: \leaderlabel{x}{y}{dx}{dy}{anchor}{text}
-\newcommand\leaderlabel[6]{\draw[leader] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5] at ({#1+#3},{#2+#4}) {#6};}
+\newcommand\leaderlabel[6]{\draw[leader,shorten >=3pt] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5,inner sep=2.5pt] at ({#1+#3},{#2+#4}) {#6};}  % a leader stops short of its label; the label keeps air
 % ---- zoom bubble: \zoombubble{x}{y}{r}{X}{Y}{R} draws the small circle, the large circle and two tangent lines
 \newcommand\zoombubble[6]{\draw[fine] (#1,#2) circle[radius=#3]; \draw[heavy,fill=white] (#4,#5) circle[radius=#6];
   \pgfmathsetmacro{\za}{atan2(#5-#2,#4-#1)}\pgfmathsetmacro{\zd}{sqrt((#4-#1)*(#4-#1)+(#5-#2)*(#5-#2))}
@@ -65,12 +65,12 @@
 % ---- thick tube with a near-side cut-away wedge. Keys: tube/Ro, Ri, H (half height), E (ellipse ratio), a1, a2 (wedge, degrees; tau = 0 faces the viewer).
 % Order: far inner wall, outer wall pieces, cut faces (hatched = cut material), the band in the wedge gap (nearer than the faces),
 % top face as the annulus minus the wedge sector, then the band edge. Named coordinates: -top0 -top120 -top240 (top edge), -bot60 -bot180 -bot300 (bottom edge).
-\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/linecol/.initial=ColBandLine,tube/istep/.initial=6,tube/gstep/.initial=3,tube/lw/.initial=1,
+\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/linecol/.initial=ColBandLine,tube/istep/.initial=6,tube/gstep/.initial=3,tube/lw/.initial=1,tube/bw/.initial=.07,tube/topfill/.initial=white,tube/innerfill/.initial=white,
   pics/thicktube/.style={code={
     \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
     \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
     \pgfmathsetmacro{\wa}{\pgfkeysvalueof{/tikz/tube/a1}}\pgfmathsetmacro{\wb}{\pgfkeysvalueof{/tikz/tube/a2}}
-    \pgfmathsetmacro{\hs}{\pgfkeysvalueof{/tikz/tube/hs}}
+    \pgfmathsetmacro{\hs}{\pgfkeysvalueof{/tikz/tube/hs}}\pgfmathsetmacro{\bw}{\pgfkeysvalueof{/tikz/tube/bw}}\pgfmathsetmacro{\Rma}{\Rm-\bw}\pgfmathsetmacro{\Rmb}{\Rm+\bw}
     \pgfmathsetmacro{\istep}{\pgfkeysvalueof{/tikz/tube/istep}}\pgfmathsetmacro{\gstep}{\pgfkeysvalueof{/tikz/tube/gstep}}\pgfmathsetmacro{\lws}{\pgfkeysvalueof{/tikz/tube/lw}}\pgfmathsetmacro{\lwh}{\lws*.9}\pgfmathsetmacro{\lwf}{\lws*.4}
     % 1. far inner wall, full height, seen through the hole (from above) and through the wedge gap:
     %    generatrix lines uniform in tau, so they crowd toward both silhouettes; heavier on the shadow (left) side;
@@ -78,7 +78,7 @@
     \begin{scope}
       \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]
             plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- cycle;
-      \path[fill=white] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
+      \path[fill=\pgfkeysvalueof{/tikz/tube/innerfill}] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
       \pgfmathtruncatemacro{\ni}{(266-94)/\istep}\foreach \k in {0,...,\ni} {\pgfmathsetmacro{\a}{94+\k*\istep}\pgfmathsetmacro{\lw}{\lws*(0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a)))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
       \draw[line width=\lwh pt,draw=PlateInk] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
     \end{scope}
@@ -89,24 +89,31 @@
     \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
     \draw[line width=\lwh pt,draw=PlateInk] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
     \draw[line width=\lwh pt,draw=PlateInk] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
-    % 3. cut faces: hatched (cut material), with the band's eta-line in blue
+    \pgfmathparse{\wa==\wb}\ifnum\pgfmathresult=1\relax\else
+    % 3. cut faces: hatched (cut material), with the core sheet's cross-section as a thin tinted strip
     \foreach \a in {\wa,\wb} {
       \path[fill=white] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
       \begin{scope}\clip ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
         \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*\hs*1.41421-5},-5)--({\k*\hs*1.41421+5},5);\end{scope}
       \draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
-      \draw[draw=\pgfkeysvalueof{/tikz/tube/linecol},line width=1.3pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
+      \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)})--cycle;
+      \draw[line width=\lwf pt,draw=PlateInk] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)}) ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)});}
     % 4. the band inside the wedge gap (the reference family at mid-thickness), painted after the cut faces
-    %    because in the gap it is nearer the viewer than the faces; its tint meets the blue eta-lines on both faces
+    %    because in the gap it is nearer the viewer than the faces; its top surface is the thin strip that continues the ring on the top face
     \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)}) -- plot[domain=\wb:\wa,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)}) -- cycle;
     \draw[fine] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
     \draw[fine] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
-    \foreach \a in {\wa,\wb} {\draw[draw=\pgfkeysvalueof{/tikz/tube/linecol},line width=1.3pt] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)})--({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});}
-    % 5. top face: the annulus minus the wedge sector
-    \path[fill=white] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
+    \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)}) -- plot[domain=\wb:\wa,samples=25,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)}) -- cycle;
+    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
+    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)});
+    \fi
+    % 5. top face: the annulus minus the wedge sector, with the core sheet's ring (its cross-section) at mid-thickness
+    \path[fill=\pgfkeysvalueof{/tikz/tube/topfill}] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
     \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
     \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
-    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)}) -- cycle;
+    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
+    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)});
     \coordinate (-top0) at ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)});
     \coordinate (-top120) at ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)});
     \coordinate (-top240) at ({\Rm*sin(240)},{\Hh-\E*\Rm*cos(240)});

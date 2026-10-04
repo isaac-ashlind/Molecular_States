@@ -393,7 +393,7 @@ def main():
         emit_pic(mol, f'mla-tau-{deg}', pic_code(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     summary['tau_shapes_deg'] = [0, 60, 120]
     for deg in (0, 60, 120, 240):
-        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(8.0 if deg == 60 else 0.0)))
+        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(16.0 if deg == 60 else 0.0)))
     emit_pic(mol, 'newman-tau-0-eta-minus', pic_code_newman(G.methylamine(0.0, -ETA0), G.MLA_ELEMENTS))
     emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)
@@ -447,7 +447,7 @@ def main():
     arrow_gain = 3.0  # arrows are drawn 2.5 x longer than the displacement; declared in the figure
     def arrows_for(e):
         Pe = [(G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1])) for v in e]
-        return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.12 else None for px, py in Pe]
+        return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]
     emit_pic(mol, 'mla-ref-eplus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
     emit_pic(mol, 'mla-ref-eminus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
     emit_pic(mol, 'mol3d-mla-ref-eminus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))

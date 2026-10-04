@@ -10,6 +10,7 @@
 % on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
+\newcommand\PaletteOverride{\definecolor{ColRed}{HTML}{C0564F}\definecolor{ColBlue}{HTML}{005A85}\definecolor{ColTeal}{HTML}{5BA8A3}\definecolor{ColGold}{HTML}{E8BF56}}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
@@ -66,5 +67,6 @@
   \foreach \k in {0,...,5} {\hatomat{p\k}{.075}{ColDot}}
 \end{scope}
 \node[head,anchor=west] at (11.1,13.3) {Representations and}; \node[head,anchor=west] at (11.1,12.9) {Global Structure}; \node[rng,anchor=north west] at (11.1,12.68) {\S\S\,10--12};
+\node[sub,anchor=south west] at (.3,1.2) {palette wide: blue 005A85, red C0564F, teal 5BA8A3, gold E8BF56};
 \end{tikzpicture}
 \end{document}

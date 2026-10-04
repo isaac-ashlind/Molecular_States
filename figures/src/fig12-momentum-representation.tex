@@ -22,7 +22,7 @@
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s}
     \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
-    \draw[fine] ({\R+.05},\h)--({\R+.2},\h); \node[sub,anchor=west] at ({\R+.22},\h) {$K=\K$};}
+    \node[sub,anchor=west] at ({\R+.16},\h) {$K=\K$};}
   \draw[harrow] (0,0)--({sqrt(5)*\s*cos(-40)},{\s+\E*sqrt(5)*\s*sin(-40)});
   \node[lab,anchor=north west,inner sep=1pt] at ({sqrt(5)*\s*cos(-40)+.02},{\s+\E*sqrt(5)*\s*sin(-40)-.02}) {$\mathbf J$};
   \node[sub,anchor=north] at (0,{-\R-.3}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}$};
@@ -30,7 +30,7 @@
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame
 \node[sub,anchor=south] at (8.0,11.25) {periodic frame};
 \node[sub,anchor=south] at (12.7,11.25) {twisted frame, $\rho=\rhoIll$ drawn};
-\pgfmathsetmacro{\dm}{.42}\pgfmathsetmacro{\dk}{.5}
+\pgfmathsetmacro{\dm}{.5}\pgfmathsetmacro{\dk}{.5}
 \draw[fine] ({8.0-3.5*\dm},{9.4-2.5*\dk}) rectangle ({8.0+3.5*\dm},{9.4+2.5*\dk});
 \foreach \K in {-2,...,2} {\pgfmathsetmacro{\y}{9.4+\dk*\K}\node[sub,anchor=east] at ({8.0-3.5*\dm-.1},\y) {$K=\K$};
   \foreach \m in {-3,...,3} \fill[PlateInk] ({8.0+\dm*\m},\y) circle[radius=1.5pt];}
@@ -39,13 +39,13 @@
 \pgfmathsetmacro{\sh}{\dm*\rhoIll}
 \draw[fine] ({12.7-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.7-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 \foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.7+\dm*\k},\y) circle[radius=1.5pt];}
-\draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (12.7,{9.4-2.5*\dk-.05})--(12.7,{9.4+2.5*\dk+.05});
-\draw[line width=1.1pt,draw=ColGoldStroke] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
+\draw[line width=.4pt,draw=PlateInk!50] (12.7,{9.4-2.5*\dk-.05})--(12.7,{9.4+2.5*\dk+.05});
+\draw[line width=1.6pt,draw=ColGold] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
 \node[sub,anchor=south west] at ({12.7+2.5*\sh+.05},{9.4+2.5*\dk-.02}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.7,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=west] at ({12.7+3.5*\dm+2.5*\sh+.08},{9.4-2.5*\dk-.2}) {$\kappa$};
-\node[sub,anchor=north] at (10.35,7.7) {a turn of the body frame at the seam shears the labels: $\kappa=m+\rho K$};
+\node[sub,anchor=north] at (12.7,7.7) {$\kappa=m+\rho K$};
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6
-\node[sub,anchor=north west] at (.3,6.1) {periodic torsion modes on the circle of figure 9};
+\node[sub,anchor=north west] at (.3,6.1) {periodic torsion modes on the torsion circle};
 \node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=east] at (1.55,5.1) {$m$};
 \foreach \m/\cs/\ss in \torsionSpecies {
   \pgfmathsetmacro{\cx}{2.55+1.78*\m}
@@ -53,15 +53,14 @@
   \foreach \yc/\f in {4.4/cos,3.2/sin} {
     \draw[line width=.35pt,draw=PlateInk!55] (\cx,\yc) circle[radius=.4];
     \foreach \a in {90,210,330} {\hatom{\cx+.4*cos(\a)}{\yc+.4*sin(\a)}{.045}{ColDot}}
-    \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)});}
-  \ifnum\m=0 \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$}; \node[sub,anchor=north] at (\cx,2.1) {$\sin0=0$};
+    \ifnum\m=0 \ifdim\yc pt=3.2pt \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi}
+  \ifnum\m=0 \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$};
   \else
     \ifnum\numexpr\m-3*(\m/3)\relax=0
       \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$ (cos)};
       \draw[heavy] (\cx-.6,1.78)--(\cx+.6,1.78); \node[lab,anchor=north] at (\cx,1.73) {$\mathrm A_2$ (sin)};
     \else
       \draw[heavy] (\cx-.6,2.53)--(\cx+.6,2.53) (\cx-.6,2.47)--(\cx+.6,2.47); \node[lab,anchor=north] at (\cx,2.42) {$\mathrm E$};
-      \node[sub,anchor=north] at (\cx,2.07) {one pair};
     \fi
   \fi
 }

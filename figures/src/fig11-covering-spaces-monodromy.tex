@@ -16,23 +16,23 @@
 \input{numbers.tex}
 % sheet parallelogram: \sheet{x}{y}{style}{fill}  (3.6 wide, as on the cover)
 \newcommand\sheet[4]{\path[fill=#4] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle; \draw[#3] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle;}
-\newcommand\goldring[1]{\draw[line width=1pt,draw=ColGoldStroke] (#1) circle[radius=.16];}
+\newcommand\goldring[1]{\draw[line width=1.6pt,draw=ColGold] (#1) circle[radius=.17];}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,10.8);
 \begin{scope}[shift={(5.6,1.0)}]
   % V, wide, both columns over it
   \path[fill=white] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle; \draw[heavy] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle;
-  \coordinate (bx) at (0,.25); \fill[PlateInk] (bx) circle[radius=1.2pt]; \node[sub,anchor=north,inner sep=2pt] at (bx) {$[X]$};
+  \coordinate (bx) at (0,.25); \fill[PlateInk] (bx) circle[radius=1.2pt]; \node[sub,anchor=south,inner sep=1.5pt] at (bx) {$[X]$};
   \draw[tlift] (bx) .. controls (-1.9,.72) and (-1.9,-.22) .. (bx); \draw[blift] (bx) .. controls (1.9,-.22) and (1.9,.72) .. (bx);
-  \node[sub] at (-1.5,.5) {$\ell_t$}; \node[sub] at (1.5,.5) {$\ell_b$}; \node[sub,anchor=west,inner sep=1pt] at (5.3,.25) {$V$};
+  \node[sub] at (-1.3,.12) {$\ell_t$}; \node[sub] at (1.3,.12) {$\ell_b$}; \node[sub,anchor=west,inner sep=1pt] at (5.3,.25) {$V$};
   \foreach \k/\ga/\gb/\pl in {0/X/bX/H,1/tX/tbX/tH,2/t^2X/t^2bX/t^2H} {
     \pgfmathsetmacro{\y}{1.5+1.7*\k}
     \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
     \coordinate (pa\k) at (-1.95,{\y+.25}); \coordinate (pb\k) at (2.65,{\y+.25});
     \node[sub,anchor=west,inner sep=1pt] at (-3.85,{\y+.12}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (.75,{\y+.12}) {$\gb$};
-    \node[lab,anchor=west] at (5.3,{\y+.25}) {$\pl$};}
-  \draw[hidden] (bx)--(pa0); \draw[hidden] (bx)--(pb0);
+    \node[lab,anchor=east] at (-4.3,{\y+.25}) {$\pl$};}
+  \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pa0); \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pb0);
   \draw[tlift] (pa0) .. controls (-3.6,{1.5+.25+.6}) and (-3.6,{1.5+1.7+.25-.6}) .. (pa1);
   \draw[blift] (pa1) .. controls (0,{1.5+1.7+.25+.35}) .. (pb1);
   \draw[blift] (pa0) .. controls (0,{1.5+.25+.35}) .. (pb0);
@@ -42,17 +42,17 @@
   \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns
-\begin{scope}\molsolid\mollabelsinside\pic[scale=.5] at (3.3,9.55) {mol3d-mla-X}; \pic[scale=.5] at (7.9,9.55) {mol3d-mla-bX};\end{scope}
-\node[lab] at (3.3,8.5) {$X$}; \node[lab] at (7.9,8.5) {$bX$}; \draw[blift] (4.3,8.5)--(6.9,8.5);
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.7] at (3.3,9.6) {mol3d-mla-X}; \pic[scale=.7] at (7.9,9.6) {mol3d-mla-bX};\end{scope}
+\node[lab] at (3.3,8.35) {$X$}; \node[lab] at (7.9,8.35) {$bX$}; \draw[blift] (4.3,8.35)--(6.9,8.35);
 % the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other
-\begin{scope}[shift={(12.6,4.6)}]
-  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.8*cos(\a)},{.8*sin(\a)});}
-  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (o\k) to[bend right=24] (o\n);
-  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (i\k) to[bend left=30] (i\n);
+\begin{scope}[shift={(13.1,4.6)}]
+  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.55*cos(\a)},{1.55*sin(\a)}); \coordinate (i\k) at ({.72*cos(\a)},{.72*sin(\a)});}
+  \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath,shorten >=3.4mm,shorten <=3mm] (o\k) to[bend right=24] (o\n);
+  \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath,shorten >=3.4mm,shorten <=3mm] (i\k) to[bend left=30] (i\n);
   \foreach \k in {0,1,2} \draw[blift] (o\k)--(i\k);
-  \foreach \k/\l in {0/{X},1/{tX},2/{t^2X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7}{8}\selectfont] at (o\k) {$\l$};
-  \foreach \k/\l in {0/{bX},1/{tbX},2/{t^2bX}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=1pt,font=\fontsize{7}{8}\selectfont] at (i\k) {$\l$};
-  \node[circle,draw=ColGoldStroke,line width=1pt,minimum size=7.4mm] at (i1) {}; \node[circle,draw=ColGoldStroke,line width=1pt,minimum size=7.4mm] at (i2) {};
+  \foreach \k/\l in {0/{X},1/{tX},2/{t^2X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (o\k) {$\l$};
+  \foreach \k/\l in {0/{bX},1/{tbX},2/{t^2bX}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=5.6mm,font=\fontsize{7}{8}\selectfont] at (i\k) {$\l$};
+  \node[circle,draw=ColGold,line width=1.6pt,minimum size=7.2mm] at (i1) {}; \node[circle,draw=ColGold,line width=1.6pt,minimum size=7.2mm] at (i2) {};
 \end{scope}
   \node[lab] at (-1.0,-1.05) {$X$}; \node[lab] at (1.1,-1.05) {$bX$}; \draw[blift] (-.5,-1.05)--(.6,-1.05);
 

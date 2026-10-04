@@ -35,21 +35,28 @@ carries exactly the molecular symmetry group, which the caption may say. The sol
 
 ## Figure 1, configuration space
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
-l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (gold cross, 0.06 A from
+l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (no mark drawn, 0.06 A from
 the oxygen in the upper-left shape, `\waterOxygenOffset`); dotted loci delta = 0 and theta = pi, their intersection
 circled. Commuting square: R = R_z(40 deg) on the left, P_sigma with sigma = (12) on the right; the matrix X and
 X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
 
 ## Figure 2, ambient Hilbert space
-A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres; on each fibre the two
-components a(X), b(X) of one continuous representative (illustrative functions, declared); three configurations at
-theta = 90, 110, 140 degrees stand on the slice; the plot beneath uses the same theta scale and the same functions
-(figures/data/component-functions.dat). The norm is the integral of |a|^2 + |b|^2. Nothing here imposes exchange.
+A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
+configuration; on each fibre the value Psi(X) as its two components a (teal) and b (gold) in the basis
+|up down> omega, |down up> omega; three configurations X1, X2, X3 standing on the slice; the component functions
+plotted beneath on the same theta scale with the norm density dotted and the three sampled values as dots. The
+state drawn is physical on this slice by the author's choice: rotation-invariant and exchange-antisymmetric, so
+b = -a (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
+forces this; the caption should say the plate shows a physical representative, not a generic one.
 
 ## Figure 3, physical Hilbert space
-X, sigma X = X P_sigma and E* X = -X as computed configurations; the spin slots in label order with leaders to the
-nuclei carrying each digit; the statistics sign and the parity rule as the only text. Water is planar, so -X is
-also a rotated copy (stated on the plate); the inversion triad on a sphere is after Harter (1993), Fig. 5.1.1.
+Top row: X with spin arrows beside the nuclei (up teal on 1, down gold on 2, the oxygen spinless); sigma X = X P_sigma
+with the digits moved and the spins left with the places; -X P_sigma = E* sigma X with every column sent through the
+origin. The two operations as arrows carrying their sign: sigma = (12) with chi_stat(sigma) = -1 (solid), E* with
+chi_pm(E*) = +-1 (dotted, a starred operation). Bottom row: the spin value itself, two coloured arrows in a bracket
+in slot order (1, 2): Psi(X); Psi(X P_sigma) = chi_stat(sigma) P_sigma Psi(X), the arrows permuted and the sign in
+front; Psi(-X P_sigma) = chi_pm Psi(X P_sigma), the parity sign in front. Water is planar, so -X P_sigma is also a
+rotated copy of X (caption, not plate). Configurations computed (compute/geometry.py).
 
 ## Figure 4, molecules, fragments, complexes
 The reaction plate. One set of four nuclei (potassium 1, 2; rubidium 3, 4) grouped three ways along the reaction,
@@ -76,7 +83,7 @@ claim about F; assumed: an embedded tubular neighbourhood and separation of the 
 t and tu paths and the eclipsed point are the computed family positions. Newman projections are computed from the
 family (digits are column labels). Twenty images since |S/G12| = 20 (GAP).
 
-In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 8 degrees on the page so that both
+In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 16 degrees on the page so that both
 sets of hydrogens show, the usual drawing convention (declared; the geometry itself is exactly eclipsed).
 
 ## Figure 7, symmetry species
