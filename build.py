@@ -34,6 +34,7 @@ def main():
     try:
         import sympy  # noqa: F401
         print('[2a]  symbolic checks'); run([sys.executable, 'checks/verify_symbolic.py'], quiet=False)
+        print('[2a\'] spin-structure check'); run([sys.executable, 'checks/verify_spin.py'], quiet=False)
     except ImportError:
         print('[2a]  sympy not found: symbolic checks skipped (stdlib checks already passed)')
     if shutil.which('gap'):

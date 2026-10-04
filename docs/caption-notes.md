@@ -75,10 +75,13 @@ image b v; the plane beneath shows the three images of v2 at a third turn with t
 are exact (verify_symbolic.py); C[G6/H] = A1 + E, no A2 (GAP).
 
 ## Figure 8, nuclear spin weights
-Two rows of dot stacks, even parity (chi_+ = A1) above and odd (chi_- = A2) below, one column per spatial species;
-each stack is tagged by the spin species it draws on (the one whose product with the spatial species contains the
-parity character); a double rule marks the two-dimensional E. Counts 12, 4, 8 from the character computation (GAP,
-verify.py); chi_stat = +1 on G6; 12 + 4 + 2 x 8 = 32. Level rules after Harter (1993), Fig. 4.2.3 in spirit.
+Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space H_spin = (C^2)^(x5) in the
+centre as bundles of hairlines, one line per state, 12 A1, 4 A2 and 8 E pairs (32 in all); even-parity spatial
+species (chi_+ = A1) at the left joined straight across to the spin species of the same name; odd-parity species
+(chi_- = A2) at the right joined with A1 and A2 swapped and E kept; a level's weight is the number of lines in the
+bundle it is joined to: 12, 4, 8 (even A1, A2, E) and 4, 12, 8 (odd). chi_stat = +1 on G6. Counts from the character
+computation (GAP, verify.py); the same counts arise as the product of the methyl multiplets (4 A1 + 2 E) and the
+amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 
 ## Figure 9, localized states
 The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows,

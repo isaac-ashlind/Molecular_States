@@ -162,3 +162,12 @@ the atoms), 4.2.3 (level correlations), 5.4.2 (a path traced on a sphere, labels
 - Lessons: a loop variable reused inside a macro argument hangs TeX (renamed); unit-less `x=` in a scope is points,
   not centimetres (the tau axis collapsed); leaders start and end on the things they join, labels sit on the object
   they name, and line styles are a budget like colour (hidden lines are now dotted because dashed is spent on tu).
+
+### Figure 8, second round (same day)
+
+The author rejected the dot stacks ("no structural content") and the mosaic of the fragment product ("try again"):
+both had drifted from an illustration into a table of counts. Draft F returns to the correlation diagram and makes
+the structure the picture: the spin space in the centre as three bundles of hairlines (the counts become objects),
+even-parity levels at the left pairing straight across, odd-parity levels at the right pairing with one visible
+crossing of A1 and A2. One line of text. Installed as figure 8. Lesson: when a plate's content is a rule, draw the
+rule acting (the swap), not its outcome (the numbers).

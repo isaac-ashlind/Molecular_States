@@ -12,3 +12,12 @@ Every number and structural claim drawn in the plates is computed in `compute/` 
 `python3 build.py` runs all of them before compiling; a failing check stops the build. The last full run is in
 `build/build.log`. Declared schematic or illustrative: K2Rb2 positions (figure 4), the component functions a, b
 (figure 2), rho = 0.3 (figure 12), the tube as a picture of F (figure 6), the sheets (figure 11).
+
+## Spin-weight structure (figure 8, added 2026-10-04)
+
+`checks/verify_spin.py` builds the permutation matrices on the 2^n spin basis and decomposes by characters:
+the three methyl spins under S3 give 4 A1 + 2 E (the quartet and the two doublets); the two amino spins under the
+swap give 3 symmetric + 1 antisymmetric (triplet, singlet); the five together under G6 = <(123), (23)(45)> give
+12 A1 + 4 A2 + 8 E, equal to the product (4 A1 + 2 E) x (3 A1 + 1 A2). This is the mosaic of figure 8: 8 methyl
+states across by 4 amino states down, four blocks of 12, 4, 12 (6 E pairs) and 4 (2 E pairs) cells. It agrees
+with the GAP character computation (checks/verify.g) that produced the counts in figures/data/numbers.tex.

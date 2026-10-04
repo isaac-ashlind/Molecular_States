@@ -1,11 +1,5 @@
-% Figure 8. Nuclear spin weights. What the reader must see: the 32-dimensional proton spin space splits under G6
-% into 12 A1, 4 A2 and 8 E (pairs); a spatial level pairs with the spin species whose product with it contains the
-% parity character, so even-parity levels pair straight across and odd-parity levels pair with A1 and A2 swapped;
-% the weight of a level is the size of the bundle it is joined to. Drawing: the spin space in the centre as bundles
-% of hairlines, one line per state (E as pairs); even-parity spatial species at the left joined straight across;
-% odd-parity species at the right joined with one crossing. Correlation diagram in the manner of Harter (1993)
-% fig. 4.2.3. Colours: ink only. Hatch unused. Counts from the character computation (checks/verify.g) and the
-% fragment product (checks/verify_spin.py).
+% Figure 8 draft F: the spin space in the centre as three bundles of hairlines (A1 twelve, A2 four, E eight pairs);
+% even-parity spatial levels at the left pair straight across; odd-parity levels at the right pair with one swap.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -38,6 +32,6 @@
 \draw[heavy] (12.4,\yE)--(14.0,\yE) (12.4,{\yE+.06})--(14.0,{\yE+.06}); \node[lab,anchor=west] at (14.15,{\yE+.03}) {$\mathrm E$};
 \draw[jndash] (12.4,\yA)--(8.6,\yB); \draw[jndash] (12.4,\yB)--(8.6,\yA); \draw[jndash] (12.4,{\yE+.03})--(8.6,{\yE+.03});
 % ---- the weights, read as the size of the bundle a level is joined to
-\node[sub,anchor=north] at (7.5,1.3) {a level's weight is the number of spin states it is joined to};
+\node[sub,anchor=north] at (7.5,1.3) {a level's weight is the number of spin states it is joined to: $12$, $4$, $8$ for even $\mathrm A_1$, $\mathrm A_2$, $\mathrm E$; $4$, $12$, $8$ for odd};
 \end{tikzpicture}
 \end{document}

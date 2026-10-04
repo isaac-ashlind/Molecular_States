@@ -1,0 +1,43 @@
+% Figure 8 draft E: the 32 spin states as a mosaic of unit cells, 8 methyl states across (quartet | two doublets)
+% by 4 amino states down (triplet | singlet); the product gives the four species blocks A1 (12), A2 (4), E (6 pairs),
+% E (2 pairs); beside each block the spatial species that draw on it, a solid rule for even parity, dashed for odd.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,even/.style={line width=.9pt,draw=PlateInk},odd/.style={line width=.9pt,draw=PlateInk,dash pattern=on 2.6pt off 1.6pt}]
+\path[use as bounding box] (0,0) rectangle (15,8.6);
+\pgfmathsetmacro{\u}{.78}
+\newcommand\rulepair[6]{% x, y, even label, odd label  (4 args used), anchor side
+  \draw[even] (#1,{#2+.2})--({#1+1.1},{#2+.2}); \draw[odd] (#1,{#2-.2})--({#1+1.1},{#2-.2});
+  \node[sub,anchor=#5] at ({#1+#6},{#2+.2}) {$#3$}; \node[sub,anchor=#5] at ({#1+#6},{#2-.2}) {$#4$};}
+\begin{scope}[shift={(4.7,1.9)}]
+  \foreach \i in {0,...,7} \foreach \j in {0,...,3} {\draw[line width=.3pt,draw=PlateInk!55] ({\u*\i},{\u*\j}) rectangle ({\u*(\i+1)},{\u*(\j+1)});}
+  \draw[line width=.6pt,draw=PlateInk] ({\u*6},0)--({\u*6},{\u*4});
+  \draw[heavy] (0,0) rectangle ({\u*8},{\u*4}); \draw[heavy] ({\u*4},0)--({\u*4},{\u*4}); \draw[heavy] (0,{\u*1})--({\u*8},{\u*1});
+  \node[tag] at ({\u*2},{\u*2.5}) {$\mathrm A_1$, $12$}; \node[tag] at ({\u*2},{\u*.5}) {$\mathrm A_2$, $4$};
+  \node[tag] at ({\u*6},{\u*2.5}) {$\mathrm E$, $6$ pairs}; \node[tag] at ({\u*6},{\u*.5}) {$\mathrm E$, $2$ pairs};
+  % methyl across
+  \draw[fine] (0,{\u*4+.25})--({\u*8},{\u*4+.25});
+  \draw[fine] (0,{\u*4+.15})--(0,{\u*4+.35}) ({\u*4},{\u*4+.15})--({\u*4},{\u*4+.35}) ({\u*8},{\u*4+.15})--({\u*8},{\u*4+.35});
+  \node[sub,anchor=south] at ({\u*2},{\u*4+.3}) {quartet, $S=\tfrac32$}; \node[sub,anchor=south] at ({\u*6},{\u*4+.3}) {two doublets, $S=\tfrac12$};
+  \node[lab,anchor=south] at ({\u*4},{\u*4+.85}) {methyl spins, $8$ states};
+  % amino down
+  \draw[fine] (-.25,0)--(-.25,{\u*4});
+  \draw[fine] (-.15,0)--(-.35,0) (-.15,{\u*1})--(-.35,{\u*1}) (-.15,{\u*4})--(-.35,{\u*4});
+  \node[sub,anchor=east] at (-.4,{\u*2.5}) {triplet, $S=1$}; \node[sub,anchor=east] at (-.4,{\u*.5}) {singlet, $S=0$};
+  \node[lab,anchor=south east] at (-.1,{\u*4+.45}) {amino spins, $4$ states};
+  % the spatial species that draw on each block
+  \rulepair{\u*8+.45}{\u*2.5}{\mathrm E}{\mathrm E}{west}{1.2}
+  \rulepair{\u*8+.45}{\u*.5}{\mathrm E}{\mathrm E}{west}{1.2}
+\end{scope}
+\rulepair{.9}{1.9+.78*2.5}{\mathrm A_1}{\mathrm A_2}{east}{-.1}
+\rulepair{.9}{1.9+.78*.5}{\mathrm A_2}{\mathrm A_1}{east}{-.1}
+% key
+\draw[even] (4.7,.9)--(5.8,.9); \node[sub,anchor=west] at (5.9,.9) {even parity, $\chi_+$};
+\draw[odd] (8.4,.9)--(9.5,.9); \node[sub,anchor=west] at (9.6,.9) {odd parity, $\chi_-$};
+\node[sub,anchor=north] at (7.5,.5) {a spatial level draws on the block beside its rule; its weight is the block's count};
+\end{tikzpicture}
+\end{document}
