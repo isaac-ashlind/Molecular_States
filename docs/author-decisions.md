@@ -1,7 +1,7 @@
 # Decisions taken, and decisions left to the author
 
 ## Taken during the build (author-approved or author-directed)
-- Visual identity locked: two ink weights, solid crescent on spheres, generatrix hatching on curved walls, hatch
+- Visual identity locked: two ink weights, two-tone gouache shadow on spheres (the black crescent was replaced at the author's request), generatrix hatching on curved walls, hatch
   only for cut material, flat gouache fills, one oblique projection, labels on leaders or digits inside hydrogens.
 - Rods start on the junction curve where the bond leaves the sphere (author: bonds must not enter the nuclei).
 - Versions and transformed molecules drawn solid with digits inside the hydrogen discs (author chose option C).
@@ -18,11 +18,12 @@
 ## Open, for the author
 1. Section order. The export's sections 5 to 9 (Symmetry Groups, Methylamine, Versions and Symmetry Species,
    Localized States, Feasible Configuration Space) differ from the figure flow of the approved specification.
-   As agreed, the integration reorganizes the sections to the figure flow: `docs/manuscript-reorganized.tex`
-   is the export with the sections reordered and the plates placed, the author's text moved verbatim (Methylamine
-   becomes a subsection of Symmetry Groups and Versions; Nuclear Spin Weights is a new section holding figure 8
-   and a comment where the author's text goes); `docs/integration.patch` is the diff from the export. It compiles
-   with figures 1 to 12 numbered in section order. To confirm or adjust.
+   As agreed, the integration reorganizes the sections to the figure flow in four parts: `docs/manuscript-reorganized.tex`
+   is the export with `\part` headings, the twelve sections of the specification, and the plates placed; the author's
+   text is moved verbatim (the Methylamine text continues the Symmetry Groups and Versions section with no heading of
+   its own; Nuclear Spin Weights is a new section holding figure 8 and a comment where the author's text goes);
+   `docs/integration.patch` is the diff from the export. It compiles with figures 1 to 12 in section order. The
+   storyline across the parts is in docs/storyline.md.
 2. Final captions, from docs/caption-notes.md.
 3. Whether to keep the schematic K2Rb2 positions or replace them with a computed complex geometry.
 4. The illustrative component functions of figure 2 and rho = 0.3 of figure 12, if real values are preferred.

@@ -102,3 +102,19 @@ Modes: 1 discs after 4.4.3 (clear), 2 signed bars (busy tips), 3 radial bumps (t
 Kept 1. Packets: 1 discs and rings (ring overlaps confuse), 2 Gaussian profiles standing on the circle with the
 union filled gold and the crossings showing c (direct, and the same circle idiom as the radial modes of figure
 12), 3 unrolled line (clear for c, loses the circle), 4 contour maps (busy). Adopted 2 for figure 9.
+
+## Figure 3 from the drawing board (studies/alternatives/alt-fig03)
+
+A spin arrows beside the nuclei, digits moving while the arrows stay, the sign riding on the arrow: chosen.
+B kets beside the nuclei: text where a drawing would do. C X and -X in one frame joined through the origin: the
+oxygens overlap at the origin (the mass centre sits 0.06 A from the oxygen), unreadable. D a trihedron and its
+inversion: handedness is not legible in a flat drawing; dropped, water is planar and -X is a rotated copy.
+Also decided here, at the author's request: the two-tone gouache shadow replaces the black crescent on every
+sphere; red is kept for oxygen only within a plate (figure 2's b component is now ink).
+
+## Figure 6 close-up test (author)
+
+The zoom must be the same face at a larger scale: same quadrilateral, same hatch direction with the spacing
+scaled, the version point where it sits in the small view (the lower end of the eta-line). Labels never on
+hatching or on generatrix lines. The band tint in the wedge gap is painted after the cut faces so it meets the
+blue eta-lines.

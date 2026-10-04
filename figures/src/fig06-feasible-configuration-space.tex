@@ -31,11 +31,11 @@
 \leaderlabel{2.74}{10.33}{.75}{-.42}{west}{$tuH$}
 \draw[leader] (tb-top60)++(.06,-.04)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-top60)+(.64,-.4)$) {eclipsed};
 \draw[leader] (tb-bot60)--++(.55,-.35); \node[sub,anchor=west,inner sep=.5pt] at ($(tb-bot60)+(.58,-.37)$) {$t^2uH$};
-\draw[leader] (tb-bot180)--++(.0,.95); \node[sub,anchor=south,inner sep=.5pt] at ($(tb-bot180)+(0,.98)$) {$uH$};
+\draw[leader] (tb-bot180)--++(.0,1.1); \node[sub,anchor=south,inner sep=.5pt,fill=white] at ($(tb-bot180)+(0,1.12)$) {$uH$};
 \node[lab] at (6.1,13.05) {$t$}; \node[lab,fill=white,inner sep=1pt] at (3.75,11.0) {$tu$};
 \node[sub,anchor=west] at (8.9,12.9) {$\tau$ around}; \node[sub,anchor=west] at (8.9,12.5) {$\eta$ along the height}; \node[sub,anchor=west] at (8.9,12.1) {$Q$ across the wall};
-\node[sub,anchor=north west,text width=5.8cm] at (8.9,11.7) {the band at mid-thickness is the reference family $X_0(\tau,\eta)$; its six version points are gold, faded where the wall hides them};
-\node[sub,anchor=north west,text width=5.8cm] at (8.9,10.4) {two paths from $H$: $t$ in blue along the top edge, through the eclipsed point at $\tau=\pi/3$; $tu$ in red through the band to the lower edge};
+\node[sub,anchor=north west,text width=5.8cm] at (8.9,11.7) {the band at mid-thickness is the family $X_0(\tau,\eta)$; version points gold, faded where the wall hides them};
+
 % ------------------------------------------------ zoom: the cut face itself, enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m, the version point tuH at the lower end of the eta-line)
 \zoombubble{2.70}{10.11}{.72}{1.55}{8.35}{1.4}
 \begin{scope}[shift={(1.55,8.35)}]
@@ -54,9 +54,9 @@
   \draw[harrow] (0,.2)--(-.5,.2); \node[lab,anchor=south,inner sep=1pt,fill=white] at (-.28,.27) {$Q$};
   \node[lab,anchor=east,inner sep=1pt,fill=white] at (-.1,{\m*.45}) {$\eta$};
 \end{scope}
-\node[sub,anchor=north west,text width=5.2cm] at (3.15,9.2) {the cut face, enlarged: a normal slice; the band's $\eta$-line in blue with the version point at its lower end, $Q$ across the wall; the cut material hatched};
+\node[sub,anchor=north west,text width=5.2cm] at (3.15,9.2) {the cut face enlarged: a normal slice, the $\eta$-line of the band in blue, $Q$ across the wall};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
-\node[sub,anchor=north west,text width=11.6cm] at (3.15,7.35) {the same two paths followed below, seen down the C--N axis: N in front with its hydrogens on rods, C behind with its hydrogens from the rim; the digits are the column labels};
+\node[sub,anchor=north west,text width=11.6cm] at (3.15,7.35) {the same two paths seen down the C--N axis, N in front; the digits are the column labels};
 \begin{scope}\def\nmR{.5}
   \pic[scale=.9] at (1.9,5.2) {newman-tuH};
   \pic[scale=.9] at (5.3,5.2) {newman-tau-0};
