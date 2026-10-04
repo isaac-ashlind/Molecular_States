@@ -91,18 +91,23 @@ gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled
 verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
 
 ## Figure 10, position representation
-The band of figure 6 with two normal slices standing across it, cut at the seam and unrolled into the chart
-[-pi, pi] x [-eta0, eta0] with the six H-cells (computed, uU split across the seam), the same six points and two
-paths; T_tu carries q = (0, eta0) to q' = (-pi/3, -eta0) with A_tu = R_z(pi) and M_tu = diag(1, -1) (verified
-identically); the normal slice at q is the cut face of figure 6; e_-(q) drawn on one computed molecule with
-arrows 3 x the displacement Q_- = 0.42 A (`\arrowGain`, `\dispAmp`). Mass orthogonality holds in the mass metric,
-not on the page.
+The band of figure 6 (the reference family X0(tau, eta) at mid-thickness) with its six version points and the two
+paths, cut at the seam tau = +-pi (cut marks) and unrolled into the chart [-pi, pi] x [-eta0, eta0]; the six
+H-cells computed (chartCells), the reference cell U in pale gold, the same six red points and the two paths (t
+solid, tu dashed); eta = 0 is the planar amino locus. The zoom at q = H is the normal slice, the hatched cut face
+of figure 6, with the band's eta-line (teal) and the coordinate Q across the wall. Below, the two normal
+directions at q, e_-(q) (the amino twist) and e_+(q) (the amino rock), drawn on the molecule with arrows 3x the
+displacement (mol3d-mla-ref-eminus, -eplus; mass-orthonormal, orthogonal to the family and to the rotations in
+the mass metric). The formulas X0(q) P_tu = A_tu X0(q'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
 
 ## Figure 11, covering spaces and monodromy
-Twelve sheets over V in six version pairs; lifts of the two loops drawn climbing to different sheets: a closed
-path downstairs whose lift does not close, in the spirit of Harter (1993), Fig. 5.4.2. The relations t^3 = b^2 = E,
-btb = t^-1, bt = t^2 b, the Schreier graph, the residual 0.76 A (no rotation carries X to bX) and the free-action
-margin 2.30 A are computed. The plates are schematic; V is a free domain by assumption.
+Over a free domain V, the version pairs {gX, gbX} drawn side by side: the X-side column at the left headed by X,
+the bX-side at the right headed by bX (two configurations over the one point [X]; no rotation carries one to the
+other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
+climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
+ends at btX = t^2 bX two levels up on the right (gold rings): the lifts of the same loops end apart. At the right the
+six t,b-sheets as a graph: t turns the outer triangle one way and the inner the other (btb = t^-1). The u-half of
+the twelve sheets is alike. Loop figure after Harter (1993), Fig. 5.4.2 in spirit.
 
 ## Figure 12, momentum representation
 K ladder as latitude rings on the sphere |J| = sqrt(J(J+1)) for J = 2, after Harter (1993), Fig. 5.5.3; no

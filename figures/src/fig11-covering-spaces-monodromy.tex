@@ -19,7 +19,7 @@
 \newcommand\goldring[1]{\draw[line width=1pt,draw=ColGoldStroke] (#1) circle[radius=.16];}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,12.0);
+\path[use as bounding box] (0,0) rectangle (15,10.8);
 \begin{scope}[shift={(5.6,1.0)}]
   % V, wide, both columns over it
   \path[fill=white] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle; \draw[heavy] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle;
@@ -30,7 +30,7 @@
     \pgfmathsetmacro{\y}{1.5+1.7*\k}
     \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
     \coordinate (pa\k) at (-1.95,{\y+.25}); \coordinate (pb\k) at (2.65,{\y+.25});
-    \node[sub,anchor=west,inner sep=1pt] at (-.5,{\y+.08}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (4.1,{\y+.08}) {$\gb$};
+    \node[sub,anchor=west,inner sep=1pt] at (-3.85,{\y+.12}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (.75,{\y+.12}) {$\gb$};
     \node[lab,anchor=west] at (5.3,{\y+.25}) {$\pl$};}
   \draw[hidden] (bx)--(pa0); \draw[hidden] (bx)--(pb0);
   \draw[tlift] (pa0) .. controls (-3.6,{1.5+.25+.6}) and (-3.6,{1.5+1.7+.25-.6}) .. (pa1);
@@ -42,8 +42,8 @@
   \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns
-\begin{scope}\molsolid\mollabelsinside\pic[scale=.5] at (3.3,10.6) {mol3d-mla-X}; \pic[scale=.5] at (7.9,10.6) {mol3d-mla-bX};\end{scope}
-\node[lab] at (3.3,9.5) {$X$}; \node[lab] at (7.9,9.5) {$bX$}; \draw[blift] (4.3,9.5)--(6.9,9.5);
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.5] at (3.3,9.55) {mol3d-mla-X}; \pic[scale=.5] at (7.9,9.55) {mol3d-mla-bX};\end{scope}
+\node[lab] at (3.3,8.5) {$X$}; \node[lab] at (7.9,8.5) {$bX$}; \draw[blift] (4.3,8.5)--(6.9,8.5);
 % the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other
 \begin{scope}[shift={(12.6,4.6)}]
   \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.8*cos(\a)},{.8*sin(\a)});}
