@@ -22,10 +22,10 @@
   \end{scope}
 }
 % the two channels as arrows: parallel and centred into the complex, parallel out of it and diverging, each head
-% aimed at its own pair of nuclei (potassium above, rubidium below) with air before the atom
-\draw[karrow] (4.3,9.1)--(6.0,9.1); \draw[rbarrow] (4.3,8.9)--(6.0,8.9);
-\draw[karrow] (8.95,9.1) -- (9.35,9.1) .. controls (9.85,9.1) and (9.85,9.64) .. (10.35,9.64) -- (10.95,9.64);
-\draw[rbarrow] (8.95,8.9) -- (9.35,8.9) .. controls (9.85,8.9) and (9.85,8.36) .. (10.35,8.36) -- (10.95,8.36);
+% ending on its own pair of nuclei (potassium above, rubidium below), the tip on the atom's edge
+\draw[karrow] (4.3,9.18)--(6.0,9.18); \draw[rbarrow] (4.3,8.82)--(6.0,8.82);
+\draw[karrow] (8.95,9.18) -- (9.35,9.18) .. controls (9.85,9.18) and (9.85,9.64) .. (10.35,9.64) -- (11.07,9.64);
+\draw[rbarrow] (8.95,8.82) -- (9.35,8.82) .. controls (9.85,8.82) and (9.85,8.36) .. (10.35,8.36) -- (11.02,8.36);
 % ------------------------------------------------ B. the sixteen subgroups of S with the same two strands
 \begin{scope}[shift={(3.4,.9)}]
   \foreach \i/\x/\y/\m/\name in \krbNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=10 \pgfmathsetmacro{\xx}{0.6429}\fi\ifnum\i=12 \pgfmathsetmacro{\xx}{0.3571}\fi \coordinate (k\i) at ({10.4*\xx},{1.65*\y});}
