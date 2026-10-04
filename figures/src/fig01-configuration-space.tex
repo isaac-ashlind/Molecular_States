@@ -1,8 +1,9 @@
-% Figure 1. Configuration space. What the reader must see: a centred configuration is a point of C; the water
-% family lays shapes out over their own two coordinates (bond asymmetry delta, bend theta), each glyph centred on
-% its own mass centre, with the equal-bond locus and the linear boundary as dotted special loci; rotations act on
-% the left and relabellings on the right, and the two commute.
-% Colours: oxygen red; gold = the mass-centre mark. Hatch unused. Glyphs computed from one parameter table.
+% Figure 1. Configuration space. What the reader must see: a configuration is a centred matrix of column vectors;
+% the water family lays shapes out over their own two coordinates (bond asymmetry delta, bend theta) with the
+% equal-bond locus and the linear boundary as dotted lines; what the family leaves out is supplied below: on the
+% left a rotation turns every column, on the right a permutation moves the columns and the inversion negates
+% them, and left and right actions commute. Colours: oxygen red; gold unused. Hatch unused. Glyphs computed from
+% one parameter table (compute/geometry.py); digits inside the hydrogen discs are the column labels.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -10,42 +11,42 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,15.4);
+\begin{tikzpicture}[plate,cellv/.style={draw=PlateInk,line width=.4pt,minimum width=.56cm,minimum height=.44cm,inner sep=1pt,font=\fontsize{7.5}{8}\selectfont}]
+\path[use as bounding box] (0,0) rectangle (15,15.0);
 % ------------------------------------------------ the atlas (delta, theta)
-\begin{scope}[shift={(1.5,5.2)}]
+\begin{scope}[shift={(1.5,5.9)}]
   \draw[fine] (-.3,0)--(12.2,0); \draw[fine] (0,-.3)--(0,8.3);
   \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {\draw[fine] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08); \node[lab,anchor=north] at ({1.1+2.3*\i},-.14) {$\lab$};}
   \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.65*\j})--(.08,{.9+1.65*\j}); \node[lab,anchor=east] at (-.14,{.9+1.65*\j}) {$\lab$};}
   \node[lab,anchor=west] at (12.3,0) {$\delta$}; \node[lab,anchor=south] at (0,8.35) {$\theta$};
-  % special loci, dotted and named
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (5.7,-.3)--(5.7,8.45);
   \draw[line width=.5pt,draw=PlateInk,dash pattern=on .6pt off 1.3pt] (-.3,7.5)--(12.2,7.5);
-  \node[sub,anchor=south] at (5.7,8.5) {equal bonds, $\delta=0$}; \node[sub,anchor=south east] at (12.15,7.55) {linear, $\theta=\pi$};
+  \node[sub,anchor=south] at (5.7,8.5) {equal bonds, $\delta=0$}; \node[sub,anchor=south east] at (12.15,7.58) {linear, $\theta=\pi$};
   \draw[fine] (5.7,7.5) circle[radius=.95];
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
-    \foreach \i in {0,...,4} \foreach \j in {0,...,4} {
-      \pic[scale=.75] at ({1.1+2.3*\i},{.9+1.65*\j}) {mol3d-water-grid-\i\j};
-      \draw[line width=1.8pt,draw=white] ({1.1+2.3*\i-.14},{.9+1.65*\j})--({1.1+2.3*\i+.14},{.9+1.65*\j}) ({1.1+2.3*\i},{.9+1.65*\j-.14})--({1.1+2.3*\i},{.9+1.65*\j+.14});
-      \draw[line width=.7pt,draw=ColGold] ({1.1+2.3*\i-.14},{.9+1.65*\j})--({1.1+2.3*\i+.14},{.9+1.65*\j}) ({1.1+2.3*\i},{.9+1.65*\j-.14})--({1.1+2.3*\i},{.9+1.65*\j+.14});}
+    \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.75] at ({1.1+2.3*\i},{.9+1.65*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
+  \node[sub,anchor=north west] at (0,-.55) {$r_1=\ell+\delta$, $r_2=\ell-\delta$; every shape centred on its own mass centre, orientation suppressed};
 \end{scope}
-\node[sub,anchor=north west,text width=14.4cm,align=left] at (.3,4.6) {page position encodes $(\delta,\theta)$ with $r_1=\ell+\delta$, $r_2=\ell-\delta$; the gold cross is each configuration's own origin, its mass centre, $\waterOxygenOffset$\,\AA\ from the oxygen in the shape at upper left; $\mathrm H_1$ left, $\mathrm H_2$ right; orientation suppressed};
-% ------------------------------------------------ the two commuting actions, with the matrix as a small inset
-\begin{scope}[shift={(1.6,.45)}]
-  \begin{scope}\molsolid\def\radH{.17}\def\radX{.26}
-    \pic[scale=.75] at (1.0,2.3) {mol3d-water-X}; \pic[scale=.75] at (4.6,2.3) {mol3d-water-RX};
-    \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.75] at (1.0,.5) {mol3d-water-X}; \pic[scale=.75] at (4.6,.5) {mol3d-water-RX};\end{scope}
-  \end{scope}
-  \draw[harrow] (2.15,2.3)--(3.45,2.3); \node[lab,anchor=south] at (2.8,2.35) {$R$};
-  \draw[harrow] (2.15,.5)--(3.45,.5); \node[lab,anchor=south] at (2.8,.55) {$R$};
-  \draw[harrow] (1.0,1.75)--(1.0,1.05); \node[lab,anchor=east] at (.9,1.4) {$P_\sigma$};
-  \draw[harrow] (4.6,1.7)--(4.6,1.1);
-  \node[lab,anchor=east] at (.25,2.3) {$X$}; \node[lab,anchor=west] at (5.45,2.3) {$RX$};
-  \node[lab,anchor=east] at (.25,.5) {$XP_\sigma$}; \node[lab,anchor=west] at (5.45,.5) {$RXP_\sigma$};
+% ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
+\begin{scope}\molsolid\mollabelsinside
+  \pic[scale=.95] at (2.85,3.6) {mol3d-water-minusX};
+  \pic[scale=.95] at (5.4,3.6) {mol3d-water-X}; \pic[scale=.95] at (10.6,3.6) {mol3d-water-RX};
+  \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.95] at (5.4,1.3) {mol3d-water-X}; \pic[scale=.95] at (10.6,1.3) {mol3d-water-RX};\end{scope}
 \end{scope}
-\node[sub,anchor=north west,text width=5.4cm,align=left] at (8.6,3.35) {$\sigma=(12)$ swaps the columns; $R=R_z(\waterRotDeg^\circ)$ multiplies every column; $(RX)P_\sigma=R(XP_\sigma)$};
-\node[lab,anchor=north west] at (8.6,2.25) {$X=\begin{pmatrix}\waterXAx&\waterXBx&\waterXCx\\\waterXAy&\waterXBy&\waterXCy\\0&0&0\end{pmatrix}$\,\AA};
-\node[sub,anchor=north west] at (8.6,.9) {$X\mathbf m=0$, $\mathbf m=(\massH,\massH,\massO)^{\mathsf T}$\,u};
+% column strips beside each glyph: the matrix as three columns
+\foreach \x/\y/\ca/\cb/\cc in {5.4/3.6/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},10.6/3.6/{R\mathbf x_1}/{R\mathbf x_2}/{R\mathbf x_3},5.4/1.3/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},10.6/1.3/{R\mathbf x_2}/{R\mathbf x_1}/{R\mathbf x_3}} {
+  \node[cellv,anchor=west] at ({\x+1.0},\y) {$\ca$}; \node[cellv,anchor=west] at ({\x+1.56},\y) {$\cb$}; \node[cellv,anchor=west] at ({\x+2.12},\y) {$\cc$};}
+\node[cellv,anchor=east] at (1.78,3.6) {$-\mathbf x_3$}; \node[cellv,anchor=east] at (1.22,3.6) {$-\mathbf x_2$}; \node[cellv,anchor=east] at (.66,3.6) {$-\mathbf x_1$};
+% arrows: R to the right (left action), P_sigma down (right action), E* to the left (right action by -1)
+\draw[harrow] (8.2,3.6)--(9.4,3.6); \node[lab,anchor=south] at (8.8,3.66) {$R$};
+\draw[harrow] (8.2,1.3)--(9.4,1.3); \node[lab,anchor=south] at (8.8,1.36) {$R$};
+\draw[harrow] (5.4,2.85)--(5.4,2.1); \node[lab,anchor=east] at (5.28,2.48) {$P_\sigma$};
+\draw[harrow] (10.6,2.85)--(10.6,2.1); \node[lab,anchor=east] at (10.48,2.48) {$P_\sigma$};
+\draw[harrow] (4.45,3.6)--(3.85,3.6); \node[lab,anchor=south] at (4.15,3.66) {$E^*$};
+% names under the glyphs
+\node[lab] at (5.4,4.5) {$X$}; \node[lab] at (10.6,4.5) {$RX$}; \node[lab] at (2.85,4.5) {$E^*X=-X$};
+\node[lab] at (5.4,.45) {$XP_\sigma$}; \node[lab] at (10.6,.45) {$RXP_\sigma$};
+\node[sub,anchor=north west,text width=2.6cm] at (12.3,2.75) {on the left, every column turns; on the right, the columns move or flip};
 \end{tikzpicture}
 \end{document}

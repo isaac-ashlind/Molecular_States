@@ -64,11 +64,15 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
     n = len(X)
     if label_macros is None:
         label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
-    items = [(P[i][2], 0, i, None) for i in range(n)]
+    depth = [P[i][2] for i in range(n)]
+    rods = []
     for a, b in bonds:
         i, j = a-1, b-1
-        far = i if P[i][2] <= P[j][2] else j
-        items.append((P[far][2] + 1e-6, 1, i, j))
+        far, near = (i, j) if P[i][2] <= P[j][2] else (j, i)
+        rods.append((P[far][2] + 1e-6, 1, i, j))
+        # a coplanar pair ties in depth: the near sphere must still be painted after the rod
+        depth[near] = max(depth[near], P[far][2] + 2e-6)
+    items = [(depth[i], 0, i, None) for i in range(n)] + rods
     items.sort(key=lambda t: (t[0], t[1]))
     lines = []
     for z, kind, i, j in items:
@@ -350,6 +354,16 @@ def main():
     emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     emit_pic(mol, 'mol2d-mla-graph', pic_code_graph(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
+    def pm(M):
+        rows = []
+        for r in range(3):
+            rows.append(' & '.join(f'{M[c][r]:.2f}' for c in range(3)))
+        return ' \\\\ '.join(rows)
+    RwX = G.rotate(Rw, wX)
+    sw = [wX[1], wX[0], wX[2]]; Rsw = [RwX[1], RwX[0], RwX[2]]; mX = G.invert_config(wX)
+    for tag, M in (('X', wX), ('RX', RwX), ('PX', sw), ('RPX', Rsw), ('MX', mX)):
+        num.append(f'\\def\\waterMat{tag}{{{pm(M)}}}')
+    summary['water_matrices'] = {'X': [[round(v, 4) for v in c] for c in wX], 'RX': [[round(v, 4) for v in c] for c in RwX]}
     emit_pic(mol, 'mol3d-water-RX', pic_code_rods(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     emit_pic(mol, 'mol3d-water-minusX', pic_code_rods(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     for k, (d, th) in enumerate(samples):
@@ -611,9 +625,11 @@ def main():
     num.append(f'\\def\\shareShownA{{{(1+2*c_show)/3:.3f}}}\\def\\shareShownE{{{2*(1-c_show)/3:.3f}}}')
     summary['gaussian_shown'] = {'sigma_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
 
-    # ---- illustrative component functions (figure 2b): values of a continuous representative
+    # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
+    # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X) = -(b xi + a eta),
+    # i.e. b = -a: the proton singlet (xi - eta) times a scalar f(theta).  f is an illustrative Gaussian in theta.
     def comp_a(th): return math.exp(-((th-104.5)/14.0)**2/2)
-    def comp_b(th): return 0.9*((th-118.0)/16.0)*math.exp(-((th-118.0)/16.0)**2/2)
+    def comp_b(th): return -comp_a(th)
     with open(os.path.join(DATA, 'component-functions.dat'), 'w') as f:
         f.write('theta a b n2\n')
         for i in range(0, 101):
