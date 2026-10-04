@@ -166,3 +166,6 @@ docs/notation-migration.md.
   longer instead.
 - The hatch of cut material is ink, thinner (.22pt), on the cover and on every plate that uses it.
 - The appendix question (a rigid-recovery appendix with a figure) is answered in the hand-off note and not started.
+- Minimal captions (author, 2026-10-04): every figure carries a one- to three-sentence caption drawn from the caption
+  notes, claiming only what the plate shows; the cover carries no caption line. Figure 12's vector J rises from the
+  marked centre to the right end of the K = 1 ring and is named outside the sphere; no radius line.

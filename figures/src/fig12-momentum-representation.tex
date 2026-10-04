@@ -25,13 +25,12 @@
     \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
     \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
-  % the vector J: from the centre (marked) to the front-left of the K = 1 ring, on the lit side; the dotted line is the
-  % ring's radius in its own plane, from the axis at the ring's height to the tip, so the z component reads as K = 1
-  \pgfmathsetmacro{\ja}{215}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
+  % the vector J: from the centre (marked) up to the right end of the K = 1 ring (its z component is K = 1), named
+  % outside the sphere at the right, clear of the lattice beside it (author, 2026-10-04)
+  \pgfmathsetmacro{\ja}{355}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
   \coordinate (jt) at ({\jr*cos(\ja)},{\jh+\E*\jr*sin(\ja)});
-  \draw[hidden] (0,\jh)--(jt);
   \draw[harrow] (0,0)--(jt); \fill[PlateInk] (0,0) circle[radius=1.3pt];
-  \node[lab,anchor=south east,inner sep=1pt] at ($(jt)+(-.04,.1)$) {$\mathbf J$};
+  \node[lab,anchor=west,inner sep=1pt] at ({\R+.1},{\jh+\E*\jr*sin(\ja)+.06}) {$\mathbf J$};
   \node[sub,anchor=north] at (0,{-\R-.4}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$};
 \end{scope}
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame

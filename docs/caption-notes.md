@@ -5,7 +5,8 @@ Symbols below are written in plain ASCII. In the plates and the manuscript they 
 U_s and the projector P_Gamma are sans serif; the umbrella coordinate is iota, the shape tuple a, the normal
 coordinates q, the packet width Delta.
 
-No final captions are written here. For each plate: what is drawn, what is computed (and by which check), what
+The manuscript carries minimal captions (one to three sentences each, 2026-10-04, author's request); these notes
+remain the disclosures behind them. For each plate: what is drawn, what is computed (and by which check), what
 is declared schematic or illustrative, and which compositions adapt a plate of W. G. Harter, *Principles of
 Symmetry, Dynamics, and Spectroscopy* (Wiley, 1993), to be cited as "after Harter (1993), Fig. x.y.z".
 
