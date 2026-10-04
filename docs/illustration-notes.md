@@ -126,3 +126,20 @@ Proposed re-keying: torsion green, umbrella purple, version dots red, the core s
 left to nitrogen. Test: studies/alternatives/palette-guide.tex. Collision check: green and purple are also the
 potassium and rubidium atoms, which never share a plate with the paths; red dots never share a plate with red
 oxygen; gold stays the family and what lives on it. Switch pending the author's go (a six-line edit).
+
+## Round 3: palette pitch on the cover (2026-10-04)
+
+Ten versions of the cover plate, one drawing (`studies/alternatives/round3/cover-body.tex`) under ten colour keys
+(`cover-A` to `cover-G`, `cover-N1` to `cover-N5`; the N files read the author's Nicker gouache chart, hex by eye in
+`nicker.tex`). What the renders showed at close-up:
+
+- the adopted hues (avocado, lilac) are too pale for strokes under 1 pt; dashed strokes wash out; fills are fine;
+- gold cannot be the core sheet and the packet at once: on a gold band the packet disc disappears (A, B, D, E);
+- a light-blue packet reads as a nitrogen atom (N3): a saturated cool disc is matter, not a region;
+- deep gouache strokes (viridian, cobalt violet) read at every size (N1, N2, N4);
+- Prussian-blue ink (N2) is the softest plate, but makes blue the ink, the sheet and the nitrogen.
+
+Recommendation: N4 (black ink; viridian t; cobalt violet for the amino-side generators, solid for tu, dashed for the
+starred b; scarlet versions; French-gray core sheet; chrome-yellow retained regions; cobalt nitrogen), or N1 with a
+light-blue sheet. The semantic fix that came out of the pitch: on the solid the violet path is tu, on the sheets it is
+b; these are different generators, so dash now marks the starred one and the solid line the unstarred one.
