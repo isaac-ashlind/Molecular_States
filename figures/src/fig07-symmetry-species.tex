@@ -1,44 +1,57 @@
-% Figure 7. Symmetry species. What the reader must see: the three version states are three sites; t cycles them,
-% b fixes one and swaps two; the coefficient vectors on the sites split into one uniform mode (A1) and one E pair.
-% Mode pictures after Harter (1993) fig. 4.4.3: disc area = amplitude, ink = positive, white = negative.
-% Colours: blue = t, red dashed = b; gold unused. Hatch unused. Vectors and matrices verified exactly.
+% Figure 7. Symmetry species. What the reader must see: the three version states are three sites on the torsion
+% circle; t turns the sites by a third, b is the mirror through H; a vector on the sites is drawn as three discs
+% (area = amplitude, ink positive, white negative, a dash for zero); the grid shows each mode with its t image and
+% its b image, so A1 reads as unchanged and E as a pair that mixes; beneath, the E plane with the three images of
+% v2 at a third turn and the mirror axis, the same geometry as the sites. Mode pictures after Harter (1993)
+% fig. 4.4.3 in spirit. Colours: red = the version sites; ink elsewhere; dotted = the starred b. Vectors verified exactly.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{numbers.tex}
+% shared drawing for the figure 7 drafts: a mode picture is three discs on the three version sites;
+% disc area = |amplitude|, ink positive, white negative, a dash for zero. Sites at 90, 210, 330 degrees.
+% \modepic{x}{y}{R}{a}{b}{c}{style}  style: circle (torsion circle) or tri (triangle)
+\newcommand\modepic[7]{\begin{scope}[shift={(#1,#2)}]
+  \ifnum#7=1 \draw[fine] (0,0) circle[radius=#3]; \else \draw[fine] (90:#3)--(210:#3)--(330:#3)--cycle; \fi
+  \foreach \mang/\mc in {90/#4,210/#5,330/#6} {
+    \pgfmathsetmacro{\r}{.42*#3*sqrt(abs(\mc))}\pgfmathsetmacro{\pos}{\mc>0?1:0}
+    \ifdim\r cm>0.03cm \ifnum\pos=1 \fill[PlateInk] (\mang:#3) circle[radius=\r]; \else \draw[fine,fill=white] (\mang:#3) circle[radius=\r]; \fi
+    \else \draw[fine] ($(\mang:#3)+(-.07,0)$)--($(\mang:#3)+(.07,0)$); \fi}
+  \end{scope}}
+% amplitudes: v1=(1,1,1)/sqrt3; v2=(2,-1,-1)/sqrt6; v3=(0,1,-1)/sqrt2; t(a,b,c)=(c,a,b); b(a,b,c)=(a,c,b)
+\def\sA{.5774}\def\sB{.8165}\def\sC{.4082}\def\sD{.7071}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,8.6);
-% ------------------------------------------------ cosets with t and b
-\begin{scope}[shift={(2.4,5.0)}]
-  \coordinate (v0) at (0,1.9); \coordinate (v1) at (-1.5,-.6); \coordinate (v2) at (1.5,-.6);
-  \draw[tpath] (v0) to[bend right=20] (v1); \draw[tpath] (v1) to[bend right=20] (v2); \draw[tpath] (v2) to[bend right=20] (v0);
-  \draw[upath,<->] (v1)--(v2);
-  \draw[upath,-] (v0) ++(60:.42) arc[start angle=-30,end angle=210,radius=.36];
-  \foreach \p/\l in {v0/H,v1/tH,v2/t^2H} \node[circle,draw=PlateInk,fill=white,line width=.55pt,inner sep=1pt,minimum size=6.5mm,font=\fontsize{9}{10}\selectfont] at (\p) {$\l$};
-  \node[lab] at (-1.5,.95) {$t$}; \node[lab] at (0,-1.35) {$t$}; \node[lab] at (1.5,.95) {$t$};
-  \node[lab,anchor=south] at (0,-.45) {$b$}; \node[lab,anchor=south] at (0,2.75) {$b$};
-  \node[sub,align=center] at (0,-2.0) {$t$ cycles the three sites,\\$b$ fixes $H$ and swaps the other two};
+\path[use as bounding box] (0,0) rectangle (15,11.6);
+% key: the three version sites on the torsion circle
+\begin{scope}[shift={(2.5,8.2)}]
+  \pgfmathsetmacro{\R}{1.4}
+  \draw[fine] (0,0) circle[radius=\R];
+  \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
+  \draw[tpath] (100:{\R+.28}) arc[start angle=100,end angle=200,radius={\R+.28}];
+  \foreach \a in {90,210,330} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.09}{ColDot}}
+  \node[lab,anchor=south east] at ($(90:\R)+(-.08,.1)$) {$H$}; \node[lab,anchor=north east] at (210:\R) {$tH$}; \node[lab,anchor=north west] at (330:\R) {$t^2H$};
+  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=west] at (.1,{\R+.42}) {$b$};
+  \node[sub] at (270:{\R+.32}) {$\tau$};
 \end{scope}
-% ------------------------------------------------ mode pictures on the three sites
-\foreach \cx/\ca/\cb/\cc/\den/\vn/\sp in {7.0/1/1/1/{\sqrt3}/v_1/{\mathrm A_1},10.0/2/-1/-1/{\sqrt6}/v_2/{\mathrm E},13.0/0/1/-1/{\sqrt2}/v_3/{\mathrm E}} {
-  \begin{scope}[shift={(\cx,5.3)}]
-    \draw[fine] (0,1.0)--(-.95,-.6)--(.95,-.6)--cycle;
-    \foreach \px/\py/\c in {0/1.0/\ca,-.95/-.6/\cb,.95/-.6/\cc} {
-      \pgfmathsetmacro{\r}{.33*sqrt(abs(\c)/2)}
-      \pgfmathsetmacro{\pos}{\c>0?1:0}
-      \ifdim\r pt>0.1pt
-        \ifnum\pos=1 \fill[PlateInk] (\px,\py) circle[radius=\r]; \else \draw[heavy,fill=white] (\px,\py) circle[radius=\r]; \fi
-      \else \draw[fine] (\px-.08,\py)--(\px+.08,\py); \fi}
-    \node[lab] at (0,-1.3) {$\vn=\dfrac{(\ca,\cb,\cc)}{\den}$};
-  \end{scope}
-}
-\draw[fine] (6.3,7.3)--(6.3,7.15)--(7.7,7.15)--(7.7,7.3); \node[lab,anchor=south] at (7.0,7.35) {$\mathrm A_1$};
-\draw[fine] (9.2,7.3)--(9.2,7.15)--(13.8,7.15)--(13.8,7.3); \node[lab,anchor=south] at (11.5,7.35) {$\mathrm E$, one two-dimensional subspace};
-\node[sub,align=center,text width=8.6cm,anchor=north] at (10.0,3.45) {disc area is the amplitude; ink positive, white negative, a dash for zero};
-% ------------------------------------------------ the action on the modes
-\node[lab,anchor=north west,align=left] at (6.3,2.15) {on $v_1$:\quad $t\mapsto1$,\quad $b\mapsto1$\\[4pt] on $(v_2,v_3)$:\quad $t\mapsto\begin{pmatrix}-\tfrac12&-\tfrac{\sqrt3}{2}\\[2pt]\tfrac{\sqrt3}{2}&-\tfrac12\end{pmatrix}$,\quad $b\mapsto\begin{pmatrix}1&0\\0&-1\end{pmatrix}$};
-\node[lab,anchor=north west,align=left] at (.6,2.15) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$,\\ no $\mathrm A_2$};
+% the grid
+\foreach \col/\x/\a/\b/\c/\ta/\tb/\tc/\ba/\bb/\bc in {1/7.0/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA, 2/10.0/\sB/-\sC/-\sC/-\sC/\sB/-\sC/\sB/-\sC/-\sC, 3/13.0/0/\sD/-\sD/-\sD/0/\sD/0/-\sD/\sD} {
+  \modepic{\x}{9.6}{.62}{\a}{\b}{\c}{1}
+  \modepic{\x}{7.5}{.62}{\ta}{\tb}{\tc}{1}
+  \modepic{\x}{5.4}{.62}{\ba}{\bb}{\bc}{1}
+  \node[lab] at (\x,10.55) {$v_\col$};}
+\node[lab,anchor=east] at (5.9,9.6) {$v$}; \node[lab,anchor=east] at (5.9,7.5) {$t\,v$}; \node[lab,anchor=east] at (5.9,5.4) {$b\,v$};
+\draw[fine] (6.2,11.05)--(6.2,10.9)--(7.8,10.9)--(7.8,11.05); \node[lab,anchor=south] at (7.0,11.07) {$\mathrm A_1$};
+\draw[fine] (9.2,11.05)--(9.2,10.9)--(13.8,10.9)--(13.8,11.05); \node[lab,anchor=south] at (11.5,11.07) {$\mathrm E$};
+% beneath: the fixed point and the E plane
+\begin{scope}[shift={(11.5,2.6)}]
+  \pgfmathsetmacro{\L}{1.25}
+  \draw[blift] (-\L-.35,0)--(\L+.35,0); \draw[fine] (0,-\L-.25)--(0,\L+.25);
+  \node[sub,anchor=south] at (0,\L+.28) {$v_3$};
+  \foreach \a/\l/\anc in {0/{v_2}/west,120/{t\,v_2}/south east,240/{t^2v_2}/north east} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.18}) {$\l$};}
+  \draw[tpath] (8:.5) arc[start angle=8,end angle=112,radius=.5];
+\end{scope}
+\node[sub,anchor=north] at (10.0,.55) {disc area is the amplitude; ink positive, white negative, a dash for zero};
 \end{tikzpicture}
 \end{document}

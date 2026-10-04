@@ -67,20 +67,25 @@ t and tu paths and the eclipsed point are the computed family positions. Newman 
 family (digits are column labels). Twenty images since |S/G12| = 20 (GAP).
 
 ## Figure 7, symmetry species
-Coset triangle of G6/H with t and b. Mode pictures (disc area = amplitude, ink positive, white negative, a dash
-for zero) are after Harter (1993), Fig. 4.4.3. Vectors v1, v2, v3 and the matrices of t and b on the E pair are
-exact (verify_symbolic.py); C[G6/H] = A1 + E, no A2 (GAP).
+The three version sites on the torsion circle (tau = 0, 2pi/3, 4pi/3); t turns them by a third, b is the mirror
+through H (dotted line, the starred generator). Mode pictures (disc area = amplitude, ink positive, white negative,
+a dash for zero) are after Harter (1993), Fig. 4.4.3 in spirit; the grid shows each mode v, its image t v and its
+image b v; the plane beneath shows the three images of v2 at a third turn with the mirror axis. Vectors v1 =
+(1,1,1)/sqrt3, v2 = (2,-1,-1)/sqrt6, v3 = (0,1,-1)/sqrt2 and the actions t(a,b,c) = (c,a,b), b(a,b,c) = (a,c,b)
+are exact (verify_symbolic.py); C[G6/H] = A1 + E, no A2 (GAP).
 
 ## Figure 8, nuclear spin weights
-Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: spatial species as level rules, spin species as
-bars of one unit per dimension (12, 4, 2 x 8 = 32), solid connections for even parity and dashed for odd. Copy
-counts from the character computation (GAP, verify.py). chi_stat = +1 on G6.
+Two rows of dot stacks, even parity (chi_+ = A1) above and odd (chi_- = A2) below, one column per spatial species;
+each stack is tagged by the spin species it draws on (the one whose product with the spatial species contains the
+parity character); a double rule marks the two-dimensional E. Counts 12, 4, 8 from the character computation (GAP,
+verify.py); chi_stat = +1 on G6; 12 + 4 + 2 x 8 = 32. Level rules after Harter (1993), Fig. 4.2.3 in spirit.
 
 ## Figure 9, localized states
-Three packets on the torsion circle at tau = 0, 2pi/3, 4pi/3: disc = one sigma, ring = 2 sigma, drawn with
-sigma/d = 1/3 exactly; the share curves w_A1 = (1 + 2c)/3, w_E = 2(1 - c)/3 with c = exp(-d^2 / 8 sigma^2)
-(figures/data/gaussian-shares.dat, exact in verify_symbolic.py); the drawn ratio is the marked point; limits as
-open circles. Planar Gaussian illustration as in the manuscript.
+The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows,
+sigma/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3; the overlap c = <g0, g1> = exp(-d^2 / 8 sigma^2) is the darker
+gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
+(open); the small chart marks the three rows on the share curves (figures/data/gaussian-shares.dat, exact in
+verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
 
 ## Figure 10, position representation
 The band of figure 6 with two normal slices standing across it, cut at the seam and unrolled into the chart
