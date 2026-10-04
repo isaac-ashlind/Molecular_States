@@ -83,3 +83,11 @@ removed; figure 6's Newman row redrawn as two steps plus a reference; the cover'
 dotted; arrowheads and leaders audited on every plate; two readers' lists applied. Full build clean, all checks
 pass (the share data now starts at Delta/d = 0 with the limit shares), no text collisions. Handed to the author
 for manual control.
+
+## 2026-10-04, late night, the rigid-formulation box (final pass before manual control)
+
+The closing box of Section 12 inserted from the author's draft after verification against Albert et al.
+(arXiv:2403.04572v4); four small technical adjustments recorded in docs/author-decisions.md; the Section 6, 11 and
+12 pointers repaired; the bibliography entry names the version consulted. Checks: verify.py, verify_symbolic.py,
+the GAP cross-check, verify_spin.py and verify_antiprism.py all pass; the manuscript compiles to 21 pages with no
+errors, no over- or underfull boxes and no unresolved references. The prose diff is 86 lines (two files).

@@ -128,3 +128,29 @@ docs/notation-migration.md.
   one scale for the water glyphs of figure 1 (the atlas must be small, the panel large); raising the cover's lattice
   and heading III by 8 mm (the author set that balance); figure 5's version row at a smaller scale (one scale per
   plate); labelling figure 9's chart dots instead of the axis (the ratios are now ticks).
+
+## The rigid-formulation box (2026-10-04, night; the author's final prompt before manual control)
+
+- One box closes Section 12, before the notation table: the author's approved draft, verified against Albert,
+  Kubischta, Lemeshko and Liu, arXiv:2403.04572v4 (their theorem: the rotational state space of a G-symmetric
+  isomer is the induced representation Gamma_rot up SO(3); their condition (1): Gamma_rot x Gamma_nuc contains the
+  spin-statistics irrep; their assumption of decoupled, trivially transforming electronic and vibrational factors;
+  position states over SO(3)/G with the fiber transforming by Gamma_rot(g^-1)).
+- Technical adjustments to the draft, each the smallest that correctness needed: (i) H_rot is named as the group
+  of the rotations R_h of Section 5 for unstarred h (Albert's proper rotational symmetry group); (ii) the transport
+  of the spin species and chi_stat to H_rot is through h -> R_h^-1, because with the right action s.X = X P_s the
+  map h -> R_h reverses products (R_{h1 h2} = R_{h2} R_{h1}); the other reading conjugates the characters, so the
+  two agree for real characters, which is every character in this paper; (iii) "the induced rotational measure" is
+  glossed as the Haar measure dr of Section 10 on the orbit; (iv) one sentence restricts the description to a
+  nonlinear reference and points linear configurations to the axial-redundancy remark of Section 10.
+- The bibliography entry for Albert et al. now names the version consulted (arXiv:2403.04572v4, 13 January 2026),
+  read from the document's own stamp; nothing else was inferred.
+- Section 6 no longer claims that shrinking F to a neighbourhood of SO(3)X0 recovers the rigid limit; it points
+  to the box. Section 11's unfinished instruction is a pointer to the box. Section 12's opening names its example
+  as a reduced torsional model, not a transform of the full torsion-umbrella model.
+- Placement: the box cannot share page 18 with figure 12, so it opens page 19 (a \clearpage before it, with a
+  measured \Needspace guard that keeps it whole wherever it lands later); page 18 holds figure 12 with blank space
+  beneath. Left for manual work: that blank, and any other float interruption; no layout pass was made.
+- Not changed, for the author: Section 12's reduced torsional model stays; Sections 7 and 8 untouched; figures
+  untouched. Observation only: for methylamine H = {E, b} with b starred, so H_rot is trivial (an asymmetric top in
+  Albert's classification) and the whole content of H in the rigid limit is the parity condition carried by b.

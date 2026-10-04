@@ -447,8 +447,9 @@ S/H\longrightarrow S/G,\qquad sH\longmapsto sG.
 along the umbrella coordinate. Picture a short tube $S^1\times[-1,1]$,
 thickened by normal displacements, with orientations over each shape.
 \item The illustrated model assumes the product structure, connectedness,
-and separation; shrinking $\mathcal F$ to a neighbourhood of $SO(3)\X_0$
-recovers the rigid limit.
+and separation. The rigid specialization is recovered by freezing internal
+shape and excluding rearrangements; see the closing box in
+Section~\ref{sec:momentum}.
 \end{itemize}
 \begin{itemize}
 \item For an exact support restriction, use the whole symmetry-related union.
@@ -742,8 +743,9 @@ t^3=b^2=E,\qquad btb=t^{-1},\qquad bt=t^2b\ne tb.
 \item A species sees $g$ through $\Gamma(g)$, with
 $\Gamma(G)\cong G/\ker\Gamma$. On $G_6$, $\mathrm A_1$ sees no change,
 while $\mathrm E$ retains noncommutativity.
-\item Treat fixed configurations separately. Recover the rigid
-orientation construction.\footnote{Albert et al.\ \cite{AlbertEtAlOrientation}.}
+\item Treat fixed configurations separately; the rigid orientation
+construction is recovered in the box closing
+Section~\ref{sec:momentum}.\footnote{Albert et al.\ \cite{AlbertEtAlOrientation}.}
 \item Distinguish chart gluing from mechanical parallel
 transport.\footnote{Littlejohn and Reinsch~\cite{LittlejohnReinsch1997}.}
 A Berry interpretation needs
@@ -760,7 +762,8 @@ a specified state family and connection.
 \label{sec:momentum}
 \begin{itemize}
 \item Expand the same states in rotational, internal, and normal modes,
-subject to the chart identifications.
+subject to the chart identifications; the example below is a reduced
+torsional model, not a transform of the full torsion--umbrella model.
 \item For the product model $SO(3)\times S^1\times\R^{n_q}$, with $\iota$ held
 at its reference value and omitted from the product (a reduced torsional
 model), absorb the density into $\widetilde\psi=\jdens^{1/2}\psi$.
@@ -814,6 +817,53 @@ methylamine lies outside the present example.
 \includegraphics[width=\linewidth]{fig12-momentum-representation}
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:12}
 \end{figure}
+
+% ---- closing box: the rigid formulation as a kinematic specialization (author's draft, 2026-10-04; one box, kept whole)
+\begingroup\setlength{\fboxsep}{7pt}\setlength{\fboxrule}{.4pt}
+% the box is typeset once into a register so that its height is known: if it does not fit on the current page it
+% opens the next one whole (it never breaks)
+\newsavebox{\rigidbox}
+\begin{lrbox}{\rigidbox}\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}\setlength{\parskip}{3pt}
+\noindent\textbf{Recovery of the rigid formulation.}\quad
+Freeze the internal shape at $\X_0$, retaining orientation and nuclear spin.
+The rigid reference component is $SO(3)\X_0$, with component symmetry $H$;
+retain its symmetry-related copies indexed by $S/H$. The rigid state space
+uses the induced rotational measure (the Haar measure $dr$ of
+Section~\ref{sec:position-coordinates}, on the orbit) rather than the ambient
+configuration-space volume.
+
+Let $H_{\mathrm{rot}}\le SO(3)$ be the proper rotational symmetry group
+corresponding to the unstarred elements of $H$: the rotations $\Rmat_h$ of
+Section~\ref{sec:feasible-regimes} for unstarred $h\in H$. Under the same
+assumption of trivial electronic and vibrational symmetry factors as Albert
+et al., the physical-state condition selects compatible rotational and
+nuclear-spin species:
+\[
+\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{spin}}\supset\stat,
+\]
+where the permutation action and statistics character are transported to
+$H_{\mathrm{rot}}$ through $h\mapsto\Rmat_h^{-1}$, the homomorphism for the
+right action $s\act\X=\X\Pmat{s}$ (under which $h\mapsto\Rmat_h$ reverses
+products); the other reading conjugates the characters, and the two agree
+for real characters. For the selected spin species, the corresponding
+rotational representation is
+\[
+\operatorname{Ind}_{H_{\mathrm{rot}}}^{SO(3)}\Gamma_{\mathrm{rot}}.
+\]
+The orientation description over $SO(3)/H_{\mathrm{rot}}$ and its
+symmetry-adapted Wigner expansion recover the rigid rotational--spin
+construction of Albert et al.~\cite{AlbertEtAlOrientation}. The present
+permutation--inversion formulation additionally retains the inversion-parity
+condition. The description assumes a nonlinear $\X_0$, for which $\Rmat_h$
+is unique (Section~\ref{sec:feasible-regimes}); linear configurations carry
+the axial redundancy noted in Section~\ref{sec:position-coordinates}.
+\end{minipage}\end{lrbox}
+% placement (2026-10-04): figure 12 fills the top of its page and the box cannot share the rest, so the box opens the
+% next page, ahead of the notation table; the \Needspace guard below keeps it whole wherever it lands later
+\clearpage
+\Needspace*{\dimexpr\ht\rigidbox+\dp\rigidbox+2\fboxsep+2\fboxrule+12pt\relax}
+\noindent\fbox{\usebox{\rigidbox}}
+\endgroup
 
 \FloatBarrier
 \section*{Notation}
