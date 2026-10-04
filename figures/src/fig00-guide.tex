@@ -25,8 +25,8 @@
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \path[cut] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle; \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
 \node[lab,anchor=north west] at (.6,1.68) {$\conf$};
-\path[fill=white,even odd rule] (7.6,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
-\draw[fine] (7.6,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+\path[fill=white,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
+\draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 % ------------------------------------------------ one configuration, a point of C
 \fill[PlateInk] (4.0,3.25) circle[radius=1.4pt];
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};\end{scope}
@@ -49,10 +49,10 @@
   \coordinate (Hpt) at (vt0);
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,6.1) {II\quad Fragments and}; \node[head,anchor=west] at (10.7+\dx,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7+\dx,5.48) {\S\S\,4--6};
-\node[head,anchor=west] at (.5,14.85) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,14.45) {Localization}; \node[rng,anchor=north west] at (.5,14.23) {\S\S\,7--9};
+\node[head,anchor=west] at (.5,13.0) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,12.6) {Localization}; \node[rng,anchor=north west] at (.5,12.38) {\S\S\,7--9};
 % ------------------------------------------------ the quotient patch V with the two loops; over it the six sheets with the two lifts
 \draw[hidden] (Hpt)--(8.1+\dx,6.08); \draw[hidden] (8.1+\dx,7.72)--(8.11+\dx,9.52);
-\node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G_{12}$};
+\node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]
   \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
   \sheet{0}{heavy}{white}
@@ -70,14 +70,14 @@
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar
-% (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper
+% (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \def\gt{t}\def\gu{u}
-\begin{scope}[shift={(3.95,9.95)},x=-.38cm,y=1.02cm]
+\begin{scope}[shift={(3.95,8.3)},x=-.38cm,y=1.02cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift,draw=PlateInk!55] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift,draw=PlateInk!55] (h\a)--(h\b);\else \draw[blift,draw=PlateInk!55] (h\a)--(h\b);\fi\fi}
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[line width=.5pt,draw=PlateInk!55,fill=white] (h\i) circle[radius=2pt];}
   \node[sub,anchor=north,text=PlateInk!55] at ($(h0)+(0,-.12)$) {$H$}; \node[sub,anchor=south,text=PlateInk!55] at ($(h9)+(0,.12)$) {$B$};
-  \node[sub,anchor=east,text=PlateInk!55] at ($(h6)+(-.12,0)$) {$G$};
+  \node[sub,anchor=south east,text=PlateInk!55,inner sep=1pt] at ($(h6)+(-.07,.07)$) {$G$};
 \end{scope}
 \end{tikzpicture}
 \end{document}
