@@ -12,6 +12,12 @@
 \usepackage{etoolbox}
 \usepackage{array}
 \usepackage{longtable}
+% headings end with a period (author, 2026-10-04); the period is set by the format, not the title text, so bookmarks stay clean
+\usepackage{titlesec}
+\newcommand{\addperiod}[1]{#1.}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{\addperiod}
+\titleformat{name=\section,numberless}{\normalfont\Large\bfseries}{}{0pt}{\addperiod}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{\addperiod}
 % structure: the four parts are roman-numbered sections, the twelve sections are subsections numbered 1-12 straight through
 \renewcommand{\thesection}{\Roman{section}}
 \counterwithout{subsection}{section}
