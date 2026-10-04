@@ -13,6 +13,7 @@
 \usepackage{needspace}
 \usepackage{etoolbox}
 \usepackage{array}
+\usepackage{longtable}
 % structure: the four parts are roman-numbered sections, the twelve sections are subsections numbered 1-12 straight through
 \renewcommand{\thesection}{\Roman{section}}
 \counterwithout{subsection}{section}
@@ -762,10 +763,10 @@ Extend to methylamine's coupled torsion and inversion.
 \caption{(author caption; see docs/caption-notes.md)}\label{fig:12}
 \end{figure}
 
-\clearpage
+\FloatBarrier
 \section*{Notation}
-\begin{center}\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.9cm}>{\raggedright\arraybackslash}p{8.4cm}@{}}
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{5.9cm}>{\raggedright\arraybackslash}p{8.4cm}@{}}
 \hline
 $\conf$; $\hamb$, $\hilb$; $\spin$; $\hilb_\pm$ & centred configuration space; ambient and physical Hilbert spaces; nuclear spin space; parity sectors\\
 $\mathcal F$; $\mathcal U$ & feasible region; a chart cell\\
@@ -793,8 +794,7 @@ $J$, $M$, $K$; $m$, $\kappa$; $p$ & rotational labels; torsional labels, periodi
 $\delta$, $\ell$, $\theta$ & water bond asymmetry, bond scale and bend angle (figure 1)\\
 $b_A$, $z_A$ & amino offset and height in the reference family\\
 \hline
-\end{tabular}
-\end{center}
+\end{longtable}}
 
 \bibliographystyle{unsrt}
 \bibliography{refs}

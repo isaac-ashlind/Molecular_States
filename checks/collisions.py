@@ -27,6 +27,10 @@ def check(pdf):
             # same baseline (within 2 pt) and horizontally adjacent: a kerning touch, not a collision
             if abs(a[3] - b[3]) < 2.0 and dx < 3.0:
                 continue
+            # one composite glyph that pdftotext splits into stacked pieces (the "congruent" sign is a tilde over
+            # an equals sign): same x-extent, a few points apart vertically, each piece a single character
+            if len(a[4]) == 1 and len(b[4]) == 1 and abs(a[0] - b[0]) < 1.0 and abs(a[2] - b[2]) < 1.0 and abs(a[1] - b[1]) < 6.0:
+                continue
             bad.append((a, b, dx, dy))
     return ws, bad
 
