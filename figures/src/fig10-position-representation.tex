@@ -21,14 +21,14 @@
     \foreach \n/\a/\b/\e/\f in \chartCells {\draw[fine] (\a,\e) rectangle (\b,\f);}
     \path[fill=ColRetained!50] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
     \draw[heavy] (-1,-1) rectangle (1,1);
-    \node[lab] at (.1,.5) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
+    \node[lab] at (.12,.58) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
     \node[lab] at (.8333,-.5) {$u\,\mathcal U$}; \node[lab] at (-.8333,-.5) {$u\,\mathcal U$};
-    \node[lab] at (-.5,-.5) {$tu\,\mathcal U$}; \node[lab] at (.3333,-.5) {$t^2u\,\mathcal U$};
-    \draw[tpath] (.03,.95) to[bend right=30] (.62,.96);
-    \draw[upath] (0,1)--(-.3333,-1);
+    \node[lab] at (-.47,-.55) {$tu\,\mathcal U$}; \node[lab] at (.3333,-.5) {$t^2u\,\mathcal U$};
+    \draw[tpath] (.03,.95) to[bend right=30] (.605,.955);
+    \draw[upath,shorten <=.1cm,shorten >=.14cm] (0,1)--(-.3333,-1);   % from the H dot's edge, the head short of the tuH dot
     \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColDot] (\x,\y) circle[radius=.08cm];
-    \node[sub,anchor=south west] at (.03,1.06) {$H$}; \node[sub,anchor=south] at (.6667,1.06) {$tH$}; \node[sub,anchor=south] at (-.6667,1.06) {$t^2H$};
-    \node[sub,anchor=north] at (-.3333,-1.08) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.08) {$t^2uH$}; \node[sub,anchor=north] at (1,-1.08) {$uH$}; \node[sub,anchor=north] at (-1,-1.08) {$uH$};
+    \node[sub,anchor=south] at (0,1.16) {$H$}; \node[sub,anchor=south] at (.6667,1.16) {$tH$}; \node[sub,anchor=south] at (-.6667,1.16) {$t^2H$};
+    \node[sub,anchor=north] at (-.3333,-1.18) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.18) {$t^2uH$}; \node[sub,anchor=north east] at (1,-1.18) {$uH$}; \node[sub,anchor=north west] at (-1,-1.18) {$uH$};
     \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.48) {$\l$};
     \node[sub,anchor=north west] at (1.1,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
@@ -46,22 +46,22 @@
   \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (sf-\p) circle[radius=.08];}
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
-\draw[harrow] (3.8,10.3)--(4.75,10.3); \node[sub,anchor=south,align=center] at (4.28,10.42) {strip the\\vibrations};
-\begin{scope}[shift={(6.3,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
+\draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.4,10.42) {strip the\\vibrations};
+\begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
   \draw[fine] (0,{-.37+.42*1.16})--(0,{.37+.42*1.16}); \draw[heavy] (-.09,{.37+.42*1.24+.04})--(.09,{.37+.42*1.24+.04}) (-.09,{-.37+.42*1.16-.04})--(.09,{-.37+.42*1.16-.04});
-  \draw[tpath] plot[domain=0:116.2,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
-  \draw[upath] plot[domain=0:.955,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
+  \draw[tpath] plot[domain=0:112,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});   % the head stops short of the dot at 120
+  \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
   \foreach \p in {top0,top120,top240,bot60,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
   \draw[ghost,fill=ColDot!45] (bd-bot180) circle[radius=.08];
-  \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.1})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
+  \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.06})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
   \node[sub,anchor=north west,inner sep=1.5pt] at ($(bd-top0)+(.1,-.08)$) {$H$};
 \end{scope}
-\draw[harrow] (7.75,10.3)--(8.45,10.3); \node[sub,anchor=south] at (8.1,10.42) {unroll};
-\chartpic{11.75}{10.3}{2.6cm}{1.0cm}{white}
+\draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.42) {unroll};
+\chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}
 % ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
-\node[sub,anchor=west] at (.5,7.8) {over each point $a$ of the chart sit every normal displacement $q$ and every orientation $r$: $x=(r,a,q)$};
+\node[sub,anchor=north west,align=left] at (.5,7.95) {over each point $a$ of the chart, the normal displacements $q$ within the chart's domain\\and every orientation $r$: $x=(r,a,q)$};
 \begin{scope}\molsolid\mollabelsfalse
   \pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
   \begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mol3d-mla-ref};\end{scope}

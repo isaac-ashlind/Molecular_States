@@ -86,7 +86,8 @@ docs/notation-migration.md.
   (docs/illustration-notes.md, round 5). Declined: recolouring figure 2's components (teal and gold are the approved
   dual pair there) and the edge-on cut face of the small solid in figure 10 (geometry, not a defect).
 - Conventions fixed by that round: version points radius .08 on every plate; chart references (loci, zero lines,
-  norm curves) fine solid grey, never a dashed or dotted style; a leader starts on the edge of the point it joins;
+  norm curves) fine solid lines, never a dashed or dotted style (grey then, ink since the round below); a leader
+  starts on the edge of the point it joins;
   an arrow shaft starts on an atom's silhouette; the same molecule at one scale within a plate.
 - The frame-twist parameter is rho = 1/2, the symmetric (internal-axis) frame of Mellor, Yurchenko, Mant and
   Jensen, Symmetry 11, 862 (2019), cited in the text; figure 12's twisted labels are the half-integers m + K/2.
@@ -94,3 +95,36 @@ docs/notation-migration.md.
 - Plate sizes: a plate shares its page with the prose (at most about two thirds of the text height) or takes the
   page, which only figure 5 does; floats are no longer barred at subsections, so the prose flows under them.
 
+
+## The final automated edit (2026-10-04, night; the author's go, then manual control)
+
+- Manuscript content from the outside review, applied as drafted: the projector written with chi_Gamma(g^-1); the
+  notation table restricts the species to G6; the compensating-rotation convention stated once (r A_s(a) is the
+  orientation whose matrix is R(r) A_s(a)); rho = 1/2 attributed as the analogue for one methyl top of Mellor,
+  Yurchenko, Mant and Jensen's symmetric frame; section 12's product model stated as a reduced torsional model with
+  iota held at its reference value; the agenda bullets of sections 5, 6 and 12 say where their questions are settled;
+  section 7 reordered (species, projector, induction, C[G6/H], inclusions and double cosets); section 8 written out
+  with the decomposition 12 A1 + 4 A2 + 8 E, the pairing rule and the weights table.
+- No grey lines (author): every line is ink, varied by weight and style; grey stays only on greyed-out objects (the
+  cover's lattice, the inactive parts of the lattices in figures 4 and 5, the undisplaced shape in figure 10, hidden
+  version points). Converted: the loci of figure 1, the zero line and density curve of figure 2, the E share of
+  figure 9, the projections of figure 11 (now dotted like the cover's), the zero line and mode circles of figure 12,
+  the inner-wall lines of every tube. Kept grey, as a judgement to be confirmed: the hatch of cut material (a
+  texture, lightened in the cover round the author saw).
+- Vestigial things removed: figure 2's three unlabelled dots on the density curve (they marked the samples' values,
+  which the shared theta scale already gives); the version dots on figure 6's miniature (author); the unused v1
+  styles in figurestyle.sty and primitives.tex (contour, guide, operation, inclusion, panel, note, frame, hatch,
+  tag, region), an unused cell style in figure 1, an unused dashed style in figure 8, a shadowed definition in
+  figure 6; stale header comments (lambda, sigma for the packet width).
+- Figure 6's Newman row (author): t is one relabelling, H straight to tH, so the row shows the two steps as one
+  arrow each from H (tu to tuH, t to tH) and the eclipsed shape apart at the right as a reference, the midpoint in
+  tau of the path of t, not a version.
+- The cover's drop from the molecule to its point of C runs through the centre of mass (the glyph is mass-centred,
+  so the vertical through the pic origin) and is dotted like the lift (author).
+- Arrowheads: a path's head stops about 3pt short of the dot it points at (cover, figures 6 and 10, the chart paths),
+  never under it; a head meets the silhouette it points at (figure 1's right P arrow meets the top hydrogen of
+  RXP, figure 4's in-arrows end on the complex's edge like the out-arrows); labels sit clear of the barbs.
+- Two close readers' lists (about ninety items, scratchpad record readers-round3.md) applied with judgement. Declined:
+  one scale for the water glyphs of figure 1 (the atlas must be small, the panel large); raising the cover's lattice
+  and heading III by 8 mm (the author set that balance); figure 5's version row at a smaller scale (one scale per
+  plate); labelling figure 9's chart dots instead of the axis (the ratios are now ticks).

@@ -721,6 +721,7 @@ def main():
     # ---- Gaussian shares (figure 9)
     with open(os.path.join(DATA, 'gaussian-shares.dat'), 'w') as f:
         f.write('x wA1 wE wA2\n')
+        f.write('0.00 0.333333 0.666667 0\n')   # the limit: no overlap, shares 1/3 and 2/3
         for i in range(2, 201):
             x = i/100
             c = math.exp(-1/(8*x*x))

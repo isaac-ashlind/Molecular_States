@@ -249,3 +249,16 @@ with fresh eyes finds the half-millimetre faults the maker stops seeing; the dot
 between plates unless written down once; a label placed "beside" a curve must be checked against the curve's
 value there, not its neighbourhood.
 
+
+## Round 7: the final automated edit (2026-10-04, night)
+
+Both hats at once. The illustrator's pass: every arrowhead checked for where it lands and which way it points
+(the cover's t path used to end under the tH dot; now 3pt short of it, so the head is a head and the dot a dot),
+every leader checked for where it starts and ends (a leader into a busy region should cross its lines at a wide
+angle; a vertical leader through a wall of vertical lines vanishes), every label given air from the barbs. The
+physicist's pass: the Newman row of figure 6 said something false (two arrows labelled t through the eclipsed
+shape read as t acting in halves); the fix was not cosmetic but a change of what is drawn, two steps from the
+reference and the eclipsed shape as a labelled reference. Lessons: an unlabelled mark is a claim the reader cannot
+check, so it goes; a reviewer's "move it 1 mm" is cheap to apply and the plate is better for it, but a reviewer's
+suggested coordinate can still land a head on the wrong atom, so each one is looked at after the build; the
+no-grey rule simplifies the grammar (weight and style carry the differences, tone marks only what is set aside).

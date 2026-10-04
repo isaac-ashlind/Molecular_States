@@ -11,7 +11,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,cellv/.style={draw=PlateInk,line width=.4pt,minimum width=.56cm,minimum height=.44cm,inner sep=1pt,font=\fontsize{7}{8}\selectfont}]
+\begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,13.4);
 % ------------------------------------------------ the atlas (delta, theta)
 \begin{scope}[shift={(1.5,6.0)}]
@@ -19,13 +19,14 @@
   \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {\draw[fine] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08); \node[lab,anchor=north] at ({1.1+2.3*\i},-.14) {$\lab$};}
   \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.35*\j})--(.08,{.9+1.35*\j}); \node[lab,anchor=east] at (-.14,{.9+1.35*\j}) {$\lab$};}
   \node[lab,anchor=west] at (12.3,-.05) {$\delta$}; \node[lab,anchor=south] at (0,7.0) {$\theta$};
-  \draw[line width=.4pt,draw=PlateInk!45] (5.7,.08)--(5.7,7.1);   % chart references: fine solid grey (line styles are for actions)
-  \draw[line width=.4pt,draw=PlateInk!45] (0,6.3)--(12.2,6.3);
-  \node[sub,anchor=south] at (5.7,7.15) {$\delta=0$}; \node[sub,anchor=west] at (12.3,6.3) {$\theta=\pi$};
+  \draw[leader] (5.7,.08)--(5.7,6.95);   % chart references: ink, thinner than the axes (no grey lines; line styles are for actions)
+  \draw[leader] (0,6.3)--(12.2,6.3);
+  \node[sub,anchor=south] at (5.7,7.0) {$\delta=0$}; \node[sub,anchor=west] at (12.3,6.3) {$\theta=\pi$};
   \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
     \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.72] at ({1.1+2.3*\i},{.9+1.35*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
-  \node[sub,anchor=north west] at (0,-.55) {$r_1=\ell+\delta$, $r_2=\ell-\delta$};
+  % the meaning of delta, under the right end of its axis (clear of the tick labels and of the names below)
+  \node[sub,anchor=north east] at (13.3,-.62) {$r_1=\ell+\delta$, $r_2=\ell-\delta$};
 \end{scope}
 % ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
 \begin{scope}\molsolid\mollabelsinside
@@ -34,15 +35,15 @@
   \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.8] at (6.5,1.2) {mol3d-water-X}; \pic[scale=.8] at (11.0,1.2) {mol3d-water-RX};\end{scope}
 \end{scope}
 % column strips beside each glyph: the matrix as three columns
-\foreach \x/\y/\ca/\cb/\cc in {7.5/3.8/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},12.0/3.8/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},7.5/1.2/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},12.0/1.2/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3}} {
-  \draw[fine] (\x,{\y-.22}) rectangle ({\x+1.8},{\y+.22}); \draw[fine] ({\x+.6},{\y-.22})--({\x+.6},{\y+.22}) ({\x+1.2},{\y-.22})--({\x+1.2},{\y+.22}); \node[font=\fontsize{7}{8}\selectfont] at ({\x+.3},\y) {$\ca$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+.9},\y) {$\cb$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+1.5},\y) {$\cc$};}
-\draw[fine] (1.1,3.58) rectangle (2.9,4.02); \draw[fine] (1.7,3.58)--(1.7,4.02) (2.3,3.58)--(2.3,4.02); \node[font=\fontsize{7}{8}\selectfont] at (1.4,3.8) {$-\mathbf x_1$}; \node[font=\fontsize{7}{8}\selectfont] at (2.0,3.8) {$-\mathbf x_2$}; \node[font=\fontsize{7}{8}\selectfont] at (2.6,3.8) {$-\mathbf x_3$};
+\foreach \x/\y/\ca/\cb/\cc in {7.45/3.8/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},12.0/3.8/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},7.45/1.2/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},12.0/1.2/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3},1.07/3.8/{-\mathbf x_1}/{-\mathbf x_2}/{-\mathbf x_3}} {
+  \draw[fine] (\x,{\y-.22}) rectangle ({\x+1.86},{\y+.22}); \draw[fine] ({\x+.62},{\y-.22})--({\x+.62},{\y+.22}) ({\x+1.24},{\y-.22})--({\x+1.24},{\y+.22}); \node[font=\fontsize{7}{8}\selectfont] at ({\x+.31},\y) {$\ca$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+.93},\y) {$\cb$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+1.55},\y) {$\cc$};}
 % arrows: R to the right (left action), P_sigma down (right action), E* to the left (right action by -1)
-\draw[harrow] (9.45,3.8)--(9.9,3.8); \node[lab,anchor=south] at (9.72,3.86) {$\Rmat$};
-\draw[harrow] (9.45,1.2)--(9.9,1.2); \node[lab,anchor=south] at (9.72,1.26) {$\Rmat$};
-\draw[harrow] (6.5,3.12)--(6.5,1.92); \node[lab,anchor=east] at (6.36,2.52) {$\Pmat{\sigma}$};
-\draw[harrow] (11.0,3.12)--(11.0,1.92); \node[lab,anchor=east] at (10.86,2.52) {$\Pmat{\sigma}$};
-\draw[bpath] (5.55,3.8)--(4.95,3.8); \node[lab,anchor=south] at (5.25,3.88) {$E^*$};
+% every head stops just short of the silhouette it points at (the right P arrow meets the top hydrogen of RXP, not the oxygen)
+\draw[harrow] (9.45,3.8)--(9.86,3.8); \node[lab,anchor=south] at (9.66,3.95) {$\Rmat$};
+\draw[harrow] (9.45,1.2)--(9.86,1.2); \node[lab,anchor=south] at (9.66,1.35) {$\Rmat$};
+\draw[harrow] (6.5,3.45)--(6.5,1.55); \node[lab,anchor=east] at (6.36,2.5) {$\Pmat{\sigma}$};
+\draw[harrow] (11.0,3.45)--(11.0,2.0); \node[lab,anchor=east] at (10.86,2.72) {$\Pmat{\sigma}$};
+\draw[bpath] (6.15,3.8)--(4.35,3.8); \node[lab,anchor=south] at (5.1,3.97) {$E^*$};
 % names under the glyphs
 \node[lab] at (6.5,4.95) {$\X$}; \node[lab] at (11.0,4.95) {$\Rmat\X$}; \node[lab] at (4.0,4.95) {$E^*\X=-\X$};
 \node[lab] at (6.5,.3) {$\X\Pmat{\sigma}$}; \node[lab] at (11.0,.3) {$\Rmat\X\Pmat{\sigma}$};

@@ -163,7 +163,7 @@ assert [m for m, _, _ in S['torsion_species']] == list(range(7))
 with open(os.path.join(ROOT, 'figures', 'data', 'gaussian-shares.dat')) as f:
     rows = [l.split() for l in f.read().strip().splitlines()[1:]]
 for x, a, e, z in rows:
-    c = math.exp(-1/(8*float(x)**2))
+    c = math.exp(-1/(8*float(x)**2)) if float(x) > 0 else 0.0   # the x = 0 row carries the limit c -> 0
     assert abs(float(a) - (1 + 2*c)/3) < 1e-6 and abs(float(e) - 2*(1 - c)/3) < 1e-6 and float(z) == 0
 report['emitted_data'] = 'summary.json and gaussian-shares.dat agree with recomputation'
 

@@ -23,16 +23,16 @@
 \def\sA{.5774}\def\sB{.8165}\def\sC{.4082}\def\sD{.7071}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,10.6);
+\path[use as bounding box] (0,0) rectangle (15,10.65);
 % key: the three version sites on the torsion circle
 \begin{scope}[shift={(2.5,7.45)}]
   \pgfmathsetmacro{\R}{1.4}
   \draw[fine] (0,0) circle[radius=\R];
   \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
-  \draw[tpath] (106:{\R+.28}) arc[start angle=106,end angle=200,radius={\R+.28}];
+  \draw[tpath] (104:{\R+.28}) arc[start angle=104,end angle=196,radius={\R+.28}];   % 14 degrees clear of both sites, as in the plane below
   \foreach \a in {90,210,330} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.08}{ColDot}}
-  \node[lab,anchor=south west] at ($(90:\R)+(.1,.08)$) {$H$}; \node[lab,anchor=north east,inner sep=2pt] at ($(210:\R)+(-.06,-.08)$) {$tH$}; \node[lab,anchor=north west,inner sep=2pt] at ($(330:\R)+(.06,-.08)$) {$t^2H$};
-  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=west] at (.12,{\R+.62}) {$b$};
+  \node[lab,anchor=south west] at ($(90:\R)+(.14,.12)$) {$H$}; \node[lab,anchor=north east,inner sep=2pt] at ($(210:\R)+(-.06,-.12)$) {$tH$}; \node[lab,anchor=north west,inner sep=2pt] at ($(330:\R)+(.06,-.12)$) {$t^2H$};
+  \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=east] at (-.12,{\R+.62}) {$b$};   % b beside its axis, as in the plane below
   \node[sub] at (305:{\R+.36}) {$\tau$};
 \end{scope}
 % the grid
@@ -40,19 +40,19 @@
   \modepic{\x}{8.7}{.62}{\a}{\b}{\c}{1}
   \modepic{\x}{6.75}{.62}{\ta}{\tb}{\tc}{1}
   \modepic{\x}{4.8}{.62}{\ba}{\bb}{\bc}{1}
-  \node[lab] at (\x,9.78) {$v_\col$};}
+  \node[lab] at (\x,9.75) {$v_\col$};}
 \node[lab,anchor=east] at (5.9,8.7) {$v$}; \node[lab,anchor=east] at (5.9,6.75) {$t\,v$}; \node[lab,anchor=east] at (5.9,4.8) {$b\,v$};
-\draw[fine] (6.2,10.15)--(6.2,10.0)--(7.8,10.0)--(7.8,10.15); \node[lab,anchor=south] at (7.0,10.17) {$\mathrm A_1$};
-\draw[fine] (9.2,10.15)--(9.2,10.0)--(13.8,10.0)--(13.8,10.15); \node[lab,anchor=south] at (11.5,10.17) {$\mathrm E$};
+\draw[fine] (6.2,10.2)--(6.2,10.05)--(7.8,10.05)--(7.8,10.2); \node[lab,anchor=south] at (7.0,10.27) {$\mathrm A_1$};
+\draw[fine] (9.2,10.2)--(9.2,10.05)--(13.8,10.05)--(13.8,10.2); \node[lab,anchor=south] at (11.5,10.27) {$\mathrm E$};
 % beneath: the fixed point and the E plane
 \begin{scope}[shift={(2.5,2.35)}]
   \pgfmathsetmacro{\L}{1.25}
   \draw[blift] (0,-\L-.35)--(0,0); \draw[fine] (-\L-.25,0)--(\L+.25,0); \node[lab,anchor=west] at (.12,-\L-.2) {$b$};
-  \node[sub,anchor=west] at (\L+.28,0) {$v_3$};
+  \node[lab,anchor=west] at (\L+.4,0) {$v_3$};
   \foreach \a/\l/\anc in {90/{v_2}/south,210/{t\,v_2}/north east,330/{t^2v_2}/north west} {\draw[heavy,-{Stealth[length=2mm,width=1.6mm]}] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.16}) {$\l$};}
-  \draw[tpath] (98:.55) arc[start angle=98,end angle=204,radius=.55]; \node[lab] at (150:.85) {$t$};
+  \draw[tpath] (104:.55) arc[start angle=104,end angle=196,radius=.55]; \node[lab] at (150:.85) {$t$};   % clear of both shafts
 \end{scope}
-\node[lab,anchor=north] at (10.0,3.3) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
-\node[sub,anchor=north] at (10.0,2.55) {disc area is the amplitude; ink positive, white negative, a tick for zero};
+\node[lab,anchor=north] at (10.0,2.7) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
+\node[sub,anchor=north] at (10.0,1.95) {disc area is the amplitude; ink positive, white negative, a tick for zero};
 \end{tikzpicture}
 \end{document}

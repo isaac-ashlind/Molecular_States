@@ -73,3 +73,13 @@ edge; figure 6's miniature white with red dots on top and pale dots on the hidde
 ring; "cladding" is "vibrations" on the plates and in the notes; the cover's slab hatched with continuous lines along
 its own slanted edge (a tiled pattern breaks at every tile, so hatch is now drawn by \hatchregion).
 
+
+## 2026-10-04, night, round 7 (the final automated edit before manual control)
+
+Manuscript content items from the outside review applied (projector, species glossary, compensating rotation,
+Mellor attribution, reduced torsional model, agenda dispositions, section 7 order, section 8 bullets and table);
+compiles to 20 pages with no errors or unresolved references. Plates: no grey lines; vestigial marks and styles
+removed; figure 6's Newman row redrawn as two steps plus a reference; the cover's drop through the centre of mass,
+dotted; arrowheads and leaders audited on every plate; two readers' lists applied. Full build clean, all checks
+pass (the share data now starts at Delta/d = 0 with the limit shares), no text collisions. Handed to the author
+for manual control.

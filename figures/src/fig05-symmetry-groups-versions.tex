@@ -24,7 +24,7 @@
   \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
   \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
 \end{scope}
-\node[sub,anchor=north] at (1.75,15.9) {methyl}; \node[sub,anchor=north] at (3.65,15.9) {amino};
+\node[sub,anchor=north] at (1.9,15.9) {methyl}; \node[sub,anchor=north] at (3.65,15.9) {amino};
 \begin{scope}[shift={(7.4,17.4)}]
   \draw[line width=.4pt,draw=PlateInk] (0,-1.3)--(0,-.3) (0,.3)--(0,1.5);   % the axis, interrupted where the C--N rod crosses it
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
@@ -35,8 +35,8 @@
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-bref};\end{scope}
 \end{scope}
 \node[sub,anchor=north] at (12.3,15.9) {$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$};
-\draw[bpath] (9.05,17.95)--(10.65,17.95); \node[lab,anchor=south] at (9.85,18.05) {$b=(23)(45)^*$};
-\draw[harrow] (9.05,16.85)--(10.65,16.85); \node[lab,anchor=north] at (9.85,16.75) {$\Rmat_b=\Rmat_y(\pi)$};
+\draw[bpath] (9.05,17.95)--(10.65,17.95); \node[lab,anchor=south] at (9.85,18.13) {$b=(23)(45)^*$};
+\draw[harrow] (9.05,16.85)--(10.65,16.85); \node[lab,anchor=north] at (9.85,16.67) {$\Rmat_b=\Rmat_y(\pi)$};
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
 \begin{scope}[shift={(.5,6.8)}]
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+7.6*\yy});}
@@ -45,9 +45,9 @@
   \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColGold!60] (n\a)--(n\b);}
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!28] (n\i) circle[radius=.8pt];\fi}
   \foreach \i in \bigChain {\draw[line width=.5pt,draw=PlateInk,fill=ColGold] (n\i) circle[radius=2.1pt];}
-  \node[lab,anchor=north] at ($(n0)+(0,-.1)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.1)$) {$S$};
+  \node[lab,anchor=north] at ($(n0)+(0,-.2)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.2)$) {$S$};
 \end{scope}
-\draw[harrow] (7.3,10.9)--(8.1,10.9); \node[sub,anchor=south] at (7.7,11.0) {keep the bonds};
+\draw[harrow] (7.1,10.6)--(7.9,10.6); \node[sub,anchor=south] at (7.5,10.72) {keep the bonds};
 \def\gt{t}\def\gu{u}
 \begin{scope}[shift={(11.2,7.3)},x=-.68cm,y=1.7cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}

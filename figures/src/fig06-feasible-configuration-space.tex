@@ -17,7 +17,7 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,-.2) rectangle (15,12.5);
+\path[use as bounding box] (0,-.5) rectangle (15,12.5);
 % ------------------------------------------------ level 2: the solid F, cut open as on the cover (window from -47 to 23 degrees),
 % the decoration turned by 15 degrees as there, so the tu path stays inside the window
 \pgfmathsetmacro{\ph}{15}
@@ -27,8 +27,8 @@
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({2.15*sin(\a+\ph)},{-.62-.42*2.15*cos(\a+\ph)});}
   \coordinate (ecl) at ({2.15*sin(60+\ph)},{.62-.42*2.15*cos(60+\ph)});
   % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
-  \draw[tpath] plot[domain=\ph:\ph+117.6,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});
-  \draw[upath] plot[domain=0:.96,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
+  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});   % stops 3pt short of the dot at 135
+  \draw[upath] plot[domain=0:.935,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
   \draw[fine,fill=white] (ecl) circle[radius=.075];
   \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
   \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
@@ -37,9 +37,11 @@
 \leaderlabel{11.82}{11.16}{.45}{.4}{west}{$tH$}
 \leaderlabel{8.22}{10.75}{-.5}{.45}{east}{$t^2H$}
 \draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,10.29)--++(.66,-.42); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.87) {eclipsed};
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,9.05)--(12.9,9.35); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (12.9,9.35) {$t^2uH$};
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (9.74,10.15)--++(-.9,1.15); \node[sub,anchor=south east,inner sep=2.5pt] at (8.84,11.3) {$uH$};
-\node[lab] at (13.2,10.72) {$t$}; \node[lab,inner sep=1pt] at (9.33,9.12) {$tu$};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,9.05)--(13.04,9.35); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.35) {$t^2uH$};
+% uH sits on the sheet's bottom edge at the back, inside the wall: its leader rises through the back rim to a name above it,
+% slanted so that it is not lost among the inner wall's vertical lines
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (9.74,10.15)--(10.8,11.5); \node[sub,anchor=south,inner sep=2pt] at (10.8,11.5) {$uH$};
+\node[lab,anchor=west] at (12.9,10.75) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
 % the version point tuH at the lower end of the iota line)
 \zoombubble{8.73}{9.28}{.95}{3.0}{9.9}{1.5}
@@ -61,41 +63,41 @@
   \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmi*cos(\fa)-\cy)});
   \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[line width=.4pt,draw=PlateInk] (s1)--(s4) (s2)--(s3);
   \hatom{0}{-\m*.62}{.08}{ColDot}
-  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.14}) {$tuH$};
+  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.22}) {$tuH$};
   % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
   \coordinate (qa) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.2-\E*\Rmo*cos(\fa)-\cy)});
   \coordinate (qb) at ({\m*(2.45*sin(\fa)-\cx)},{\m*(.2-\E*2.45*cos(\fa)-\cy)});
-  \draw[harrow] (qa)--(qb); \node[lab,anchor=east,inner sep=1pt] at ($(qb)+(-.16,-.04)$) {$q$};
-  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.1}) {$\iota$};
+  \draw[harrow] (qa)--(qb); \node[lab,anchor=east,inner sep=1pt] at ($(qb)+(-.22,-.04)$) {$q$};
+  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.18}) {$\iota$};
 \end{scope}
 \node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
 \node[sub,anchor=north] at (3.0,7.85) {the core sheet is the family $\X_0(\tau,\iota)$};
 % ------------------------------------------------ level 1: the images of F inside C; the active image is an exact miniature of the solid above
 \draw[heavy] (.3,3.5) rectangle (14.7,6.3); \hatchregion{45}{(.3,3.5) rectangle (14.7,6.3)}
-\node[lab,anchor=south west] at (.35,6.35) {$\conf$};
+\node[lab,anchor=south west] at (.35,6.42) {$\conf$};
 \foreach \i in {0,...,9} \foreach \j in {0,1} {
   \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
   \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!22,tube/topfill=PlateInk!22,tube/innerfill=PlateInk!22,tube/bandfill=PlateInk!22}\pic at (\cx,\cy) {thicktube};\end{scope}}
 \draw[leader,shorten >=3pt] (2.68,5.8)--(2.68,6.5); \node[sub,anchor=south,inner sep=2.5pt] at (2.68,6.5) {$s\mathcal F$};
-% the active image: white, the version points red on the top edge and pale on the hidden bottom edge (author, 2026-10-04)
+% the active image: white, closed, no decoration (author, 2026-10-04: the version points are read on the enlargement)
 \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
-\foreach \a in {60,180,300} {\fill[ColDot!45] ({10.66+.43*sin(\a+\ph)},{5.45-.13-.42*.43*cos(\a+\ph)}) circle[radius=.032];}
-\foreach \a in {0,120,240} {\fill[ColDot] ({10.66+.43*sin(\a+\ph)},{5.45+.13-.42*.43*cos(\a+\ph)}) circle[radius=.032];}
-\draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(7.85,9.05); \draw[fine] (11.22,5.77)--(12.75,9.05);
+\draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(8.26,8.46); \draw[fine] (11.22,5.77)--(12.75,9.05);   % the left line ends on the zoom circle
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
 \node[sub,anchor=north] at (7.0,3.3) {the same two paths seen down the C--N axis, N in front};
-\begin{scope}\def\nmR{.5}
-  \pic[scale=.9] at (1.9,1.65) {newman-tuH};
-  \pic[scale=.9] at (5.3,1.65) {newman-tau-0};
-  \pic[scale=.9] at (8.7,1.65) {newman-tau-60};
-  \pic[scale=.9] at (12.1,1.65) {newman-tau-120};
+% the two steps between versions, each one arrow from H (author, 2026-10-04): tu to tuH on the left, t to tH on the
+% right; the eclipsed shape stands apart as a reference, midway in tau on the path of t, not a version
+\begin{scope}
+  \pic[scale=.9] at (1.7,1.65) {newman-tuH};
+  \pic[scale=.9] at (4.9,1.65) {newman-tau-0};
+  \pic[scale=.9] at (8.1,1.65) {newman-tau-120};
+  \pic[scale=.9] at (12.3,1.65) {newman-tau-60};
 \end{scope}
-\draw[upath] (4.15,1.65)--(3.05,1.65); \node[lab,anchor=south] at (3.6,1.73) {$tu$};
-\draw[tpath] (6.45,1.65)--(7.55,1.65);
-\draw[tpath] (9.85,1.65)--(10.95,1.65); \node[lab,anchor=south] at (7.0,1.73) {$t$}; \node[lab,anchor=south] at (10.4,1.73) {$t$};
-\foreach \x/\l/\s in {1.9/{$tuH$}/{$\tau=-\pi/3$, $\iota=-\iota_0$},5.3/{$H$}/{$\tau=0$, $\iota=\iota_0$},8.7/{eclipsed}/{$\tau=\pi/3$, $\iota=\iota_0$},12.1/{$tH$}/{$\tau=2\pi/3$, $\iota=\iota_0$}} {
+\draw[upath] (3.75,1.65)--(2.85,1.65); \node[lab,anchor=south] at (3.3,1.73) {$tu$};
+\draw[tpath] (6.05,1.65)--(6.95,1.65); \node[lab,anchor=south] at (6.5,1.73) {$t$};
+\foreach \x/\l/\s in {1.7/{$tuH$}/{$\tau=-\pi/3$, $\iota=-\iota_0$},4.9/{$H$}/{$\tau=0$, $\iota=\iota_0$},8.1/{$tH$}/{$\tau=2\pi/3$, $\iota=\iota_0$},12.3/{eclipsed}/{$\tau=\pi/3$, $\iota=\iota_0$}} {
   \node[lab] at (\x,.4) {\l}; \node[sub] at (\x,.05) {\s};}
+\node[sub] at (12.3,-.27) {midway on the path of $t$};
 \end{tikzpicture}
 \end{document}

@@ -3,7 +3,7 @@
 Symbols below are written in plain ASCII. In the plates and the manuscript they follow the approved notation
 (2026-10-04): configuration matrices X, X0 and the action matrices P_s, R, A_s, M_s are bold; the spatial operators
 U_s and the projector P_Gamma are sans serif; the umbrella coordinate is iota, the shape tuple a, the normal
-coordinates q, the packet width Delta, the free domain of figure 11 calligraphic V.
+coordinates q, the packet width Delta.
 
 No final captions are written here. For each plate: what is drawn, what is computed (and by which check), what
 is declared schematic or illustrative, and which compositions adapt a plate of W. G. Harter, *Principles of
@@ -23,7 +23,9 @@ Common to all plates: colours are the anchored gouache set (ink; red for oxygen 
 version points on the methylamine plates; blue for nitrogen; teal as a pale tint for the reference family where it
 is a surface and at full strength for rubidium; gold for retained regions and for potassium; white vibrations and
 hydrogen); actions are ink, solid for t, dashed for u or tu, dotted for a starred operation (b, E*); red dots are
-the version points; hatching marks cut or removed material only; molecules are
+the version points; hatching marks cut or removed material only; every line is ink, varied by weight and style,
+and grey is kept for greyed-out objects (the cover's lattice, the inactive parts of the lattices of figures 4 and 5,
+the undisplaced shape under the displaced one in figure 10, the hidden version points); molecules are
 drawn from the computed configurations at 0.95 cm per angstrom in one oblique projection (camera azimuth 50 deg,
 elevation 25 deg); digits inside hydrogen discs are the column labels 1 to 5.
 
@@ -43,21 +45,24 @@ III, the bond interval [H, B] of figure 5 as a small Hasse diagram in grey (ink 
 base patch of the sheets is pale gold, a chart neighbourhood in the quotient (gold = a retained region, here the
 neighbourhood carrying a chart), with the class of the reference as a red point; it is unnamed (the quotient is named
 on the projection, F -> F/G, the same G as the lattice vertex), and the dotted projection runs unbroken from the red
-point on the sheet to the point on the patch.
+point on the sheet to the point on the patch. The molecule is drawn mass-centred, and the dotted drop from it to its
+point of C is the vertical through its centre of mass (the same dotted line as the projection from H to the patch).
 
 ## Figure 1, configuration space
 Water atlas: 25 glyphs computed from (delta, theta) with r1 = l + delta, r2 = l - delta, delta in {-l/2, -l/4, 0,
 l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mass centre (no mark drawn, 0.06 A from
-the oxygen in the upper-left shape, `\waterOxygenOffset`); dotted loci delta = 0 and theta = pi, their intersection
-circled; the two loci are fine solid grey, the chart-reference style (line styles are kept for actions). Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
+the oxygen in the upper-left shape, `\waterOxygenOffset`); the loci delta = 0 (equal bonds) and theta = pi (linear) are
+the atlas's own coordinate lines, drawn as thin solid ink (thinner than the axes; dashes and dots are kept for actions),
+not a schematic boundary. Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
 matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
 
 ## Figure 2, ambient Hilbert space
 A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
 configuration; on each fibre the value Psi(X) as its two components a (teal) and b (gold) in the basis
 |up down> omega, |down up> omega (the text's xi and zeta; zeta replaces the earlier eta, which is the amino
-coordinate elsewhere); three configurations X1, X2, X3 standing on the slice; the component functions
-plotted beneath on the same theta scale with the norm density in grey and the three sampled values as dots. The
+coordinate elsewhere); three configurations X1, X2, X3 standing on the slice, a sample of the one-parameter family along the slice, not a
+special set; the component functions plotted beneath on the same theta scale with the norm density |a|^2 + |b|^2 as
+a thin ink curve (no marks: each sample stands directly above its density value because the scales agree). The
 state drawn is physical on this slice by the author's choice: rotation-invariant and exchange-antisymmetric, so
 b = -a (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
 forces this; the caption should say the plate shows a physical representative, not a generic one.
@@ -68,8 +73,9 @@ with the digits moved and the spins left with the places; -X P_sigma = E* sigma 
 origin. The two operations as arrows carrying their sign: sigma = (12) with chi_stat(sigma) = -1 (solid), E* with
 chi_pm(E*) = +-1 (dotted, a starred operation). Bottom row: the spin value itself, two coloured arrows in a bracket
 in slot order (1, 2): Psi(X); Psi(X P_sigma) = chi_stat(sigma) sigma.Psi(X), the arrows permuted (the spin action of
-sigma, as the text writes it) and the sign in front; Psi(-X P_sigma) = chi_pm Psi(X P_sigma), the parity sign in front. Water is planar, so -X P_sigma is also a
-rotated copy of X (caption, not plate). Configurations computed (compute/geometry.py).
+sigma, as the text writes it) and the sign in front; Psi(-X P_sigma) = chi_pm Psi(X P_sigma), the parity sign in front. The
+plate fixes one parity sector at a time (the sign chi_pm is a choice of sector, written +- on the plate). Water is
+planar, so -X P_sigma is also a rotated copy of X (caption, not plate). Configurations computed (compute/geometry.py).
 
 ## Figure 4, molecules, fragments, complexes
 The reaction plate. One set of four nuclei (potassium 1, 2; rubidium 3, 4) grouped three ways along the reaction,
@@ -77,8 +83,8 @@ KRb + KRb (G_in = <(12)(34), E*>), the complex K2Rb2 (S = <(12), (34), E*>), K2 
 G_Rb = <(34), E*>); a line joins grouped nuclei; positions schematic (declared). The two product channels are two
 strands, gold for potassium and teal for rubidium, side by side from the reactants into the complex and split at
 the products; the same strands on the lattice of the sixteen subgroups of S (congruent to C_2^3, computed in
-checks/verify.g), up from G_in to S and down to G_K and G_Rb; the common core <E*> below, E at the bottom; the
-lattice shows inclusion, not accessibility. Named nodes gold (G_K), teal (G_Rb), half and half (G_in).
+checks/verify.g; the lattice is complete, every subgroup is a node, the unnamed ones small and grey), up from G_in to S
+and down to G_K and G_Rb; the common core <E*> below, E at the bottom; the lattice shows inclusion, not accessibility. Named nodes gold (G_K), teal (G_Rb), half and half (G_in).
 
 ## Figure 5, symmetry groups and versions
 Row A: methylamine as two fragments, methyl and amino (dashed hulls); X0 with its half-turn axis and the version
@@ -86,7 +92,8 @@ equation b = (23)(45)* = R_y(pi), bX0 = X0 P_b = R_b X0, so H = {E, b}. Row B: t
 (grey) carved to the 10 that keep the bonds (black), the chain H < G6 < G12 < B in gold; at the right the bond
 interval [H, B] as a Hasse diagram, every node written by its generators, each cover drawn in the line grammar of
 the generator it adjoins (solid t, dashed u, dotted a starred one: E*, u*, t*), the same chain as a gold halo.
-Row C: the six versions G12/H, the same positions with the digits moved, position j carrying label g(j). All
+Row C: the six versions G12/H, the same positions with the digits moved, position j carrying label g(j); each glyph is
+one representative of its rotational-orbit version (the orbit under H = {E, b} is the rotation by R_b). All
 lattice data, generator forms and cover labels computed (compute/, checks/verify.g).
 
 ## Figure 6, feasible configuration space
@@ -98,7 +105,14 @@ The solid F as a short thick tube cut open: band at mid-thickness, tau around, i
 wall; one radial thickness stands for the 13 normal coordinates; SO(3) suppressed; the tube's topology is not a
 claim about F; assumed: an embedded tubular neighbourhood and separation of the images. Version positions, the
 t and tu paths and the eclipsed point are the computed family positions. Newman projections are computed from the
-family (digits are column labels). Twenty images since |S/G12| = 20 (GAP).
+family (digits are column labels). Twenty images since |S/G12| = 20 (GAP); the active image is a plain white miniature
+of the solid, the others grey.
+
+The Newman row shows the two steps between versions as one arrow each from H: tu (dashed) to tuH and t (solid) to
+tH. Each is a single relabelling that sends one version straight to another. The eclipsed shape (tau = pi/3) stands
+apart at the right as a reference: it is the midpoint in tau of the continuous path that realizes t on the sheet,
+not a version, and t does not pass through it in steps. On the solid the solid path from H to tH is that continuous
+path, with the eclipsed point marked white on it.
 
 In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 16 degrees on the page so that both
 sets of hydrogens show, the usual drawing convention (declared; the geometry itself is exactly eclipsed).
@@ -116,7 +130,9 @@ Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin 
 centre as bundles of hairlines, one line per state, 12 A1, 4 A2 and 8 E pairs (32 in all); even-parity spatial
 species (chi_+ = A1) at the left joined straight across to the spin species of the same name; odd-parity species
 (chi_- = A2) at the right joined with A1 and A2 swapped and E kept; a level's weight is the number of lines in the
-bundle it is joined to: 12, 4, 8 (even A1, A2, E) and 4, 12, 8 (odd). chi_stat = +1 on G6. Counts from the character
+bundle it is joined to: 12, 4, 8 (even A1, A2, E) and 4, 12, 8 (odd); these are multiplicities (copies of a species),
+not dimensions, so the eight E pairs fill sixteen of the thirty-two dimensions. chi_stat = +1 on G6 (t is a 3-cycle
+and the permutation part of b is a double transposition). Counts from the character
 computation (GAP, verify.py); the same counts arise as the product of the methyl multiplets (4 A1 + 2 E) and the
 amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 
@@ -125,8 +141,11 @@ The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2
 of Delta/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (Delta is the packet width, the density standard deviation per
 coordinate; sigma stays the permutation symbol); the overlap c = <g0, g1> = exp(-d^2 / 8 Delta^2) is the
 gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
-(open); the small chart marks the three rows on the share curves (figures/data/gaussian-shares.dat, exact in
-verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
+(open); the small chart marks the three rows on the share curves, the A1 share heavy and the E share thin, both ink,
+with the three ratios as ticks of the Delta/d axis (figures/data/gaussian-shares.dat, exact in verify_symbolic.py).
+The packets are illustrative torsional profiles drawn on the unrolled circle; the overlap and the shares use the
+planar Gaussian formula of the manuscript with the packet width Delta, not a torsional potential, and the caption
+should say so.
 
 ## Figure 10, position representation
 Top row, left to right: the solid F of figure 6 (cut open, window -62 to 8 degrees, the decoration unturned so that the
@@ -154,14 +173,20 @@ side by side: the X-side column at the left headed by X, the bX-side at the righ
 the one point [X], a red point like the version points; no rotation carries one to the
 other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
 climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
-ends at btX = t^2 bX two levels up on the right: the lifts of the same loops end apart. At the right the
-six t,b-sheets as a graph: t turns the outer triangle one way and the inner the other (btb = t^-1). The u-half of
-the twelve sheets is alike. Loop figure after Harter (1993), Fig. 5.4.2 in spirit.
+ends at btX = t^2 bX two levels up on the right: the lifts of the same loops end apart. The rule behind both: the group
+acts on the left, so the lift of l_t that starts at gX ends at gtX, and from bX that is btX = t^2 bX because btb = t^-1;
+"t then b" names the order of the two moves from X. The six sheets drawn are the G6 block of the twelve (one per
+element of G6 over the point [X], rows named by the cosets of H); the u-half is alike. At the right the six sheets as
+a graph: the solid arrows are the lifts of l_t, which turn the outer triangle one way and the inner the other; the
+dotted edges are the lifts of l_b. The projections from [X] to X and bX are dotted like the cover's. Loop figure after
+Harter (1993), Fig. 5.4.2 in spirit.
 
 ## Figure 12, momentum representation
-K ladder as latitude rings on the sphere |J| = sqrt(J(J+1)) for J = 2, after Harter (1993), Fig. 5.5.3; no
-energies. The (m, K) lattice in the periodic frame and sheared in the twisted frame with kappa = m + rho K and
+K ladder as latitude rings on the sphere |J| = sqrt(J(J+1)) hbar for J = 2 (the plate writes the hbar), after Harter
+(1993), Fig. 5.5.3; no energies, the rings are the values of K only. The (m, K) lattice in the periodic frame and sheared in the twisted frame with kappa = m + rho K and
 rho = 1/2, the symmetric frame of Mellor, Yurchenko, Mant and Jensen (Symmetry 11, 862, 2019), so the twisted
-labels are half-integers. Periodic torsion modes as radial plots on the torsion circle of figure 9;
+labels are half-integers; the zero line and the gold line kappa = rho K lie under the lattice dots. Periodic torsion
+modes as radial plots (heavier ink) on the torsion circle of figure 9 (thin ink, the three version points at the
+suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.

@@ -417,7 +417,9 @@ in the $G_{12}$ regime.\footnote{Ilyushin et al.\
 \cite{IlyushinEtAl2005} and Kr\k{e}glewski~\cite{Kreglewski2009}.}
 The amino inversion includes a corrective $60^\circ$ methyl turn,
 represented by $tu$.\footnote{Kleiner and Hougen~\cite{KleinerHougen2015}.}
-\item Compare the candidates through species and spin weights.
+\item Comparing the candidates through their species and spin weights is
+the intended test; Sections~\ref{sec:species} and~\ref{sec:weights} carry
+it out for $G_6$.
 The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
 \end{itemize}
 
@@ -444,8 +446,9 @@ S/H\longrightarrow S/G,\qquad sH\longmapsto sG.
 \item For methylamine's $G_{12}$ regime, sweep the torsional circle
 along the umbrella coordinate. Picture a short tube $S^1\times[-1,1]$,
 thickened by normal displacements, with orientations over each shape.
-\item Check the product assumption, connectedness, and separation.
-Recover the rigid limit.
+\item The illustrated model assumes the product structure, connectedness,
+and separation; shrinking $\mathcal F$ to a neighbourhood of $SO(3)\X_0$
+recovers the rigid limit.
 \end{itemize}
 \begin{itemize}
 \item For an exact support restriction, use the whole symmetry-related union.
@@ -472,15 +475,10 @@ does not specify geometric inclusion.
 
 \section{Symmetry and Localization}
 \subsection{Symmetry Species}
+\label{sec:species}
 \begin{itemize}
 \item The irreducible representations of $G$ are its \emph{species}.
 Pair spatial species with nuclear spin and compute spin weights.
-\item Choose states at one version, specify their $H$ action, and induce
-over $G/H$. Start with a local vibrational ground state at fixed
-rotational angular momentum.
-\item Follow species across subgroup inclusions. For complexes,
-induce incoming channel states and restrict to product groups.
-\item Use double cosets to organize connections between versions.
 \item Project a spatial state onto each species. Write
 $\chi_\Gamma=\operatorname{tr}\Gamma$ and $d_\Gamma=\dim\Gamma$.
 The projector retains all copies of that species.
@@ -488,19 +486,28 @@ The projector retains all copies of that species.
 \[
 (\Uop{g}f)(\X)=f(g^{-1}\X),\qquad
 \Pproj{\Gamma}=\frac{d_\Gamma}{|G|}
-\sum_{g\in G}\overline{\chi_\Gamma(g)}\,\Uop{g}.
+\sum_{g\in G}\chi_\Gamma(g^{-1})\,\Uop{g}.
 \]
 \[
 w_\Gamma(f)=\frac{\|\Pproj{\Gamma} f\|^2}{\|f\|^2},
 \qquad \sum_\Gamma w_\Gamma(f)=1,\qquad f\ne0.
 \]
 \begin{itemize}
+\item Choose states at one version, specify their $H$ action, and induce
+over $G/H$. Start with a local vibrational ground state at fixed
+rotational angular momentum.
 \item One scalar state fixed by $H$ gives methylamine's three torsional
 version states.
 \end{itemize}
 \[
 \mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E.
 \]
+\begin{itemize}
+\item Follow species across subgroup inclusions.
+\item Use double cosets to organize connections between versions.
+\item For complexes, induce incoming channel states and restrict to
+product groups.
+\end{itemize}
 
 \begin{figure}[tb]
 \centering
@@ -509,7 +516,39 @@ version states.
 \end{figure}
 
 \subsection{Nuclear Spin Weights}
-% author text to come: the pairing of spatial species with nuclear spin and the weights shown in the figure
+\label{sec:weights}
+\begin{itemize}
+\item Restrict the nuclear-spin action of $S$ to the feasible group $G$.
+Inversion acts trivially on spin, so only the permutation part of $G$ acts.
+\item Decompose $\spin$ under $G$ into species, counting copies rather
+than dimensions. For the five protons of methylamine under $G_6$,
+\end{itemize}
+\[
+\spin\cong 12\,\mathrm A_1\oplus 4\,\mathrm A_2\oplus 8\,\mathrm E,
+\qquad 12+4+2\cdot 8=32,
+\]
+\begin{itemize}
+\item so the eight copies of $\mathrm E$ fill sixteen of the thirty-two
+dimensions.
+\item A spatial state of species $\Gamma$ and parity $\pm$ pairs with the
+spin species $\Gamma'$ for which $\Gamma\otimes\Gamma'$ contains the
+character $\stat\chi_\pm$ of the physical-state condition. On $G_6$,
+$\stat=1$: even parity pairs each species with itself; odd parity exchanges
+$\mathrm A_1$ with $\mathrm A_2$ and keeps $\mathrm E$.
+\item The weight of a spatial level is the number of physical states it
+carries, one for each copy of its partner species (Figure~\ref{fig:8}):
+\end{itemize}
+\begin{center}\small
+\begin{tabular}{lcc}
+\hline
+spatial species & even parity & odd parity\\
+\hline
+$\mathrm A_1$ & 12 & 4\\
+$\mathrm A_2$ & 4 & 12\\
+$\mathrm E$ & 8 & 8\\
+\hline
+\end{tabular}
+\end{center}
 
 \begin{figure}[tb]
 \centering
@@ -600,6 +639,9 @@ T_s(r,a,q)&=\bigl(r\mathbf A_s(a),a',\mathbf M_s(a)q\bigr).
 \end{aligned}
 \]
 \begin{itemize}
+\item Here $\mathbf A_s(a)$ is the matrix of a rotation, and $r\mathbf A_s(a)$
+denotes the orientation whose matrix is $\Rmat(r)\mathbf A_s(a)$; the same
+reading applies to $r\Rmat_z(\omega)$ below.
 \item This is exact on the normal chart. Finding $a'$ uses the chosen
 shape coordinates, and the normal-frame expansion is linear algebra.
 \item A lab rotation $r_0$ gives $T_{r_0}(r,a,q)=(r_0r,a,q)$.
@@ -635,7 +677,9 @@ hydrogens at $(\iota,\pm b_A,z_A)$ and the methyl hydrogens at angles
 $\tau-2\pi(k-1)/3$, $k=1,2,3$, at fixed radius and height about
 the C--N axis. Center the whole configuration as before.}
 \item Twist the body frame by $\Rmat_z(-\rho\tau)$, with $\rho$ a chosen
-frame parameter; we take $\rho=\tfrac12$, the symmetric frame of Mellor, Yurchenko, Mant and Jensen~\cite{MellorEtAl2019}. Retain two normal
+frame parameter; we take $\rho=\tfrac12$, the analogue for one methyl top of
+the symmetric internal-axis frame used for ethane by Mellor, Yurchenko, Mant
+and Jensen~\cite{MellorEtAl2019}. Retain two normal
 coordinates $q_+,q_-$ chosen to transform evenly and oddly under $tu$.
 These are symmetry-adapted coordinates, not vibrational eigenmodes.
 \end{itemize}
@@ -717,8 +761,9 @@ a specified state family and connection.
 \begin{itemize}
 \item Expand the same states in rotational, internal, and normal modes,
 subject to the chart identifications.
-\item For the product model $SO(3)\times S^1\times\R^{n_q}$, absorb
-the density into $\widetilde\psi=\jdens^{1/2}\psi$.
+\item For the product model $SO(3)\times S^1\times\R^{n_q}$, with $\iota$ held
+at its reference value and omitted from the product (a reduced torsional
+model), absorb the density into $\widetilde\psi=\jdens^{1/2}\psi$.
 Use the measure $dr\,d\tau\,dq$, denoted by the subscript $0$.
 \end{itemize}
 \[
@@ -733,7 +778,7 @@ J\in\mathbb N_0,\qquad -J\le M,K\le J,\qquad m\in\mathbb Z,
 \begin{itemize}
 \item The coefficients $\widehat\psi_{JMKm}(p)$ are spin vectors.
 Sum over $J,M,K,m$ and integrate over $p$ for the inverse transform.
-No energies are assigned. Check the product assumption.
+No energies are assigned; the product structure is assumed here.
 \item Let the body frame close with a turn while the normal frame closes on itself.
 \end{itemize}
 \[
@@ -757,8 +802,11 @@ with $t:\tau\mapsto\tau+2\pi/3$ and $b:\tau\mapsto-\tau$.
 \Uop{t}f_m=e^{-2\pi im/3}f_m,\qquad \Uop{b}f_m=f_{-m}.
 \]
 \begin{itemize}
-\item Find the species and spin partners of the modes.
-Extend to methylamine's coupled torsion and inversion.
+\item The species of the modes are those of Figure~\ref{fig:12}: $\mathrm A_1$
+at $m=0$, an $\mathrm E$ pair when $3\nmid m$, and $\mathrm A_1\oplus\mathrm A_2$
+(cosine, sine) at nonzero multiples of $3$; their spin partners follow the
+rule of Section~\ref{sec:weights}. The coupled torsion and inversion of
+methylamine lies outside the present example.
 \end{itemize}
 
 \begin{figure}[tb]
@@ -791,7 +839,7 @@ $\jdens(x)$; $\widetilde\psi=\jdens^{1/2}\psi$ & chart density; measure-rescaled
 $\Uop{s}$; $\Pproj{\Gamma}$ & spatial action operator; isotypic projector\\
 $\stat$; $\chi_\pm$ & statistics and parity characters\\
 $\Gamma$, $\chi_\Gamma$, $d_\Gamma$, $w_\Gamma$ & species, its character, dimension and projection share\\
-$\mathrm A_1$, $\mathrm A_2$, $\mathrm E$ & the species of $G_6$ and $G_{12}$\\
+$\mathrm A_1$, $\mathrm A_2$, $\mathrm E$ & the species of $G_6$\\
 $\Delta$; $d$; $c$ & packet width (density standard deviation per coordinate); site separation; overlap\\
 $\rho$; $\omega_{tu}$ & frame-twist parameter, $\rho=\tfrac12$; compensating angle of $tu$\\
 $J$, $M$, $K$; $m$, $\kappa$; $p$ & rotational labels; torsional labels, periodic and twisted; normal momenta\\

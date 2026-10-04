@@ -13,23 +13,23 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,1.1) rectangle (15,11.8);
+\path[use as bounding box] (0,1.1) rectangle (15,11.9);
 % ------------------------------------------------ A. the K ladder on the sphere |J| = sqrt(J(J+1)), J = 2
 \begin{scope}[shift={(3.0,9.25)}]
   \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.42}
-  \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.45}) {body axis $z$};
+  \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
   \hatom{0}{0}{\R}{white}
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
     \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
     \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
   \draw[harrow] (0,0)--({sqrt(5)*\s*cos(-40)},{\s+\E*sqrt(5)*\s*sin(-40)});
-  \node[lab,anchor=north west,inner sep=1pt] at ({sqrt(5)*\s*cos(-40)+.02},{\s+\E*sqrt(5)*\s*sin(-40)-.02}) {$\mathbf J$};
-  \node[sub,anchor=north] at (0,{-\R-.3}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}$};
+  \node[lab,anchor=south,inner sep=1pt] at (.48,.2) {$\mathbf J$};   % above the shaft, between the K=1 and K=2 rings, off the shading
+  \node[sub,anchor=north] at (0,{-\R-.4}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$};
 \end{scope}
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame
-\node[sub,anchor=south] at (7.6,11.07) {periodic frame};
-\node[sub,anchor=south] at (12.4,11.07) {twisted frame, $\rho=\tfrac12$};
+\node[sub,anchor=base] at (7.6,11.3) {periodic frame};
+\node[sub,anchor=base] at (12.4,11.3) {twisted frame, $\rho=\tfrac12$};
 \pgfmathsetmacro{\dm}{.5}\pgfmathsetmacro{\dk}{.5}
 \draw[fine] ({7.6-3.5*\dm},{9.4-2.5*\dk}) rectangle ({7.6+3.5*\dm},{9.4+2.5*\dk});
 \foreach \K in {-2,...,2} {\pgfmathsetmacro{\y}{9.4+\dk*\K}\node[sub,anchor=east] at ({7.6-3.5*\dm-.1},\y) {$\K$};
@@ -39,29 +39,30 @@
 \node[sub,anchor=east] at ({7.6-3.5*\dm-.1},{9.4+2.5*\dk+.22}) {$K$};
 \pgfmathsetmacro{\sh}{\dm*\rhoIll}
 \draw[fine] ({12.4-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.4-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
-\foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.4+\dm*\k},\y) circle[radius=1.5pt];}
-\draw[line width=.4pt,draw=PlateInk!50] (12.4,{9.4-2.5*\dk-.05})--(12.4,{9.4+2.5*\dk+.05});
+% the zero line (ink, thin) and the gold line kappa = rho K, drawn before the lattice dots so that no dot is covered
+\draw[leader] (12.4,{9.4-2.5*\dk-.05})--(12.4,{9.4+2.5*\dk+.05});
 \draw[line width=1.6pt,draw=ColGold] ({12.4-2.5*\sh},{9.4-2.5*\dk})--({12.4+2.5*\sh},{9.4+2.5*\dk});
-\node[sub,anchor=south west] at ({12.4+2.5*\sh+.05},{9.4+2.5*\dk+.08}) {$\kappa=\rho K$};
+\foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.4+\dm*\k},\y) circle[radius=1.5pt];}
+\node[sub,anchor=south west] at ({12.4+2.5*\sh+.05},{9.4+2.5*\dk+.16}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.4,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=north] at ({12.4+3.5*\dm-2.5*\sh+.2},{9.4-2.5*\dk-.08}) {$\kappa$};
 \node[sub,anchor=north] at (12.4,7.58) {$\kappa=m+\rho K$};
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6
-\node[sub,anchor=north west] at (.3,6.1) {periodic torsion modes on the torsion circle};
-\node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=east] at (1.55,5.1) {$m$};
+\node[sub,anchor=north west] at (.72,6.1) {periodic torsion modes on the torsion circle};
+\node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=base east] at (1.55,5.12) {$m$};
 \foreach \m/\cs/\ss in \torsionSpecies {
   \pgfmathsetmacro{\cx}{2.55+1.78*\m}
-  \node[lab] at (\cx,5.1) {$\m$};
+  \node[lab,anchor=base] at (\cx,5.12) {$\m$};
   \foreach \yc/\f in {4.4/cos,3.2/sin} {
-    \draw[line width=.35pt,draw=PlateInk!55] (\cx,\yc) circle[radius=.4];
-    \foreach \a in {90,210,330} {\hatom{\cx+.4*cos(\a)}{\yc+.4*sin(\a)}{.045}{ColDot}}
+    \draw[leader] (\cx,\yc) circle[radius=.4];   % the torsion circle in thin ink; the mode curve is the heavier line
+    \foreach \a in {90,210,330} {\hatom{\cx+.4*cos(\a)}{\yc+.4*sin(\a)}{.08}{ColDot}}
     \ifnum\m=0 \ifdim\yc pt=3.2pt \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi}
-  \ifnum\m=0 \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$};
+  \ifnum\m=0 \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$};
   \else
     \ifnum\numexpr\m-3*(\m/3)\relax=0
-      \draw[heavy] (\cx-.6,2.5)--(\cx+.6,2.5); \node[lab,anchor=north] at (\cx,2.45) {$\mathrm A_1$ (cos)};
-      \draw[heavy] (\cx-.6,1.78)--(\cx+.6,1.78); \node[lab,anchor=north] at (\cx,1.73) {$\mathrm A_2$ (sin)};
+      \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$ (cos)};
+      \draw[heavy] (\cx-.6,1.66)--(\cx+.6,1.66); \node[lab,anchor=north] at (\cx,1.54) {$\mathrm A_2$ (sin)};
     \else
-      \draw[heavy] (\cx-.6,2.53)--(\cx+.6,2.53) (\cx-.6,2.47)--(\cx+.6,2.47); \node[lab,anchor=north] at (\cx,2.42) {$\mathrm E$};
+      \draw[heavy] (\cx-.6,2.425)--(\cx+.6,2.425) (\cx-.6,2.335)--(\cx+.6,2.335); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm E$};
     \fi
   \fi
 }

@@ -15,7 +15,7 @@
 \begin{tikzpicture}[plate,kline/.style={line width=2.3pt,draw=ColGold},rbline/.style={line width=1.7pt,draw=ColTeal},karrow/.style={kline,-{Stealth[length=2.4mm,width=2mm]}},rbarrow/.style={rbline,-{Stealth[length=2.4mm,width=2mm]}}]
 \path[use as bounding box] (0,0) rectangle (15,11.0);
 % ------------------------------------------------ A. the reaction: one set of four nuclei grouped three ways, the two strands
-\foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$G_{\mathrm K}=\langle(12),E^*\rangle$\\$G_{\mathrm{Rb}}=\langle(34),E^*\rangle$}} {
+\foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$\begin{array}{@{}r@{\;=\;}l@{}}G_{\mathrm K}&\langle(12),E^*\rangle\\[-1pt]G_{\mathrm{Rb}}&\langle(34),E^*\rangle\end{array}$}} {
   \begin{scope}[shift={(\x,9.0)}]
     \begin{scope}\molsolid\mollabelsinsideall\def\radK{.30}\def\radRb{.36}\pic[scale=.8] at (0,0) {mol3d-krb-\pname};\end{scope}
     \node[lab,anchor=north] at (0,-1.25) {\cap}; \node[sub,anchor=north,align=center] at (0,-1.68) {\grp};
@@ -25,11 +25,11 @@
 % ending on its own pair of nuclei (potassium above, rubidium below), the tip on the atom's edge
 % nucleus rows: K at y = 9.0 + .8*1.096 = 9.877, Rb at 9.0 - .8*.504 = 8.597 (pic scale .8); the pair is centred on their midline 9.237
 % and the heads end on the atom edges (K radius .24, Rb radius .288 at this scale, nuclei 1 and 3 at x = 11.32)
-\draw[karrow] (4.3,9.417)--(6.0,9.417); \draw[rbarrow] (4.3,9.057)--(6.0,9.057);
+\draw[karrow] (4.3,9.417)--(6.4,9.417); \draw[rbarrow] (4.3,9.057)--(6.4,9.057);   % tips on the complex's edge, as the out-arrows end on their atoms
 \draw[karrow] (8.95,9.417) -- (9.35,9.417) .. controls (9.85,9.417) and (9.85,9.877) .. (10.35,9.877) -- (11.05,9.877);
 \draw[rbarrow] (8.95,9.057) -- (9.35,9.057) .. controls (9.85,9.057) and (9.85,8.597) .. (10.35,8.597) -- (11.0,8.597);
 % ------------------------------------------------ B. the sixteen subgroups of S with the same two strands
-\begin{scope}[shift={(3.4,.9)}]
+\begin{scope}[shift={(2.8,.9)}]   % the lattice and its order column centred on the plate
   \foreach \i/\x/\y/\m/\name in \krbNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=10 \pgfmathsetmacro{\xx}{0.6429}\fi\ifnum\i=12 \pgfmathsetmacro{\xx}{0.3571}\fi \coordinate (k\i) at ({10.4*\xx},{1.65*\y});}
   \foreach \a/\b/\m in \krbCovers {\draw[line width=.3pt,draw=PlateInk!40] (k\a)--(k\b);}
   \draw[kline] ($(k\krbIdxIn)+(-.06,0)$)--($(k\krbIdxS)+(-.06,0)$); \draw[rbline] ($(k\krbIdxIn)+(.06,0)$)--($(k\krbIdxS)+(.06,0)$);
@@ -39,9 +39,9 @@
   \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxE) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxCore) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=white] (k\krbIdxS) circle[radius=3.1pt];
   \draw[line width=.5pt,draw=PlateInk,fill=ColPotassium] (k\krbIdxK) circle[radius=3.1pt]; \draw[line width=.5pt,draw=PlateInk,fill=ColRubidium] (k\krbIdxRb) circle[radius=3.1pt];
   \begin{scope}\clip (k\krbIdxIn) circle[radius=3.1pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=3.1pt];
-  \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.14)$) {$S$}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.14)$) {$E$};
-  \node[lab,anchor=west] at ($(k\krbIdxCore)+(.16,-.04)$) {$\langle E^*\rangle$};
-  \node[lab,anchor=west] at ($(k\krbIdxK)+(.16,0)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.12,.1)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,0)$) {$G_{\mathrm{in}}$};
+  \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.22)$) {$S$}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.22)$) {$E$};
+  \node[lab,anchor=west] at ($(k\krbIdxCore)+(.22,-.12)$) {$\langle E^*\rangle$};
+  \node[lab,anchor=west] at ($(k\krbIdxK)+(.2,0)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.15,.14)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,.1)$) {$G_{\mathrm{in}}$};
   \foreach \y/\l in {0/{$1$},1/{$2$},2/{$4$},3/{$8$}} \node[sub,anchor=east] at (-.6,{1.65*\y}) {\l}; \node[sub,anchor=east] at (-.6,{1.65*3+.45}) {order};
 \end{scope}
 \end{tikzpicture}

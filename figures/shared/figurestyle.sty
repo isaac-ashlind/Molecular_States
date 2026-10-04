@@ -29,22 +29,10 @@
 % Actions carry no colour.  Line style says which: solid = t, dashed = u or tu, dotted = a starred operation (b, E*).
 % The styles tpath, upath, bpath and the lift styles live in primitives.tex.
 
-% ---- line grammar: contours .65pt, guides .35pt, operations .8pt, labels 9pt (8pt minimum)
+% ---- the plate: ink lines only (grey is for greyed-out objects), labels 9pt (8pt minimum); the line styles live in primitives.tex
 \tikzset{
   plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,
     draw=PlateInk,text=PlateInk,>={Stealth[length=1.8mm,width=1.4mm]}},
-  contour/.style={line width=.65pt,draw=PlateInk},
-  guide/.style={line width=.35pt,draw=PlateInk!65},
-  guidedash/.style={guide,densely dashed},
-  operation/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.8mm,width=1.4mm]}},
-  inclusion/.style={line width=.5pt,draw=PlateInk!85},
-  panel/.style={font=\fontsize{9}{11}\selectfont\bfseries,anchor=north west,inner sep=0pt,text=PlateInk},
-  note/.style={font=\fontsize{8}{10}\selectfont,text=PlateInk!85,align=center,inner sep=1.5pt},
-  small/.style={font=\fontsize{8}{10}\selectfont},
-  frame/.style={draw=PlateInk!35,line width=.35pt},
-  hatch/.style={pattern={Lines[angle=45,distance=2.4pt,line width=.3pt]},pattern color=PlateInk!55},
-  hatchfine/.style={pattern={Lines[angle=-45,distance=1.6pt,line width=.25pt]},pattern color=PlateInk!45},
-  tag/.style={fill=white,inner sep=1.5pt,font=\fontsize{8}{10}\selectfont},
 }
 
 % ---- molecule primitives.  Coordinates come from figures/data/molecules.tex in angstrom;
