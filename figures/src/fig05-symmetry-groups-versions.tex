@@ -40,7 +40,7 @@
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
 \begin{scope}[shift={(.5,7.6)}]
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+6.6*\yy});}
-  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.25pt,draw=PlateInk!32] (n\a)--(n\b);\fi}
+  \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.22pt,draw=PlateInk!28] (n\a)--(n\b);\fi}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[line width=.7pt,draw=PlateInk] (n\a)--(n\b);\fi}
   \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColGold!60] (n\a)--(n\b);}
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[line width=.5pt,draw=PlateInk,fill=white] (n\i) circle[radius=1.9pt];\else\fill[PlateInk!40] (n\i) circle[radius=1.0pt];\fi}

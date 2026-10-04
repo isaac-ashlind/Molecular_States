@@ -1,10 +1,13 @@
-% Figure 10. Position representation. What the reader must see: the band of figure 6 (the reference family, an open
-% cylinder in (tau, eta)) is cut at the seam tau = +-pi and unrolled into a chart; the same six version points and
-% the same two paths reappear on the chart, which is partitioned into the six H-cells with the reference cell U;
-% the normal slice at a point q of the band is the hatched cut face of figure 6, carrying Q across the wall; the
-% two normal directions e_-(q) (the amino twist) and e_+(q) (the C-N stretch) are drawn on the molecule, arrows 3x. Colours: red = version points, gold (pale) = the
-% reference cell, teal = the band and its eta-line; ink elsewhere, t solid, tu dashed, hidden dotted. Hatch = cut
-% material (the slice). Cells and normal directions computed (compute/, checks/).
+% Figure 10. Position representation. What the reader must see: the solid F of figure 6 stripped of its cladding is the
+% core sheet, the reference family X0(a), an open cylinder in a = (tau, iota); cut at the seam tau = +-pi and
+% unrolled it is the chart [-pi, pi] x [-iota0, iota0] with the six H-cells and the reference cell U, the same six
+% version points and the same two paths; over each point a of the chart sit every normal displacement q and every
+% orientation r, which is the reconstruction x = (r, a, q) -> R(r)(X0(a) + sum q e(a)), drawn as the shape, the shape
+% displaced along the normal frame (its undisplaced ghost beneath) and the result rotated; the two normal directions
+% e_-(a) (the amino twist) and e_+(a) (the C-N stretch) are drawn on the molecule from the side. Colours: red =
+% version points, gold (pale) = the reference cell, teal = the sheet; ink elsewhere, t solid, tu dashed. Hatch = cut
+% material (the solid's cut faces). Cells, normal directions and the displaced and rotated copies computed
+% (compute/, checks/); the displacement amplitude and the rotation are illustrative (declared).
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -26,36 +29,51 @@
     \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} \draw[line width=.5pt,draw=PlateInk,fill=ColDot] (\x,\y) circle[radius=2.1pt];
     \node[sub,anchor=south west] at (.03,1.06) {$H$}; \node[sub,anchor=south] at (.6667,1.06) {$tH$}; \node[sub,anchor=south] at (-.6667,1.06) {$t^2H$};
     \node[sub,anchor=north] at (-.3333,-1.08) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.08) {$t^2uH$}; \node[sub,anchor=north] at (1,-1.08) {$uH$}; \node[sub,anchor=north] at (-1,-1.08) {$uH$};
-    \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.3) {$\l$};
-    \node[sub,anchor=north] at (.5,-1.3) {$\tau$};
+    \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.48) {$\l$};
+    \node[sub,anchor=north] at (.5,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,12.8);
-% the band, cut marks at the seam (front), the two paths
-\pic (bd) at (2.4,8.0) {band};
-\draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({2.4+1.5*sin(\a)},{8.0+.47-.42*1.5*cos(\a)});
-\draw[upath] plot[domain=0:1,samples=30,variable=\s] ({2.4+1.5*sin(-60*\s)},{8.0+.55-2*.55*\s-.42*1.5*cos(60*\s)});
-\foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.075}{ColDot}}
-\draw[leader,shorten >=3pt] (2.4,{8.0+.55+.42*1.5+.05})--(2.4,{8.0+.55+.42*1.5+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (2.4,{8.0+.55+.42*1.5+.5}) {cut at the seam, $\tau=\pm\pi$};
-\node[sub,anchor=west] at ($(bd-top0)+(.14,-.04)$) {$H$};
-\draw[harrow] (4.5,8.0)--(5.3,8.0); \node[sub,anchor=south] at (4.9,8.1) {unroll};
-\chartpic{10.1}{8.0}{3.9cm}{1.5cm}{white}
-% beneath: the slice at the shape point a, and the molecules with the e_- and e_+ arrows
-\coordinate (q) at (10.1,9.5);
-\zoombubble{10.1}{9.5}{.14}{13.1}{11.3}{1.15}
-\begin{scope}[shift={(13.1,11.3)}]
-  \path[cut] (-.45,-.78) rectangle (.45,.78); \draw[heavy] (-.45,-.78) rectangle (.45,.78);
-  \path[fill=ColBand] (-.07,-.78) rectangle (.07,.78); \draw[line width=.4pt,draw=PlateInk] (-.07,-.78)--(-.07,.78) (.07,-.78)--(.07,.78);
-  \hatom{0}{.78}{.07}{ColDot}
-  \node[sub,anchor=south west,inner sep=1pt] at (.08,.82) {$a$};
-  \draw[harrow] (0,.5)--(-.4,.5); \node[sub,anchor=east,inner sep=1pt] at (-.5,.5) {$q$};
-  \node[sub,anchor=north] at (0,-.82) {$\iota$};
+\path[use as bounding box] (0,0) rectangle (15,12.3);
+% ------------------------------------------------ row 1: the solid, its core sheet, the chart
+\begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/E=.42,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}
+  \pic (sf) at (0,0) {thicktube};
+  \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.29*sin(\a)},{.37-.42*1.29*cos(\a)});
+  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.29*sin(-60*\s)},{.37-2*.37*\s-.42*1.29*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot300} {\hatomat{sf-\p}{.065}{ColDot}}
+  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (sf-\p) circle[radius=.065];}
+  \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (5.0,3.2) {mol3d-mla-ref-eminus-side};\end{scope}
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.9] at (10.6,3.2) {mol3d-mla-ref-eplus-side};\end{scope}
-\node[sub,anchor=north,text width=5.2cm,align=center] at (5.0,1.7) {$\mathbf e_-(a)$, the amino twist};
-\node[sub,anchor=north,text width=5.2cm,align=center] at (10.6,1.7) {$\mathbf e_+(a)$, the C--N stretch};
+\draw[harrow] (3.8,10.3)--(4.75,10.3); \node[sub,anchor=south,align=center] at (4.28,10.42) {strip the\\cladding};
+\begin{scope}[shift={(6.3,10.3)}]\tikzset{band/R=1.2,band/H=.37}
+  \pic (bd) at (0,0) {band};
+  \draw[tpath] plot[domain=0:115,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});
+  \draw[upath] plot[domain=0:1,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
+  \foreach \p in {top0,top120,top240,bot60,bot180,bot300} {\hatomat{bd-\p}{.065}{ColDot}}
+  \draw[leader,shorten >=3pt] (0,{.37+.42*1.2+.05})--(0,{.37+.42*1.2+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.2+.5}) {cut at the seam, $\tau=\pm\pi$};
+  \node[sub,anchor=west] at ($(bd-top0)+(.12,-.04)$) {$H$};
+\end{scope}
+\draw[harrow] (7.75,10.3)--(8.45,10.3); \node[sub,anchor=south] at (8.1,10.42) {unroll};
+\chartpic{11.75}{10.3}{2.6cm}{1.0cm}{white}
+% ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
+\node[sub,anchor=west] at (.5,7.8) {over each point $a$ of the chart sit every normal displacement $q$ and every orientation $r$: $x=(r,a,q)$};
+\begin{scope}\molsolid\mollabelsfalse
+  \pic[scale=.72] at (2.5,6.05) {mol3d-mla-ref};
+  \begin{scope}\molghost\pic[scale=.72] at (7.5,6.05) {mol3d-mla-ref};\end{scope}
+  \pic[scale=.72] at (7.5,6.05) {mla-disp};
+  \pic[scale=.72] at (12.5,6.05) {mla-rot-disp};
+\end{scope}
+\draw[harrow] (4.35,6.05)--(5.65,6.05); \node[lab,anchor=south] at (5.0,6.15) {$q$};
+\draw[harrow] (9.35,6.05)--(10.65,6.05); \node[lab,anchor=south] at (10.0,6.15) {$r$};
+\node[sub,anchor=north,align=center] at (2.5,4.7) {$\X_0(a)$\\the shape, a point of the chart};
+\node[sub,anchor=north,align=center] at (7.5,4.7) {$\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)$\\displaced along the normal frame};
+\node[sub,anchor=north,align=center] at (12.5,4.7) {$\varphi(r,a,q)=\Rmat(r)\bigl(\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\bigr)$\\rotated};
+% ------------------------------------------------ row 3: the two normal directions at a, seen from the side
+\node[sub,anchor=west] at (.5,3.55) {the two normal directions at $a$, mass-orthonormal, seen from the side};
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.8] at (4.3,1.95) {mol3d-mla-ref-eminus-side};\end{scope}
+\begin{scope}\molsolid\mollabelsfalse\pic[scale=.8] at (10.7,1.95) {mol3d-mla-ref-eplus-side};\end{scope}
+\node[sub,anchor=north] at (4.3,.6) {$\mathbf e_-(a)$, the amino twist};
+\node[sub,anchor=north] at (10.7,.6) {$\mathbf e_+(a)$, the C--N stretch};
 \end{tikzpicture}
 \end{document}

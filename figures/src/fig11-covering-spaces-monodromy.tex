@@ -1,4 +1,4 @@
-% Figure 11. Covering spaces and monodromy. What the reader must see: over a free domain V the sheets group in
+% Figure 11. Covering spaces and monodromy. What the reader must see: over a patch of the quotient F/G the sheets group in
 % version pairs {gX, gbX}; a loop downstairs lifts to a path from one sheet to another; t then b and b then t end on
 % different sheets. Drawing: the pairs side by side over V, the X-side column at the left and the bX-side at the
 % right, each headed by its configuration; t climbs a column (solid), b hops across (dotted, the starred generator);
@@ -14,36 +14,38 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-% sheet parallelogram: \sheet{x}{y}{style}{fill}  (3.6 wide, as on the cover)
-\newcommand\sheet[4]{\path[fill=#4] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle; \draw[#3] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.5})--({#1-1.1},{#2+.5})--cycle;}
+% sheet parallelogram: \sheet{x}{y}{style}{fill}  (3.6 wide, .7 deep; the base patch below is the same shape, so every sheet maps onto it)
+\newcommand\sheet[4]{\path[fill=#4] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.7})--({#1-1.1},{#2+.7})--cycle; \draw[#3] ({#1-1.8},#2)--({#1+1.8},#2)--({#1+2.5},{#2+.7})--({#1-1.1},{#2+.7})--cycle;}
 \newcommand\goldring[1]{\draw[line width=1.6pt,draw=ColGold] (#1) circle[radius=.17];}
 \begin{document}
 \begin{tikzpicture}[plate]
-\path[use as bounding box] (0,0) rectangle (15,10.8);
-\begin{scope}[shift={(5.6,1.0)}]
-  % V, wide, both columns over it
-  \path[fill=white] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle; \draw[heavy] (-4.5,0)--(4.5,0)--(5.2,.5)--(-3.8,.5)--cycle;
-  \coordinate (bx) at (0,.25); \fill[PlateInk] (bx) circle[radius=1.2pt]; \node[sub,anchor=south,inner sep=1.5pt] at (bx) {$[\X]$};
-  \draw[tlift] (bx) .. controls (-1.9,.72) and (-1.9,-.22) .. (bx); \draw[blift] (bx) .. controls (1.9,-.22) and (1.9,.72) .. (bx);
-  \node[sub] at (-1.3,.12) {$\ell_t$}; \node[sub] at (1.3,.12) {$\ell_b$}; \node[sub,anchor=west,inner sep=1pt] at (5.3,.25) {$\mathcal V$};
+\path[use as bounding box] (0,0) rectangle (15,11.0);
+\begin{scope}[shift={(5.6,.8)}]
+  % the base: a patch of the quotient, one sheet's size, both columns over it; the two loops inside it
+  \sheet{0}{0}{heavy}{white}
+  \coordinate (bx) at (.35,.35);
+  \draw[tlift] (bx) .. controls (-1.3,.68) and (-1.3,.02) .. (bx); \draw[blift] (bx) .. controls (2.0,.02) and (2.0,.68) .. (bx);
+  \node[sub,inner sep=.5pt] at (-.62,.35) {$\ell_t$}; \node[sub,inner sep=.5pt] at (1.32,.35) {$\ell_b$};
+  \node[sub,anchor=west,inner sep=1pt] at (2.62,.35) {$\mathcal F/G$};
   \foreach \k/\ga/\gb/\pl in {0/{\X}/{b\X}/H,1/{t\X}/{tb\X}/tH,2/{t^2\X}/{t^2b\X}/t^2H} {
-    \pgfmathsetmacro{\y}{1.5+1.7*\k}
+    \pgfmathsetmacro{\y}{1.6+1.7*\k}
     \sheet{-2.3}{\y}{fine}{white} \sheet{2.3}{\y}{fine}{white}
-    \coordinate (pa\k) at (-1.95,{\y+.25}); \coordinate (pb\k) at (2.65,{\y+.25});
-    \node[sub,anchor=west,inner sep=1pt] at (-3.85,{\y+.12}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (.75,{\y+.12}) {$\gb$};
-    \node[lab,anchor=east] at (-4.3,{\y+.25}) {$\pl$};}
+    \coordinate (pa\k) at (-1.95,{\y+.35}); \coordinate (pb\k) at (2.65,{\y+.35});
+    \node[sub,anchor=west,inner sep=1pt] at (-3.9,{\y+.2}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (.7,{\y+.2}) {$\gb$};
+    \node[lab,anchor=east] at (-4.3,{\y+.35}) {$\pl$};}
   \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pa0); \draw[line width=.35pt,draw=PlateInk!55] (bx)--(pb0);
-  \draw[tlift] (pa0) .. controls (-3.6,{1.5+.25+.6}) and (-3.6,{1.5+1.7+.25-.6}) .. (pa1);
-  \draw[blift] (pa1) .. controls (0,{1.5+1.7+.25+.35}) .. (pb1);
-  \draw[blift] (pa0) .. controls (0,{1.5+.25+.35}) .. (pb0);
-  \draw[tlift] (pb0) .. controls (4.3,{1.5+.25+1.2}) and (4.3,{1.5+3.4+.25-1.2}) .. (pb2);
+  \draw[tlift] (pa0) .. controls (-3.0,{1.6+.35+.35}) and (-3.0,{1.6+1.7+.35-.35}) .. (pa1);
+  \draw[blift] (pa1) .. controls (.35,{1.6+1.7+.35+1.25}) .. (pb1);
+  \draw[blift] (pa0) .. controls (.35,{1.6+.35+1.25}) .. (pb0);
+  \draw[tlift] (pb0) .. controls (4.8,{1.6+.35+1.0}) and (4.8,{1.6+3.4+.35-1.0}) .. (pb2);
   \foreach \k in {0,1,2} {\hatomat{pa\k}{.07}{ColDot} \hatomat{pb\k}{.07}{ColDot}}
+  \hatomat{bx}{.07}{ColDot} \node[sub,anchor=north west,inner sep=1.5pt] at ($(bx)+(.08,-.04)$) {$[\X]$};
   \goldring{pb1} \goldring{pb2}
   \node[sub,anchor=south] at ($(pb1)+(0,.22)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.22)$) {$b$ then $t$};
 \end{scope}
-% the two configurations over [X] head their columns
-\begin{scope}\molsolid\mollabelsinside\pic[scale=.7] at (3.3,9.6) {mol3d-mla-X}; \pic[scale=.7] at (7.9,9.6) {mol3d-mla-bX};\end{scope}
-\node[lab] at (3.3,8.35) {$\X$}; \node[lab] at (7.9,8.35) {$b\X$}; \draw[blift] (4.3,8.35)--(6.9,8.35);
+% the two configurations over [X] head their columns, drawn at the scale of figure 5
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (3.3,9.7) {mol3d-mla-X}; \pic[scale=.8] at (7.9,9.7) {mol3d-mla-bX};\end{scope}
+\node[lab] at (3.3,8.3) {$\X$}; \node[lab] at (7.9,8.3) {$b\X$}; \draw[blift] (4.3,8.3)--(6.9,8.3);
 % the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other
 \begin{scope}[shift={(13.1,4.6)}]
   \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.55*cos(\a)},{1.55*sin(\a)}); \coordinate (i\k) at ({.72*cos(\a)},{.72*sin(\a)});}

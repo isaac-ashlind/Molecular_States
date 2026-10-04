@@ -28,14 +28,15 @@
   \node[sub,anchor=north] at (0,{-\R-.3}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}$};
 \end{scope}
 % ------------------------------------------------ B. the (m, K) lattice in the periodic frame and sheared in the twisted frame
-\node[sub,anchor=south] at (8.0,11.25) {periodic frame};
-\node[sub,anchor=south] at (12.7,11.25) {twisted frame, $\rho=\rhoIll$ drawn};
+\node[sub,anchor=south] at (8.0,11.07) {periodic frame};
+\node[sub,anchor=south] at (12.7,11.07) {twisted frame, $\rho=\rhoIll$ drawn};
 \pgfmathsetmacro{\dm}{.5}\pgfmathsetmacro{\dk}{.5}
 \draw[fine] ({8.0-3.5*\dm},{9.4-2.5*\dk}) rectangle ({8.0+3.5*\dm},{9.4+2.5*\dk});
-\foreach \K in {-2,...,2} {\pgfmathsetmacro{\y}{9.4+\dk*\K}\node[sub,anchor=east] at ({8.0-3.5*\dm-.1},\y) {$K=\K$};
+\foreach \K in {-2,...,2} {\pgfmathsetmacro{\y}{9.4+\dk*\K}\node[sub,anchor=east] at ({8.0-3.5*\dm-.1},\y) {$\K$};
   \foreach \m in {-3,...,3} \fill[PlateInk] ({8.0+\dm*\m},\y) circle[radius=1.5pt];}
 \foreach \m in {-3,...,3} \node[sub,anchor=north] at ({8.0+\dm*\m},{9.4-2.5*\dk-.08}) {$\m$};
 \node[sub,anchor=west] at ({8.0+3.5*\dm+.08},{9.4-2.5*\dk-.2}) {$m$};
+\node[sub,anchor=east] at ({8.0-3.5*\dm-.1},{9.4+2.5*\dk+.22}) {$K$};
 \pgfmathsetmacro{\sh}{\dm*\rhoIll}
 \draw[fine] ({12.7-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.7+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.7-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 \foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.7+\dm*\k},\y) circle[radius=1.5pt];}
@@ -43,7 +44,7 @@
 \draw[line width=1.6pt,draw=ColGold] ({12.7-2.5*\sh},{9.4-2.5*\dk})--({12.7+2.5*\sh},{9.4+2.5*\dk});
 \node[sub,anchor=south west] at ({12.7+2.5*\sh+.05},{9.4+2.5*\dk-.02}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.7,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=west] at ({12.7+3.5*\dm+2.5*\sh+.08},{9.4-2.5*\dk-.2}) {$\kappa$};
-\node[sub,anchor=north] at (12.7,7.7) {$\kappa=m+\rho K$};
+\node[sub,anchor=north] at (12.7,7.58) {$\kappa=m+\rho K$};
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6
 \node[sub,anchor=north west] at (.3,6.1) {periodic torsion modes on the torsion circle};
 \node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=east] at (1.55,5.1) {$m$};

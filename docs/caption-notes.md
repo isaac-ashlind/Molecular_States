@@ -118,21 +118,27 @@ gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled
 verify_symbolic.py). Planar Gaussian illustration as in the manuscript.
 
 ## Figure 10, position representation
-The band of figure 6 (the reference family X0(tau, iota) at mid-thickness) with its six version points and the two
-paths, cut at the seam tau = +-pi (cut marks) and unrolled into the chart [-pi, pi] x [-iota0, iota0]; the six
-H-cells computed (chartCells), the reference cell U in pale gold, the same six red points and the two paths (t
-solid, tu dashed); iota = 0 is the planar amino locus. The zoom at the shape point a = H is the normal slice, the
-hatched cut face of figure 6, with the band's iota-line (teal) and the normal coordinate q across the wall. Below, the
-two normal directions at a, e_-(a) (the amino twist, hydrogens 4 and 5 against each other along the axis) and e_+(a) (the C-N
-stretch, carbon against nitrogen along the axis), drawn on the molecule seen from the side (camera azimuth 90,
-elevation 18, so the C-N axis lies in the page); each direction's arrows are scaled so that its largest arrow is 1.1 A on
-the page (the direction is the content; the mass-orthonormal stretch moves the heavy atoms far less than the twist
-moves the hydrogens), declared (mol3d-mla-ref-eminus-side, -eplus-side; mass-orthonormal, orthogonal to the family and to the rotations in
-the mass metric). The formulas X0(a) P_tu = A_tu X0(a'), T_tu and M_tu = diag(1, -1) are in the text, not the plate.
+Top row, left to right: the solid F of figure 6 (cut open, window -62 to 8 degrees, the decoration unturned so that the
+seam sits at the back), stripped of its cladding to the core sheet (the band, the reference family X0(a), an open
+cylinder in a = (tau, iota), cut at the seam tau = +-pi, cut marks), unrolled into the chart [-pi, pi] x
+[-iota0, iota0] with the six H-cells computed (chartCells), the reference cell U in pale gold, the same six red
+version points and the two paths (t solid, tu dashed); iota = 0 is the planar amino locus. Middle row: over a point
+a of the chart sit every normal displacement q and every orientation r, drawn as the reconstruction: the shape X0(a),
+the shape displaced along the normal frame X0(a) + sum q e(a) (amplitude 0.42 A along e_-, illustrative, declared;
+its undisplaced ghost beneath), and the result rotated, phi(r,a,q) = R(r)(...) (rotation about (0.3, 1, 0.25) by
+55 degrees, illustrative, declared). Bottom row: the two normal directions at a, e_-(a) (the amino twist, hydrogens 4
+and 5 against each other along the axis) and e_+(a) (the C-N stretch, carbon against nitrogen along the axis), on
+the molecule seen from the side (camera azimuth 75, elevation 18, so the C-N axis lies in the page and no methyl
+hydrogen sits on the line of sight through the carbon); each direction's arrows are scaled so that its largest arrow
+is 1.1 A on the page (the direction is the content; the mass-orthonormal stretch moves the heavy atoms far less than
+the twist moves the hydrogens), declared (mol3d-mla-ref-eminus-side, -eplus-side; mass-orthonormal, orthogonal to
+the family and to the rotations in the mass metric). The formulas X0(a) P_tu = A_tu X0(a'), T_tu and
+M_tu = diag(1, -1) are in the text, not the plate.
 
 ## Figure 11, covering spaces and monodromy
-Over a free domain cal V, the version pairs {gX, gbX} drawn side by side: the X-side column at the left headed by X,
-the bX-side at the right headed by bX (two configurations over the one point [X]; no rotation carries one to the
+Over a patch of the quotient F/G, drawn the size of one sheet (each sheet maps onto it), the version pairs {gX, gbX}
+side by side: the X-side column at the left headed by X, the bX-side at the right headed by bX (two configurations over
+the one point [X], a red point like the version points; no rotation carries one to the
 other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
 climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
 ends at btX = t^2 bX two levels up on the right (gold rings): the lifts of the same loops end apart. At the right the
