@@ -284,3 +284,14 @@ docs/notation-migration.md.
   tuple x dropped from the closing pages (x is a Rodrigues coordinate there); bold x_i introduced with the matrix.
   Notation page: Psi, Psi_pm, psi = Psi o phi, G_6 and G_12, +-iota_0, the packet; five entries tightened to keep
   one page. Plate labels follow in their own commit.
+- Plate audit (author's request, 2026-10-05; seven inspectors and seven skeptics, 46 findings confirmed, 24 refuted,
+  three recent edits refined). Applied plate by plate, each checked before and after at print size: the tube's far
+  wall rim now reaches the cut face, and the cut faces' top edges are drawn at full weight (primitive; cover, figures
+  6 and 10); hidden points on white walls are pale with the wall lines showing through (multiply), the seam point of
+  figure 10 is drawn under the slit and the rim (multiply would muddy it on the teal band); every action head stops
+  about 3 pt short of its dot (cover, figures 6, 10, 13); arrows centred in their gaps (figures 3, 6, 10) and labels on
+  common baselines (figures 3, 5, 9); plot axes and ticks in ink (figures 2, 9); figure 4's lattice under the complex;
+  figure 5's chain halo under its covers and four bond-interval nodes moved so no cover runs through a node; figure
+  6's labels at one size (uH stays at note size: its slot is too low) and the eclipsed Newman back set turned 20
+  degrees; figure 7's t head off the v3 axis; figure 12's K rings dashed exactly where they lie behind the sphere;
+  the closing plate's projection dotted once per span, digit 2 off the z axis, the hidden half of z shortened.

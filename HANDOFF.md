@@ -66,8 +66,12 @@ closing pages, from explicit matrices (`checks/verify_methane.py`); text overlap
    figure 6 t²uH (five thin wall lines, the fewest possible) and sF (the hatched slab).
 
 ## Last changes (2026-10-05)
-Each is logged in `docs/author-decisions.md`. Figure 4: the two strands one weight, the reaction arrows centred in
-their gaps. Figure 5: the methyl and amino fragments turn with their clips (hydrogen 2 is whole). Figure 10: the
-undisplaced ghost is a simple outline of the two hydrogens that move. Closing plate: the hidden cube corner and the
-hidden octahedron vertex drawn pale under the front lines. A label pass rerouted the leaders of figure 6 (tH, t,
-eclipsed, t²uH, uH) and gave air to labels on figures 0, 1, 2, 4, 9, 10 and 11.
+Each is logged in `docs/author-decisions.md`; every change is its own commit on `figures-v2`, so each diff can be read
+alone.
+- Before the deep review: figure 4's strands one weight and its arrows centred; figure 5's fragments turn with their
+  clips; figure 10's ghost a simple outline; the closing plate's hidden points pale; a label pass on eight plates.
+- Notation (1a65f72, 5d0fb69, 9f64980): the closing pages write the vibrations as q in R^9, not the disc D^9 (which
+  clashed with the Wigner D^J); a full audit then gave every symbol one meaning (omega only an angle, packets eta,
+  loops lambda, s' in the action rule, the proton spin space (C^2)^{x5}, Section 2's components f_xi and f_zeta, Table
+  A's classes by relabellings), defined the rest at first use, and completed the notation page.
+- Plates (244892e to 24fd9a7): a seven-inspector, seven-skeptic audit; 46 confirmed findings applied plate by plate.
