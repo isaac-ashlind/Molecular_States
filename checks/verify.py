@@ -4,7 +4,9 @@ Run from the repository root:  python3 checks/verify.py
 Exact: the orders of H, G6, G12, B, S (2, 6, 12, 24, 240) and their cosets; [H,B] has 10 subgroups and 17 covers,
 with three order-12 extensions of G6, any two generating B; btb = t^-1 and bt = t^2 b; the action of t and b on
 G6/H and C[G6/H] = A1 + E; the proton-spin weights 12, 4, 8 (even parity) and 4, 12, 8 (odd) with chi_stat trivial
-on G6; the KRb groups and the 16 subgroups of S; P_st = P_t P_s; the torsion species.
+on G6; the KRb groups and the 16 subgroups of S; P_st = P_t P_s; C[G6] = C[G6/H] + A2 + E, with A2 + E induced from
+the sign of H; on the (tau, iota) cylinder a shape is fixed by a conjugate of b on the six lines tau in (pi/3) Z, by a
+conjugate of (23)* at the six points (pi/6 + k pi/3, 0), and by E alone elsewhere; the torsion species.
 What the plates draw (figures/data/numbers.tex): figure 8's spin counts, figure 12's kappa rows and torsion species,
 figure 5's version labels and figure 10's chart cells, all exactly; figure 9's shares against (1 + 2c)/3 with
 c = exp(-1/(8 x^2)). summary.json: the intervals, the normal frame (M_tu = diag(1, -1)), the version positions and
@@ -73,6 +75,43 @@ def mm(A, B):
     return [[sum(A[i][k] * B[k][j] for k in range(len(B))) for j in range(len(B[0]))] for i in range(len(A))]
 assert all(pm(Q.mul(s, t_)) == mm(pm(t_), pm(s)) for s in (Q.t, Q.u, Q.b) for t_ in (Q.t, Q.u, Q.b, Q.tu))
 print('groups, cosets, intervals, C[G6/H] = A1 + E, spin weights, KRb, P_st = P_t P_s: ok')
+
+# ---- the base point: induced spaces and the point groups of shapes (Sections 7 and 10)
+def induced(K, chi_K):
+    """Multiplicities in G6 of the representation induced from the character chi_K of K <= G6."""
+    conj = lambda x, g: Q.mul(Q.inv(x), Q.mul(g, x))
+    ind = {g: Fr(sum(chi_K[conj(x, g)] for x in Q.G6 if conj(x, g) in K), len(K)) for g in Q.G6}
+    return {n: Fr(sum(ch[Q.g6_class(g)] * ind[g] for g in Q.G6), 6) for n, ch in Q.G6_CHARS.items()}
+E7 = Q.E(Q.N)
+assert induced({E7}, {E7: 1}) == {'A1': 1, 'A2': 1, 'E': 2}                 # C[G6]
+assert induced(Q.H, {E7: 1, Q.b: 1}) == {'A1': 1, 'A2': 0, 'E': 1}         # C[G6/H]
+assert induced(Q.H, {E7: 1, Q.b: -1}) == {'A1': 0, 'A2': 1, 'E': 1}        # induced from the sign of H
+# a shape (tau, iota) moves as tau -> e tau + k pi/3, iota -> (-1)^k iota, with t, u, b as verify_symbolic.py proves
+gen = {Q.t: (1, 2), Q.u: (1, 3), Q.b: (-1, 0)}
+shape = {E7: (1, 0)}; todo = [E7]
+while todo:
+    g = todo.pop()
+    for h, (e2, k2) in gen.items():
+        e1, k1 = shape[g]; gh = Q.mul(g, h); lab = (e1 * e2, (e1 * k2 + k1) % 6)   # A_gh = A_g o A_h
+        if gh not in shape:
+            shape[gh] = lab; todo.append(gh)
+        assert shape[gh] == lab                                                # well defined on the group
+assert set(shape) == Q.G12 and len(set(shape.values())) == 12                  # a faithful action
+def stabilizer(tau, iota):                                                     # tau in units of pi, iota in units of iota0
+    return frozenset(g for g, (e, k) in shape.items() if (e * tau + Fr(k, 3) - tau) % 2 == 0 and (-1) ** k * iota == iota)
+cls = lambda g: frozenset(Q.mul(x, Q.mul(g, Q.inv(x))) for x in Q.G12)
+c23 = Q.cyc(Q.N, (2, 3), star=1)
+assert c23 in Q.G12 and c23 not in cls(Q.b) and len(cls(Q.b)) == len(cls(c23)) == 3
+for tau in [Fr(j, 12) for j in range(24)] + [Fr(1, 7), Fr(9, 7)]:
+    for iota in (Fr(-1), Fr(-1, 2), Fr(0), Fr(1, 3), Fr(1)):
+        K = stabilizer(tau, iota) - {E7}
+        if tau % Fr(1, 3) == 0:
+            assert len(K) == 1 and next(iter(K)) in cls(Q.b), (tau, iota)        # the six lines tau in (pi/3) Z
+        elif iota == 0 and (tau - Fr(1, 6)) % Fr(1, 3) == 0:
+            assert len(K) == 1 and next(iter(K)) in cls(c23), (tau, iota)        # the six points (pi/6 + k pi/3, 0)
+        else:
+            assert not K, (tau, iota)
+print('C[G6] = C[G6/H] + (A2 + E), the sign of H induces A2 + E; shapes fixed by conjugates of b, of (23)*, or by E alone: ok')
 
 # ---- the torsion species: (cos m tau, sin m tau) carries t with trace 2 cos(2 pi m/3) (2 when 3 | m, else -1), b with 0
 species = [['0', 'A1', 'none']]

@@ -3,7 +3,9 @@
 Run from the repository root:  python3 checks/verify_symbolic.py
 The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the overlap c = exp(-d^2/8 Delta^2) and the
 density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3 from the projectors on three packets of overlap c;
-the E-pair matrices of t and b; the seam relation kappa = m + rho K for every integer m.
+the E-pair matrices of t and b; for a packet with arbitrary overlaps, the shares of its parts even and odd under b
+add, the odd part carries only A2 and E with weight (1 - <eta, U_b eta>)/2, and with overlaps zero outside G6 each
+G6 share splits evenly over the two G12 species above it; the seam relation kappa = m + rho K for every integer m.
 """
 import sympy as sp
 
@@ -89,6 +91,53 @@ assert TE == sp.Matrix([[-sp.Rational(1, 2), -sp.sqrt(3)/2], [sp.sqrt(3)/2, -sp.
 assert BE == sp.diag(1, -1)
 assert T*v1 == v1 and Bm*v1 == v1
 print('E pair: t -> rotation by 2pi/3, b -> diag(1,-1); A1 vector fixed: exact')
+
+# a packet with arbitrary real overlaps f(g) = <eta, U_g eta>, f(E) = 1, f(g^-1) = f(g), U_g U_h = U_gh
+def close(gens):
+    e = (list(range(7)), 0); out = [e]; todo = [e]
+    while todo:
+        x = todo.pop()
+        for g in gens:
+            y = compose(x, g)
+            if y not in out:
+                out.append(y); todo.append(y)
+    return out
+def inv(g):
+    p = [0]*7
+    for i, j in enumerate(g[0]):
+        p[j] = i
+    return (p, g[1])
+def order(g):
+    k, x = 1, g
+    while x != (list(range(7)), 0):
+        x, k = compose(x, g), k + 1
+    return k
+G6 = close([t, b]); G12 = close([t, b, u])
+assert len(G6) == 6 and len(G12) == 12 and all(compose(u, g) == compose(g, u) for g in G12)   # G12 = G6 x <u>
+key = lambda g: (tuple(g[0]), g[1])
+f = {}
+for g in G6:
+    f.setdefault(min(key(g), key(inv(g))), sp.Symbol('f%d' % len(f)))
+F = lambda g: f[min(key(g), key(inv(g)))] if key(g) in {key(x) for x in G6} else 0   # zero outside G6
+f[key((list(range(7)), 0))] = 1
+CH = {'A1': {1: 1, 3: 1, 2: 1}, 'A2': {1: 1, 3: 1, 2: -1}, 'E': {1: 2, 3: -1, 2: 0}}   # by element order: E, t class, b class
+def shares(ov, group=G6, char=lambda n, g: CH[n][order(g)], names=('A1', 'A2', 'E')):
+    """||P_Gamma eta||^2 = (d/|G|) sum_g chi(g) <eta, U_g eta> (real characters)."""
+    return {n: sp.expand(sp.Rational(char(n, group[0]), len(group))*sum(char(n, g)*ov(g) for g in group)) for n in names}
+def part(sg):          # <eta_s, U_g eta_s> for eta_s = (eta + sg U_b eta)/2
+    return lambda g: sp.Rational(1, 4)*(F(g) + sg*F(compose(g, b)) + sg*F(compose(b, g)) + F(compose(compose(b, g), b)))
+w, wp, wm = shares(F), shares(part(1)), shares(part(-1))
+assert all(sp.expand(w[n] - wp[n] - wm[n]) == 0 for n in w) and wp['A2'] == 0 and wm['A1'] == 0
+assert sp.expand(sum(wm.values()) - (1 - F(b))/2) == 0
+cp = sp.simplify(part(1)(t)/part(1)((list(range(7)), 0)))                 # the even part's own overlap
+assert sp.simplify(wp['A1']/sum(wp.values()) - (1 + 2*cp)/3) == 0
+print('packet not fixed by H: shares of eta+ and eta- add, eta+ has no A2 and follows (1+2c)/3, eta- has no A1, ||eta-||^2 = (1 - <eta, U_b eta>)/2: exact')
+# leakage: with overlaps zero outside G6, the shares under G12 = G6 x <u> follow by branching, half to each sign of u
+in6 = {key(x) for x in G6}
+ch12 = lambda n, g: CH[n[:-1]][order(g if key(g) in in6 else compose(g, u))] * (1 if key(g) in in6 or n[-1] == '+' else -1)
+w12 = shares(F, G12, ch12, [n + sg for n in CH for sg in '+-'])
+assert all(sp.expand(w12[n + sg] - w[n]/2) == 0 for n in CH for sg in '+-')
+print('overlaps zero outside G6: each G6 share splits evenly between the two G12 species above it: exact')
 
 # seam and Wigner phase: D(r R_z(omega)) = e^{-iK omega} D(r) with (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q)
 K, rho, kappa = sp.symbols('K rho kappa'); m = sp.symbols('m', integer=True)

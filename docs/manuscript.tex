@@ -478,7 +478,20 @@ $\mathcal F\subseteq\conf$.
 \item Require $s\mathcal F=\mathcal F$ for $s\in G$ and
 $s\mathcal F\cap\mathcal F=\varnothing$ otherwise.
 The copies are indexed by $S/G$, with $|G/H|$ reference versions in each.
+\item Separation can be derived rather than assumed. Take $\mathcal F$ to be the connected component
+through $\X_0$ of the union of all $S$-images of the thickened sweep. Every $s\in S$ permutes the
+components, so $s\mathcal F$ either equals $\mathcal F$ or misses it. The stabilizer of $\mathcal F$
+contains $G$ and equals $G$ unless the thickening is wide enough to merge copies.
 \end{itemize}
+\begin{figure}[tb]
+\centering
+\includegraphics[width=\linewidth]{fig06-feasible-configuration-space}
+\caption{Feasible configuration space. The feasible region $\mathcal F$ has twenty images in $\conf$,
+one for each coset in $S/G_{12}$. At the top, $\mathcal F$ is cut open as a solid. Its core sheet is the
+family $\X_0(\tau,\iota)$, its thickness is the vibrations, and its cut face is enlarged at the left. At the
+bottom, the two steps $t$ and $tu$ are seen down the C--N axis, with the eclipsed shape halfway along the
+path of $t$.}\label{fig:6}
+\end{figure}
 \[
 S/H\longrightarrow S/G,\qquad sH\longmapsto sG.
 \]
@@ -503,19 +516,14 @@ shape and excluding rearrangements; see \hyperref[sec:example]{the example that 
 \item For open regions, compactly supported smooth packets, combined
 with spin and projected onto exchange statistics, span this space densely.
 Gaussians retain tails.
+\item Tails can be measured without a potential. Every element of $S$ maps the union
+$\bigcup_{s\in S}s\mathcal F$ to itself, so multiplying by its indicator function commutes with the
+symmetry action and keeps the physical-state condition. A physical $\Psi$ splits into its parts inside and
+outside the union, both physical. The norm of the outside part is the distance from $\Psi$ to
+$\hilb_{\mathcal F}$.
 \item Nested regions give nested state spaces. Group inclusion alone
 does not specify geometric inclusion.
 \end{itemize}
-
-\begin{figure}[tb]
-\centering
-\includegraphics[width=\linewidth]{fig06-feasible-configuration-space}
-\caption{Feasible configuration space. The feasible region $\mathcal F$ has twenty images in $\conf$,
-one for each coset in $S/G_{12}$. At the top, $\mathcal F$ is cut open as a solid. Its core sheet is the
-family $\X_0(\tau,\iota)$, its thickness is the vibrations, and its cut face is enlarged at the left. At the
-bottom, the two steps $t$ and $tu$ are seen down the C--N axis, with the eclipsed shape halfway along the
-path of $t$.}\label{fig:6}
-\end{figure}
 
 
 % ================================================================================================
@@ -543,7 +551,7 @@ w_\Gamma(f)=\frac{\|\Pproj{\Gamma} f\|^2}{\|f\|^2},
 \]
 \begin{itemize}
 \item Choose states at one version, specify their $H$ action, and induce
-over $G/H$. Start with a local vibrational ground state at fixed
+over $G/H$.\footnote{Harter~\cite{Harter1993}.} Start with a local vibrational ground state at fixed
 rotational angular momentum.
 \item One scalar state fixed by $H$ gives methylamine's three torsional
 version states.
@@ -552,6 +560,9 @@ version states.
 \mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E.
 \]
 \begin{itemize}
+\item A less symmetric base point has a smaller point group and a larger induced space. With a trivial
+point group, $\mathbb C[G_6]\cong\mathbb C[G_6/H]\oplus\mathrm A_2\oplus\mathrm E$. The added
+$\mathrm A_2\oplus\mathrm E$ is induced from the sign of $H$, so it describes local states odd under $b$.
 \item Follow species across subgroup inclusions.
 \item Use double cosets to organize connections between versions.
 \item For complexes, induce incoming channel states and restrict to
@@ -646,6 +657,14 @@ $\Delta^2$ on an equilateral triangle of side $d$.
 c=\exp\!\left(-\frac{d^2}{8\Delta^2}\right).
 \]
 \begin{itemize}
+\item A packet not fixed by $H$ splits as $\eta_0=\eta_0^++\eta_0^-$ with
+$\eta_0^\pm=(\eta_0\pm\Uop{b}\eta_0)/2$. Each projector commutes with $\Uop{b}$, so the two parts
+contribute to the shares separately. The even part follows the formulas above with its own overlap. The odd
+part adds only $\mathrm A_2$ and $\mathrm E$, with total weight
+$\|\eta_0^-\|^2=(1-\langle\eta_0,\Uop{b}\eta_0\rangle)/2$, which vanishes as $\eta_0$ becomes fixed by $H$.
+\item Overlaps $\langle\eta_0,\Uop{s}\eta_0\rangle$ with $s\notin G$ measure how far a packet leaks into
+the other copies of $\mathcal F$. Where they vanish, the shares under $S$ follow from those under $G$
+through the branching of species. Otherwise they enter the shares as $c$ does.
 \item Add $u$-related packets for the six versions in $G_{12}/H$.
 Resolve the $u$ action through sums and differences.
 \item Pair with spin and impose the feasible support restriction
@@ -714,6 +733,11 @@ denotes the orientation whose matrix is $\Rmat(r)\mathbf A_s(a)$; the same
 reading applies to $r\Rmat_z(\omega)$ below.
 \item This is exact on the normal chart. Finding $a'$ uses the chosen
 shape coordinates, and the normal-frame expansion is linear algebra.
+\item The invariance is required of the family, not of one configuration. Rotations and $G$ preserve the
+mass-weighted distance, in which the $\mathbf e_\alpha(a)$ are orthonormal, and map the rotated family
+$\Rmat(r)\X_0(a)$ to itself. So the nearest-point map onto the family, defined near it, commutes with them.
+A configuration displaced from $\X_0$ along normal directions alone maps back to $\X_0$. Its own point group
+may be smaller than $H$, but the point group of its base point is $H$.
 \item A lab rotation $r_0$ gives $T_{r_0}(r,a,q)=(r_0r,a,q)$.
 The induced spatial operator is the inverse pullback. Permuting the
 spin factors gives the physical-state condition.
@@ -777,6 +801,11 @@ T_{tu}^{\,6}x
 \item General normal coordinates replace the signs by matrices.
 The rotational factor records the frame choice. It does not prescribe
 dynamical rotational transport.
+\item Versions and induced species depend on the base point only through the conjugacy class of its point
+group. In $G_{12}$, a shape on one of the six lines $\tau\in\frac\pi3\mathbb Z$ is fixed by a conjugate of
+$b$, so any reference there, the eclipsed shape included, gives the same versions and species up to
+relabeling. A conjugate of $(23)^*$ fixes each of the six shapes $(\frac\pi6+\frac{k\pi}3,0)$, $k=0,\ldots,5$, instead, and
+no element but $E$ fixes any other shape. Which case describes the molecule is left to experiment.
 \end{itemize}
 
 \begin{figure}[tb]
@@ -1147,7 +1176,7 @@ $\stat$, $\chi_\pm$ & statistics and parity characters\\
 $\Gamma$; $\chi_\Gamma$; $d_\Gamma$; $w_\Gamma$ & species; character; dimension; projection share\\
 $\mathrm A_1$, $\mathrm A_2$, $\mathrm E$ & the species of $G_6$\\
 $O$; $T$ & the rotations of the cube; of the tetrahedron (the example)\\
-$\eta_0$, $\eta_j$; $\Delta$; $d$; $c$ & packet and its translates; width (density standard deviation per coordinate); site separation; overlap\\
+$\eta_0$, $\eta_j$, $\eta_0^\pm$; $\Delta$; $d$; $c$ & packet, its translates and its parts even and odd under $b$; width (density standard deviation per coordinate); site separation; overlap\\
 $\rho$; $\omega_{tu}$ & frame twist, $\rho=\tfrac12$; compensating angle of $tu$\\
 $J$, $M$, $K$; $m$, $\kappa$; $p$ & rotational labels; torsional labels, periodic and twisted; normal momenta\\
 $b_A$, $z_A$ & amino offset and height in the reference family\\

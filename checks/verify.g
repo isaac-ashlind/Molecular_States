@@ -1,7 +1,8 @@
 # Independent GAP cross-check of the group-theoretic claims used in the figures.
 # Run:  gap -q -b --quitonbreak checks/verify.g   (prints a report; a failed Assert exits nonzero)
 # Orders and cosets; [H,B] (10 subgroups, 17 covers) and [H,S] (36, 73); the three order-12 extensions of G6; the
-# class sizes of G6; the proton-spin weights by parity; C[G6/H] = A1 + E; the KRb groups.
+# class sizes of G6; the proton-spin weights by parity; C[G6/H] = A1 + E and the sign of H induced to A2 + E; the KRb
+# groups.
 #
 # Model: the five protons are points 1..5; inversion E* is modeled as the
 # transposition (8,9) of two extra points, so S = S_5 x C_2 is a permutation
@@ -79,6 +80,14 @@ permchar := PermutationCharacter(G6,H);;
 mult := List(irr, chi -> [nameOf(chi), ScalarProduct(tbl, ClassFunction(tbl, List(reps, g -> permchar[Position(reps,g)])), chi)]);;
 Print("C[G6/H] multiplicities: ", mult, "\n");
 Assert(0, [lookup(mult,"A1"),lookup(mult,"A2"),lookup(mult,"E")] = [1,0,1]);
+# induced from the sign of H: A2 + E, so C[G6] = C[G6/H] + A2 + E
+sgnH := First(Irr(H), chi -> chi[1] = 1 and chi <> TrivialCharacter(H));;
+indsgn := InducedClassFunction(sgnH, G6);;
+msgn := List(irr, chi -> [nameOf(chi), ScalarProduct(tbl, chi, indsgn)]);;
+Assert(0, [lookup(msgn,"A1"),lookup(msgn,"A2"),lookup(msgn,"E")] = [0,1,1]);
+Assert(0, List(irr, chi -> ScalarProduct(tbl, chi, PermutationCharacter(G6, TrivialSubgroup(G6)))) =
+          List(irr, chi -> ScalarProduct(tbl, chi, permchar) + ScalarProduct(tbl, chi, indsgn)));
+Print("induced from the sign of H: ", msgn, "\n");
 
 # KRb + KRb: S = <(1,2),(3,4),E*> = C2^3, 16 subgroups; channel groups of order 4, any two generate S
 SK := Group((1,2),(3,4),(8,9));;
