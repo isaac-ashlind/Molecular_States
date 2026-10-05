@@ -46,7 +46,7 @@
   \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45] (sf-\p) circle[radius=.08];}
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
-\draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.4,10.42) {strip the\\vibrations};
+\draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.4,10.47) {strip the\\vibrations};
 \begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
@@ -63,7 +63,7 @@
   % H named outside the sheet, below it at the left, its leader crossing the front wall
   \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.08); \node[sub,anchor=north east,inner sep=1.5pt] at (-.55,-1.08) {$H$};
 \end{scope}
-\draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.42) {unroll};
+\draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.47) {unroll};
 \chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}
 % ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
 \node[sub,anchor=north west,align=left] at (.5,7.95) {over each point $a$ of the chart, the normal displacements $q$ within the chart's domain\\and every orientation $r$: $x=(r,a,q)$};

@@ -79,7 +79,7 @@
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift,draw=PlateInk!55] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift,draw=PlateInk!55] (h\a)--(h\b);\else \draw[blift,draw=PlateInk!55] (h\a)--(h\b);\fi\fi}
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[line width=.5pt,draw=PlateInk!55,fill=white] (h\i) circle[radius=2pt];}
   \node[sub,anchor=north,text=PlateInk!55] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=PlateInk!55] at ($(h9)+(0,.18)$) {$B$};
-  \node[sub,anchor=south east,text=PlateInk!55,inner sep=1pt] at ($(h6)+(-.1,.1)$) {$G$};
+  \node[sub,anchor=south east,text=PlateInk!55,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
 \end{scope}
 \end{tikzpicture}
 \end{document}

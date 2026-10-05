@@ -41,7 +41,7 @@
   \addplot[ColDualA,line width=.9pt] table[x=theta,y=a] {component-functions.dat};
   \addplot[ColDualB,line width=.9pt] table[x=theta,y=b] {component-functions.dat};
   \addplot[PlateInk,line width=.5pt] table[x=theta,y=n2] {component-functions.dat};   % ink, thinner than the two components
-  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.16) {$a$}; \node[lab,anchor=west,text=ColDualB] at (axis cs:81,-1.05) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:117,1.25) {$|a|^2+|b|^2$};
+  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.16) {$a$}; \node[lab,anchor=south,text=ColDualB] at (axis cs:104.5,-.76) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:117,1.25) {$|a|^2+|b|^2$};
 \end{axis}
 \node[lab,anchor=east] at (14.6,2.9) {$\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,d\X$};
 \end{tikzpicture}

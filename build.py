@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Clean-state build of the figure suite, the scaffold and the proof sheet.
+"""Clean-state build of the plates, the proofs and the manuscript.
 
-    python3 build.py            # data -> checks -> figures -> previews -> scaffold -> proof sheet
-    python3 build.py --only 03  # one figure (data and checks still run)
+    python3 build.py            # data -> checks -> plates -> previews -> numbering check -> proofs -> manuscript
+    python3 build.py --only 03  # one plate (data and checks still run; no proofs, no manuscript)
 
-Requires: python3 (stdlib only), pdflatex with standalone/TikZ/PGFPlots, pdftoppm
-(poppler) for PNG previews.  GAP is used for an extra cross-check when present.
+Requires python3 and pdflatex/bibtex with standalone, TikZ, PGFPlots and titlesec; pdftoppm and pdftotext (poppler)
+for previews and the text-collision report. Optional: numpy (spin-structure and methane checks), SymPy (symbolic
+checks), GAP (independent algebra), Ghostscript (grayscale proof); each is skipped, with a note, when absent.
 Nothing here fabricates success: any failing step stops the build.
 """
 import os, re, shutil, subprocess, sys
@@ -29,20 +30,21 @@ def main():
     only = None
     if '--only' in sys.argv:
         only = sys.argv[sys.argv.index('--only') + 1]
-    print('[1/6] regenerate data'); run([sys.executable, 'compute/make_data.py'])
-    print('[2/6] python checks'); run([sys.executable, 'checks/verify.py'], quiet=False)
-    try:
-        import sympy  # noqa: F401
-        print('[2a]  symbolic checks'); run([sys.executable, 'checks/verify_symbolic.py'], quiet=False)
-        print('[2a\'] spin-structure check'); run([sys.executable, 'checks/verify_spin.py'], quiet=False)
-        print('[2a"] antiprism check'); run([sys.executable, 'checks/verify_antiprism.py'], quiet=False)
-        print('[2a"\'] methane check'); run([sys.executable, 'checks/verify_methane.py'], quiet=False)
-    except ImportError:
-        print('[2a]  sympy not found: symbolic checks skipped (stdlib checks already passed)')
+    print('[1/7] regenerate data'); run([sys.executable, 'compute/make_data.py'])
+    print('[2/7] checks'); run([sys.executable, 'checks/verify.py'], quiet=False)
+    run([sys.executable, 'checks/verify_antiprism.py'], quiet=False)
+    for module, script, what in (('sympy', 'checks/verify_symbolic.py', 'symbolic checks'),
+                                 ('numpy', 'checks/verify_spin.py', 'spin-structure check'),
+                                 ('numpy', 'checks/verify_methane.py', 'methane check')):
+        try:
+            __import__(module)
+        except ImportError:
+            print(f'      {what}: {module} not found, skipped (the stdlib checks already passed)'); continue
+        run([sys.executable, script], quiet=False)
     if shutil.which('gap'):
-        print('[2b]  GAP cross-check'); run(['gap', '-q', '-b', 'checks/verify.g'], quiet=False)
+        run(['gap', '-q', '-b', 'checks/verify.g'], quiet=False)
     else:
-        print('[2b]  GAP not found: cross-check skipped (stdlib checks already passed)')
+        print('      GAP cross-check: gap not found, skipped')
     if not shutil.which('pdflatex'):
         raise SystemExit('pdflatex not installed')
     if FIGS.exists():
@@ -58,7 +60,7 @@ def main():
     missing = [e for e in expected if e not in have]
     if missing and not only:
         raise SystemExit('Figures not implemented: ' + ', '.join(missing))
-    print('[3/6] compile figures')
+    print('[3/7] compile plates')
     for src in sources:
         if only and not src.stem.startswith('fig' + only):
             continue
@@ -67,7 +69,7 @@ def main():
         log = (FIGS / (src.stem + '.log')).read_text(errors='replace')
         over = re.findall(r'Overfull \\hbox', log)
         print(f'    {src.stem}.pdf', f'(overfull boxes: {len(over)})' if over else '')
-    print('[4/6] previews (150 dpi colour, 150 dpi grayscale)')
+    print('[4/7] previews (150 dpi colour, 150 dpi grayscale)')
     if shutil.which('pdftoppm'):
         for pdf in sorted(FIGS.glob('fig*.pdf')):
             run(['pdftoppm', '-r', '150', '-png', '-singlefile', str(pdf), str(PREV / pdf.stem)])
@@ -81,7 +83,7 @@ def main():
         r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))], cwd=ROOT, capture_output=True, text=True)
         print(r.stdout.strip())
         return
-    print('[5/6] scaffold')
+    print('[5/7] numbering check')
     for _ in range(2):
         run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
              '-output-directory=' + str(BUILD), 'scaffold/outline.tex'], env=env)
@@ -93,7 +95,7 @@ def main():
     if 'fig:guide' in aux or 'fig:0' in aux:
         raise SystemExit('the guide must not define a numbered figure label')
     print('    figure numbers 1-12 match their sections; guide unnumbered')
-    print('[6/6] proof sheet, squint sheet, grayscale proof, deliverable PDFs, text-collision report')
+    print('[6/7] proof sheet, squint sheet, grayscale proof, deliverable PDFs, text-collision report')
     run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
          '-output-directory=' + str(BUILD), 'scaffold/proofsheet.tex'], env=env)
     if shutil.which('gs'):
@@ -109,7 +111,22 @@ def main():
                        cwd=ROOT, capture_output=True, text=True)
     (BUILD / 'collisions.txt').write_text(r.stdout)
     print(r.stdout.strip())
-    print('done:', BUILD / 'outline.pdf', BUILD / 'proofsheet.pdf', out)
+    print('[7/7] manuscript')
+    ms = BUILD / 'ms'; ms.mkdir(exist_ok=True)
+    tex = ['pdflatex', '-interaction=nonstopmode', '-halt-on-error', '-output-directory=' + str(ms), 'docs/manuscript.tex']
+    run(tex)
+    benv = os.environ.copy(); benv['BIBINPUTS'] = str(ROOT / 'docs') + '//' + os.pathsep
+    run(['bibtex', 'manuscript'], cwd=ms, env=benv)
+    run(tex); run(tex)
+    log = (ms / 'manuscript.log').read_text(errors='replace')
+    undefined = len(re.findall(r"(?:Reference|Citation) `[^']*' on page \d+ undefined", log))
+    bad = len(re.findall(r'(?:Overfull|Underfull) \\[hv]box', log))
+    pages = re.search(r'Output written on .*?\((\d+) pages', log)
+    shutil.copy2(ms / 'manuscript.pdf', BUILD / 'manuscript.pdf')
+    print(f'    build/manuscript.pdf: {pages.group(1) if pages else "?"} pages, {undefined} undefined references, {bad} over- or underfull boxes')
+    if undefined:
+        raise SystemExit('undefined references in the manuscript')
+    print('done:', BUILD / 'manuscript.pdf', BUILD / 'proofsheet.pdf', out)
 
 if __name__ == '__main__':
     main()

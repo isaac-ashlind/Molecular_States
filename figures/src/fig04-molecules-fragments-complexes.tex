@@ -12,7 +12,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,kline/.style={line width=2.3pt,draw=ColGold},rbline/.style={line width=1.7pt,draw=ColTeal},karrow/.style={kline,-{Stealth[length=2.4mm,width=2mm]}},rbarrow/.style={rbline,-{Stealth[length=2.4mm,width=2mm]}}]
+\begin{tikzpicture}[plate,kline/.style={line width=2pt,draw=ColGold},rbline/.style={line width=2pt,draw=ColTeal},karrow/.style={kline,-{Stealth[length=2.4mm,width=2mm]}},rbarrow/.style={rbline,-{Stealth[length=2.4mm,width=2mm]}}]
 \path[use as bounding box] (0,0) rectangle (15,11.0);
 % ------------------------------------------------ A. the reaction: one set of four nuclei grouped three ways, the two strands
 \foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$\begin{array}{@{}r@{\;=\;}l@{}}G_{\mathrm K}&\langle(12),E^*\rangle\\[-1pt]G_{\mathrm{Rb}}&\langle(34),E^*\rangle\end{array}$}} {
@@ -22,12 +22,14 @@
   \end{scope}
 }
 % the two channels as arrows: parallel and centred into the complex, parallel out of it and diverging, each head
-% ending on its own pair of nuclei (potassium above, rubidium below), the tip on the atom's edge
+% aimed at its own pair of nuclei (potassium above, rubidium below)
 % nucleus rows: K at y = 9.0 + .8*1.096 = 9.877, Rb at 9.0 - .8*.504 = 8.597 (pic scale .8); the pair is centred on their midline 9.237
-% and the heads end on the atom edges (K radius .24, Rb radius .288 at this scale, nuclei 1 and 3 at x = 11.32)
-\draw[karrow] (4.3,9.417)--(6.4,9.417); \draw[rbarrow] (4.3,9.057)--(6.4,9.057);   % tips on the complex's edge, as the out-arrows end on their atoms
-\draw[karrow] (8.95,9.417) -- (9.35,9.417) .. controls (9.85,9.417) and (9.85,9.877) .. (10.35,9.877) -- (11.05,9.877);
-\draw[rbarrow] (8.95,9.057) -- (9.35,9.057) .. controls (9.85,9.057) and (9.85,8.597) .. (10.35,8.597) -- (11.0,8.597);
+% each pair sits centred in its gap (author): the in-arrows between the bond 2-4 of the reactants (x = 3.675) and the bond 1-3
+% of the complex (x = 6.415), about .3 clear at each end; the out-arrows between the bond 2-4 of the complex (x = 8.575)
+% and the product atoms' edges (K radius .24, Rb radius .288 at this scale, nuclei 1 and 3 at x = 11.32), about .2 clear
+\draw[karrow] (4.02,9.417)--(6.12,9.417); \draw[rbarrow] (4.02,9.057)--(6.12,9.057);
+\draw[karrow] (8.8,9.417) -- (9.2,9.417) .. controls (9.7,9.417) and (9.7,9.877) .. (10.2,9.877) -- (10.9,9.877);
+\draw[rbarrow] (8.8,9.057) -- (9.2,9.057) .. controls (9.7,9.057) and (9.7,8.597) .. (10.2,8.597) -- (10.85,8.597);
 % ------------------------------------------------ B. the sixteen subgroups of S with the same two strands
 \begin{scope}[shift={(2.8,.9)}]   % the lattice and its order column centred on the plate
   \foreach \i/\x/\y/\m/\name in \krbNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=10 \pgfmathsetmacro{\xx}{0.6429}\fi\ifnum\i=12 \pgfmathsetmacro{\xx}{0.3571}\fi \coordinate (k\i) at ({10.4*\xx},{1.65*\y});}
@@ -41,7 +43,7 @@
   \begin{scope}\clip (k\krbIdxIn) circle[radius=3.1pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=3.1pt];
   \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.22)$) {$S$}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.22)$) {$E$};
   \node[lab,anchor=west] at ($(k\krbIdxCore)+(.22,-.12)$) {$\langle E^*\rangle$};
-  \node[lab,anchor=west] at ($(k\krbIdxK)+(.2,0)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.15,.14)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,.1)$) {$G_{\mathrm{in}}$};
+  \node[lab,anchor=west] at ($(k\krbIdxK)+(.2,0)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.15,.14)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,.14)$) {$G_{\mathrm{in}}$};
   \foreach \y/\l in {0/{$1$},1/{$2$},2/{$4$},3/{$8$}} \node[sub,anchor=east] at (-.6,{1.65*\y}) {\l}; \node[sub,anchor=east] at (-.6,{1.65*3+.45}) {order};
 \end{scope}
 \end{tikzpicture}

@@ -24,7 +24,7 @@
   \sheet{0}{0}{heavy}{ColRetained!50}
   \coordinate (bx) at (.35,.45);
   \draw[tlift] (bx) .. controls (-1.7,.84) and (-1.7,.06) .. (bx); \draw[blift] (bx) .. controls (2.4,.06) and (2.4,.84) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.06) {$\ell_t$}; \node[sub,anchor=north,inner sep=1.5pt] at (1.65,-.06) {$\ell_b$};
+  \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.2) {$\ell_t$}; \node[sub,anchor=north,inner sep=1.5pt] at (1.65,-.2) {$\ell_b$};
   \node[sub,anchor=west,inner sep=1pt] at (2.62,.45) {$\mathcal F/G$};
   \foreach \k/\ga/\gb/\pl in {0/{\X}/{b\X}/H,1/{t\X}/{tb\X}/tH,2/{t^2\X}/{t^2b\X}/t^2H} {
     \pgfmathsetmacro{\y}{1.7+1.8*\k}
@@ -38,7 +38,7 @@
   \draw[blift] (pa0)--(pb0);
   \draw[tlift] (pb0) .. controls (4.5,{1.7+.45+1.0}) and (4.5,{1.7+3.6+.45-1.0}) .. (pb2);   % stays inside the sheets, clear of the middle sheet's corner
   \foreach \k in {0,1,2} {\hatomat{pa\k}{.08}{ColDot} \hatomat{pb\k}{.08}{ColDot}}
-  \hatomat{bx}{.08}{ColDot} \draw[leader,shorten >=3pt] (bx)--(.35,-.02); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.06) {$[\X]$};
+  \hatomat{bx}{.08}{ColDot} \draw[leader,shorten >=3pt,shorten <=2.3pt] (bx)--(.35,-.2); \node[sub,anchor=north,inner sep=1.5pt] at (.35,-.2) {$[\X]$};   % from the dot's edge, across the patch's edge, short of the name
   \node[sub,anchor=south] at ($(pb1)+(0,.62)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.62)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns, drawn at the scale of figure 5

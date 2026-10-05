@@ -21,8 +21,8 @@
 % axis (the body y axis, direction (-.6248, 1.7619) in the camera's image) upright; the digits stay upright
 \pgfmathsetmacro{\turn}{-19.53}
 \begin{scope}[shift={(2.5,17.4)},rotate=\turn]
-  \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
-  \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
 \end{scope}
 \node[sub,anchor=north] at (1.9,15.9) {methyl}; \node[sub,anchor=north] at (3.65,15.9) {amino};
 \begin{scope}[shift={(7.4,17.4)}]

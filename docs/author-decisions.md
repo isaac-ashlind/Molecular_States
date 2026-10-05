@@ -248,3 +248,11 @@ docs/notation-migration.md.
   after); the manuscript renamed `docs/manuscript.tex`, its source reflowed with banners and its preamble grouped,
   unused packages dropped (every page identical at 150 dpi before and after). A backup was delivered first.
 
+- Figure 4 (author, 2026-10-05): the two strands one weight, 2 pt each, in the reaction and in the lattice (gold was
+  2.3 pt, teal 1.7 pt; the gap between the parallel strands is unchanged). The reaction arrows nudged left so that
+  each pair sits centred in its gap, lengths kept: the in-arrows clear the reactants' bond and the complex's bond by
+  3 mm each, the out-arrows clear the complex's bond and their product atoms by 2 mm each. This replaces the earlier
+  rule that the heads meet the complex's edge and the product atoms.
+- Figure 5 (author, 2026-10-05): the methyl and amino fragments now turn with their clip outlines. The enclosing
+  scope's rotation reached the clip but not the glyph (a TikZ pic takes only its position from the scope), so the
+  outline cut hydrogen 2; each fragment pic now carries the rotation itself, as the reference glyph does.
