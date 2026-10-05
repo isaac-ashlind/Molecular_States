@@ -13,7 +13,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 - [x] 2. Remove reference/
 - [x] 3. build.py without scaffold (numbering check folded in, reading the manuscript's aux); delete scaffold/;
          fix every comment that points at deleted files
-- [ ] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
+- [x] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
          inconsistent styles across plates, table formatting, stale comments, arbitrary constants
 - [ ] 5. Shared primitives and plate defragmentation, each plate checked with diffsheet before and after
 - [ ] 6. compute/, figures/data/ and checks/ cleanup (no unused emissions, no dead code, accurate docstrings)
@@ -26,3 +26,4 @@ Log (one line per step: step, commit, note):
 - 1: docs folded and deleted (rules in figurestyle.sty, primitives.tex, check docstrings, camera()/kabsch docstrings), figures/preamble.tex removed (unused), README short. Per-plate disclosures for step 5 headers: git show d40f495:docs/caption-notes.md
 - 2: reference/ removed (git history keeps it)
 - 3: build.py 5 steps (data, checks, plates+pdf/png+collisions, manuscript+numbering check from the manuscript source and aux); scaffold/, previews, proofs and checks/cvd_preview.py removed; plate PDFs reproducible (no date, no trailer ID)
+- 4: plates.md (23+27+21+44+12 items) and manuscript.md (69 items) in .final-pass/audit; compute.md still running at tick time, needed only for step 6 (re-run the compute auditor if the file is missing then)
