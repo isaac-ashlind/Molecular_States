@@ -34,9 +34,9 @@
   \pic[scale=.8] at (6.5,3.8) {mol3d-water-X}; \pic[scale=.8] at (11.0,3.8) {mol3d-water-RX};
   \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.8] at (6.5,1.2) {mol3d-water-X}; \pic[scale=.8] at (11.0,1.2) {mol3d-water-RX};\end{scope}
 \end{scope}
-% column strips beside each glyph: the matrix as three columns
-\foreach \x/\y/\ca/\cb/\cc in {7.45/3.8/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},11.6/3.8/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},7.45/1.2/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},11.6/1.2/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3},1.18/3.8/{-\mathbf x_1}/{-\mathbf x_2}/{-\mathbf x_3}} {
-  \draw[fine] (\x,{\y-.22}) rectangle ({\x+1.86},{\y+.22}); \draw[fine] ({\x+.62},{\y-.22})--({\x+.62},{\y+.22}) ({\x+1.24},{\y-.22})--({\x+1.24},{\y+.22}); \node[font=\fontsize{7}{8}\selectfont] at ({\x+.31},\y) {$\ca$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+.93},\y) {$\cb$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+1.55},\y) {$\cc$};}
+% column strips beside each glyph: the matrix as three columns; cell width \w fitted to the entries (about 5 pt of air)
+\foreach \x/\y/\w/\ca/\cb/\cc in {7.45/3.8/.62/{\mathbf x_1}/{\mathbf x_2}/{\mathbf x_3},11.6/3.8/.82/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_3},7.45/1.2/.62/{\mathbf x_2}/{\mathbf x_1}/{\mathbf x_3},11.6/1.2/.82/{\Rmat\mathbf x_2}/{\Rmat\mathbf x_1}/{\Rmat\mathbf x_3},.58/3.8/.82/{-\mathbf x_1}/{-\mathbf x_2}/{-\mathbf x_3}} {
+  \draw[fine] (\x,{\y-.22}) rectangle ({\x+3*\w},{\y+.22}); \draw[fine] ({\x+\w},{\y-.22})--({\x+\w},{\y+.22}) ({\x+2*\w},{\y-.22})--({\x+2*\w},{\y+.22}); \node[font=\fontsize{7}{8}\selectfont] at ({\x+.5*\w},\y) {$\ca$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+1.5*\w},\y) {$\cb$}; \node[font=\fontsize{7}{8}\selectfont] at ({\x+2.5*\w},\y) {$\cc$};}
 % arrows: R to the right (left action), P_sigma down (right action), E* to the left (right action by -1)
 % every head stops just short of the silhouette it points at (the right P arrow meets the top hydrogen of RXP, not the oxygen)
 \draw[harrow] (9.45,3.8)--(9.86,3.8); \node[lab,anchor=south] at (9.66,3.95) {$\Rmat$};
