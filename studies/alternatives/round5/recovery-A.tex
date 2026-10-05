@@ -1,0 +1,73 @@
+% Study A (round 5): the rigid recovery in the paper's own pictures. Row 1, figure 10's sequence: the solid, the
+% sheet shrunk to a point inside its ball of vibrations, then the orientations as figure 11's sheets over a patch of
+% positions, the methane on each sheet relabelled, the loop and its lift. Row 2, figure 7's discs: the modes of the
+% twelve sheet-states (C[T] = A + E + 3T) on the twelve sites as four triangles (the g-orbits), and what g does.
+% Row 3, figure 8's bundles: spin pairing, with Albert et al.'s isomer names at the margin. Values: scratch script
+% (modes12.tex), to be emitted by make_data if adopted.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\input{modes12.tex}
+% twelve sites as four triangles: \sitepic{x}{y}{modelist}
+\newcommand\sitepic[3]{\begin{scope}[shift={(#1,#2)}]
+  \foreach \t/\cx/\cy in {0/0/0,1/1.15/0,2/0/-1.05,3/1.15/-1.05} {\draw[fine] ($(\cx,\cy)+(90:.36)$)--($(\cx,\cy)+(210:.36)$)--($(\cx,\cy)+(330:.36)$)--cycle;}
+  \foreach \t/\k/\a in #3 {\pgfmathsetmacro{\cx}{ifthenelse(\t==1||\t==3,1.15,0)}\pgfmathsetmacro{\cy}{ifthenelse(\t>=2,-1.05,0)}\pgfmathsetmacro{\ang}{90+120*\k}
+    \pgfmathsetmacro{\r}{.42*.36*sqrt(abs(\a))}
+    \ifdim\r cm>0.03cm \ifdim\a pt>0pt \fill[PlateInk] ($(\cx,\cy)+(\ang:.36)$) circle[radius=\r]; \else \draw[fine,fill=white] ($(\cx,\cy)+(\ang:.36)$) circle[radius=\r]; \fi
+    \else \draw[line width=.5pt,draw=PlateInk] ($(\cx,\cy)+(\ang:.28)$)--($(\cx,\cy)+(\ang:.44)$); \fi}
+  \end{scope}}
+\begin{document}
+\begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk}]
+\path[use as bounding box] (0,0) rectangle (15,14.6);
+% ------------------------------------------------ row 1: freeze the shape, chart the orientation (figure 10, then figure 11)
+\begin{scope}[shift={(1.6,12.2)}]\tikzset{tube/Ro=1.0,tube/Ri=.72,tube/H=.25,tube/E=.42,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.6}\pic at (0,0) {thicktube};\end{scope}
+\node[sub,anchor=north,align=center] at (1.6,11.0) {$\mathcal F$: the family\\and its vibrations};
+\draw[harrow] (2.9,12.2)--(3.8,12.2); \node[sub,anchor=south,align=center] at (3.35,12.32) {freeze\\$\tau,\iota$};
+\draw[fine,fill=white] (4.8,12.2) circle[radius=.72]; \hatom{4.8}{12.2}{.08}{ColDot}
+\node[sub,anchor=north,align=center] at (4.8,11.3) {the sheet is a point,\\the ball the nine vibrations};
+\draw[harrow] (5.8,12.2)--(6.7,12.2); \node[sub,anchor=south,align=center] at (6.25,12.32) {what is left\\is orientation};
+% the positions and the sheets (figure 11)
+\begin{scope}[shift={(10.3,9.3)}]
+  \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
+  \sheet{0}{heavy}{ColRetained!50}
+  \coordinate (bx) at (.35,.25); \hatomat{bx}{.08}{ColDot}
+  \draw[tlift] (bx) .. controls (-1.7,.72) and (-1.7,-.22) .. (bx);
+  \node[sub,anchor=north,inner sep=1.5pt] at (-1.0,-.05) {$\ell_g$}; \node[sub,anchor=west,inner sep=1pt] at (2.6,.25) {$SO(3)/T$};
+  \foreach \k/\la/\A/\B/\C in {0/{e}/1/2/3,1/{g}/2/3/1,2/{g^2}/3/1/2} {\pgfmathsetmacro{\yy}{1.2+1.25*\k}
+    \sheet{\yy}{fine}{white}
+    \coordinate (p\k) at (.35,{\yy+.25});
+    \begin{scope}\molsolid\mollabelsinside\def\molA{\A}\def\molB{\B}\def\molC{\C}\def\molD{4}\pic[scale=.42] at (-.9,{\yy+.3}) {mol3d-ch4-ref};\end{scope}
+    \node[sub,anchor=west,inner sep=1pt] at (2.6,{\yy+.25}) {$\la$};}
+  \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (bx)--(p0);
+  \draw[tlift] (p0) .. controls (2.0,{1.2+.25+.4}) and (2.0,{1.2+1.25+.25-.4}) .. (p1);
+  \foreach \k in {0,1,2} {\hatomat{p\k}{.08}{ColDot}}
+  \node[sub,anchor=south,inner sep=1pt] at (.35,{1.2+2*1.25+.5+.1}) {$\cdots$ twelve sheets, one per rotation of $T$};
+\end{scope}
+% ------------------------------------------------ row 2: the modes of the twelve sheet-states (figure 7), and what g does
+\node[sub,anchor=west] at (.3,7.75) {the twelve sheet-states over one position carry $\mathbb C[T]=\mathrm A\oplus\mathrm E\oplus3\,\mathrm T$: modes on the twelve sites (each triangle a $g$-orbit)};
+\sitepic{1.0}{6.6}{\modeA} \node[sub,anchor=north] at (1.6,5.1) {$\mathrm A$}; \node[sub,anchor=north] at (1.6,4.78) {$g$: fixed};
+\sitepic{3.6}{6.6}{\modeEcos} \sitepic{5.7}{6.6}{\modeEsin} \node[sub,anchor=north] at (5.25,5.1) {$\mathrm E={}^1\mathrm E\oplus{}^2\mathrm E$ (cos, sin)}; \node[sub,anchor=north] at (5.25,4.78) {$g$: turned by a third, $\omega$};
+\sitepic{8.6}{6.6}{\modeTa} \sitepic{10.7}{6.6}{\modeTb} \sitepic{12.8}{6.6}{\modeTc}
+\node[sub,anchor=north] at (11.3,5.1) {$\mathrm T$, one of three copies: $g$ cycles the three};
+\draw[tpath] (9.6,4.55)--(10.9,4.55); \draw[tpath] (11.7,4.55)--(13.0,4.55); \node[sub,anchor=east] at (9.5,4.55) {$g$:};
+% ------------------------------------------------ row 3: the pairing (figure 8), their isomers at the margin
+\def\yA{3.6}\def\yE{2.5}\def\yT{1.2}
+\node[sub,anchor=south] at (2.0,4.15) {rotational species, states}; \node[sub,anchor=south] at (7.4,4.15) {$\spin$, one line per state}; \node[sub,anchor=south] at (12.6,4.15) {Albert et al.: isomers};
+\draw[heavy] (1.4,\yA)--(2.6,\yA); \node[lab,anchor=base east] at (1.25,{\yA-.1}) {$\mathrm A$}; \node[lab,anchor=base west] at (2.75,{\yA-.1}) {$5$};
+\draw[heavy] (1.4,\yE)--(2.6,\yE) (1.4,{\yE+.09})--(2.6,{\yE+.09}); \node[lab,anchor=base east] at (1.25,{\yE-.055}) {$\mathrm E$}; \node[lab,anchor=base west] at (2.75,{\yE-.055}) {$1+1$};
+\draw[heavy] (1.4,\yT)--(2.6,\yT) (1.4,{\yT+.09})--(2.6,{\yT+.09}) (1.4,{\yT+.18})--(2.6,{\yT+.18}); \node[lab,anchor=base east] at (1.25,{\yT-.01}) {$\mathrm T$}; \node[lab,anchor=base west] at (2.75,{\yT-.01}) {$3$};
+\foreach \k in {0,...,4} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yA-.14+.07*\k})--(8.6,{\yA-.14+.07*\k});}
+\foreach \k in {0,1} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yE+.01+.07*\k})--(8.6,{\yE+.01+.07*\k});}
+\foreach \k in {0,...,8} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yT-.19+.07*\k})--(8.6,{\yT-.19+.07*\k});}
+\node[sub,anchor=south] at (7.4,{\yA+.24}) {$5\,\mathrm A$}; \node[sub,anchor=south] at (7.4,{\yE+.2}) {${}^1\mathrm E\oplus{}^2\mathrm E$}; \node[sub,anchor=south] at (7.4,{\yT+.46}) {$3\,\mathrm T$};
+\draw[jn] (3.4,\yA)--(6.2,\yA); \draw[jn] (3.4,{\yE+.045})--(6.2,{\yE+.045}); \draw[jn] (3.5,{\yT+.09})--(6.2,{\yT+.09});
+\draw[jn] (8.6,\yA)--(10.4,\yA); \draw[jn] (8.6,{\yE+.045})--(10.4,{\yE+.3}); \draw[jn] (8.6,{\yE+.045})--(10.4,{\yE-.2}); \draw[jn] (8.6,{\yT+.09})--(10.4,{\yT+.09});
+\node[sub,anchor=west] at (10.5,\yA) {$(\mathrm A,\mathrm A)$, $\mathfrak d=1$: $5$};
+\node[sub,anchor=west] at (10.5,{\yE+.3}) {$({}^1\mathrm E,{}^2\mathrm E)$, $\mathfrak d=1$: $1$}; \node[sub,anchor=west] at (10.5,{\yE-.2}) {$({}^2\mathrm E,{}^1\mathrm E)$, $\mathfrak d=1$: $1$};
+\node[sub,anchor=west] at (10.5,{\yT+.09}) {$(\mathrm T,\mathrm T)$, $\mathfrak d=3$: $3$, entangled};
+\node[sub,anchor=north] at (7.5,.55) {parity: one of the two for each level ($\mathrm A_1^-$, $\mathrm A_2^+$; $\mathrm E^\pm$; $\mathrm T_2^-$, $\mathrm T_1^+$), the one thing their formalism lacks};
+\end{tikzpicture}
+\end{document}

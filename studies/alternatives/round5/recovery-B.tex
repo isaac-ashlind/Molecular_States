@@ -1,0 +1,46 @@
+% Study B (round 5): the seam formula is the monodromy. Figure 12's grammar only: the methane with its C3 axis as
+% the body z axis, the K ladder on the sphere with each ring's species under a third-turn (A when 3 | K, else the E
+% pair), the formula of Section 12 with omega = 2 pi/3, and the J ladder: which J carry which species of T (D^J
+% restricted to T by characters: J = 0 A; 1 T; 2 E + T; 3 A + 2T; 4 A + E + 2T), their "J down Gamma_rot".
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{molecules.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate]
+\path[use as bounding box] (0,0) rectangle (15,8.6);
+% the molecule with its C3 axis upright, the loop a third of a turn about it
+\draw[hidden] ($(2.2,5.6)+(-1.6*\chAxisZx,-1.6*\chAxisZy)$)--($(2.2,5.6)+(2.1*\chAxisZx,2.1*\chAxisZy)$);
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (2.2,5.6) {mol3d-ch4-ref};\end{scope}
+\draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] ($(2.2,5.6)+(2.1*\chAxisZx,2.1*\chAxisZy)+(.36,0)$) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
+\node[sub,anchor=south west,inner sep=1pt] at ($(2.2,5.6)+(2.1*\chAxisZx,2.1*\chAxisZy)+(.45,.1)$) {$g$: a third of a turn about $z$};
+\node[sub,anchor=north,align=center] at (2.2,3.7) {body axis $z$ along C--H$_4$\\$g$ returns the molecule with $1,2,3$ cycled};
+% the K ladder with the species of each ring under g (figure 12's sphere)
+\begin{scope}[shift={(7.0,5.3)}]
+  \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.6}
+  \hatom{0}{0}{\R}{white}
+  \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
+  \foreach \K/\sp in {2/{$\mathrm E$},1/{$\mathrm E$},0/{$\mathrm A$},-1/{$\mathrm E$},-2/{$\mathrm E$}} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
+    \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
+    \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
+    \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$}; \node[sub,anchor=west] at ({\R+.16},\h) {\sp, $\times e^{-2\pi iK/3}$};}
+  \node[sub,anchor=north] at (0,{-\R-.4}) {$J=2$: the rings of $K$};
+\end{scope}
+\node[sub,anchor=west] at (.4,2.6) {Section 12, with $\omega=2\pi/3$: $D^J_{MK}(r\Rmat_z(\tfrac{2\pi}{3}))=e^{-2\pi iK/3}D^J_{MK}(r)$, so a third-turn multiplies the ring $K$ by $\omega^{-K}$: $\mathrm A$ when $3\mid K$, the $\mathrm E$ pair otherwise};
+\node[sub,anchor=west] at (.4,2.15) {(the species rule of figure 12 with $m\to K$); this is their Example 17 and 35 for the $C_3$ part of $T$, and the $\mathrm A$, ${}^1\mathrm E$, ${}^2\mathrm E$ monodromies $1$, $\omega$, $\omega^2$ of their eq.~130};
+% the J ladder: which J carry which species of T (D^J restricted to T)
+\begin{scope}[shift={(11.9,5.3)}]
+  \node[sub,anchor=south] at (0,2.35) {which $J$ carry which species of $T$};
+  \foreach \c/\x in {A/-.9,E/0,T/.9} {\node[sub] at (\x,1.95) {$\mathrm \c$};}
+  \foreach \J/\a/\e/\t in {0/1/0/0,1/0/0/1,2/0/1/1,3/1/0/2,4/1/1/2} {\pgfmathsetmacro{\y}{1.5-.75*\J}
+    \node[sub,anchor=east] at (-1.4,\y) {$J=\J$};
+    \ifnum\a>0 \foreach \i in {1,...,\a} {\fill[PlateInk] ({-.9+.18*(\i-1)-.09*(\a-1)},\y) circle[radius=1.6pt];}\fi
+    \ifnum\e>0 \foreach \i in {1,...,\e} {\fill[PlateInk] ({-.09+.18*(\i-1)},\y) circle[radius=1.6pt]; \fill[PlateInk] ({.09+.18*(\i-1)},\y) circle[radius=1.6pt];}\fi
+    \ifnum\t>0 \foreach \i in {1,...,\t} {\fill[PlateInk] ({.9+.18*(\i-1)-.09*(\t-1)},\y) circle[radius=1.6pt];}\fi}
+  \node[sub,anchor=north,align=center] at (0,-1.95) {a dot per copy ($\mathrm E$ as its pair);\\no $\mathrm A$ at $J=2$: their missing levels};
+\end{scope}
+\node[sub,anchor=west] at (.4,1.2) {the full group needs the other generator too: that is the twelve sheets and the $\mathrm T$ triplet cycled (study A, row 2); this panel shows the $C_3$ part, which is the whole story for ${}^1\mathrm E$, ${}^2\mathrm E$};
+\end{tikzpicture}
+\end{document}
