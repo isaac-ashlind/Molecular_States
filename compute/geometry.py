@@ -193,13 +193,6 @@ def methane_c2(ch=CH4_CH):
     s = ch / math.sqrt(3.0)
     return center([(s, s, s), (s, -s, -s), (-s, s, -s), (-s, -s, s), (0.0, 0.0, 0.0)], CH4_MASSES)
 
-def methane(ch=CH4_CH):
-    """Centred regular tetrahedron: hydrogen 1 on +z, hydrogens 2, 3, 4 below it at the tetrahedral angle, a third of
-    a turn apart (labels 1..4); the carbon at the origin, which is the mass centre."""
-    th = math.acos(-1.0/3.0)
-    H = [(0.0, 0.0, ch)] + [(ch*math.sin(th)*math.cos(math.radians(a)), ch*math.sin(th)*math.sin(math.radians(a)), ch*math.cos(th)) for a in (90.0, 210.0, 330.0)]
-    return center(H + [(0.0, 0.0, 0.0)], CH4_MASSES)
-
 # ------------------------------------------------------------ methylamine ---
 
 MLA_ELEMENTS = ['H', 'H', 'H', 'H', 'H', 'C', 'N']   # labels 1..7
@@ -251,18 +244,6 @@ def methylamine(tau, eta, frame=MLA_FRAME):
     cols.append((0.0, 0.0, f['z_C']))
     cols.append((0.0, 0.0, f['z_N']))
     return center(cols, MLA_MASSES)
-
-def methylamine_uncentred(tau, eta, frame=MLA_FRAME):
-    f = frame
-    cols = []
-    for k in range(3):
-        phi = tau - 2*math.pi*k/3
-        cols.append((f['rho_M']*math.cos(phi), f['rho_M']*math.sin(phi), f['z_M']))
-    cols.append((eta, f['a'], f['z_A']))
-    cols.append((eta, -f['a'], f['z_A']))
-    cols.append((0.0, 0.0, f['z_C']))
-    cols.append((0.0, 0.0, f['z_N']))
-    return cols
 
 def d_methylamine(tau, eta, h=1e-5):
     """Tangent vectors (dX0/dtau, dX0/deta) by central differences."""

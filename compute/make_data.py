@@ -25,32 +25,6 @@ def fmt(x, nd=4):
 
 # --------------------------------------------------------------- pic emit ---
 
-def pic_code(X, elements, bonds, cam, arrows=None, label_macros=None):
-    """TikZ pic code: depth-sorted half-bonds and atom discs, in angstrom units."""
-    P = G.project(X, cam)
-    order = G.draw_order(P)
-    n = len(X)
-    if label_macros is None:
-        label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
-    nbrs = {i: [] for i in range(n)}
-    for a, b in bonds:
-        nbrs[a-1].append(b-1); nbrs[b-1].append(a-1)
-    lines = []
-    for i in order:
-        px, py, _ = P[i]
-        for j in nbrs[i]:
-            qx, qy, _ = P[j]
-            mx, my = 0.5*(px+qx), 0.5*(py+qy)
-            lines.append(f'\\molbond{{{fmt(px)}}}{{{fmt(py)}}}{{{fmt(mx)}}}{{{fmt(my)}}}')
-        lines.append(f'\\molatom{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(px)}}}{{{fmt(py)}}}')
-    # displacement arrows go on top of every disc so that none is hidden
-    if arrows is not None:
-        for i in order:
-            if arrows[i] is not None:
-                px, py, _ = P[i]; dx, dy = arrows[i]
-                lines.append(f'\\molarrow{{{fmt(px)}}}{{{fmt(py)}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
-    return lines
-
 def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, labels=False):
     """TikZ pic code for the v2 molecule primitive with correct layering.
 
@@ -115,21 +89,6 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
     return lines
 
 RAD_MACRO = {'H': '\\radH', 'C': '\\radX', 'N': '\\radX', 'O': '\\radX', 'K': '\\radK', 'Rb': '\\radRb'}
-
-def pic_code_graph(X, elements, bonds, cam, label_macros=None):
-    """2D labelled graph of the molecule at the projected positions: all edges first (centre to centre,
-    hidden under the opaque nodes, so no edge enters a node), then the nodes with the label inside."""
-    P = G.project(X, cam)
-    n = len(X)
-    if label_macros is None:
-        label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
-    lines = []
-    for a, b in bonds:
-        i, j = a-1, b-1
-        lines.append(f'\\gedge{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}{{{fmt(P[j][0])}}}{{{fmt(P[j][1])}}}')
-    for i in range(n):
-        lines.append(f'\\gnode{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
-    return lines
 
 def pic_code_grouped(X, elements, lines_, cam):
     """Spheres with thin grouping lines between the grouped nuclei (lines first, then atoms, then labels)."""
@@ -332,27 +291,16 @@ def main():
                                 'X': [[round(v, 4) for v in c] for c in wX],
                                 'Xm': [round(v, 12) for v in G.mass_moment(wX, G.WATER_MASSES)]}
     bonds_w = [(1, 3), (2, 3)]
-    emit_pic(mol, 'water-X', pic_code(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     Rw = G.rot_z(math.radians(40.0))
-    emit_pic(mol, 'water-RX', pic_code(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
-    emit_pic(mol, 'water-minusX', pic_code(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
-    for i, c in enumerate(wX):
-        num.append(f'\\def\\waterX{"ABC"[i]}x{{{fmt(c[0],2)}}}\\def\\waterX{"ABC"[i]}y{{{fmt(c[1],2)}}}')
-    num.append(f'\\def\\massH{{{G.MASS["H"]:.3f}}}\\def\\massO{{{G.MASS["O"]:.3f}}}')
-    num.append(f'\\def\\waterOxygenOffset{{{math.hypot(wX[2][0], wX[2][1]):.2f}}}')
-    num.append(f'\\def\\waterRotDeg{{40}}')
     # shape grid for figure 1(c): delta ratios and angles, drawn mass-centred
     grid_d = [-0.5, -0.25, 0.0, 0.25, 0.5]; grid_t = [60.0, 90.0, 120.0, 150.0, 180.0]
     for i, d in enumerate(grid_d):
         for j, th in enumerate(grid_t):
             Xg = G.water(d, th)
-            emit_pic(mol, f'water-grid-{i}{j}', pic_code(Xg, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
             emit_pic(mol, f'mol3d-water-grid-{i}{j}', pic_code_rods(Xg, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     summary['water_grid'] = {'delta_ratios': grid_d, 'theta_deg': grid_t}
     # three sample configurations for figure 2
     samples = [(0.0, 90.0), (0.0, 110.0), (0.0, 140.0)]    # on the delta = 0 slice, in order of theta
-    for k, (d, th) in enumerate(samples):
-        emit_pic(mol, f'water-sample-{k+1}', pic_code(G.water(d, th), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     summary['water_samples'] = samples
 
     # ---- methane (the closing pages): the rigid tetrahedron in its C2 frame, the orientation ball SO(3) with the twelve
@@ -401,7 +349,6 @@ def main():
             emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
             emit_point(f'ballV{a_}{t}', v, sgn * face_centre)           # quarter-turn, drawn on the cube's face centre: a vertex of the dual octahedron
     emit_point('ballFa', D[0], 2 * math.pi / 9 * bs)             # where the lift leaves the octahedron: the centroid of its face toward bond 1 (the dual octahedron's face plane x+y+z = c lies at c/sqrt3 on the diagonal)
-    num.append('\\def\\ballSkinFront{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) >= 0) + '}')
     num.append('\\def\\ballSkinBack{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')   # the far representatives, drawn pale (author: so they look far away)
     # the octahedron: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
     faces = [f for f in itertools.product((1, -1), repeat=3)]
@@ -496,40 +443,15 @@ def main():
                                 'isomers': [(r, nu, d, spin_t[nu]) for r, nu, d in isomers],
                                 'entangled_fraction': [3*spin_t['T'], 16], 'monodromy_orders': kernel_index,
                                 'gamma_3N': gamma_3n, 'gamma_vib': gamma_vib, 'J_table': j_table}
-    for k, v in spin_td.items():
-        num.append(f'\\def\\methaneSpin{k.replace("1", "one").replace("2", "two")}{{{v}}}')
-    for tag in ('Even', 'Odd'):
-        for k, v in weights[tag].items():
-            num.append(f'\\def\\methane{tag}{k.replace("1", "one").replace("2", "two")}{{{v}}}')
-    for k, v in spin_t.items():
-        num.append(f'\\def\\methaneT{k.replace("1E", "Eone").replace("2E", "Etwo")}{{{v}}}')
-    def species_text(mult):
-        names = {'A1': r'\mathrm A_1', 'A2': r'\mathrm A_2', 'E': r'\mathrm E', 'T1': r'\mathrm T_1', 'T2': r'\mathrm T_2'}
-        return r'\oplus'.join((f'{mult[k]}\\,' if mult[k] > 1 else '') + names[k] for k in ('A1', 'A2', 'E', 'T1', 'T2') if mult.get(k, 0))
-    num.append('\\def\\methaneVib{' + species_text(gamma_vib) + '}')
-    num.append('\\def\\methaneThreeN{' + species_text(gamma_3n) + '}')
-    for row in j_table:
-        num.append(f'\\def\\methaneJ{"ABCDEFG"[row["J"]]}{{${species_text(row["species"])}$ & {row["even"]} & {row["odd"]}}}')
-    num.append('\\def\\methaneLoopWhere{' + ', '.join(str(w + 1) for w in where) + '}')
 
     # ---- methylamine
     X0 = G.methylamine(0.0, ETA0)
     summary['methylamine_frame'] = {k: round(v, 5) for k, v in G.MLA_FRAME.items()}
     summary['methylamine_X0'] = [[round(v, 4) for v in c] for c in X0]
     summary['methylamine_X0_Xm'] = [round(v, 12) for v in G.mass_moment(X0, G.MLA_MASSES)]
-    emit_pic(mol, 'mla-ref', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
-    emit_pic(mol, 'mol2d-mla-graph', pic_code_graph(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
-    def pm(M):
-        rows = []
-        for r in range(3):
-            rows.append(' & '.join(f'{M[c][r]:.2f}' for c in range(3)))
-        return ' \\\\ '.join(rows)
     RwX = G.rotate(Rw, wX)
-    sw = [wX[1], wX[0], wX[2]]; Rsw = [RwX[1], RwX[0], RwX[2]]; mX = G.invert_config(wX)
-    for tag, M in (('X', wX), ('RX', RwX), ('PX', sw), ('RPX', Rsw), ('MX', mX)):
-        num.append(f'\\def\\waterMat{tag}{{{pm(M)}}}')
     summary['water_matrices'] = {'X': [[round(v, 4) for v in c] for c in wX], 'RX': [[round(v, 4) for v in c] for c in RwX]}
     emit_pic(mol, 'mol3d-water-RX', pic_code_rods(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     emit_pic(mol, 'mol3d-water-minusX', pic_code_rods(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
@@ -540,29 +462,16 @@ def main():
     Rb = G.rot_y(math.pi)
     res_b = G.config_distance(bX0, G.rotate(Rb, X0))
     summary['b_equals_rotation_residual'] = res_b
-    emit_pic(mol, 'mla-bref', pic_code(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mol3d-mla-bref', pic_code_rods(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
-    # mirror plane (y = 0, through H1, C6, N7) and the R_b axis (the y direction) in page coordinates
-    def pg(v): return (G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1]))
-    corners = [pg((x, 0.0, z)) for x, z in ((-1.5, -1.9), (1.5, -1.9), (1.5, 2.1), (-1.5, 2.1))]
-    num.append('\\def\\mirrorplane{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in corners) + '}')
-    ax = [pg((0.0, y, 0.0)) for y in (-2.3, 2.3)]
-    num.append('\\def\\mirroraxis{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in ax) + '}')
     summary['mirror_plane_normal_is_Rb_axis'] = True
-    # rigid orbit samples: the same shape X0 in two other orientations (figure 5a)
-    for tag, axis, ang in (('a', (0.2, 1.0, 0.3), 70.0), ('b', (1.0, 0.1, -0.4), 150.0)):
-        emit_pic(mol, f'mla-rot-{tag}', pic_code(G.rotate(G.rot_axis(axis, math.radians(ang)), X0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     # shapes along the t path at fixed orientation: tau = pi/3 (eclipsed) and 2 pi/3 (the version tH) (figure 6d)
-    for deg in (60, 120):
-        emit_pic(mol, f'mla-tau-{deg}', pic_code(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     summary['tau_shapes_deg'] = [0, 60, 120]
-    for deg in (0, 60, 120, 240):
+    for deg in (0, 60, 120):
         emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(16.0 if deg == 60 else 0.0)))
-    emit_pic(mol, 'newman-tau-0-eta-minus', pic_code_newman(G.methylamine(0.0, -ETA0), G.MLA_ELEMENTS))
     emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)
     P0 = G.project(X0, CAM_MLA)
-    for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7]), ('all', [1, 2, 3, 4, 5, 6, 7])):
+    for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7])):
         pts = rounded_loop([(P0[i-1][0], P0[i-1][1]) for i in members], 0.78)
         num.append(f'\\def\\fragloop{name}{{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in pts) + '}')
     # version labels (figure 5c): position j carries label g(j)
@@ -578,12 +487,10 @@ def main():
             g = Q.mul(g, {'t': Q.t, 'u': Q.u}[w])
         labels = [g[0][j] + 1 for j in range(7)]
         vlines.append(f'{{{cname}}}/{{{gname}}}/{"/".join(str(l) for l in labels)}')
-        num.append(f'\\def\\versionTau{gname.replace("^2","sq")}{{{fmt(ta/math.pi,4)}}}')
     num.append('\\def\\versionList{' + ','.join(vlines) + '}')
     summary['versions'] = [(c, g, round(ta/math.pi, 6), round(et, 5)) for c, g, ta, et in versions]
     actions, worst = derive_family_actions()
     summary['family_actions'] = actions; summary['family_action_residual'] = worst
-    num.append(f'\\def\\etaZero{{{fmt(ETA0,2)}}}')
     # H-invariant cell U = [-pi/3, pi/3] x [0, eta0] and its five translates under the derived actions
     acts = {'t': (2/3, 1), 'u': (1.0, -1), 'tu': (-1/3, -1), 't^2': (4/3, 1), 't^2u': (1/3, -1)}
     cells = [('H', -1/3, 1/3, 0, 1)]
@@ -612,10 +519,6 @@ def main():
     def arrows_for(e):
         Pe = [(G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1])) for v in e]
         return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]
-    emit_pic(mol, 'mla-ref-eplus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
-    emit_pic(mol, 'mla-ref-eminus', pic_code(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
-    emit_pic(mol, 'mol3d-mla-ref-eminus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_minus'])))
-    emit_pic(mol, 'mol3d-mla-ref-eplus', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, arrows=arrows_for(nf['e_plus'])))
     CAM_SIDE = G.camera(azimuth_deg=75.0, elevation_deg=18.0)   # the C-N axis lies in the page: both normal displacements at full length;
     # azimuth 75 (not 90) so that no methyl hydrogen sits on the line of sight through the carbon
     def arrows_side(e, longest=1.1):
@@ -631,7 +534,6 @@ def main():
     Rdisp = G.rot_axis((0.3, 1.0, 0.25), math.radians(55.0))
     emit_pic(mol, 'mla-disp', pic_code_rods(Xdisp, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mla-rot-disp', pic_code_rods(G.rotate(Rdisp, Xdisp), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
-    num.append(f'\\def\\dispAmp{{{fmt(amp,2)}}}\\def\\arrowGain{{{arrow_gain:g}}}')
 
     # generic X and bX (figure 11b): X = X0(0.22, eta0) + small normal displacement
     Xg = G.methylamine(0.22, ETA0)
@@ -641,18 +543,12 @@ def main():
     R, res = G.kabsch_rotation(Xg, bXg, G.MLA_MASSES)
     summary['generic_X_bX_best_rotation_residual'] = res
     summary['generic_X_Xm'] = [round(v, 12) for v in G.mass_moment(Xg, G.MLA_MASSES)]
-    emit_pic(mol, 'mla-X', pic_code(Xg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
-    emit_pic(mol, 'mla-bX', pic_code(bXg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
     emit_pic(mol, 'mol3d-mla-X', pic_code_rods(Xg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     emit_pic(mol, 'mol3d-mla-bX', pic_code_rods(bXg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     # free-action check near the reference: min_g ||gX0 - X0|| over g != E in G12
     dmin = min(G.config_distance(G.apply_perm_inversion(X0, g[0], g[1]), X0) for g in Q.G12 if g != Q.E(Q.N))
     summary['min_displacement_by_nontrivial_G12_element'] = dmin
-    num.append(f'\\def\\minDispG{{{dmin:.2f}}}\\def\\bXresidual{{{res:.2f}}}')
 
-    # sheets (figure 11a): cosets of G12/H with representatives
-    sheet_pairs = [('E', 'b'), ('t', 'tb'), ('t^2', 't^2b'), ('u', 'ub'), ('tu', 'tub'), ('t^2u', 't^2ub')]
-    num.append('\\def\\sheetPairs{' + ','.join(f'{{{a}}}/{{{b}}}' for a, b in sheet_pairs) + '}')
     # continuation results
     tb = Q.mul(Q.t, Q.b); bt = Q.mul(Q.b, Q.t); t2b = Q.mul(Q.mul(Q.t, Q.t), Q.b)
     summary['bt_equals_t2b'] = (bt == t2b); summary['tb_ne_bt'] = (tb != bt)
@@ -660,13 +556,6 @@ def main():
 
     # ---- KRb (figure 4b)
     K = G.krb_schematic()
-    emit_pic(mol, 'krb-config', pic_code(K, G.KRB_ELEMENTS, [], CAM_FLAT))
-    emit_pic(mol, 'mol3d-krb', pic_code_rods(K, G.KRB_ELEMENTS, [], CAM_FLAT, labels=True))
-    PK = G.project(K, CAM_FLAT)
-    for name, parts in (('in', [[1, 3], [2, 4]]), ('complex', [[1, 2, 3, 4]]), ('out', [[1, 2], [3, 4]])):
-        for k, members in enumerate(parts):
-            pts = rounded_loop([(PK[i-1][0], PK[i-1][1]) for i in members], 0.72)
-            num.append(f'\\def\\krbloop{name}{"AB"[k]}{{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in pts) + '}')
     Sk, Gin, GK, GRb, p12, p34, Es = Q.krb_groups()
     summary['krb_orders'] = [len(Sk), len(Gin), len(GK), len(GRb)]
     summary['krb_any_two_generate'] = all(len(Q.close(list(a | b), 4)) == 8 for a, b in [(Gin, GK), (Gin, GRb), (GK, GRb)])
@@ -683,10 +572,6 @@ def main():
         return base + ('^*' if star else '')
     def elist(S_):
         return ', '.join(krb_name(g) for g in sorted(S_, key=lambda g: (bool(g[1]), g[0])))
-    num.append(f'\\def\\krbCore{{{elist(core)}}}')
-    num.append(f'\\def\\krbLobeIn{{{elist(Gin - core)}}}')
-    num.append(f'\\def\\krbLobeK{{{elist(GK - core)}}}')
-    num.append(f'\\def\\krbLobeRb{{{elist(GRb - core)}}}')
     summary['krb_core'] = elist(core); summary['krb_lobes'] = {'in': elist(Gin - core), 'K': elist(GK - core), 'Rb': elist(GRb - core)}
     for name, lines_ in (('in', [(1, 3), (2, 4)]), ('complex', [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]), ('out', [(1, 2), (3, 4)])):
         emit_pic(mol, f'mol3d-krb-{name}', pic_code_grouped(K, G.KRB_ELEMENTS, lines_, CAM_FLAT))
@@ -744,8 +629,6 @@ def main():
     key = {names[K]: i for i, K in enumerate(ordered)}
     num.append('\\def\\hasseNodes{' + ','.join(
         f'{key[names[K]]}/{xslot[names[K]]}/{math.log2(len(K)//2):.4f}/{len(K)//2}/{{{names[K]}}}' for K in ordered) + '}')
-    num.append('\\def\\hasseCovers{' + ','.join(f'{key[names[a]]}/{key[names[b]]}' for a, b in cov) + '}')
-    num.append('\\def\\hasseChain{' + ','.join(str(key[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
     # the generator added along each cover of [H, B], and a minimal generator form of every subgroup (b always first)
     from itertools import combinations
     cands = [('t', Q.t), ('u', Q.u), ('E^*', Q.Estar), ('u^*', Q.mul(Q.u, Q.Estar)), ('t^*', Q.mul(Q.t, Q.Estar))]
@@ -775,7 +658,6 @@ def main():
                 if found: break
         assert found, 'no generator form'
         gens[key[names[K_]]] = found
-    num.append('\\def\\hasseGens{' + ','.join(f'{k}/{{\\langle {v}\\rangle}}' for k, v in sorted(gens.items())) + '}')
     summary['bond_interval_generators'] = {names[K_]: gens[key[names[K_]]] for K_ in subs}
     chainnames = {'H': 'H', 'G_6': 'G_6', 'G_{12}': 'G_{12}', 'B': 'B'}
     labs = []
@@ -847,7 +729,6 @@ def main():
     summary['interval_HS_layout'] = {'crossings': best[0][0], 'pull': best[2][0], 'median': best[2][1], 'sweeps': best[2][2]}
     num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
     num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}/{1 if (a <= Q.B and b <= Q.B) else 0}' for a, b in bigcov) + '}')
-    num.append(f'\\def\\bigLevels{{{len(levels)}}}')
     chain_keys = {names[K]: bigkey[K] for K in big if K in names and names[K] in ('H', 'G_6', 'G_{12}', 'B')}
     num.append('\\def\\bigChain{' + ','.join(str(chain_keys[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
     chain_seq = [chain_keys[n] for n in ('H', 'G_6', 'G_{12}', 'B')]
@@ -866,19 +747,6 @@ def main():
     perm_char = {'E': 3, 't': 0, 'b': 1}
     local = {n: int(round(sum(Q.G6_CHARS[n][c]*perm_char[c]*{'E': 1, 't': 2, 'b': 3}[c] for c in 'Etb')/6)) for n in Q.G6_CHARS}
     summary['local_copies'] = local
-    # TeX control sequences cannot contain digits: A1 -> Aone, A2 -> Atwo
-    spname = {'A1': 'Aone', 'A2': 'Atwo', 'E': 'E'}
-    for par, tag in ((1, 'Even'), (-1, 'Odd')):
-        for sp in ('A1', 'A2', 'E'):
-            num.append(f'\\def\\weight{tag}{spname[sp]}{{{w[par][sp]}}}')
-    for sp in ('A1', 'A2', 'E'):
-        num.append(f'\\def\\localCopies{spname[sp]}{{{local[sp]}}}')
-    num.append(f'\\def\\spinDim{{{2**5}}}')
-    # the rigid limit (closing page): spin space under H = {E, b}; chi_spin(b) = 2^(cycles of (23)(45) on five protons)
-    chi_b = 2 ** 3
-    rigid = {'Ap': (2**5 + chi_b)//2, 'App': (2**5 - chi_b)//2}
-    num.append(f'\\def\\rigidWeightAp{{{rigid["Ap"]}}}\\def\\rigidWeightApp{{{rigid["App"]}}}')
-    summary['rigid_spin_weights'] = rigid
 
     # ---- Gaussian shares (figure 9)
     with open(os.path.join(DATA, 'gaussian-shares.dat'), 'w') as f:
@@ -889,7 +757,6 @@ def main():
             c = math.exp(-1/(8*x*x))
             f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f} 0\n')
     x_show = 1/3; c_show = math.exp(-1/(8*x_show*x_show))
-    num.append(f'\\def\\shareShownA{{{(1+2*c_show)/3:.3f}}}\\def\\shareShownE{{{2*(1-c_show)/3:.3f}}}')
     summary['gaussian_shown'] = {'Delta_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
 
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
