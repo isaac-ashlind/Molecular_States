@@ -251,5 +251,5 @@ vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet sha
 data; U_g multiplies the ring K by omega^K, so 1E for K = 1, -2 and 2E for K = 2, -1 with 1E(g) = omega by the
 check's convention) and the projection onto Albert et al. (page 3: Tables A to D, the classes of Td(M); the species
 with their isomers, their Table II T block; the J ladder; the dictionary with their equation and example numbers).
-Declared: no energies; parity (the starred half of H) and the vibrations (the disc D^9 under M_h) are what their
-formalism sets aside; a cell carries its disc, and the plate draws it at q = 0.
+Declared: no energies; parity (the starred half of H) and the vibrations (the normal coordinates q in R^9 under M_h) are what their
+formalism sets aside; a cell carries its normal coordinates, and the plate draws it at q = 0.

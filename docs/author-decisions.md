@@ -265,3 +265,7 @@ docs/notation-migration.md.
   three far half-turns (as before), the cube's one hidden corner, the third-turn about bond 2 (all three of its edges
   dashed; it was a full red sphere on top), and the cell's one hidden vertex, the quarter-turn on -z (all four of its
   edges dashed). make_data names the hidden points (a point is hidden when every edge at it is hidden).
+- Notation, closing pages (author, 2026-10-05): the vibrations are written with the main text's normal coordinates,
+  q in R^9 (n_q = 9), not "the disc D^9", which clashed with the Wigner matrix D^J on the same pages and drifted from
+  item 10's SO(3) x R^9. Item 4 keeps the picture in words: the normal coordinates, a small disc about q = 0, thicken
+  the factor SO(3). The cell's bundle is SO(3) x_T R^9 with T acting by the M_g; caption notes follow.
