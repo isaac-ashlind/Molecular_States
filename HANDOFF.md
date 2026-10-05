@@ -69,7 +69,7 @@ alone.
   clips; figure 10's ghost a simple outline; the closing plate's hidden points pale; a label pass on eight plates.
 - Notation (1a65f72, 5d0fb69, 9f64980): the closing pages write the vibrations as q in R^9, not the disc D^9 (which
   clashed with the Wigner D^J); a full audit then gave every symbol one meaning (omega only an angle, packets eta,
-  loops gamma, s' in the action rule, the proton spin space (C^2)^{x5}, Section 2's components f_xi and f_zeta, Table
+  rearrangement paths gamma (each a loop in the quotient), s' in the action rule, the proton spin space (C^2)^{x5}, Section 2's components f_xi and f_zeta, Table
   A's classes by relabellings), defined the rest at first use, and completed the notation page.
 - Plates (244892e to 24fd9a7): a seven-inspector, seven-skeptic audit; 46 confirmed findings applied plate by plate.
 - Then: every label on figure 6 at note size (uH's slot cannot take label size); figure 1's tight strip cells widened;

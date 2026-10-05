@@ -302,3 +302,9 @@ docs/notation-migration.md.
 - Loops (author, 2026-10-05): the loops in the quotient are gamma_t, gamma_b, gamma_g (were lambda after the notation
   audit, ell before). gamma is the paper's letter for a path (Section 5, gamma from X_0 to rs X_0), and such a loop is
   the image of that path with s = t, b or g; ell stays the bond scale.
+- Paths, loops and brackets (author, 2026-10-05): gamma_s is the rearrangement path from X to sX (Section 5's term and
+  letter); in the quotient it closes as a loop, drawn and named gamma_s there too, whether or not it closes upstairs.
+  Square brackets only where they mean exactly what they suggest: [X], the class of X (a point of the quotient), and
+  intervals of real numbers. The subgroup intervals are written in words, "the subgroups between H and B" ([H, B]
+  reads as a commutator); functions on a finite set are C^{G/H} and C^{T} (C[...] reads as a polynomial ring); the
+  normal-frame matrix entry is (M_s(a))_{beta alpha}.

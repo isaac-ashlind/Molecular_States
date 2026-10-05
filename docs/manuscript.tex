@@ -422,7 +422,7 @@ S=S_5\times\{E,E^*\},\qquad |S|=240,
 \qquad H=\langle b\rangle,\qquad b=(23)(45)^*.
 \]
 \begin{itemize}
-\item Keeping bonds restricts the candidates to the interval $[H,B]=\{G:H\leq G\leq B\}$, with $B$ the bond-preserving subgroup below.
+\item Keeping bonds restricts the candidates to the subgroups $G$ with $H\leq G\leq B$, $B$ the bond-preserving subgroup below.
 Here $S_A$ permutes the labels in $A$.
 \end{itemize}
 \[
@@ -445,15 +445,15 @@ represented by $tu$.\footnote{Kleiner and Hougen~\cite{KleinerHougen2015}.}
 \item Comparing the candidates through their species and spin weights is
 the intended test; Sections~\ref{sec:species} and~\ref{sec:weights} carry
 it out for $G_6$.
-The full interval $[H,S]$ has $36$ subgroups, compared with $10$ in $[H,B]$.
+There are $36$ subgroups between $H$ and $S$, and $10$ between $H$ and $B$.
 \end{itemize}
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{fig05-symmetry-groups-versions}
 \caption{Symmetry groups and versions. Methylamine's fragments and the reference $\X_0$ with
-$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$; the subgroups between $H$ and $S$ carved to the bond interval
-$[H,B]$, each cover adjoining one generator (solid $t$, dashed $u$, dotted a starred one); the six
+$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$; the subgroups between $H$ and $S$ carved to those between
+$H$ and $B$, each cover adjoining one generator (solid $t$, dashed $u$, dotted a starred one); the six
 versions $G_{12}/H$.}\label{fig:5}
 \end{figure}
 
@@ -538,7 +538,7 @@ rotational angular momentum.
 version states.
 \end{itemize}
 \[
-\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E.
+\mathbb C^{G_6/H}\cong\mathrm A_1\oplus\mathrm E.
 \]
 \begin{itemize}
 \item Follow species across subgroup inclusions.
@@ -552,7 +552,7 @@ product groups.
 \includegraphics[width=\linewidth]{fig07-symmetry-species}
 \caption{Symmetry species. The three version sites on the torsion circle; the modes $v_1$, $v_2$,
 $v_3$ with their images under $t$ and $b$ (disc area is the amplitude, ink positive, white
-negative); $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$.}\label{fig:7}
+negative); $\mathbb C^{G_6/H}\cong\mathrm A_1\oplus\mathrm E$.}\label{fig:7}
 \end{figure}
 
 % ---- 8. Nuclear Spin Weights -------------------------------------------------------------------
@@ -687,7 +687,7 @@ normal frame in the target frame to obtain $\mathbf M_s(a)$.
 \[
 \begin{aligned}
 \X_0(a)\Pmat{s}&=\mathbf A_s(a)\X_0(a'),\\
-\mathbf e_\alpha(a)\Pmat{s}&=\mathbf A_s(a)\sum_\beta\mathbf e_\beta(a')\,[\mathbf M_s(a)]_{\beta\alpha},\\
+\mathbf e_\alpha(a)\Pmat{s}&=\mathbf A_s(a)\sum_\beta\mathbf e_\beta(a')\,\bigl(\mathbf M_s(a)\bigr)_{\beta\alpha},\\
 T_s(r,a,q)&=\bigl(r\mathbf A_s(a),a',\mathbf M_s(a)q\bigr).
 \end{aligned}
 \]
@@ -786,7 +786,8 @@ normal coordinates, and wavefunctions across the walls.
 \item For a free action, $\mathcal F\to\mathcal F/G$ is a covering
 with deck group $G$. A lifted chart transition induced by $g$
 is a local expression of its deck transformation.
-\item A path $\X\to g\X$ projects to a loop. Its lift stays in one
+\item A rearrangement path $\gamma_g$ from $\X$ to $g\X$ projects to a loop in $\mathcal F/G$ through the point $[\X]$,
+the class of $\X$; the path is that loop's lift from $\X$. It stays in one
 feasible component and records the sheet change, or
 \emph{monodromy}.\footnote{Hatcher~\cite{Hatcher2002}, Section 1.3.}
 \item Near a free reference configuration, twelve local sheets group
@@ -812,7 +813,7 @@ a specified state family and connection.
 \centering
 \includegraphics[width=\linewidth]{fig11-covering-spaces-monodromy}
 \caption{Covering spaces and monodromy. Over a patch of $\mathcal F/G$, the six sheets of the $G_6$
-block. The loops $\gamma_t$ and $\gamma_b$ lift from $\X$ to $t\X$ and $b\X$; $t$ then $b$ ends at
+block. In the base $\gamma_t$ and $\gamma_b$ are loops; lifted from $\X$ they end at $t\X$ and $b\X$; $t$ then $b$ ends at
 $tb\X$, $b$ then $t$ at $t^2b\X$. At the right, the sheets as a graph.}\label{fig:11}
 \end{figure}
 
@@ -939,11 +940,11 @@ a small disc about $q=0$, thicken it.
 \newpage
 \noindent\textbf{5. Symmetry species}\quad The species of $G$ are $\mathrm A_1,\mathrm A_2,\mathrm
 E,\mathrm
-T_1,\mathrm T_2$ and $\mathbb C[G/H]=\mathrm A_1$: no version modes. What the one version carries is
+T_1,\mathrm T_2$ and $\mathbb C^{G/H}=\mathrm A_1$: no version modes. What the one version carries is
 its orientation
 fibre and its normal coordinates,
 \[
-\mathbb C[T]\cong\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus3\,\mathrm T\quad\text{(functions on the
+\mathbb C^{T}\cong\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus3\,\mathrm T\quad\text{(functions on the
 twelve dots)},
 \qquad
 T_{\X_0}\conf\cong\underbrace{\mathrm T_1}_{\text{along the orbit}}\oplus\underbrace{\mathrm A_1\oplus\mathrm
@@ -974,7 +975,7 @@ w_{\mathrm T}=\frac{3(1-c_2)}{4},
 \]
 the analogue of Section~9's shares; a packet narrow against the site separations has $c_3=c_2=0$ and
 the shares
-$d_\Gamma^2/12$. The twelve translates span $\mathbb C[T]$.
+$d_\Gamma^2/12$. The twelve translates span $\mathbb C^{T}$.
 
 \noindent\textbf{8. Position representation}\quad No shape coordinate:
 $\varphi(r,q)=\Rmat(r)\bigl(\X_0+\sum_{\alpha=1}^{9}q_\alpha\mathbf e_\alpha\bigr)$. The
@@ -1127,6 +1128,7 @@ $S$; $G$; $H$; $B$ & permutation--inversion group; feasible group; point group o
 $s=\sigma$ or $\sigma^*$; $E$, $E^*$ & a permutation or permutation--inversion; identity and inversion\\
 $t=(123)$, $u=(45)$, $b=(23)(45)^*$; $G_6=\langle H,t\rangle$, $G_{12}=\langle H,t,u\rangle$ & methylamine generators; its torsional and torsion--inversion feasible groups\\
 $\X$; $\X_0$; $\X_0(a)$ & configuration matrix; reference configuration; reference family\\
+$\gamma_s$; $[\X]$ & rearrangement path from $\X$ to $s\X$, a loop in the quotient; the class of $\X$, a point of the quotient\\
 $\mathbf x_i$; $\mathbf m$ & nuclear position vectors; mass vector\\
 $\Pmat{s}$ & signed right-action matrix, $s\act\X=\X\Pmat{s}$, $\Pmat{ss'}=\Pmat{s'}\Pmat{s}$\\
 $\Rmat(r)$; $\Rmat_h$; $\Rmat_z(\omega)$ & rotation matrices of $r\in SO(3)$; carrying $h\in H$; about $z$ by $\omega$\\
