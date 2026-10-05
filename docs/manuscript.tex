@@ -657,6 +657,9 @@ $\Delta^2$ on an equilateral triangle of side $d$.
 c=\exp\!\left(-\frac{d^2}{8\Delta^2}\right).
 \]
 \begin{itemize}
+\item With no overlap a packet is still one third $\mathrm A_1$, because
+$\Pproj{\mathrm A_1}\eta_0=(\eta_0+\eta_1+\eta_2)/3$ averages it over the three versions. Overlap adds $2c/3$
+to that third. Gaussians have $c>0$ at every width, so $w_{\mathrm A_1}>1/3$.
 \item A packet not fixed by $H$ splits as $\eta_0=\eta_0^++\eta_0^-$ with
 $\eta_0^\pm=(\eta_0\pm\Uop{b}\eta_0)/2$. Each projector commutes with $\Uop{b}$, so the two parts
 contribute to the shares separately. The even part follows the formulas above with its own overlap. The odd
@@ -676,9 +679,11 @@ of Section~\ref{sec:feasible-space}, when required.
 \centering
 \includegraphics[width=\linewidth]{fig09-localized-states}
 \caption{Localized states. Three packets of width $\Delta$ sit on the unrolled torsion circle, a distance
-$d$ apart, for $\Delta/d=1/6$, $1/3$ and $2/3$. Their overlap $c$, in gold, sets the shares
-$w_{\mathrm A_1}=(1+2c)/3$ and $w_{\mathrm E}=2(1-c)/3$. The profiles are illustrative, and the overlap is
-that of planar Gaussians.}\label{fig:9}
+$d$ apart, for $\Delta/d=1/6$, $1/3$ and $2/3$. The profiles are their densities, and neighbors cross at $c$
+times the peak height. Each bar splits $w_{\mathrm A_1}=1/3+2c/3$ into the third a packet carries alone, in
+dark gold, and the overlap part $2c/3$, in light gold like the overlap regions. The rows have $c=e^{-9/2}$,
+$e^{-9/8}$ and $e^{-9/32}$, so the top row's overlap is real but thinner than the line. The profiles are
+illustrative, and the overlap is that of planar Gaussians.}\label{fig:9}
 \end{figure}
 
 
@@ -1009,8 +1014,8 @@ w_{\mathrm A}=\frac{1+8c_3+3c_2}{12},\qquad
 w_{{}^1\mathrm E}=w_{{}^2\mathrm E}=\frac{1-4c_3+3c_2}{12},\qquad
 w_{\mathrm T}=\frac{3(1-c_2)}{4},
 \]
-which play the part of the shares in Section~\ref{sec:localized}. A packet narrow against the spacing of the dots has
-$c_3=c_2=0$ and shares $d_\Gamma^2/12$. The twelve translates span $\mathbb C[T]$.
+which play the part of the shares in Section~\ref{sec:localized}. As a packet narrows against the spacing of the
+dots, $c_3$ and $c_2$ tend to zero and the shares to $d_\Gamma^2/12$. The twelve translates span $\mathbb C[T]$.
 
 \paragraph{\ref{sec:position}. Position Representation}There is no shape coordinate, and the chart is
 $\varphi(r,q)=\Rmat(r)\bigl(\X_0+\sum_{\alpha=1}^{9}q_\alpha\mathbf e_\alpha\bigr)$. In the chart, $h$ acts

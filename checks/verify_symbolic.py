@@ -2,7 +2,8 @@
 
 Run from the repository root:  python3 checks/verify_symbolic.py
 The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the overlap c = exp(-d^2/8 Delta^2) and the
-density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3 from the projectors on three packets of overlap c;
+density variance Delta^2; the shares (1 + 2c)/3 = 1/3 + 2c/3 and 2(1 - c)/3 from the projectors on three packets of
+overlap c, with P_A1 eta_0 the average of the three; two neighboring densities cross at c times the peak;
 the E-pair matrices of t and b; for a packet with arbitrary overlaps, the shares of its parts even and odd under b
 add, the odd part carries only A2 and E with weight (1 - <eta, U_b eta>)/2, and with overlaps zero outside G6 each
 G6 share splits evenly over the two G12 species above it; the seam relation kappa = m + rho K for every integer m.
@@ -79,7 +80,12 @@ def share(chars, d):
     return sp.simplify(sp.expand((e0.T*Gm*P*e0)[0]))
 wA1 = share([1, 1, 1], 1); wE = share([1, w3, w3**2], 1) + share([1, w3**2, w3], 1)
 assert sp.simplify(wA1 - (1 + 2*cc)/3) == 0 and sp.simplify(wE - 2*(1 - cc)/3) == 0 and sp.simplify(wA1 + wE - 1) == 0
-print('shares: w_A1 = (1+2c)/3, w_E = 2(1-c)/3, sum rule exact')
+# P_A1 averages eta_0 over the three versions, so with no overlap the A1 share is 1/3 and overlap adds 2c/3
+PA1 = sum((T3**k for k in range(3)), sp.zeros(3, 3))/3
+assert PA1*e0 == sp.Matrix([1, 1, 1])/3 and sp.simplify(wA1 - sp.Rational(1, 3) - 2*cc/3) == 0
+# the drawn profiles are densities exp(-x^2/(2 Delta^2)); two neighbors d apart cross at the midpoint, at c times the peak
+assert sp.simplify(sp.exp(-(d/2)**2/(2*sg**2)) - c) == 0
+print('shares: w_A1 = (1+2c)/3 = 1/3 + 2c/3, w_E = 2(1-c)/3, sum rule, P_A1 eta_0 the average of the three, densities cross at c: exact')
 
 # E pair matrices in the orthonormal basis v2, v3
 v1 = sp.Matrix([1, 1, 1])/sp.sqrt(3); v2 = sp.Matrix([2, -1, -1])/sp.sqrt(6); v3 = sp.Matrix([0, 1, -1])/sp.sqrt(2)

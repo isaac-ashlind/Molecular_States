@@ -659,10 +659,12 @@ def main():
             x = i/100
             c = math.exp(-1/(8*x*x))
             f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f}\n')
-    # figure 9's three rows: Delta/d, the packet width in degrees for d = 120 degrees, the A1 share
-    rows = [(r, (1 + 2*math.exp(-1/(8*float(r)**2)))/3) for r in (Fraction(1, 6), Fraction(1, 3), Fraction(2, 3))]
-    num.append('\\def\\packetRows{' + ','.join(f'{{{r}}}/{float(r)*120:g}/{w:.4f}' for r, w in rows) + '}')
-    num.append('\\def\\packetMarks{' + ' '.join(f'({float(r):.4f},{w:.4f})' for r, w in rows) + '}')
+    # figure 9's three rows: Delta/d, the packet width in degrees for d = 120 degrees, the A1 share, and the exponent of
+    # c = e^{-1/(8 x^2)} as numerator/denominator; the share with no overlap is 1/3 (one site of three)
+    rows = [(r, (1 + 2*math.exp(-1/(8*float(r)**2)))/3, Fraction(1, 8)/r**2) for r in (Fraction(1, 6), Fraction(1, 3), Fraction(2, 3))]
+    num.append('\\def\\packetRows{' + ','.join(f'{{{r}}}/{float(r)*120:g}/{w:.4f}/{e.numerator}/{e.denominator}' for r, w, e in rows) + '}')
+    num.append('\\def\\packetFloor{' + f'{float(Fraction(1, 3)):.4f}' + '}')
+    num.append('\\def\\packetMarks{' + ' '.join(f'({float(r):.4f},{w:.4f})' for r, w, _ in rows) + '}')
 
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
     # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X), i.e. f_zeta = -f_xi:

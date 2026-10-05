@@ -8,8 +8,9 @@ on G6; the KRb groups and the 16 subgroups of S; P_st = P_t P_s; C[G6] = C[G6/H]
 the sign of H; on the (tau, iota) cylinder a shape is fixed by a conjugate of b on the six lines tau in (pi/3) Z, by a
 conjugate of (23)* at the six points (pi/6 + k pi/3, 0), and by E alone elsewhere; the torsion species.
 What the plates draw (figures/data/numbers.tex): figure 8's spin counts, figure 12's kappa rows and torsion species,
-figure 5's version labels and figure 10's chart cells, all exactly; figure 9's shares against (1 + 2c)/3 with
-c = exp(-1/(8 x^2)). summary.json: the intervals, the normal frame (M_tu = diag(1, -1)), the version positions and
+figure 5's version labels and figure 10's chart cells, all exactly; figure 9's widths (120 x degrees), the exponents
+of c = exp(-1/(8 x^2)) under its bars, its shares against (1 + 2c)/3, its curve points, and the bars' split at the
+no-overlap share 1/3 = d m / |G6/H|. summary.json: the intervals, the normal frame (M_tu = diag(1, -1)), the version positions and
 the residual between X and bX. Geometry, in floating point: no element of G12 but E fixes X0.
 verify_symbolic.py proves the family's actions and the Gaussian formulas exactly, verify.g repeats the group facts
 in GAP. A failed assertion stops the build.
@@ -146,13 +147,21 @@ for word in words.values():
     cells += [(lo, min(hi, Fr(1))) + e] + ([(Fr(-1), hi - 2) + e] if hi > 1 else [])
 emitted = sorted((Fr(a), Fr(b), int(c), int(d)) for a, b, c, d in items('chartCells'))
 assert len(emitted) == len(cells) and all(abs(x - y) < 1e-4 for p, q in zip(emitted, sorted(cells)) for x, y in zip(p, q))
-for x, _, share in items('packetRows'):
-    xf = float(Fr(x)); assert abs(float(share) - (1 + 2 * math.exp(-1 / (8 * xf * xf))) / 3) < 1e-4
+# figure 9: each row's width is 120 x degrees (d = 120), its c = e^{-1/(8 x^2)} has the exponent drawn under its bar, and
+# its share is (1 + 2c)/3; the bars split at the no-overlap share d_A1 m_A1 / |G6/H| = 1/3; the curve points are the rows
+rows9 = items('packetRows')
+for x, deg, share, en, ed in rows9:
+    xf = Fr(x)
+    assert Fr(deg) == 120 * xf and Fr(int(en), int(ed)) == Fr(1, 8) / xf ** 2
+    assert abs(float(share) - (1 + 2 * math.exp(-float(Fr(int(en), int(ed))))) / 3) < 5e-5
+assert local['A1'] == 1 and abs(float(NUM['packetFloor']) - float(Fr(1, 1) * local['A1'] / len(Q.cosets(Q.G6, Q.H)))) < 5e-5
+marks = re.findall(r'\(([\d.]+),([\d.]+)\)', NUM['packetMarks'])
+assert [(round(float(Fr(x)), 4), share) for x, _, share, _, _ in rows9] == [(float(a), b) for a, b in marks]
 with open(os.path.join(DATA, 'gaussian-shares.dat')) as f:
     for x, a, e in (l.split() for l in f.read().strip().splitlines()[1:]):
         c = math.exp(-1 / (8 * float(x) ** 2)) if float(x) > 0 else 0.0   # the x = 0 row carries the limit c -> 0
         assert abs(float(a) - (1 + 2 * c) / 3) < 1e-6 and abs(float(e) - 2 * (1 - c) / 3) < 1e-6
-print('numbers.tex: spin counts, kappa rows, torsion species, version labels, chart cells, packet shares: ok')
+print('numbers.tex: spin counts, kappa rows, torsion species, version labels, chart cells, packet widths, exponents, shares, marks and the 1/3 split: ok')
 
 # ---- summary.json and the geometry of the reference
 assert S['interval'] == {'subgroups': 10, 'covers': 17, 'versions': [1, 2, 2, 2, 3, 4, 6, 6, 6, 12]}
