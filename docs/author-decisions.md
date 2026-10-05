@@ -218,12 +218,15 @@ docs/notation-migration.md.
   as lines (figure 11's convention, the arrowheads withdrawn) and one vertical dotted line of projection through
   every dot running on past the top sheet; the two text blocks left-aligned on one line with a gap between. Text on
   three pages: the figure with items 1 to 4, items 5 to 10, the four tables with the projection.
-- The closing plate, signed off (author, 2026-10-05): methane named with its formula in the upper left, seen with the
-  ball's camera, the axes split at the carbon by depth; the camera a frame with z toward the viewer, x right and y up,
-  tilted 26 degrees; the ball close beside the molecule, both moved left, the covering alone on the right; the three
-  half-turns at their far side and pale; the lift passing behind the gold edge in front of it; the loop and its lift
-  as lines (figure 11's bow; the arrowheads and the exact raised-control lift were tried and withdrawn); one vertical
-  dotted line of projection through every dot running on past the top sheet; two left-aligned text blocks on one
-  line, complementary to the caption. Text on three pages: the figure with items 1 to 4, items 5 to 10, the four
-  tables with the projection.
-
+- The closing plate, signed off (author, 2026-10-05): methane named with its formula in the upper left; the ball as
+  the author chose it (G.camera(108, 21)) and the molecule aligned with it through one shared right-handed camera
+  (that camera with x and z exchanged, a symmetry of the cube and of the tetrahedron fixing bond 1), so bond 1 points
+  along the arrow and the molecule reads x right, y up, z toward the viewer; the axes split at the carbon by depth,
+  z drawn longer to clear hydrogen 2; the three half-turns at their far side and pale; the lift passing behind the
+  gold edge in front of it; the covering alone on the right, the loop and its lift as lines (figure 11's bow; the
+  arrowheads and an exact raised-control lift were tried and withdrawn), one vertical dotted line of projection
+  through every dot running on past the top sheet; two left-aligned text blocks on one line, complementary to the
+  caption. Text on three pages: the figure with items 1 to 4, items 5 to 10, the four tables with the projection.
+- Camera handedness (found 2026-10-05): G.camera builds a left-handed frame, so every glyph drawn through it is a
+  mirror image. The closing plate no longer uses it for the molecule. The methylamine glyphs (CAM_MLA, CAM_SIDE)
+  still do; see the hand-off for why the reader-facing logic is unaffected.

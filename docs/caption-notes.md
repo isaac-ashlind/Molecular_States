@@ -198,25 +198,29 @@ teal globe holding a thin cube with a gold octahedron inside, red dots at the cu
 right three sheets stacked over a gold patch, a loop on the patch, a bow rising from one sheet to the next, and one
 dotted vertical through every dot running on past the top sheet. Three panels; two left-aligned text blocks on one
 line under the ball and the covering; no leader labels; the figure unnumbered (author).
+Camera. Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL): the suite's G.camera(108, 21),
+the ball view the author chose, with the x and z components of its three vectors exchanged. G.camera builds a
+left-handed frame, which draws a mirror image; the exchange x <-> z is a mirror symmetry of the cube, the dual
+octahedron and the bond tetrahedron (it fixes bond 1 and exchanges hydrogens 2 and 4), so the frame is right-handed,
+the ball picture is unchanged element for element (checked), bond 1 on the molecule points along the arrow in the
+ball, and the molecule is a true view with x to the right, y up and z toward the viewer.
 Upper left: methane, CH4, the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals,
-C-H 1.087 A), drawn with the suite's molecule primitive seen with the ball's camera (mol3d-ch4-ball), so that its
-bond 1 points the way the lift arrow in the ball does; the axes x, y, z through the midpoints of opposite edges as
-thin lines, each split at the carbon, the half coming toward the viewer drawn over the molecule and the half going
-away behind it; the title in the corner names the molecule and its formula.
-The camera of both panels (make_data: CAM_BALL) is a frame, not a scan: z toward the viewer, x to the right, y up,
-tilted 26 degrees off z (toward +y more than +x) so that the cube's faces do not stack (author's choice).
-Middle, large and close to the molecule since the two share one camera: the orientation space SO(3) as the
-axis-angle ball, direction the axis and distance the angle, radius pi. The sphere teal with its three great circles,
-solid in front and dashed behind; the skin is the half-turns, each point its own antipode. The twelve rotations of T
-as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, joined by the thin ink edges of
-the cube they span (a reading aid: no edge between two points is intrinsic), and the three half-turns on the skin,
-each drawn once at its far representative and pale, so that they read as distant (author). The cell of the centre
-as the schematic that is exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its vertices,
-the quarter-turns as ink rings, on the cube's face centres, every edge straight; in the ball the true cell has
-edges that bow outward and its vertices a little further out (the caption says so; the exact curved version and the
-Rodrigues-only version were drawn and rejected by the author as unreadable). The lift of the third-turn loop as the
-one heavy arrow from the centre through a face to the dot beyond, its inner part drawn before the gold edges so
-that the edge in front of it covers it. Solid for what faces the viewer, dashed for what lies behind.
+C-H 1.087 A), drawn with the suite's molecule primitive (mol3d-ch4-c2); the axes x, y, z through the midpoints of
+opposite edges as thin lines, each split at the carbon, the half toward the viewer drawn over the molecule and the
+half away from it behind; z, the foreshortened axis, drawn longer so that its front half clears hydrogen 2 (by
+0.46 cm); the title in the corner names the molecule and its formula.
+Middle, large and beside the molecule: the orientation space SO(3) as the axis-angle ball, direction the axis and
+distance the angle, radius pi. The sphere teal with its three great circles, solid in front and dashed behind; the
+skin is the half-turns, each point its own antipode. The twelve rotations of T as red dots: the centre, the eight
+third-turns at 2pi/3 along the body diagonals, joined by the thin ink edges of the cube they span (a reading aid: no
+edge between two points is intrinsic), and the three half-turns on the skin, each drawn once at its far
+representative and pale, so that they read as distant (author). The cell of the centre as the schematic that is
+exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its vertices, the quarter-turns as ink
+rings, on the cube's face centres, every edge straight; in the ball the true cell has edges that bow outward and its
+vertices a little further out (the caption says so; the exact curved version and the Rodrigues-only version were
+drawn and rejected by the author as unreadable). The lift of the third-turn loop as the one heavy arrow from the
+centre through a face to the dot beyond, its inner part drawn before the gold edges so that the edge in front of it
+covers it. Solid for what faces the viewer, dashed for what lies behind.
 Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point, a
 line without arrowhead as on the cover (the author withdrew the arrowheads); three sheets r, r R_g, r R_g^2 of the
 twelve; the lift as figure 11's smooth bow from the dot on sheet r to the dot on sheet r R_g, reaching as far left
@@ -231,9 +235,9 @@ climbs in the sheets, and what each species makes of the climb.
 Colours: the sphere teal (the orientation space takes over the core sheet's role), the cell gold (the chart patch,
 as in figures 10 and 11; the base patch at right in figure 11's tint), the cube thin ink, the dots red (the
 version-dot role of figure 10 handed to orientations), the lift ink. Dotted only for the projection.
-Every coordinate is emitted by make_data (numbers.tex: baAxis* and ball* macros; molecules.tex: mol3d-ch4-ball)
-and the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations closing as the
-cube group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the octahedron
+Every coordinate is emitted by make_data (numbers.tex: chAxis* and ball* macros; molecules.tex: mol3d-ch4-c2) and
+the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations closing as the cube
+group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the octahedron
 |x|+|y|+|z| <= 1 in Rodrigues coordinates (3000 random rotations); its vertices are the quarter-turns and the face
 centres of the cube of third-turns at (+-1,+-1,+-1); the face x+y+z=1 is glued to x+y+z=-1 by R -> R R_g^{-1} with
 the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about bond 1 returns X0 with 2, 3, 4 cycled
