@@ -23,7 +23,7 @@
 % arrangement (author, 2026-10-04): the bond interval [H, B] in grey at the top left under heading III, the molecule at
 % the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
-\hatchregion{42.51}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
+\hatchfit{42.51}{.12059}{-.03599}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
 \node[lab,anchor=south west] at (3.0,4.14) {$\conf$};
 \path[fill=white,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
@@ -32,13 +32,13 @@
 \begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};\end{scope}
 % the molecule is drawn mass-centred (its centre of mass is the pic origin), so the drop to its point of C is the
 % vertical through the centre of mass, dotted like the lift from H to the patch, from the point to the C--N rod's lower edge
-\draw[hidden,shorten <=1.6pt] (4.0,3.25)--(4.0,6.049);
+\draw[projection,shorten <=1.6pt] (4.0,3.25)--(4.0,6.049);
 \node[head,anchor=west] at (.5,4.8) {I\quad Configurations}; \node[head,anchor=west] at (.5,4.4) {and States}; \node[rng,anchor=north west] at (.5,4.18) {\S\S\,1--3};
 % ------------------------------------------------ the feasible solid F lifted out: core sheet, two paths, versions, a packet
 \begin{scope}[shift={(7.6+\dx,6.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-47,tube/a2=23}
   % the decoration is turned by phi = 15 degrees so that no version point shares a vertical with its antipode
   \pgfmathsetmacro{\ph}{15}
-  \draw[hidden] (-\Ro,-3.3)--(-\Ro,-.55) (\Ro,-3.3)--(\Ro,-.55);
+  \draw[projection] (-\Ro,-3.3)--(-\Ro,-.55) (\Ro,-3.3)--(\Ro,-.55);
   \pic (ft) at (0,0) {thicktube};
   \foreach \a in {0,120,240} {\coordinate (vt\a) at ({1.96*sin(\a+\ph)},{.55-.42*1.96*cos(\a+\ph)});}
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({1.96*sin(\a+\ph)},{-.55-.42*1.96*cos(\a+\ph)});}
@@ -53,7 +53,7 @@
 \node[head,anchor=west] at (10.7+\dx,6.1) {II\quad Fragments and}; \node[head,anchor=west] at (10.7+\dx,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7+\dx,5.48) {\S\S\,4--6};
 \node[head,anchor=west] at (.5,12.7) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,12.3) {Localization}; \node[rng,anchor=north west] at (.5,12.08) {\S\S\,7--9};
 % ------------------------------------------------ the quotient patch V with the two loops; over it the six sheets with the two lifts
-\draw[hidden,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
+\draw[projection,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
 \node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]
   \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}

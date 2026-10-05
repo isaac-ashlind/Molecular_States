@@ -53,7 +53,7 @@
   \coordinate (p3) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(-.62-\E*2.5*cos(\fa)-\cy)});
   \coordinate (p4) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(-.62-\E*1.8*cos(\fa)-\cy)});
   \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
-  \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.3pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
+  \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.22pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   % the core sheet's cross-section: the same face geometry at the radii Rm -+ bw, so its ends follow the face's slanted edges
   \pgfmathsetmacro{\Rmo}{2.15+.04}\pgfmathsetmacro{\Rmi}{2.15-.04}

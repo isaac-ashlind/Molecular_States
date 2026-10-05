@@ -22,7 +22,7 @@
   \hatom{0}{0}{\R}{white}
   \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
-    \draw[hidden] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
+    \draw[fine,back] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
     \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
     \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
   % the vector J: from the centre (marked) up to the right end of the K = 1 ring (its z component is K = 1), named

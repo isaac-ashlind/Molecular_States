@@ -1,90 +1,86 @@
-% Rigid methane (closing pages, unnumbered): three panels, titles only, no leader labels.
-% Upper left: methane, CH4, the reference X0 in its body frame, drawn small with the suite's molecule primitive
-% (mol3d-ch4-c2); the C2 axes x, y, z through the midpoints of opposite edges as thin lines, each split at the carbon,
-% the half toward the viewer drawn over the molecule and the half away from it behind; its title in the corner.
-% Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL, the suite's G.camera(108, 21) with x and
-% z exchanged; see the comment there), so bond 1 points along the arrow in the ball, x runs right, y up, z toward
-% the viewer, and the ball looks as the author chose it.
-% Middle, large, beside the molecule: the orientation space SO(3) as the axis-angle ball, direction the axis and
-% distance the angle, radius pi; the sphere teal with its three great circles (the skin is the half-turns, each point
-% its own antipode). The twelve rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the
-% body diagonals, the three half-turns on the skin, each drawn once at its far representative and pale, so that it
-% reads as distant (author).
-% The cell of the centre as the schematic exact in Rodrigues coordinates: the gold wire octahedron dual to the thin
-% ink cube spanned by the third-turns, its vertices (the quarter-turns, ink rings) on the cube's face centres; in the
-% ball the true edges bow outward (the caption says so). The lift of the third-turn loop as the one heavy arrow from
-% the centre through a face to the dot beyond: its inner part drawn before the gold edges so that the edge in front
-% of it covers it, its outer part after. Solid for what faces the viewer, dashed for what lies behind.
-% Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point (a
-% line, no arrowhead, as on the cover), three sheets r, r R_g, r R_g^2 of the twelve, the lift as the same curve raised from the
-% dot on sheet r to the dot on sheet r R_g (figure 11's smooth bow, reaching as far left as the loop); one vertical
-% line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running on past the top
-% sheet with a vertical ellipsis (author): the stack goes on. The sheets are the cartoon of figure 11.
-% The two bottom texts are left-aligned on one line with a gap between them (author).
-% Every coordinate from figures/data (make_data); the geometry recomputed in checks/verify_methane.py.
+% Rigid methane (closing pages, unnumbered). Two columns that read as two figures (author).
+% Left column: methane, CH4, the reference X0 in its body frame (mol3d-ch4-c2; the C2 axes x, y, z through the midpoints
+% of opposite edges, thin, each split at the carbon by depth, z drawn longer so that its front half clears hydrogen 2),
+% and beside it the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi;
+% the skin is the half-turns, each point its own antipode): the sphere and its three great circles teal; the twelve
+% rotations of T as version points (the centre, the eight third-turns at the corners of the thin ink cube they span,
+% the three half-turns on the skin drawn once each at their far side, faded); the cell of the centre as the gold
+% octahedron dual to that cube, its vertices the quarter-turns (ink rings) on the cube's face centres; the lift of the
+% third-turn loop as the one heavy arrow, passing behind the gold edge in front of it. The octahedron is the schematic
+% exact in Rodrigues coordinates; in the ball the true edges bow outward (the caption says so).
+% Right column: the covering in figure 11's grammar: the gold base patch SO(3)/T with the loop l_g, three of the twelve
+% sheets r, r R_g, r R_g^2, the lift as figure 11's bow from the dot on sheet r to the dot on sheet r R_g, and one
+% vertical dotted line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running
+% on past the top sheet: the stack goes on. The sheets are the cartoon of figure 11, not a computed surface.
+% Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL), so bond 1 points along the arrow.
+% Suite rules: hidden contours dashed (back), projections dotted, version points \hatom; text under an object centred,
+% lowercase phrases without full stops. Every coordinate from figures/data (make_data), the geometry recomputed in
+% checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-\newcommand\csheet[5]{\path[fill=#5] ({#1-#3},#2)--({#1+#3},#2)--({#1+#3+.6},{#2+.6})--({#1-#3+.6},{#2+.6})--cycle; \draw[#4] ({#1-#3},#2)--({#1+#3},#2)--({#1+#3+.6},{#2+.6})--({#1-#3+.6},{#2+.6})--cycle;}
+% a sheet of the covering: \csheet{x}{y}{half-width}{stroke}{fill}
+\newcommand\csheet[5]{\path[fill=#5] ({#1-#3},#2)--({#1+#3},#2)--({#1+#3+.6},{#2+.6})--({#1-#3+.6},{#2+.6})--cycle;
+  \draw[#4] ({#1-#3},#2)--({#1+#3},#2)--({#1+#3+.6},{#2+.6})--({#1-#3+.6},{#2+.6})--cycle;}
 \begin{document}
 \begin{tikzpicture}[plate,
   thin/.style={line width=.3pt,draw=PlateInk},
-  thindash/.style={line width=.3pt,draw=PlateInk,dash pattern=on 1.5pt off 1.1pt},
   teal/.style={line width=.45pt,draw=ColBandLine},
   tealthin/.style={line width=.35pt,draw=ColBandLine},
-  tealdash/.style={line width=.35pt,draw=ColBandLine,dash pattern=on 1.5pt off 1.1pt},
   gold/.style={line width=.65pt,draw=ColGoldStroke},
-  golddash/.style={line width=.55pt,draw=ColGoldStroke,dash pattern=on 1.8pt off 1.2pt},
-  blurb/.style={sub,anchor=north west,align=left}]
+  under/.style={sub,anchor=north,align=center}]
 \path[use as bounding box] (0,0) rectangle (15,8.8);
-% ================================================ upper left: methane in its body frame, seen as the ball is seen
-\node[blurb] at (.15,8.7) {Methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\with the $C_2$ axes $x,y,z$ through the midpoints of opposite edges.};
-\begin{scope}[shift={(1.45,6.4)}]
+% ================================================ left column: methane and the orientation ball
+\node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\the $C_2$ axes $x,y,z$ through the midpoints of opposite edges};
+\begin{scope}[shift={(1.25,6.55)}]
   \foreach \a/\s in \chAxisBack {\def\L{1.2}\if Z\a\def\L{2.2}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}
   \foreach \a/\s in \chAxisFront {\def\L{1.2}\if Z\a\def\L{2.2}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
   \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/2.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname chAxis\a x\endcsname+.06},{\e*\csname chAxis\a y\endcsname}) {\lab};}
 \end{scope}
-% ================================================ middle: the orientation ball, large
-\begin{scope}[shift={(5.0,5.25)},scale=1.05]
-  \foreach \pl in {XY,YZ,ZX} {\draw[tealdash] plot[smooth] coordinates {\csname ballArc\pl Back\endcsname};}
-  \foreach \p/\q in \ballCubeHidden {\draw[thindash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
-  \foreach \p/\q in \ballCellHidden {\draw[golddash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+\begin{scope}[shift={(4.3,5.0)}]
+  % the back: hidden great-circle arcs, cube edges and cell edges, dashed in their own strokes
+  \foreach \pl in {XY,YZ,ZX} {\draw[tealthin,back] plot[smooth] coordinates {\csname ballArc\pl Back\endcsname};}
+  \foreach \p/\q in \ballCubeHidden {\draw[thin,back] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+  \foreach \p/\q in \ballCellHidden {\draw[gold,back] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+  % the lift: its inner part first, so that the gold edge in front of it covers it
   \draw[line width=.9pt,draw=PlateInk] (0,0)--(\ballFax,\ballFay);
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \draw[tpath,shorten >=2.5pt] (\ballFax,\ballFay)--(\ballCax,\ballCay);
+  % the front
   \foreach \p/\q in \ballCubeVisible {\draw[thin] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \pl in {XY,YZ,ZX} {\draw[tealthin] plot[smooth] coordinates {\csname ballArc\pl Front\endcsname};}
   \draw[teal] (0,0) circle[radius=\ballR];
-  \foreach \k in {a,b,c,d} {\fill[ColDot] (\csname ballC\k x\endcsname,\csname ballC\k y\endcsname) circle[radius=.06]; \fill[ColDot] (\csname ballD\k x\endcsname,\csname ballD\k y\endcsname) circle[radius=.06];}
-  \foreach \s in \ballSkinBack {\fill[ColDot!45] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.06];}
-  \fill[ColDot] (0,0) circle[radius=.06];
-  \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.04];}}
+  % the twelve rotations of T, and the quarter-turns at the cell's vertices
+  \foreach \k in {a,b,c,d} {\hatom{\csname ballC\k x\endcsname}{\csname ballC\k y\endcsname}{.08}{ColDot}\hatom{\csname ballD\k x\endcsname}{\csname ballD\k y\endcsname}{.08}{ColDot}}
+  \foreach \s in \ballSkinBack {\draw[ghost,fill=ColDot!45] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.08];}
+  \hatom{0}{0}{.08}{ColDot}
+  \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.045];}}
 \end{scope}
-\node[blurb] at (2.4,2.6) {The orientation space $SO(3)$ as a ball:\\direction the axis, distance the angle.\\Red dots are the twelve rotations of $T$;\\the gold octahedron is the cell $\mathcal U$ at $q=0$;\\the arrow is the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$.};
-% ================================================ right: the covering, with room
-\begin{scope}[shift={(11.6,3.6)}]
+\node[under] at (4.3,2.55) {the orientation space $SO(3)$ as a ball,\\direction the axis and distance the angle:\\the twelve rotations of $T$ in red,\\the cell $\mathcal U$ at $q=0$ in gold,\\and the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$};
+% ================================================ right column: the covering
+\begin{scope}[shift={(11.45,3.2)}]
   \coordinate (bx) at (.5,.3);
   \csheet{0}{0}{1.2}{heavy}{ColRetained!50}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
   \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\ell_g$};
-  % one vertical line of projection through every dot: drawn under the sheets, so that each sheet hides it below
-  % its dot, and redrawn above each dot, so that it re-emerges; it runs on past the top sheet
-  \draw[hidden,shorten <=2.3pt] (bx)--(.5,5.6);
+  % one vertical line of projection through every dot: drawn under the sheets, so that each sheet hides it below its
+  % dot, and redrawn above each dot, so that it re-emerges; it runs on past the top sheet
+  \draw[projection,shorten <=2.3pt] (bx)--(.5,5.3);
   \foreach \k/\lab in {0/{r},1/{r\Rmat_g},2/{r\Rmat_g^{\,2}}} {
     \pgfmathsetmacro{\y}{1.4+1.3*\k}
     \csheet{0}{\y}{1.2}{fine}{white}
     \coordinate (p\k) at (.5,{\y+.3});
-    \draw[hidden,shorten <=2.3pt] (p\k)--(.5,{\y+1.3});
+    \draw[projection,shorten <=2.3pt] (p\k)--(.5,{\y+1.3});
     \node[sub,anchor=west,inner sep=1pt] at (1.9,{\y+.3}) {$\lab$};}
-  \node[sub,anchor=south,inner sep=0pt] at (.5,5.75) {$\vdots$};
+  \node[sub,anchor=south,inner sep=0pt] at (.5,5.35) {$\vdots$};
   \draw[tlift] (p0) .. controls (-.7,{1.4+.3+.45}) and (-.7,{2.7+.3-.45}) .. (p1);   % figure 11's bow, reaching as far left as the loop
-  \foreach \k in {0,1,2} {\fill[ColDot] (p\k) circle[radius=.06];}
-  \fill[ColDot] (bx) circle[radius=.06];
+  \foreach \k in {0,1,2} {\hatomat{p\k}{.08}{ColDot}}
+  \hatomat{bx}{.08}{ColDot}
 \end{scope}
-\node[blurb] at (8.6,2.6) {Over the base $SO(3)/T$ lie twelve sheets,\\one for each rotation in $T$; three are drawn.\\The third-turn is a closed loop $\ell_g$ in the base;\\lifted to the sheets it does not close,\\but climbs from sheet $r$ to sheet $r\Rmat_g$.\\A species sees the climb as a number or matrix:\\$\mathrm A$ as $1$, ${}^1\mathrm E$ as $\omega$, ${}^2\mathrm E$ as $\omega^2$, $\mathrm T$ as $x\to y\to z$.};
+\node[under] at (11.95,2.55) {over the base $SO(3)/T$, twelve sheets,\\one for each rotation in $T$, three drawn;\\the third-turn closes as a loop $\ell_g$ in the base\\and, lifted, climbs from sheet $r$ to sheet $r\Rmat_g$;\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $\omega$,\\${}^2\mathrm E$ as $\omega^2$, $\mathrm T$ as $x\to y\to z$};
 \end{tikzpicture}
 \end{document}

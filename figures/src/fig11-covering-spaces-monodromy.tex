@@ -32,7 +32,7 @@
     \coordinate (pa\k) at (-1.95,{\y+.45}); \coordinate (pb\k) at (2.65,{\y+.45});
     \node[sub,anchor=west,inner sep=1pt] at (-3.5,{\y+.22}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (1.1,{\y+.22}) {$\gb$};   % both columns named at the same place on their sheets
     \node[lab,anchor=east] at (-4.3,{\y+.45}) {$\pl$};}
-  \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (bx)--(pa0); \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (bx)--(pb0);   % the projections, dotted as on the cover
+  \draw[projection,shorten <=2.3pt,shorten >=2.3pt] (bx)--(pa0); \draw[projection,shorten <=2.3pt,shorten >=2.3pt] (bx)--(pb0);   % the projections, dotted as on the cover
   \draw[tlift] (pa0) .. controls (-3.0,{1.7+.45+.4}) and (-3.0,{1.7+1.8+.45-.4}) .. (pa1);
   \draw[blift] (pa1)--(pb1);
   \draw[blift] (pa0)--(pb0);
