@@ -356,7 +356,8 @@ def main():
     assert all(G.config_distance([Xg[i]], [CH4[where[i]]]) < 1e-9 for i in range(4)) and sorted(where) == [0, 1, 2, 3] and where[0] == 0
     summary['methane_loop'] = {'axis': 'C-H1', 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
     # Td(M) = S4 on the four protons, classes (size, cycles, odd?, starred?): E, 3-cycles, double transpositions,
-    # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star
+    # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star. The
+    # character table is typed; checks/verify_methane.py and verify.g derive these numbers independently
     cls = [(1, 4, 1, 0), (8, 2, 1, 0), (3, 2, 1, 0), (6, 1, -1, 1), (6, 3, -1, 1)]
     TD = {'A1': [1, 1, 1, 1, 1], 'A2': [1, 1, 1, -1, -1], 'E': [2, -1, 2, 0, 0], 'T1': [3, 0, -1, 1, -1], 'T2': [3, 0, -1, -1, 1]}
     chi_spin = [2**c[1] for c in cls]
@@ -367,7 +368,7 @@ def main():
         weights[tag] = {k: exact_mean(sum(n*v[i]*chi_spin[i]*total[i] for i, (n, _, _, _) in enumerate(cls)), 24) for k, v in TD.items()}
     # the displacement representation on the fifteen Cartesian coordinates: chi(h) = (nuclei fixed by h) x tr(+-R_h^-1),
     # the sign from the star (the equivalent rotations: identity, third-turn, half-turn, quarter-turn, half-turn about
-    # a cube edge; the starred classes act on displacements as improper operations)
+    # a cube edge; the starred classes act on displacements as improper operations), typed per class
     fixed = [5, 2, 1, 1, 3]
     trace = [3, 0, -1, -(1 + 0), -(1 - 2)]                      # tr(+-R): 1 + 2 cos theta, negated on the starred classes
     chi_3n = [f * t for f, t in zip(fixed, trace)]
@@ -425,7 +426,7 @@ def main():
     for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7])):
         pts = rounded_loop([(P0[i-1][0], P0[i-1][1]) for i in members], 0.78)
         num.append(f'\\def\\fragloop{name}{{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in pts) + '}')
-    # version labels (figure 5c): position j carries label g(j)
+    # version labels (figure 5): position j carries label g(j)
     versions = version_positions()
     vlines = [f'{{{cname}}}/{{{gname}}}/' + '/'.join(str(g[0][j] + 1) for j in range(7)) for cname, gname, g, ta, io in versions]
     num.append('\\def\\versionList{' + ','.join(vlines) + '}')
@@ -528,7 +529,7 @@ def main():
                % (idx['E'], idx[core_name], idx[in_name], idx[k_name], idx[rb_name], idx['S']))
     num.append('\\def\\krbCovers{' + ','.join(f'{a}/{b}/{m}' for a, b, m in cov_) + '}')
 
-    # ---- subgroup interval (figure 5b)
+    # ---- the subgroup intervals (figure 5)
     subs, names, cov = Q.interval_data()
     order_of = {K: len(K)//2 for K in subs}     # |K/H|
     # drawing x-slots per node (design choice); y = log2 of the version count |K/H|

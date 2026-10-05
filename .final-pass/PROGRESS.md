@@ -1,7 +1,7 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: IN PROGRESS
-Live check-in trigger: trig_01KRHxXGCBTde598ef9oV5En (fires 2026-10-05T18:34Z)
+Live check-in trigger: trig_01AK23NB5x2yh4TNrU5rXDTa (fires 2026-10-05T18:57Z)
 Audit (step 4): three background Agent auditors, launched 16:11Z, reports to .final-pass/audit/{plates,manuscript,compute}.md. If a report is missing after an interruption, re-run that auditor (prompt: read-only, the five headings in CALIBRATION section 8 for its area).
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
@@ -16,7 +16,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 - [x] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
          inconsistent styles across plates, table formatting, stale comments, arbitrary constants
 - [x] 5. Shared primitives and plate defragmentation, each plate checked with diffsheet before and after
-- [ ] 6. compute/, figures/data/ and checks/ cleanup (no unused emissions, no dead code, accurate docstrings)
+- [x] 6. compute/, figures/data/ and checks/ cleanup (no unused emissions, no dead code, accurate docstrings)
 - [ ] 7. Manuscript LaTeX: preamble, macros, tables (Section 8, Tables A-D, notation page) formatted perfectly
 - [ ] 8. Full python3 build.py: every check passes, no collisions, text inside every plate, manuscript clean
 - [ ] 9. Delete .final-pass/, commit "Final pass step 9: done", push, cancel the check-in, short final report
@@ -34,3 +34,4 @@ Log (one line per step: step, commit, note):
 - 5d: all 14 plate headers rewritten (what the plate shows, what is computed, what is declared, the colors; no colons, no history); stale body comments fixed (V, eta0, author/date narration, drafts); shared headers without colons; fig05 axis thin, fig07 plane arc 14 degrees clear like the key. Step 5 done.
 - 6a (partial): kabsch transpose fixed (data identical); GAP --quitonbreak; verify_spin checks the full spin space 36/12/24 and the weights by parity; verify_methane checks Table A rows, R_{h1h2} = R_{h2}R_{h1}, C[T], Table B on-T column, the rings, the 1E/2E exchange. Next 6b: exact rewrite (author: cyclotomic, no numerics) of verify_methane, verify_spin, make_data methane, GAP methane block; then dead code, unused emissions, eta->iota.
 - 6b (partial): exact rewrite: verify_methane stdlib exact (integer R_h, Q(omega) class, exact Rodrigues cell, exact vibrations and J ladder), verify_spin exact counts, make_data methane exact (QOmega in groups.py, Chebyshev chi_J), GAP methane block (E(3)); verify.py checks numbers.tex (spin counts, kappa, species, version labels, chart cells, shares); verify_symbolic: iota, shares from projectors, seam for all m; verify_antiprism removed; dead code and unused emissions removed (summary.json 9 keys, no depth macros, trimmed lists, chart cells from the versions, lattice nudges in make_data); analytic tangents; build: SymPy required, no numpy.
+- 6: done (last comment fixes; typed tables marked)
