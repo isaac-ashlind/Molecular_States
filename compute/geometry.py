@@ -186,6 +186,13 @@ CH4_MASSES = [MASS[e] for e in CH4_ELEMENTS]
 CH4_BONDS = [(5, 1), (5, 2), (5, 3), (5, 4)]       # 1-based
 CH4_CH = 1.087                                    # C-H bond length (angstrom)
 
+def methane_c2(ch=CH4_CH):
+    """Centred regular tetrahedron in its C2 frame: the body axes x, y, z run through the midpoints of opposite edges,
+    so the hydrogens sit on the body diagonals, 1 at (+,+,+), 2 at (+,-,-), 3 at (-,+,-), 4 at (-,-,+); the carbon at
+    the origin, which is the mass centre.  The frame of the orientation ball (closing pages)."""
+    s = ch / math.sqrt(3.0)
+    return center([(s, s, s), (s, -s, -s), (-s, s, -s), (-s, -s, s), (0.0, 0.0, 0.0)], CH4_MASSES)
+
 def methane(ch=CH4_CH):
     """Centred regular tetrahedron: hydrogen 1 on +z, hydrogens 2, 3, 4 below it at the tetrahedral angle, a third of
     a turn apart (labels 1..4); the carbon at the origin, which is the mass centre."""

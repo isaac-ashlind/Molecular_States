@@ -114,3 +114,15 @@ Full-page plate (groups, the three-column correlation through the sixteen spin s
 in four snapshots with the fibres after the loop) and a text page with equations and two tables. Checks extended:
 the 24 equivalent rotations form O; the loop closes with an even relabelling; T(g) cycles the C2 axes; 1E(g) is a
 cube root of unity. Build clean, 23 pages.
+
+## 2026-10-05, the closing pages, third form
+
+Rigid methane run through the pipeline on three pages with one three-panel figure in ink (fig13-rigid-orientation-ball)
+and four tables, then projected onto Albert et al. Data layer: geometry.methane_c2 (the C2 frame), the ball
+coordinates, the vibrational species from the displacement character, the J ladder (D^J restricted to H through the
+turning angles, with the physical states by parity), the loop about bond 1; all emitted by make_data. Check extended
+(verify_methane.py): explicit 15 x 15 displacement matrices and a mass-orthonormal normal basis give A1 + E + 2 T2;
+the J ladder from the actual rotation angles; the identity's Voronoi cell is the octahedron in Rodrigues coordinates
+(3000 samples) with the quarter-turns at its vertices; the face gluing with a third of a twist; the packet-share
+closed forms against the projector sums. Build clean, all checks and the GAP cross-check pass, no text collisions,
+manuscript 24 pages with no bad boxes.

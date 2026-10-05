@@ -192,26 +192,36 @@ suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
 
-## Rigid recovery (unnumbered full-page plate, the closing pages): methane against Albert et al.
-What the reader sees at a squint: a tetrahedron with its axes; three bars fanning through a bundle of sixteen lines
-into four bars; four snapshots of the molecule turning, and three small dials. Top: rigid methane (computed
-tetrahedron, C-H 1.087 A, hydrogen 1 on z; camera 15 deg azimuth, 45 deg elevation chosen by scan so that every
-hydrogen disc clears the carbon), its C3 axis (C-H4, the one that stands upright in this view) and the three C2
-axes drawn as a triad, the groups H = Td(M) = S4 and H_rot = T, and the spin decompositions. Middle: a three-column
-correlation diagram, our rotational species with their physical states by parity (A1-, A2+: 5 each; E-, E+: 1 each;
-T2-, T1+: 3 each), the sixteen spin states as hairlines in their three species groups (5 A1 -> 5 A; E -> 1E + 2E;
-3 T2 -> 3 T), and their isomer rows (Gamma_rot, Gamma_nuc, d) with their state counts, the T block of Table II of
-Albert, Kubischta, Lemeshko and Liu (arXiv:2403.04572v4); the T row's 3 x 3 invariant drawn as a diagonal (Schmidt
-rank 3). Bottom, the monodromy shown: a third of a turn about the C-H4 axis in four computed snapshots (0, 2pi/9,
-4pi/9, 2pi/3) brings the molecule back to its position with hydrogens 1, 2, 3 cycled (an even relabelling, found by
-matching positions): a loop in SO(3)/T whose lift ends at r g; at the right the fibre of each isomer after the loop,
-A unchanged (x 1), 1E a phase dial turned by a third (x omega), T a vector triad along the C2 axes with its
-components cycled. The second page carries the equations and tables (classes of Td(M) with their equivalent
-rotations and class functions; the weights by parity against their isomers; entanglement; monodromy; the region
-F = SO(3) x D^9 with positions SO(3)/T x D^9, their octahedral space). Every number is emitted by make_data
-(summary.json: methane_rigid, methane_loop) and recomputed from explicit permutation and rotation matrices in
-checks/verify_methane.py, which also checks that the 24 equivalent rotations form the cube group O (1, 6
-quarter-turns, 8 third-turns, 9 half-turns), that the even twelve form T, that 1E is a homomorphism, that the loop
-closes with an even relabelling, that T(g) cycles the C2 axes and that 1E(g) is a primitive cube root of unity.
-Declared: no energies; parity (the starred half of H) is this paper's addition; the labels 1E, 2E are exchanged
-together by the other reading of the transport (footnote on the text page).
+## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
+What the reader sees at a squint: a labelled tetrahedron with three axes; a circle holding a scatter of red dots, a
+small wire octahedron and one arrow; a stack of three flat sheets over a base patch with a loop and a lift. Three
+panels from one camera (make_data: CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the
+maximum, from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate and bond 1
+faces the viewer). Left: the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals,
+C-H 1.087 A), the axes x, y, z through the midpoints of opposite edges as fine lines, the digits in the hydrogens.
+Middle: the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi drawn
+2 cm; the skin is the half-turns, each point its own antipode): the twelve symmetry rotations of T as red dots, the
+centre, eight third-turns (a tetrahedron through the bonds at +2pi/3, one through the faces at -2pi/3) and three
+half-turns on the skin, each drawn once at its visible representative; one cell of the twelve, the orientations
+nearer the centre than any other dot, as a wire octahedron (an octahedron in Rodrigues coordinates, |x|+|y|+|z| <= 1;
+drawn with flat faces, the true faces bulge; hidden edges dotted, the only dotted lines on the plate besides the
+projection at right) with the six quarter-turns, the starred 4-cycles, as ink rings at its vertices; the lift of the
+third-turn loop as a solid arrow from the centre through a face to the dot beyond (r -> r R_g). No molecule inside
+the ball and no point drawn twice (author, 2026-10-05). Right: the covering in figure 11's grammar: a patch of
+SO(3)/T (the cell with its faces glued) with the loop l_g, the sheets r, r R_g, r R_g^2 of the twelve over it, the
+lift of l_g from the dot on sheet r to the dot on sheet r R_g, one dotted projection from the base point to its
+sheet; the sheets are the cartoon of figure 11, not a computed surface. This is the honest form of Albert et al.'s
+Fig. 3(c): their fibre over a position is these twelve sheets (the regular representation of T), and their
+monodromy action is the lift moving from one sheet to the next. Colours: ink, white, the red dots (the version-dot
+role of figure 10 handed to orientations). Every coordinate is emitted by make_data (numbers.tex, the ball*
+macros) and the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations
+closing as the cube group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the
+octahedron (3000 random rotations); its vertices are the quarter-turns; the face x+y+z=1 is glued to x+y+z=-1 by
+R -> R R_g^{-1} with the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about bond 1 returns
+X0 with 2, 3, 4 cycled and R_g cycles x, y, z. The three pages carry the pipeline (sections 1 to 10 instantiated on
+rigid methane; the vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet shares
+(1+8c3+3c2)/12, (1-4c3+3c2)/12, 3(1-c2)/4; the J ladder D^J restricted to H with the physical states by parity,
+J = 0..6) and the projection onto Albert et al. (Tables A to D: the classes of Td(M); the species with their isomers,
+their Table II T block; the J ladder; the dictionary with their equation and example numbers). Declared: no
+energies; parity (the starred half of H) and the vibrations (the disc D^9 under M_h) are what their formalism sets
+aside; the labels 1E, 2E are exchanged together by the other reading of the transport (footnote).

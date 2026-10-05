@@ -5,10 +5,42 @@
 \def\massH{1.008}\def\massO{15.995}
 \def\waterOxygenOffset{0.06}
 \def\waterRotDeg{40}
-\def\chAxisAx{0.8165}\def\chAxisAy{0.5774}
-\def\chAxisBx{-0.5577}\def\chAxisBy{0.7887}
-\def\chAxisCx{0.1494}\def\chAxisCy{-0.2113}
-\def\chAxisZx{0.2357}\def\chAxisZy{0.6667}
+\def\ballR{2.0000}\def\ballS{0.6366}
+\def\ballHax{0.4958}\def\ballHay{0.2298}\def\ballHad{0.2928}
+\def\ballCax{1.0663}\def\ballCay{0.4942}\def\ballCad{0.6297}
+\def\ballDax{-1.0663}\def\ballDay{-0.4942}\def\ballDad{-0.6297}
+\def\ballHbx{-0.2518}\def\ballHby{-0.4511}\def\ballHbd{0.3428}
+\def\ballCbx{-0.5415}\def\ballCby{-0.9700}\def\ballCbd{0.7373}
+\def\ballDbx{0.5415}\def\ballDby{0.9700}\def\ballDbd{-0.7373}
+\def\ballHcx{-0.4165}\def\ballHcy{0.4511}\def\ballHcd{-0.0863}
+\def\ballCcx{-0.8958}\def\ballCcy{0.9700}\def\ballCcd{-0.1855}
+\def\ballDcx{0.8958}\def\ballDcy{-0.9700}\def\ballDcd{0.1855}
+\def\ballHdx{0.1725}\def\ballHdy{-0.2298}\def\ballHdd{-0.5494}
+\def\ballCdx{0.3711}\def\ballCdy{-0.4942}\def\ballCdd{-1.1814}
+\def\ballDdx{-0.3711}\def\ballDdy{0.4942}\def\ballDdd{1.1814}
+\def\ballHback{c/3,d/4}
+\def\ballHfront{a/1,b/2}
+\def\ballSxpx{0.6817}\def\ballSxpy{-0.6180}\def\ballSxpd{1.7758}
+\def\ballVxpx{0.3408}\def\ballVxpy{-0.3090}\def\ballVxpd{0.8879}
+\def\ballSxmx{-0.6817}\def\ballSxmy{0.6180}\def\ballSxmd{-1.7758}
+\def\ballVxmx{-0.3408}\def\ballVxmy{0.3090}\def\ballVxmd{-0.8879}
+\def\ballSypx{0.2215}\def\ballSypy{1.9021}\def\ballSypd{0.5770}
+\def\ballVypx{0.1107}\def\ballVypy{0.9511}\def\ballVypd{0.2885}
+\def\ballSymx{-0.2215}\def\ballSymy{-1.9021}\def\ballSymd{-0.5770}
+\def\ballVymx{-0.1107}\def\ballVymy{-0.9511}\def\ballVymd{-0.2885}
+\def\ballSzpx{1.8672}\def\ballSzpy{0.0000}\def\ballSzpd{-0.7167}
+\def\ballVzpx{0.9336}\def\ballVzpy{0.0000}\def\ballVzpd{-0.3584}
+\def\ballSzmx{-1.8672}\def\ballSzmy{0.0000}\def\ballSzmd{0.7167}
+\def\ballVzmx{-0.9336}\def\ballVzmy{0.0000}\def\ballVzmd{0.3584}
+\def\ballSkinBack{xm,ym,zp}
+\def\ballSkinFront{xp,yp,zm}
+\def\ballCellVisible{ballVxp/ballVym,ballVxp/ballVyp,ballVxp/ballVzm,ballVxp/ballVzp,ballVym/ballVzm,ballVym/ballVzp,ballVyp/ballVzm,ballVyp/ballVzp}
+\def\ballCellHidden{ballVxm/ballVym,ballVxm/ballVyp,ballVxm/ballVzm,ballVxm/ballVzp}
+\def\ballEqFrontA{(0.682,-0.618) (0.698,-0.450) (0.710,-0.278) (0.716,-0.105) (0.716,0.070) (0.711,0.244) (0.701,0.416) (0.685,0.585) (0.665,0.749) (0.639,0.908) (0.608,1.060) (0.572,1.204) (0.533,1.338) (0.489,1.463) (0.441,1.576) (0.390,1.677) (0.336,1.766) (0.280,1.841) (0.221,1.902) (0.161,1.949) (0.100,1.981) (0.038,1.997)}
+\def\ballEqFrontB{(0.025,-1.999) (0.087,-1.985) (0.149,-1.956) (0.210,-1.913) (0.268,-1.854) (0.325,-1.782) (0.380,-1.696) (0.431,-1.597) (0.480,-1.486) (0.524,-1.364) (0.565,-1.231) (0.601,-1.089) (0.633,-0.939) (0.660,-0.781) (0.682,-0.618)}
+\def\ballEqFrontCount{2}
+\def\ballEqBackA{(-0.025,1.999) (-0.087,1.985) (-0.149,1.956) (-0.210,1.913) (-0.268,1.854) (-0.325,1.782) (-0.380,1.696) (-0.431,1.597) (-0.480,1.486) (-0.524,1.364) (-0.565,1.231) (-0.601,1.089) (-0.633,0.939) (-0.660,0.781) (-0.682,0.618) (-0.698,0.450) (-0.710,0.278) (-0.716,0.105) (-0.716,-0.070) (-0.711,-0.244) (-0.701,-0.416) (-0.685,-0.585) (-0.665,-0.749) (-0.639,-0.908) (-0.608,-1.060) (-0.572,-1.204) (-0.533,-1.338) (-0.489,-1.463) (-0.441,-1.576) (-0.390,-1.677) (-0.336,-1.766) (-0.280,-1.841) (-0.221,-1.902) (-0.161,-1.949) (-0.100,-1.981) (-0.038,-1.997)}
+\def\ballEqBackCount{1}
 \def\methaneSpinAone{5}
 \def\methaneSpinAtwo{0}
 \def\methaneSpinE{1}
@@ -28,6 +60,16 @@
 \def\methaneTEone{1}
 \def\methaneTEtwo{1}
 \def\methaneTT{3}
+\def\methaneVib{\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2}
+\def\methaneThreeN{\mathrm A_1\oplus\mathrm E\oplus\mathrm T_1\oplus3\,\mathrm T_2}
+\def\methaneJA{$\mathrm A_1$ & 0 & 5}
+\def\methaneJB{$\mathrm T_1$ & 3 & 0}
+\def\methaneJC{$\mathrm E\oplus\mathrm T_2$ & 1 & 4}
+\def\methaneJD{$\mathrm A_2\oplus\mathrm T_1\oplus\mathrm T_2$ & 8 & 3}
+\def\methaneJE{$\mathrm A_1\oplus\mathrm E\oplus\mathrm T_1\oplus\mathrm T_2$ & 4 & 9}
+\def\methaneJF{$\mathrm E\oplus2\,\mathrm T_1\oplus\mathrm T_2$ & 7 & 4}
+\def\methaneJG{$\mathrm A_1\oplus\mathrm A_2\oplus\mathrm E\oplus\mathrm T_1\oplus2\,\mathrm T_2$ & 9 & 12}
+\def\methaneLoopWhere{1, 3, 4, 2}
 \def\waterMatX{-0.93 & 0.65 & 0.02 \\ 0.58 & 0.37 & -0.06 \\ 0.00 & 0.00 & 0.00}
 \def\waterMatRX{-1.09 & 0.26 & 0.05 \\ -0.15 & 0.70 & -0.03 \\ 0.00 & 0.00 & 0.00}
 \def\waterMatPX{0.65 & -0.93 & 0.02 \\ 0.37 & 0.58 & -0.06 \\ 0.00 & 0.00 & 0.00}

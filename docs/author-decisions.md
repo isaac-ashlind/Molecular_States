@@ -186,3 +186,13 @@ docs/notation-migration.md.
   loop in four computed snapshots and the three fibres after it. The text page is set in small type to hold on one
   page. The region: F = SO(3) x D^9, positions SO(3)/T x D^9 (their octahedral space); over all of H the deck group
   is the cube group O and O/T = Z2 is parity (checked).
+- The closing pages redone (author, 2026-10-05): three pages, "clean tables, black and white figures with minimal
+  colour, and clean mathematics", running rigid methane through the sections in order (configurations, groups and
+  versions, the region, species, weights, localized states, the position chart, the covering, the momentum
+  representation) and then projecting onto Albert et al. with a dictionary. Versions settled on the paper's own
+  definition: H = G = Td(M), order 24, one version and two labelled copies; the twelve orientations of T take over the
+  role versions play in figures 10 to 12 ("versions become orientations"). The figure: X0 in its body frame; the
+  orientation ball with the twelve dots, one octahedral cell and the lift of the third-turn loop; the covering with
+  its sheets as in figure 11. Author's rules applied: no molecule inside the ball, no point drawn twice, dotted lines
+  reserved for hidden edges and the one projection, three line weights otherwise. The full-page plate and the
+  snapshot row are gone (the studies of rounds 5 and 6 record the rejected attempts).

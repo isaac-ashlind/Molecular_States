@@ -5,7 +5,7 @@ Everything emitted here is recomputed from declared masses, model parameters
 and group definitions; nothing is typed in by hand.  checks/verify.py
 re-derives the same quantities independently and asserts them.
 """
-import json, math, cmath, os, sys
+import itertools, json, math, cmath, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 import geometry as G
 import groups as Q
@@ -355,25 +355,63 @@ def main():
         emit_pic(mol, f'water-sample-{k+1}', pic_code(G.water(d, th), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     summary['water_samples'] = samples
 
-    # ---- methane (the closing page): the glyph with its digits, and the rigid-limit numbers against Albert et al.
-    CH4 = G.methane()
+    # ---- methane (the closing pages): the rigid tetrahedron in its C2 frame, the orientation ball SO(3) with the twelve
+    # symmetry rotations and one cell, the vibrational species, the J ladder; the numbers against Albert et al.
+    CH4 = G.methane_c2()
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
-    CAM_CH4 = G.camera(azimuth_deg=15.0, elevation_deg=45.0)   # chosen by scan: every hydrogen 0.77 A clear of the carbon disc, depth kept
-    emit_pic(mol, 'mol3d-ch4-ref', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_CH4, labels=True))
-    # the loop: a third of a turn about the C-H4 axis (the bond that stands upright in this view) in four snapshots; at
-    # the end the molecule is back in its position with hydrogens 1, 2, 3 cycled (an even relabelling, found by matching)
-    AX = G.unit(CH4[3])
-    for k, ang in enumerate((0.0, 40.0, 80.0, 120.0)):
-        emit_pic(mol, f'mol3d-ch4-rot-{k}', pic_code_rods(G.rotate(G.rot_axis(AX, math.radians(ang)), CH4), G.CH4_ELEMENTS, G.CH4_BONDS, CAM_CH4, labels=True))
-    Xg = G.rotate(G.rot_axis(AX, math.radians(120.0)), CH4)
+    CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)  # chosen by scan: 27 deg (the maximum) from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate on the page; bond 1 toward the viewer
+    BALL_R = 2.0                                                # cm for the angle pi: the ball's radius on the page
+    bs = BALL_R / math.pi                                       # cm per radian
+    D = [G.unit(CH4[k]) for k in range(4)]                      # bond directions = body diagonals
+    def emit_point(name, v, scale=1.0):
+        px, py, pz = G.project([G.scale(v, scale)], CAM_BALL)[0]
+        num.append(f'\\def\\{name}x{{{px:.4f}}}\\def\\{name}y{{{py:.4f}}}\\def\\{name}d{{{pz:.4f}}}')
+    num.append(f'\\def\\ballR{{{BALL_R:.4f}}}\\def\\ballS{{{bs:.4f}}}')
+    for k, tag in enumerate('abcd'):
+        emit_point('ballH' + tag, D[k], 0.62)                   # the glyph's bonds (cm)
+        emit_point('ballC' + tag, D[k], 2 * math.pi / 3 * bs)   # third-turn about bond k, +2pi/3
+        emit_point('ballD' + tag, D[k], -2 * math.pi / 3 * bs)  # the opposite turn
+    outv = CAM_BALL[2]
+    num.append('\\def\\ballHback{' + ','.join(f'{t}/{k+1}' for k, t in enumerate('abcd') if G.dot(D[k], outv) < 0) + '}')
+    num.append('\\def\\ballHfront{' + ','.join(f'{t}/{k+1}' for k, t in enumerate('abcd') if G.dot(D[k], outv) >= 0) + '}')
+    axes = {'x': (1.0, 0.0, 0.0), 'y': (0.0, 1.0, 0.0), 'z': (0.0, 0.0, 1.0)}
+    for a, v in axes.items():
+        for sgn, t in ((1.0, 'p'), (-1.0, 'm')):
+            emit_point(f'ballS{a}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
+            emit_point(f'ballV{a}{t}', v, sgn * math.pi / 2 * bs)     # quarter-turn, a cell vertex
+    num.append('\\def\\ballSkinBack{' + ','.join(f'{a}{t}' for a, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')
+    num.append('\\def\\ballSkinFront{' + ','.join(f'{a}{t}' for a, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) >= 0) + '}')
+    # the cell: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
+    faces = [f for f in itertools.product((1, -1), repeat=3)]
+    front = [f for f in faces if G.dot(f, outv) > 0]
+    def vname(i, sg): return 'ballV' + 'xyz'[i] + ('p' if sg > 0 else 'm')
+    vis, hid = set(), set()
+    for f in faces:
+        vs = [vname(i, f[i]) for i in range(3)]
+        for e in itertools.combinations(vs, 2):
+            (vis if f in front else hid).add(tuple(sorted(e)))
+    hid -= vis
+    num.append('\\def\\ballCellVisible{' + ','.join(f'{a}/{b}' for a, b in sorted(vis)) + '}')
+    num.append('\\def\\ballCellHidden{' + ','.join(f'{a}/{b}' for a, b in sorted(hid)) + '}')
+    # the great circle of the xy-plane (the plane of two C2 axes) as a depth cue: front and back arcs on the page
+    pts = [G.project([(BALL_R * math.cos(math.radians(t)), BALL_R * math.sin(math.radians(t)), 0.0)], CAM_BALL)[0] for t in range(0, 361, 5)]
+    def arcs(sel):
+        runs, cur = [], []
+        for px, py, pz in pts:
+            if sel(pz): cur.append(f'({px:.3f},{py:.3f})')
+            elif cur: runs.append(' '.join(cur)); cur = []
+        if cur: runs.append(' '.join(cur))
+        return runs
+    for tag, sel in (('Front', lambda z: z >= 0), ('Back', lambda z: z < 0)):
+        for i, run in enumerate(arcs(sel)):
+            num.append(f'\\def\\ballEq{tag}{"ABC"[i]}{{{run}}}')
+        num.append(f'\\def\\ballEq{tag}Count{{{len(arcs(sel))}}}')
+    # the loop: a third of a turn about the bond to hydrogen 1 returns X0 to its position with 2, 3, 4 cycled
+    Rg = G.rot_axis(D[0], 2 * math.pi / 3)
+    Xg = G.rotate(Rg, CH4)
     where = [min(range(4), key=lambda j: G.config_distance([Xg[i]], [CH4[j]])) for i in range(4)]   # nucleus i now sits where j was
-    assert all(G.config_distance([Xg[i]], [CH4[where[i]]]) < 1e-9 for i in range(4)) and sorted(where) == [0, 1, 2, 3]
-    summary['methane_loop'] = {'turn_deg': 120.0, 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
-    # the three C2 axes through the midpoints of the edges (4,1), (4,2), (4,3), cycled by the turn, and the C3 axis C-H4:
-    # unit vectors projected (raw, so that the drawn triad keeps its foreshortening)
-    P = G.project([G.unit(tuple(a + b for a, b in zip(CH4[3], CH4[k]))) for k in (0, 1, 2)] + [AX], CAM_CH4)
-    for name, (px, py, _) in zip(('A', 'B', 'C', 'Z'), P):
-        num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
+    assert all(G.config_distance([Xg[i]], [CH4[where[i]]]) < 1e-9 for i in range(4)) and sorted(where) == [0, 1, 2, 3] and where[0] == 0
+    summary['methane_loop'] = {'axis': 'C-H1', 'turn_deg': 120.0, 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
     # Td(M) = S4 on the four protons, classes (size, cycles, odd?, starred?): E, 3-cycles, double transpositions,
     # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star
     cls = [(1, 4, 1, 0), (8, 2, 1, 0), (3, 2, 1, 0), (6, 1, -1, 1), (6, 3, -1, 1)]
@@ -384,6 +422,27 @@ def main():
     for par, tag in ((1, 'Even'), (-1, 'Odd')):
         total = [c[2]*(par if c[3] else 1) for c in cls]          # chi_stat chi_pm on each class
         weights[tag] = {k: int(round(sum(n*v[i]*chi_spin[i]*total[i] for i, (n, _, _, _) in enumerate(cls))/24)) for k, v in TD.items()}
+    # the displacement representation on the fifteen Cartesian coordinates: chi(h) = (nuclei fixed by h) x tr(+-R_h^-1),
+    # the sign from the star (the equivalent rotations: identity, third-turn, half-turn, quarter-turn, half-turn about
+    # a cube edge; the starred classes act on displacements as improper operations)
+    fixed = [5, 2, 1, 1, 3]
+    trace = [3, 0, -1, -(1 + 0), -(1 - 2)]                      # tr(+-R): 1 + 2 cos theta, negated on the starred classes
+    chi_3n = [f * t for f, t in zip(fixed, trace)]
+    gamma_3n = {k: int(round(sum(n*c*v[i] for i, (n, _, _, _), c in zip(range(5), cls, chi_3n))/24)) for k, v in TD.items()}
+    gamma_vib = dict(gamma_3n); gamma_vib['T1'] -= 1; gamma_vib['T2'] -= 1   # minus rotations (T1) and translations (T2)
+    assert sum(m * TD[k][0] for k, m in gamma_3n.items()) == 15 and sum(m * TD[k][0] for k, m in gamma_vib.items()) == 9
+    # D^J restricted to H through h -> R_h^-1 (the classes' turning angles), and the physical states per J by parity
+    angles = [0.0, 120.0, 180.0, 90.0, 180.0]
+    def chi_J(J, deg):
+        if deg == 0.0: return 2 * J + 1
+        t = math.radians(deg); return math.sin((2 * J + 1) * t / 2) / math.sin(t / 2)
+    j_table = []
+    for J in range(0, 7):
+        ch = [chi_J(J, a) for a in angles]
+        mult = {k: int(round(sum(n * c * v[i] for i, (n, _, _, _), c in zip(range(5), cls, ch)) / 24)) for k, v in TD.items()}
+        assert sum(m * TD[k][0] for k, m in mult.items()) == 2 * J + 1
+        j_table.append({'J': J, 'species': {k: m for k, m in mult.items() if m},
+                        'even': sum(m * weights['Even'][k] for k, m in mult.items()), 'odd': sum(m * weights['Odd'][k] for k, m in mult.items())})
     # under the proper rotations T = A4: classes E, 3 C2, 4 C3, 4 C3' with chi_spin 16, 4, 4, 4; A, 1E, 2E, T
     w3 = cmath.exp(2j*math.pi/3)
     TT = {'A': [1, 1, 1, 1], '1E': [1, 1, w3, w3**2], '2E': [1, 1, w3**2, w3], 'T': [3, -1, 0, 0]}
@@ -393,7 +452,8 @@ def main():
     kernel_index = {k: int(round(12/sum(n for n, v in zip(tcls, ch) if abs(complex(v) - ch[0]) < 1e-9))) for k, ch in TT.items()}
     summary['methane_rigid'] = {'spin_Td': spin_td, 'weights': weights, 'spin_T': spin_t,
                                 'isomers': [(r, nu, d, spin_t[nu]) for r, nu, d in isomers],
-                                'entangled_fraction': [3*spin_t['T'], 16], 'monodromy_orders': kernel_index}
+                                'entangled_fraction': [3*spin_t['T'], 16], 'monodromy_orders': kernel_index,
+                                'gamma_3N': gamma_3n, 'gamma_vib': gamma_vib, 'J_table': j_table}
     for k, v in spin_td.items():
         num.append(f'\\def\\methaneSpin{k.replace("1", "one").replace("2", "two")}{{{v}}}')
     for tag in ('Even', 'Odd'):
@@ -401,6 +461,14 @@ def main():
             num.append(f'\\def\\methane{tag}{k.replace("1", "one").replace("2", "two")}{{{v}}}')
     for k, v in spin_t.items():
         num.append(f'\\def\\methaneT{k.replace("1E", "Eone").replace("2E", "Etwo")}{{{v}}}')
+    def species_text(mult):
+        names = {'A1': r'\mathrm A_1', 'A2': r'\mathrm A_2', 'E': r'\mathrm E', 'T1': r'\mathrm T_1', 'T2': r'\mathrm T_2'}
+        return r'\oplus'.join((f'{mult[k]}\\,' if mult[k] > 1 else '') + names[k] for k in ('A1', 'A2', 'E', 'T1', 'T2') if mult.get(k, 0))
+    num.append('\\def\\methaneVib{' + species_text(gamma_vib) + '}')
+    num.append('\\def\\methaneThreeN{' + species_text(gamma_3n) + '}')
+    for row in j_table:
+        num.append(f'\\def\\methaneJ{"ABCDEFG"[row["J"]]}{{${species_text(row["species"])}$ & {row["even"]} & {row["odd"]}}}')
+    num.append('\\def\\methaneLoopWhere{' + ', '.join(str(w + 1) for w in where) + '}')
 
     # ---- methylamine
     X0 = G.methylamine(0.0, ETA0)

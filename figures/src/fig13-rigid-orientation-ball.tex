@@ -1,0 +1,73 @@
+% Rigid methane (closing pages, unnumbered): three panels from one camera (make_data: CAM_BALL, azimuth 108,
+% elevation 21, chosen by scan to sit 27 degrees from every symmetry axis of the cube so that nothing overlaps).
+% Left: the reference X0 in its body frame, the C2 axes x, y, z through the midpoints of opposite edges (fine lines),
+% the hydrogens on the body diagonals with their digits.
+% Middle: the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi, on
+% the page 2 cm; the skin is the half-turns, each point its own antipode): the twelve symmetry rotations of T as red
+% dots (the centre; eight third-turns, a tetrahedron through the bonds and one through the faces; three half-turns
+% on the skin, each drawn once), one cell of the twelve as a wire octahedron (hidden edges dotted, the only dotted
+% lines on the plate) with the six quarter-turns as ink rings at its vertices, and the lift of the third-turn loop:
+% a solid arrow from the centre through a face to the dot beyond.
+% Right: the covering in figure 11's grammar: a patch of the quotient SO(3)/T (one cell with its faces glued) with the
+% loop l_g, and over it the sheets r, r R_g, r R_g^2 of the twelve (one per rotation of T); the lift of l_g runs from
+% the dot on sheet r to the dot on sheet r R_g; one dotted projection from the base point to its sheet, the
+% convention of the cover and of figure 11.
+% Ink, white, the red dots; no other colour. Every coordinate from figures/data/numbers.tex (make_data), the
+% geometry recomputed in checks/verify_methane.py.
+\documentclass[10pt,border=1mm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{figurestyle}
+\input{primitives.tex}
+\input{numbers.tex}
+\begin{document}
+\begin{tikzpicture}[plate,axis/.style={line width=.4pt,draw=PlateInk}]
+\path[use as bounding box] (0,0) rectangle (15,6.2);
+% ================================================ left: the reference in its body frame
+\begin{scope}[shift={(2.3,3.4)}]
+  \foreach \a/\lab/\anc in {x/$x$/north west,y/$y$/west,z/$z$/south west} {
+    \draw[axis] ({-.95*\csname ballS\a px\endcsname},{-.95*\csname ballS\a py\endcsname})--({.95*\csname ballS\a px\endcsname},{.95*\csname ballS\a py\endcsname});
+    \node[sub,anchor=\anc,inner sep=1.5pt] at ({1.0*\csname ballS\a px\endcsname},{1.0*\csname ballS\a py\endcsname}) {\lab};}
+  \foreach \k/\n in \ballHback {\draw[molbond] (0,0)--({2.3*\csname ballH\k x\endcsname},{2.3*\csname ballH\k y\endcsname});
+    \node[atomH,minimum size=3.4mm,font=\fontsize{7}{7}\selectfont] at ({2.3*\csname ballH\k x\endcsname},{2.3*\csname ballH\k y\endcsname}) {\n};}
+  \node[atomC,minimum size=3.8mm] at (0,0) {};
+  \foreach \k/\n in \ballHfront {\draw[molbond] (0,0)--({2.3*\csname ballH\k x\endcsname},{2.3*\csname ballH\k y\endcsname});
+    \node[atomH,minimum size=3.4mm,font=\fontsize{7}{7}\selectfont] at ({2.3*\csname ballH\k x\endcsname},{2.3*\csname ballH\k y\endcsname}) {\n};}
+  \node[sub,anchor=north,align=center] at (0,-2.35) {$\X_0$ in its body frame};
+\end{scope}
+% ================================================ middle: the orientation ball with the twelve dots, one cell, the lift
+\begin{scope}[shift={(6.5,3.4)}]
+  \draw[fine] (0,0) circle[radius=\ballR];
+  \foreach \p/\q in \ballCellHidden {\draw[hidden] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+  \foreach \p/\q in \ballCellVisible {\draw[fine] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+  % the lift of the loop: from the centre through the face to the third-turn about bond 1
+  \draw[tpath,shorten >=2.5pt] (0,0)--(\ballCax,\ballCay);
+  \foreach \k in {a,b,c,d} {\fill[ColDot] (\csname ballC\k x\endcsname,\csname ballC\k y\endcsname) circle[radius=.065]; \fill[ColDot] (\csname ballD\k x\endcsname,\csname ballD\k y\endcsname) circle[radius=.065];}
+  \foreach \s in \ballSkinFront {\fill[ColDot] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.065];}
+  \fill[ColDot] (0,0) circle[radius=.065];
+  \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.045];}}
+  \node[sub,anchor=south,align=center] at (0,{\ballR+.12}) {$SO(3)$ as a ball: direction the axis, distance the angle};
+  \draw[leader] ($(\ballCax,\ballCay)+(.08,.04)$)--({\ballR+.3},1.05); \node[sub,anchor=west,align=left] at ({\ballR+.35},1.05) {the third-turn\\about bond $1$};
+  \draw[leader] ($(\ballSzmx,\ballSzmy)+(-.07,-.04)$)--({-\ballR-.3},-1.1); \node[sub,anchor=east,align=right] at ({-\ballR-.35},-1.1) {a half-turn,\\on the skin};
+  \node[sub,anchor=north,align=center] at (0,{-\ballR-.12}) {the twelve rotations of $T$, one cell $\mathcal U$,\\and the lift $r\to r\Rmat_g$ of the loop};
+\end{scope}
+% ================================================ right: the covering, figure 11's grammar
+\newcommand\csheet[4]{\path[fill=#4] ({#1-1.0},#2)--({#1+1.0},#2)--({#1+1.5},{#2+.5})--({#1-.5},{#2+.5})--cycle; \draw[#3] ({#1-1.0},#2)--({#1+1.0},#2)--({#1+1.5},{#2+.5})--({#1-.5},{#2+.5})--cycle;}
+\begin{scope}[shift={(12.1,.55)}]
+  \csheet{0}{0}{heavy}{white}
+  \coordinate (bx) at (.25,.25);
+  \draw[tlift] (bx) .. controls (-1.1,.5) and (-1.1,0) .. (bx);
+  \node[sub,anchor=north,inner sep=1.5pt] at (-.55,-.06) {$\ell_g$};
+  \node[sub,anchor=west,inner sep=1pt] at (1.6,.25) {$SO(3)/T$};
+  \foreach \k/\lab in {0/{r},1/{r\Rmat_g},2/{r\Rmat_g^{\,2}}} {
+    \pgfmathsetmacro{\y}{1.35+1.05*\k}
+    \csheet{0}{\y}{fine}{white}
+    \coordinate (p\k) at (.25,{\y+.25});
+    \node[sub,anchor=west,inner sep=1pt] at (1.6,{\y+.25}) {$\lab$};}
+  \node[sub,anchor=south east,inner sep=1pt] at (1.5,4.5) {$\cdots$ twelve sheets, one per rotation of $T$};
+  \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (bx)--(p0);
+  \draw[tlift] (p0) .. controls (-1.3,{1.35+.25+.3}) and (-1.3,{1.35+1.05+.25-.3}) .. (p1);
+  \foreach \k in {0,1,2} {\fill[ColDot] (p\k) circle[radius=.065];}
+  \fill[ColDot] (bx) circle[radius=.065];
+\end{scope}
+\end{tikzpicture}
+\end{document}
