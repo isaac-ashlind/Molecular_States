@@ -1,8 +1,8 @@
 % Figure 9, localized states. The torsion circle unrolled, with three version packets in each of three rows of width
 % Delta/d = 1/6, 1/3 and 2/3 (Delta the packet width, d the spacing of the versions). The profiles are densities, so
 % neighbors cross at c times the peak height, and the region where two overlap is light gold. At the right of each row
-% the A1 share w_A1 = 1/3 + 2c/3 fills a bar, dark gold for the third a packet carries alone and light gold for the
-% overlap part 2c/3, with the row's exact c below. The share curves carry the three rows as points. As the packets
+% the A1 share w_A1 = 1/3 + 2c/3 fills a bar, dark gold for the third it has with no overlap and light gold for the
+% overlap part 2c/3, with the row's exact c below. The change of fill marks the split; the divider marks w_A1. The share curves carry the three rows as points. As the packets
 % narrow the shares tend to 1/3 and 2/3, and as they broaden w_A1 tends to 1.
 % Declared, the overlap and shares use the planar Gaussian formula, not a torsional potential. The shares come from
 % figures/data (checks/verify.py, checks/verify_symbolic.py). Red marks the versions.
@@ -27,18 +27,19 @@
 \foreach \lab/\sg/\wa/\en/\ed [count=\i] in \packetRows {\pgfmathsetmacro{\y}{8.6-2.5*(\i-1)}
   \packetrow{6.0}{\y}{\sg}{8.4}{1.2}
   \node[lab,anchor=east] at (1.55,{\y+.55}) {$\lab$};
-  % the bar: the third a packet carries alone (dark gold), the overlap part 2c/3 (light gold, as the overlap), then E
+  % the bar: the third it has with no overlap (dark gold), the overlap part 2c/3 (light gold, as the overlap), then E;
+  % no rule at 1/3, which in the top row would merge with the divider at w_A1
   \path[fill=ColRetained] (11.4,{\y+.38}) rectangle ({11.4+2.6*\packetFloor},{\y+.73});
   \path[fill=ColPatch] ({11.4+2.6*\packetFloor},{\y+.38}) rectangle ({11.4+2.6*\wa},{\y+.73});
   \draw[fine] (11.4,{\y+.38}) rectangle (14.0,{\y+.73});
-  \foreach \w in {\packetFloor,\wa} {\draw[fine] ({11.4+2.6*\w},{\y+.38})--({11.4+2.6*\w},{\y+.73});}
+  \draw[fine] ({11.4+2.6*\wa},{\y+.38})--({11.4+2.6*\wa},{\y+.73});
   \node[sub,anchor=north] at (12.7,{\y+.30}) {$c=e^{-\en/\ed}$};
 }
 \foreach \x/\l in {-180/{-\pi},180/{\pi}} {\node[sub,anchor=base] at ({6.0+8.4*\x/360},3.29) {$\l$};}
 \node[sub,anchor=base] at (11.0,3.29) {$\tau$};
 \node[lab,anchor=south] at (6.0,9.95) {$\eta_0$}; \node[lab,anchor=south] at (8.8,9.95) {$\eta_1$}; \node[lab,anchor=south] at (3.2,9.95) {$\eta_2$};
 \node[sub,anchor=base] at (6.0,3.15) {$H$}; \node[sub,anchor=base] at (8.8,3.15) {$tH$}; \node[sub,anchor=base] at (3.2,3.15) {$t^2H$};
-\node[sub,anchor=base] at (11.85,9.53) {$w_{\mathrm A_1}$}; \node[sub,anchor=base] at (13.15,9.53) {$w_{\mathrm E}$};
+\node[sub,anchor=base west] at (11.4,9.53) {$w_{\mathrm A_1}$}; \node[sub,anchor=base east] at (14.0,9.53) {$w_{\mathrm E}$};   % from the bar's two ends
 \node[sub,anchor=east] at (1.55,9.6) {$\Delta/d$};
 \node[lab] at (4.6,6.8) {$c$};
 % the share curves across the width of the rows, the three rows marked at their ratios

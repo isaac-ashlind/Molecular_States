@@ -82,7 +82,8 @@ wA1 = share([1, 1, 1], 1); wE = share([1, w3, w3**2], 1) + share([1, w3**2, w3],
 assert sp.simplify(wA1 - (1 + 2*cc)/3) == 0 and sp.simplify(wE - 2*(1 - cc)/3) == 0 and sp.simplify(wA1 + wE - 1) == 0
 # P_A1 averages eta_0 over the three versions, so with no overlap the A1 share is 1/3 and overlap adds 2c/3
 PA1 = sum((T3**k for k in range(3)), sp.zeros(3, 3))/3
-assert PA1*e0 == sp.Matrix([1, 1, 1])/3 and sp.simplify(wA1 - sp.Rational(1, 3) - 2*cc/3) == 0
+assert PA1**2 == PA1 and PA1*e0 == sp.Matrix([1, 1, 1])/3
+assert sp.simplify((e0.T*Gm*PA1*e0)[0] - wA1) == 0 and (e0.T*Gm.subs(cc, 0)*PA1*e0)[0] == sp.Rational(1, 3)
 # the drawn profiles are densities exp(-x^2/(2 Delta^2)); two neighbors d apart cross at the midpoint, at c times the peak
 assert sp.simplify(sp.exp(-(d/2)**2/(2*sg**2)) - c) == 0
 print('shares: w_A1 = (1+2c)/3 = 1/3 + 2c/3, w_E = 2(1-c)/3, sum rule, P_A1 eta_0 the average of the three, densities cross at c: exact')

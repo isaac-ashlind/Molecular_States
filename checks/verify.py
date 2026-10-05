@@ -10,7 +10,7 @@ conjugate of (23)* at the six points (pi/6 + k pi/3, 0), and by E alone elsewher
 What the plates draw (figures/data/numbers.tex): figure 8's spin counts, figure 12's kappa rows and torsion species,
 figure 5's version labels and figure 10's chart cells, all exactly; figure 9's widths (120 x degrees), the exponents
 of c = exp(-1/(8 x^2)) under its bars, its shares against (1 + 2c)/3, its curve points, and the bars' split at the
-no-overlap share 1/3 = d m / |G6/H|. summary.json: the intervals, the normal frame (M_tu = diag(1, -1)), the version positions and
+no-overlap share 1/3 (dimension times copies of A1 in C[G6/H], over the three versions). summary.json: the intervals, the normal frame (M_tu = diag(1, -1)), the version positions and
 the residual between X and bX. Geometry, in floating point: no element of G12 but E fixes X0.
 verify_symbolic.py proves the family's actions and the Gaussian formulas exactly, verify.g repeats the group facts
 in GAP. A failed assertion stops the build.
@@ -148,7 +148,7 @@ for word in words.values():
 emitted = sorted((Fr(a), Fr(b), int(c), int(d)) for a, b, c, d in items('chartCells'))
 assert len(emitted) == len(cells) and all(abs(x - y) < 1e-4 for p, q in zip(emitted, sorted(cells)) for x, y in zip(p, q))
 # figure 9: each row's width is 120 x degrees (d = 120), its c = e^{-1/(8 x^2)} has the exponent drawn under its bar, and
-# its share is (1 + 2c)/3; the bars split at the no-overlap share d_A1 m_A1 / |G6/H| = 1/3; the curve points are the rows
+# its share is (1 + 2c)/3. The bars split at the no-overlap share 1/3, one site of three, and the curve points are the rows.
 rows9 = items('packetRows')
 for x, deg, share, en, ed in rows9:
     xf = Fr(x)
