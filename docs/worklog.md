@@ -147,3 +147,7 @@ Same day, the plate signed off in its final layout (molecule and ball sharing on
 vertical line of projection, loop and lift as lines). Page breaks: items 1 to 4 under the figure, items 5 to 10,
 then the tables and the projection. Manuscript 24 pages, no bad boxes, no text collisions, all checks pass.
 
+Same day, the plate signed off (frame camera z toward the viewer, molecule and ball left, figure 11's bow for the
+lift, one vertical of projection, texts rewritten). Page breaks: items 1 to 4 under the figure, items 5 to 10, the
+tables and the projection. Manuscript 24 pages, no bad boxes, no text collisions, all checks pass. Backup tagged.
+

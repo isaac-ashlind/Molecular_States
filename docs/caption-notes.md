@@ -193,37 +193,41 @@ species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level r
 Fig. 4.2.3.
 
 ## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
-What the reader sees at a squint: a small labelled tetrahedron with three axes in the upper left; beside it a large
+What the reader sees at a squint: a small labelled tetrahedron with three axes at the left margin; beside it a large
 teal globe holding a thin cube with a gold octahedron inside, red dots at the cube's corners and one arrow; on the
-right three sheets stacked over a gold patch, a loop on the patch, a curve rising from one sheet to the next, and
-one dotted vertical through every dot. Three panels, two blocks of text under the last two, no leader labels.
+right three sheets stacked over a gold patch, a loop on the patch, a bow rising from one sheet to the next, and one
+dotted vertical through every dot running on past the top sheet. Three panels; two left-aligned text blocks on one
+line under the ball and the covering; no leader labels; the figure unnumbered (author).
 Upper left: methane, CH4, the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals,
-C-H 1.087 A), drawn with the suite's molecule primitive seen with the ball's own camera (mol3d-ch4-ball), so that
-its bond 1 points the way the lift arrow in the ball does (author); the axes x, y, z through the midpoints of
-opposite edges as thin lines behind it; its title in the corner names the molecule and the formula.
-Middle, large and close to the molecule since the two share one orientation: the orientation space SO(3) as the
-axis-angle ball, direction the axis and distance the angle, radius pi (camera CAM_BALL, azimuth 108, elevation 21,
-chosen by scan to sit 27 degrees, the maximum, from every symmetry axis of the cube so that the twelve sites and the
-six cell vertices all separate on the page, bond 1 toward the viewer). The sphere teal with its three great
-circles, solid in front and dashed behind; the skin is the half-turns, each point its own antipode. The twelve
-rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, joined by the thin
-ink edges of the cube they span (a reading aid: no edge between two points is intrinsic), and the three half-turns
-on the skin, each drawn once at its far representative and pale, so that they read as distant (author). The cell of
-the centre as the schematic that is exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its
-vertices, the quarter-turns as ink rings, on the cube's face centres, every edge straight; in the ball the true cell
-has edges that bow outward and its vertices a little further out (the caption says so; the exact curved version and
-the Rodrigues-only version were drawn and rejected by the author as unreadable). The lift of the third-turn loop as
-the one heavy arrow from the centre through a face to the dot beyond, its inner part drawn before the gold edges so
-that the edges in front of it cover it. Solid for what faces the viewer, dashed for what lies behind.
+C-H 1.087 A), drawn with the suite's molecule primitive seen with the ball's camera (mol3d-ch4-ball), so that its
+bond 1 points the way the lift arrow in the ball does; the axes x, y, z through the midpoints of opposite edges as
+thin lines, each split at the carbon, the half coming toward the viewer drawn over the molecule and the half going
+away behind it; the title in the corner names the molecule and its formula.
+The camera of both panels (make_data: CAM_BALL) is a frame, not a scan: z toward the viewer, x to the right, y up,
+tilted 26 degrees off z (toward +y more than +x) so that the cube's faces do not stack (author's choice).
+Middle, large and close to the molecule since the two share one camera: the orientation space SO(3) as the
+axis-angle ball, direction the axis and distance the angle, radius pi. The sphere teal with its three great circles,
+solid in front and dashed behind; the skin is the half-turns, each point its own antipode. The twelve rotations of T
+as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, joined by the thin ink edges of
+the cube they span (a reading aid: no edge between two points is intrinsic), and the three half-turns on the skin,
+each drawn once at its far representative and pale, so that they read as distant (author). The cell of the centre
+as the schematic that is exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its vertices,
+the quarter-turns as ink rings, on the cube's face centres, every edge straight; in the ball the true cell has
+edges that bow outward and its vertices a little further out (the caption says so; the exact curved version and the
+Rodrigues-only version were drawn and rejected by the author as unreadable). The lift of the third-turn loop as the
+one heavy arrow from the centre through a face to the dot beyond, its inner part drawn before the gold edges so
+that the edge in front of it covers it. Solid for what faces the viewer, dashed for what lies behind.
 Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point, a
-line without arrowhead as on the cover (author: "I was wrong about the arrowheads"); three sheets r, r R_g, r R_g^2
-of the twelve; the lift as the loop's own curve raised from the dot on sheet r to the dot on sheet r R_g; one
-vertical dotted line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running
-on past the top sheet to a vertical ellipsis (author): the stack goes on. The sheets are the cartoon of figure 11,
-not a computed surface. This is the honest form of Albert et al.'s Fig. 3(c): their fibre over a position is these
-twelve sheets (the regular representation of T) and their monodromy action is the lift moving from one sheet to the
-next; what each species sees is in the text block.
-Text blocks: two, left-aligned on one line with a gap between, under the ball and under the covering (author).
+line without arrowhead as on the cover (the author withdrew the arrowheads); three sheets r, r R_g, r R_g^2 of the
+twelve; the lift as figure 11's smooth bow from the dot on sheet r to the dot on sheet r R_g, reaching as far left
+as the loop beneath it; one vertical dotted line of projection through every dot, hidden behind each sheet and
+re-emerging at its dot, running on past the top sheet to a vertical ellipsis (author): the stack goes on. The
+sheets are the cartoon of figure 11, not a computed surface. This is the honest form of Albert et al.'s Fig. 3(c):
+their fibre over a position is these twelve sheets (the regular representation of T) and their monodromy action is
+the lift moving from one sheet to the next; what each species sees is in the text block.
+Text blocks (author): complementary to the caption, which keeps the one sentence on the schematic. Under the ball:
+what the colours and the arrow are. Under the covering: what the sheets are, that the loop closes in the base and
+climbs in the sheets, and what each species makes of the climb.
 Colours: the sphere teal (the orientation space takes over the core sheet's role), the cell gold (the chart patch,
 as in figures 10 and 11; the base patch at right in figure 11's tint), the cube thin ink, the dots red (the
 version-dot role of figure 10 handed to orientations), the lift ink. Dotted only for the projection.

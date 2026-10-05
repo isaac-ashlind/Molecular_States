@@ -1,18 +1,18 @@
 % Rigid methane (closing pages, unnumbered): three panels, titles only, no leader labels.
-% Upper left: methane, CH4, the reference X0 in its body frame, drawn small with the suite's molecule primitive seen
-% with the ball's own camera (mol3d-ch4-ball), so that its bond 1 points the way the lift arrow in the ball does;
-% the C2 axes x, y, z through the midpoints of opposite edges as thin lines behind it; its title in the corner.
-% Middle, large, close to the molecule since the two share one camera (make_data: CAM_BALL, a frame with z toward
-% the viewer, x to the right and y up, tilted 26 degrees off z so that the cube's faces do not stack; author): the orientation
-% space SO(3) as the axis-angle ball, direction the axis and distance the angle, radius pi drawn 2.4 cm; the sphere
-% teal with its three great circles (the skin is the half-turns, each point its own antipode). The twelve rotations
-% of T as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, the three half-turns on the
-% skin, each drawn once at its far representative and pale, so that it reads as distant (author). The cell of the
-% centre as the schematic exact in Rodrigues coordinates: the gold wire octahedron dual to the thin ink cube spanned
-% by the third-turns, its vertices (the quarter-turns, ink rings) on the cube's face centres; in the ball the true
-% edges bow outward (the caption says so). The lift of the third-turn loop as the one heavy arrow from the centre
-% through a face to the dot beyond: its inner part drawn before the gold edges so that the edges in front of it
-% cover it, its outer part after. Solid for what faces the viewer, dashed for what lies behind.
+% Upper left: methane, CH4, the reference X0 in its body frame, drawn small with the suite's molecule primitive
+% (mol3d-ch4-c2) from a right-handed camera with z toward the viewer, x to the right and y up (author); the C2 axes
+% x, y, z through the midpoints of opposite edges as thin lines, each split at the carbon, the half toward the viewer
+% drawn over the molecule and the half away from it behind; its title in the corner.
+% Middle, large, beside the molecule: the orientation space SO(3) as the axis-angle ball from the suite's camera at
+% azimuth 108, elevation 21 (author: the earlier view, restored), direction the axis and distance the angle, radius
+% pi; the sphere teal with its three great circles (the skin is the half-turns, each point its own antipode). The
+% twelve rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, the three
+% half-turns on the skin, each drawn once at its far representative and pale, so that it reads as distant (author).
+% The cell of the centre as the schematic exact in Rodrigues coordinates: the gold wire octahedron dual to the thin
+% ink cube spanned by the third-turns, its vertices (the quarter-turns, ink rings) on the cube's face centres; in the
+% ball the true edges bow outward (the caption says so). The lift of the third-turn loop as the one heavy arrow from
+% the centre through a face to the dot beyond: its inner part drawn before the gold edges so that the edge in front
+% of it covers it, its outer part after. Solid for what faces the viewer, dashed for what lies behind.
 % Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point (a
 % line, no arrowhead, as on the cover), three sheets r, r R_g, r R_g^2 of the twelve, the lift as the same curve raised from the
 % dot on sheet r to the dot on sheet r R_g (figure 11's smooth bow, reaching as far left as the loop); one vertical
@@ -41,10 +41,10 @@
 % ================================================ upper left: methane in its body frame, seen as the ball is seen
 \node[blurb] at (.15,8.7) {Methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\with the $C_2$ axes $x,y,z$ through the midpoints of opposite edges.};
 \begin{scope}[shift={(1.45,6.4)}]
-  \foreach \a/\s in \baAxisBack {\draw[thin] (0,0)--({\s*1.2*\csname baAxis\a x\endcsname},{\s*1.2*\csname baAxis\a y\endcsname});}
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-ball};\end{scope}
-  \foreach \a/\s in \baAxisFront {\draw[thin] (0,0)--({\s*1.2*\csname baAxis\a x\endcsname},{\s*1.2*\csname baAxis\a y\endcsname});}
-  \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/1.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname baAxis\a x\endcsname+.06},{\e*\csname baAxis\a y\endcsname}) {\lab};}
+  \foreach \a/\s in \chAxisBack {\draw[thin] (0,0)--({\s*1.2*\csname chAxis\a x\endcsname},{\s*1.2*\csname chAxis\a y\endcsname});}
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}
+  \foreach \a/\s in \chAxisFront {\draw[thin] (0,0)--({\s*1.2*\csname chAxis\a x\endcsname},{\s*1.2*\csname chAxis\a y\endcsname});}
+  \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/1.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname chAxis\a x\endcsname+.06},{\e*\csname chAxis\a y\endcsname}) {\lab};}
 \end{scope}
 % ================================================ middle: the orientation ball, large
 \begin{scope}[shift={(5.0,5.25)},scale=1.05]
