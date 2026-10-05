@@ -1,12 +1,12 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
-Status: NOT STARTED
-Live check-in trigger: trig_016XrphoRBULEYp82BHpvAiN (backstop armed before the pass, fires 2026-10-05T19:02Z; step 0 replaces it)
+Status: IN PROGRESS
+Live check-in trigger: trig_01Npf4KvXr3pwG94gx7eQyti (fires 2026-10-05T17:35Z)
 Workflow runs: none yet
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
 
-- [ ] 0. Start: follow the interruption protocol, arm the check-in, set Status to IN PROGRESS
+- [x] 0. Start: follow the interruption protocol, arm the check-in, set Status to IN PROGRESS
 - [ ] 1. Read every process doc, README and build.py; fold the necessary rules into source comments (figurestyle.sty,
          primitives.tex headers, check docstrings); delete HANDOFF.md, docs/author-decisions.md, caption-notes.md,
          verification.md, storyline.md, style.md, docs/history/; rewrite README as a short build note
@@ -22,3 +22,4 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 - [ ] 9. Delete .final-pass/, commit "Final pass step 9: done", push, cancel the check-in, short final report
 
 Log (one line per step: step, commit, note):
+- 0: started 2026-10-05T16:04Z, backstop deleted, check-in armed
