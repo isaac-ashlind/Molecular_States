@@ -36,18 +36,18 @@
 \draw[harrow] (9.05,16.85)--(10.65,16.85); \node[lab,anchor=north] at (9.85,16.67) {$\Rmat_b=\Rmat_y(\pi)$};
 % ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
 \begin{scope}[shift={(.5,6.8)}]
-  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=6 \pgfmathsetmacro{\xx}{0.38}\fi\ifnum\i=8 \pgfmathsetmacro{\xx}{0.12}\fi\ifnum\i=15 \pgfmathsetmacro{\xx}{0.21}\fi\ifnum\i=26 \pgfmathsetmacro{\xx}{0.26}\fi \coordinate (n\i) at ({.3+6.4*\xx},{.2+7.6*\yy});}   % four nodes moved along their levels so that no cover runs through a node
+  \foreach \i/\x/\yy/\inb in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+7.6*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[faint] (n\a)--(n\b);\fi}
   \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColPatch] (n\a)--(n\b);}   % the halo first, under the covers, as in the Hasse diagram
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[heavy] (n\a)--(n\b);\fi}
-  \foreach \i/\x/\yy/\inb/\name in \bigNodes {\ifnum\inb=1 \draw[ring,fill=white] (n\i) circle[radius=1.9pt];\else\fill[ColFaint] (n\i) circle[radius=1pt];\fi}
+  \foreach \i/\x/\yy/\inb in \bigNodes {\ifnum\inb=1 \draw[ring,fill=white] (n\i) circle[radius=1.9pt];\else\fill[ColFaint] (n\i) circle[radius=1pt];\fi}
   \foreach \i in \bigChain {\draw[ring,fill=ColRetained] (n\i) circle[radius=2.1pt];}
   \node[lab,anchor=north] at ($(n0)+(0,-.2)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.2)$) {$S$};
 \end{scope}
 \draw[harrow] (7.1,10.6)--(7.9,10.6); \node[sub,anchor=south] at (7.5,10.72) {keep the bonds};
 \begin{scope}[shift={(11.2,7.3)},x=-.68cm,y=1.7cm]
-  \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
-  \draw[line width=3pt,draw=ColPatch] (h0)--(h4)--(h6)--(h9);
+  \hassenodes
+  \draw[line width=3pt,draw=ColPatch] (h0)--(h4)--(h6)--(h9);   % the chain's halo, under the covers
   \hassecovers
   \foreach \i/\l in \hasseLabels {\node[dense,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}

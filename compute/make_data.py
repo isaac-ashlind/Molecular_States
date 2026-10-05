@@ -1,11 +1,13 @@
-"""Generate the verified figure data in figures/data/ from compute/.
+"""Generate the figure data in figures/data/ from compute/.
 
 Run from the repository root:  python3 compute/make_data.py
-Everything emitted here is recomputed from declared masses, model parameters
-and group definitions; nothing is typed in by hand.  checks/verify.py
-re-derives the same quantities independently and asserts them.
+numbers.tex and molecules.tex hold what the plates draw, summary.json what the
+checks compare.  Everything is computed from the masses, the model parameters
+and the group definitions, with characters and counts in exact arithmetic;
+the character tables of Td(M) and T and the drawing choices are typed in and
+marked as such.  checks/ recompute what is stated and drawn.
 """
-import itertools, json, math, cmath, os, sys
+import itertools, json, math, os, sys
 from fractions import Fraction
 sys.path.insert(0, os.path.dirname(__file__))
 import geometry as G
@@ -15,19 +17,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'figures', 'data')
 os.makedirs(DATA, exist_ok=True)
 
-ETA0 = G.MLA_FRAME['eta0']
+IOTA0 = G.MLA_FRAME['iota0']
 CAM_MLA = G.camera(azimuth_deg=50.0, elevation_deg=25.0)
 CAM_FLAT = ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0))   # page = xy-plane
 
-def fmt(x, nd=4):
-    s = f'{x:.{nd}f}'
-    if s.startswith('-0.0000'): s = '0.0000'
-    return s
+def fmt(x):
+    s = f'{x:.4f}'
+    return '0.0000' if s == '-0.0000' else s
 
 # --------------------------------------------------------------- pic emit ---
 
-def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, labels=False, only=None):
-    """TikZ pic code for the v2 molecule primitive with correct layering.
+def pic_code_rods(X, elements, bonds, cam, arrows=None, labels=False, only=None):
+    """TikZ pic code for the molecule primitives (\\molatom, \\molrodj, \\molarrow, \\mollabel) with correct layering.
 
     Items (atoms and rods) are painted back to front.  A rod is painted just after its farther atom
     and before its nearer atom.  It starts where the bond cylinder leaves the far sphere (the junction
@@ -38,8 +39,7 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
     right, up, out = cam
     P = G.project(X, cam)
     n = len(X)
-    if label_macros is None:
-        label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
+    label_macros = ['\\mol' + 'ABCDEFG'[i] for i in range(n)]
     depth = [P[i][2] for i in range(n)]
     rods = []
     for a, b in bonds:
@@ -61,23 +61,20 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
             u = G.sub(X[near], X[far]); L = math.sqrt(G.dot(u, u)); u = G.scale(u, 1/L)
             ux, uy, uz = G.dot(u, right), G.dot(u, up), G.dot(u, out)
             dn = math.hypot(ux, uy)
-            if dn < 1e-6:
-                continue            # end-on bond: hidden under the near sphere
+            assert dn > 1e-6, 'an end-on bond'
             rad = RAD_MACRO.get(elements[far], '\\radX')
             lines.append(f'\\molrodj{{{fmt(P[far][0])}}}{{{fmt(P[far][1])}}}{{{fmt(P[near][0])}}}{{{fmt(P[near][1])}}}'
                          f'{{{fmt(ux/dn)}}}{{{fmt(uy/dn)}}}{{{fmt(uz)}}}{{{rad}}}')
     if arrows is not None:
-        rad_a = {'H': 0.20, 'C': 0.36, 'N': 0.36, 'O': 0.36, 'K': 0.40, 'Rb': 0.46}
+        rad_a = {'H': 0.20, 'C': 0.36, 'N': 0.36, 'O': 0.36, 'K': 0.40, 'Rb': 0.46}   # \\radH, \\radX, ... of primitives.tex
         for k in range(n):
             if arrows[k] is not None:
                 dx, dy = arrows[k]
                 # the shaft starts on the atom's silhouette, not at its center (visible on a light disc)
-                L = math.hypot(dx, dy); r = rad_a.get(elements[k], 0.36)
-                if L > r + 0.15:
-                    ux, uy = dx/L, dy/L
-                    lines.append(f'\\molarrow{{{fmt(P[k][0] + r*ux)}}}{{{fmt(P[k][1] + r*uy)}}}{{{fmt(dx - r*ux)}}}{{{fmt(dy - r*uy)}}}')
-                else:
-                    lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
+                L = math.hypot(dx, dy); r = rad_a[elements[k]]
+                assert L > r + 0.15, 'an arrow shorter than its atom'
+                ux, uy = dx/L, dy/L
+                lines.append(f'\\molarrow{{{fmt(P[k][0] + r*ux)}}}{{{fmt(P[k][1] + r*uy)}}}{{{fmt(dx - r*ux)}}}{{{fmt(dy - r*uy)}}}')
     if labels:
         # label direction: away from the mean page position of the bonded neighbors (or straight up)
         for k in range(n):
@@ -103,12 +100,12 @@ def pic_code_grouped(X, elements, lines_, cam):
     out += pic_code_rods(X, elements, [], cam, labels=True)
     return out
 
-def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7, twist_deg=0.0):
+def pic_code_newman(X, methyl=(1, 2, 3), amino=(4, 5), twist_deg=0.0):
     """Newman projection down the C-N axis (viewer on the N side): back carbon as a circle with its
     hydrogens on fine bonds from the rim; front nitrogen as a disc at the center with its hydrogens on
     rod bonds from the center.  Page coordinates are the molecular (x, y) in angstrom; the digit is the
     column label (version labels are supplied by the \\molA.. macros).  twist_deg turns the back set on
-    the page by a small angle, the drawing convention for an eclipsed projection (declared, not geometry)."""
+    the page by a small angle, the drawing convention for an eclipsed projection, not geometry."""
     lines = []
     c, s_ = math.cos(math.radians(twist_deg)), math.sin(math.radians(twist_deg))
     for k in methyl:
@@ -122,6 +119,12 @@ def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitro
     lines.append('\\nmcenter')
     return lines
 
+def exact_mean(total, order):
+    """A character inner product: the integer total/order, asserted exact."""
+    q, r = divmod(total, order)
+    assert r == 0
+    return q
+
 def emit_pic(out, name, lines):
     out.append(f'\\tikzset{{pics/{name}/.style={{code={{%')
     for l in lines:
@@ -130,7 +133,6 @@ def emit_pic(out, name, lines):
 
 def hull(points):
     pts = sorted(set(points))
-    if len(pts) <= 2: return pts
     def crossp(o, a, b): return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0])
     lower = []
     for p in pts:
@@ -145,22 +147,11 @@ def hull(points):
 def rounded_loop(points, margin):
     """Points of a closed curve around the convex hull, offset outward by margin.
 
-    Two points give a capsule (stadium) sampled at 10 points.
-
     Each hull vertex is replaced by three points on the circle of radius
     margin about it (along the two edge normals and the bisector), so that
     plot[smooth cycle] through them hugs the hull with rounded corners.
     """
     h = hull(points)
-    if len(h) == 2:
-        (ax, ay), (bx, by) = h
-        dx, dy = bx-ax, by-ay; L = math.hypot(dx, dy); ux, uy = dx/L, dy/L
-        out = []
-        for ang in (90, 135, 180, 225, 270):
-            th = math.radians(ang); out.append((ax + margin*(ux*math.cos(th) - uy*math.sin(th)), ay + margin*(uy*math.cos(th) + ux*math.sin(th))))
-        for ang in (270, 315, 0, 45, 90):
-            th = math.radians(ang); out.append((bx + margin*(ux*math.cos(th) - uy*math.sin(th)), by + margin*(uy*math.cos(th) + ux*math.sin(th))))
-        return out
     m = len(h)
     out = []
     for k in range(m):
@@ -178,74 +169,38 @@ def rounded_loop(points, margin):
 
 # -------------------------------------------------------------- derivations --
 
-def derive_family_actions():
-    """For g in {t, u, b, tu}: find (tau', eta') and A_g with g.X0(tau,eta) = A_g X0(tau',eta').
-
-    The candidate formulas are those of the manuscript's Section 10; here they
-    are confirmed numerically at several (tau, eta) by a residual check.
-    """
-    results = {}
-    cands = {
-        't':  (lambda ta, et: (ta + 2*math.pi/3, et), G.identity(3), 'I'),
-        'u':  (lambda ta, et: (ta + math.pi, -et), G.rot_z(math.pi), 'R_z(\\pi)'),
-        'b':  (lambda ta, et: (-ta, et), G.rot_y(math.pi), 'R_y(\\pi)'),
-        'tu': (lambda ta, et: (ta - math.pi/3, -et), G.rot_z(math.pi), 'R_z(\\pi)'),
-    }
-    els = {'t': Q.t, 'u': Q.u, 'b': Q.b, 'tu': Q.tu}
-    worst = 0.0
-    for name, (f, A, Aname) in cands.items():
-        for ta, et in [(0.0, ETA0), (0.37, 0.6*ETA0), (-1.1, -0.2), (2.0, 0.0)]:
-            X = G.methylamine(ta, et)
-            gX = G.apply_perm_inversion(X, els[name][0], els[name][1])
-            tp, ep = f(ta, et)
-            Y = G.rotate(A, G.methylamine(tp, ep))
-            worst = max(worst, G.config_distance(gX, Y))
-        results[name] = Aname
-    return results, worst
-
 def version_positions():
-    """(tau_g, eta_g) for the six coset representatives of G12/H."""
+    """(coset, word, g, tau_g, iota_g) for the six coset representatives of G12/H, found among the 12 positions."""
     reps = [('H', [], 'E'), ('tH', ['t'], 't'), ('t^2H', ['t', 't'], 't^2'),
             ('uH', ['u'], 'u'), ('tuH', ['t', 'u'], 'tu'), ('t^2uH', ['t', 't', 'u'], 't^2u')]
-    X0 = G.methylamine(0.0, ETA0)
+    X0 = G.methylamine(0.0, IOTA0)
     out = []
     for cname, word, gname in reps:
         g = Q.E(Q.N)
         for w in word:
             g = Q.mul(g, {'t': Q.t, 'u': Q.u}[w])
         gX = G.apply_perm_inversion(X0, g[0], g[1])
-        # search the derived position among the 6 candidates
-        best = None
-        for ta in [k*math.pi/3 for k in range(6)]:
-            for et in (ETA0, -ETA0):
-                R, res = G.kabsch_rotation(G.methylamine(ta, et), gX, G.MLA_MASSES)
-                if best is None or res < best[0]:
-                    best = (res, ta, et)
-        res, ta, et = best
+        res, ta, io = min((G.kabsch_rotation(G.methylamine(ta, io), gX, G.MLA_MASSES)[1], ta, io)
+                          for ta in [k*math.pi/3 for k in range(6)] for io in (IOTA0, -IOTA0))
         assert res < 1e-9, (cname, res)
-        out.append((cname, gname, ta, et))
+        out.append((cname, gname, g, ta, io))
     return out
 
 def normal_frame_data():
-    """Two symmetry-adapted normal vectors at q=(0,eta0) and their images under tu."""
-    tau, eta = 0.0, ETA0
-    tau2, eta2 = tau - math.pi/3, -eta
-    def patterns(X):
-        n = len(X)
-        zero = (0.0, 0.0, 0.0)
-        stretch = [zero]*n; stretch[5] = (0, 0, -1.0); stretch[6] = (0, 0, 1.0)
-        twist = [zero]*n; twist[3] = (0, 0, 1.0); twist[4] = (0, 0, -1.0)
-        return stretch, twist
-    X = G.methylamine(tau, eta); Xp = G.methylamine(tau2, eta2)
-    e_plus, tangent = G.normal_vector(patterns(X)[0], tau, eta)
-    e_minus, _ = G.normal_vector(patterns(X)[1], tau, eta)
-    ep_plus, tangent2 = G.normal_vector(patterns(Xp)[0], tau2, eta2)
-    ep_minus, _ = G.normal_vector(patterns(Xp)[1], tau2, eta2)
+    """Two symmetry-adapted normal vectors at a = (0, iota0), the C-N stretch e_+ and the amino twist e_-, and their
+    transformation under tu."""
+    tau, iota = 0.0, IOTA0
+    tau2, iota2 = tau - math.pi/3, -iota
+    zero = (0.0, 0.0, 0.0)
+    stretch = [zero]*7; stretch[5] = (0, 0, -1.0); stretch[6] = (0, 0, 1.0)
+    twist = [zero]*7; twist[3] = (0, 0, 1.0); twist[4] = (0, 0, -1.0)
+    e_plus, tangent = G.normal_vector(stretch, tau, iota)
+    e_minus, _ = G.normal_vector(twist, tau, iota)
+    ep_plus, _ = G.normal_vector(stretch, tau2, iota2)
+    ep_minus, _ = G.normal_vector(twist, tau2, iota2)
     m = G.MLA_MASSES
-    # orthonormality and mass-orthogonality to tangents
-    gram = [[G.mass_inner(a, b, m) for b in (e_plus, e_minus)] for a in (e_plus, e_minus)]
     ortho = max(abs(G.mass_inner(e, tv, m)) for e in (e_plus, e_minus) for tv in tangent)
-    # transformation under tu: e_a(q) P_tu = A sum_b e_b(q') M_ba, with A = R_z(pi)
+    # transformation under tu: e_a(a) P_tu = A sum_b e_b(a') M_ba, with A = R_z(pi)
     A = G.rot_z(math.pi); Ainv = G.transpose(A)
     M = [[0.0, 0.0], [0.0, 0.0]]; resid = 0.0
     for a, ea in enumerate((e_plus, e_minus)):
@@ -256,10 +211,7 @@ def normal_frame_data():
             M[bb][a] = G.mass_inner(eb, img, m)
             recon = [G.add(r, G.scale(v, M[bb][a])) for r, v in zip(recon, eb)]
         resid = max(resid, G.config_distance(img, recon, m))
-    # also confirm the configuration part: X0(q) P_tu = A X0(q')
-    cfg_res = G.config_distance(G.apply_perm_inversion(X, Q.tu[0], Q.tu[1]), G.rotate(A, Xp))
-    return dict(e_plus=e_plus, e_minus=e_minus, gram=gram, ortho=ortho, M=M,
-                resid=resid, cfg_res=cfg_res, tangent_dim=len(tangent))
+    return dict(e_plus=e_plus, e_minus=e_minus, ortho=ortho, M=M, resid=resid, tangent_dim=len(tangent))
 
 def torsion_mode_species():
     """Species of cos(m tau), sin(m tau) under G6 with t: tau -> tau + 2pi/3, b: tau -> -tau."""
@@ -267,12 +219,9 @@ def torsion_mode_species():
     for m in range(0, 7):
         if m == 0:
             out.append((0, 'A1', None)); continue
-        # rep on (cos, sin): U_t = rotation by -2 pi m/3, U_b = diag(1,-1)
-        chi_t = 2*math.cos(2*math.pi*m/3); chi_b = 0.0; chi_E = 2
-        mult = {}
-        for name, chi in Q.G6_CHARS.items():
-            mult[name] = (chi['E']*chi_E + 2*chi['t']*chi_t + 3*chi['b']*chi_b)/6
-        mult = {k: int(round(v)) for k, v in mult.items()}
+        # rep on (cos, sin): U_t = rotation by -2 pi m/3 (trace 2 cos(2 pi m/3) = 2 or -1, exactly), U_b = diag(1,-1)
+        chi_t = 2 if m % 3 == 0 else -1; chi_b = 0; chi_E = 2
+        mult = {name: exact_mean(chi['E']*chi_E + 2*chi['t']*chi_t + 3*chi['b']*chi_b, 6) for name, chi in Q.G6_CHARS.items()}
         if mult == {'A1': 0, 'A2': 0, 'E': 1}:
             out.append((m, 'E', 'E'))
         elif mult == {'A1': 1, 'A2': 1, 'E': 0}:
@@ -291,41 +240,33 @@ def main():
 
     # ---- water
     wX = G.water(0.20, 112.0)          # a generic, visibly asymmetric configuration
-    summary['water_generic'] = {'delta_ratio': 0.20, 'theta_deg': 112.0,
-                                'X': [[round(v, 4) for v in c] for c in wX],
-                                'Xm': [round(v, 12) for v in G.mass_moment(wX, G.WATER_MASSES)]}
     bonds_w = [(1, 3), (2, 3)]
     Rw = G.rot_z(math.radians(40.0))
-    # shape grid for figure 1(c): delta ratios and angles, drawn mass-centered
+    # the shape grid of figure 1: delta ratios and angles, drawn mass-centered
     grid_d = [-0.5, -0.25, 0.0, 0.25, 0.5]; grid_t = [60.0, 90.0, 120.0, 150.0, 180.0]
     for i, d in enumerate(grid_d):
         for j, th in enumerate(grid_t):
             Xg = G.water(d, th)
             emit_pic(mol, f'mol3d-water-grid-{i}{j}', pic_code_rods(Xg, G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
-    summary['water_grid'] = {'delta_ratios': grid_d, 'theta_deg': grid_t}
     # three sample configurations for figure 2
     samples = [(0.0, 90.0), (0.0, 110.0), (0.0, 140.0)]    # on the delta = 0 slice, in order of theta
-    summary['water_samples'] = samples
 
     # ---- methane (the closing pages): the rigid tetrahedron in its C2 frame, the orientation ball SO(3) with the twelve
     # symmetry rotations and one cell, the vibrational species, the J ladder; the numbers against Albert et al.
     CH4 = G.methane_c2()
-    summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
-    # one camera for both panels, so that bond 1 on the molecule points along the arrow in the ball (author). It is the
-    # suite's G.camera(108, 21), the ball view the author chose, with the x and z components of its three vectors
-    # exchanged. G.camera builds a left-handed frame (a mirror image); the exchange x <-> z is a mirror symmetry of the
-    # cube, the dual octahedron and the bond tetrahedron (it fixes bond 1 and exchanges hydrogens 2 and 4), so the
-    # frame becomes right-handed, every ball element lands where the old picture drew one of its kind, the arrow lands
-    # on the third-turn about bond 1, and the molecule is a true view with x to the right, y up, z toward the viewer.
+    # one camera for both panels, so that bond 1 on the molecule points along the arrow in the ball: G.camera(108, 21)
+    # with the x and z components of its three vectors exchanged. G.camera builds a left-handed frame (a mirror image);
+    # the exchange x <-> z is a mirror symmetry of the cube, the dual octahedron and the bond tetrahedron (it fixes bond
+    # 1 and exchanges hydrogens 2 and 4), so the frame becomes right-handed and the molecule a true view with x to the
+    # right, y up and z toward the viewer.
     def _swap_xz(v): return (v[2], v[1], v[0])
     CAM_BALL = tuple(_swap_xz(v) for v in G.camera(azimuth_deg=108.0, elevation_deg=21.0))
-    CAM_MOL = CAM_BALL
     assert G.dot(G.cross(CAM_BALL[0], CAM_BALL[1]), CAM_BALL[2]) > 0.999          # right-handed
     assert _swap_xz(tuple(CH4[0])) == tuple(CH4[0]) and _swap_xz(tuple(CH4[1])) == tuple(CH4[3])   # x <-> z fixes H1 and exchanges H2 and H4
-    emit_pic(mol, 'mol3d-ch4-c2', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_MOL, labels=True))
+    emit_pic(mol, 'mol3d-ch4-c2', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_BALL, labels=True))
     front, back = [], []
     for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
-        px, py, pz = G.project([v], CAM_MOL)[0]
+        px, py, pz = G.project([v], CAM_BALL)[0]
         num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
         (front if pz >= 0 else back).append(name + '/1'); (back if pz >= 0 else front).append(name + '/-1')   # each half-axis: toward the viewer over the molecule, away from it behind
     num.append('\\def\\chAxisFront{' + ','.join(front) + '}\\def\\chAxisBack{' + ','.join(back) + '}')
@@ -340,8 +281,8 @@ def main():
     D = [G.unit(CH4[k]) for k in range(4)]                      # bond directions = body diagonals
     outv = CAM_BALL[2]
     def emit_point(name, v, scale=1.0):
-        px, py, pz = G.project([G.scale(v, scale)], CAM_BALL)[0]
-        num.append(f'\\def\\{name}x{{{px:.4f}}}\\def\\{name}y{{{py:.4f}}}\\def\\{name}d{{{pz:.4f}}}')
+        px, py, _ = G.project([G.scale(v, scale)], CAM_BALL)[0]
+        num.append(f'\\def\\{name}x{{{px:.4f}}}\\def\\{name}y{{{py:.4f}}}')
     num.append(f'\\def\\ballR{{{BALL_R:.4f}}}')
     for k, tag in enumerate('abcd'):
         emit_point('ballC' + tag, D[k], 2 * math.pi / 3 * bs)   # third-turn about bond k, +2pi/3: a cube vertex
@@ -350,10 +291,10 @@ def main():
     face_center = 2 * math.pi / 3 * bs / math.sqrt(3.0)          # the cube's half-edge: where its face centers sit on the axes
     for a_, v in axes.items():
         for sgn, t in ((1.0, 'p'), (-1.0, 'm')):
-            emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
+            if sgn * G.dot(v, outv) < 0: emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)   # a half-turn, at its far side on the skin
             emit_point(f'ballV{a_}{t}', v, sgn * face_center)           # quarter-turn, drawn on the cube's face center: a vertex of the dual octahedron
     emit_point('ballFa', D[0], 2 * math.pi / 9 * bs)             # where the lift leaves the octahedron: the centroid of its face toward bond 1 (the dual octahedron's face plane x+y+z = c lies at c/sqrt3 on the diagonal)
-    num.append('\\def\\ballSkinBack{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')   # the far representatives, drawn pale (author: so they look far away)
+    num.append('\\def\\ballSkinBack{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')   # each half-turn once, at its far side, drawn pale
     # the octahedron: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
     faces = [f for f in itertools.product((1, -1), repeat=3)]
     front = [f for f in faces if G.dot(f, outv) > 0]
@@ -381,7 +322,7 @@ def main():
     num.append('\\def\\ballCubeHidden{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(chid)) + '}')
     assert len(cvis) + len(chid) == 12
     # a point is hidden when every edge at it is hidden: one corner of the cube, one vertex of the cell; drawn pale,
-    # under the front lines, like the far half-turns (author)
+    # under the front lines, like the far half-turns
     def split_points(names, vis_e, hid_e):
         back = [n_ for n_ in sorted(names) if all(e in hid_e for e in vis_e | hid_e if n_ in e)]
         return [n_ for n_ in sorted(names) if n_ not in back], back
@@ -408,140 +349,105 @@ def main():
                 if sel(pts[i % len(pts)][2]): run.append('(%.3f,%.3f)' % pts[i % len(pts)][:2])
                 else: break
             num.append(f'\\def\\ballArc{plane}{tag}{{{" ".join(run)}}}')
-    summary['methane_ball'] = {'radius_cm': BALL_R, 'schematic': 'octahedron dual to the cube of third-turns, exact in Rodrigues coordinates',
-                               'quarter_turn_true_radius': round(math.pi / 2 * bs, 4), 'drawn_radius': round(face_center, 4)}
     # the loop: a third of a turn about the bond to hydrogen 1 returns X0 to its position with 2, 3, 4 cycled
     Rg = G.rot_axis(D[0], 2 * math.pi / 3)
     Xg = G.rotate(Rg, CH4)
     where = [min(range(4), key=lambda j: G.config_distance([Xg[i]], [CH4[j]])) for i in range(4)]   # nucleus i now sits where j was
     assert all(G.config_distance([Xg[i]], [CH4[where[i]]]) < 1e-9 for i in range(4)) and sorted(where) == [0, 1, 2, 3] and where[0] == 0
-    summary['methane_loop'] = {'axis': 'C-H1', 'turn_deg': 120.0, 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
+    summary['methane_loop'] = {'axis': 'C-H1', 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
     # Td(M) = S4 on the four protons, classes (size, cycles, odd?, starred?): E, 3-cycles, double transpositions,
     # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star
     cls = [(1, 4, 1, 0), (8, 2, 1, 0), (3, 2, 1, 0), (6, 1, -1, 1), (6, 3, -1, 1)]
     TD = {'A1': [1, 1, 1, 1, 1], 'A2': [1, 1, 1, -1, -1], 'E': [2, -1, 2, 0, 0], 'T1': [3, 0, -1, 1, -1], 'T2': [3, 0, -1, -1, 1]}
     chi_spin = [2**c[1] for c in cls]
-    spin_td = {k: int(round(sum(n*chi_spin[i]*v[i] for i, (n, _, _, _) in enumerate(cls))/24)) for k, v in TD.items()}
+    spin_td = {k: exact_mean(sum(n*chi_spin[i]*v[i] for i, (n, _, _, _) in enumerate(cls)), 24) for k, v in TD.items()}
     weights = {}
     for par, tag in ((1, 'Even'), (-1, 'Odd')):
         total = [c[2]*(par if c[3] else 1) for c in cls]          # chi_stat chi_pm on each class
-        weights[tag] = {k: int(round(sum(n*v[i]*chi_spin[i]*total[i] for i, (n, _, _, _) in enumerate(cls))/24)) for k, v in TD.items()}
+        weights[tag] = {k: exact_mean(sum(n*v[i]*chi_spin[i]*total[i] for i, (n, _, _, _) in enumerate(cls)), 24) for k, v in TD.items()}
     # the displacement representation on the fifteen Cartesian coordinates: chi(h) = (nuclei fixed by h) x tr(+-R_h^-1),
     # the sign from the star (the equivalent rotations: identity, third-turn, half-turn, quarter-turn, half-turn about
     # a cube edge; the starred classes act on displacements as improper operations)
     fixed = [5, 2, 1, 1, 3]
     trace = [3, 0, -1, -(1 + 0), -(1 - 2)]                      # tr(+-R): 1 + 2 cos theta, negated on the starred classes
     chi_3n = [f * t for f, t in zip(fixed, trace)]
-    gamma_3n = {k: int(round(sum(n*c*v[i] for i, (n, _, _, _), c in zip(range(5), cls, chi_3n))/24)) for k, v in TD.items()}
+    gamma_3n = {k: exact_mean(sum(n*c*v[i] for i, (n, _, _, _), c in zip(range(5), cls, chi_3n)), 24) for k, v in TD.items()}
     gamma_vib = dict(gamma_3n); gamma_vib['T1'] -= 1; gamma_vib['T2'] -= 1   # minus rotations (T1) and translations (T2)
     assert sum(m * TD[k][0] for k, m in gamma_3n.items()) == 15 and sum(m * TD[k][0] for k, m in gamma_vib.items()) == 9
-    # D^J restricted to H through h -> R_h^-1 (the classes' turning angles), and the physical states per J by parity
-    angles = [0.0, 120.0, 180.0, 90.0, 180.0]
-    def chi_J(J, deg):
-        if deg == 0.0: return 2 * J + 1
-        t = math.radians(deg); return math.sin((2 * J + 1) * t / 2) / math.sin(t / 2)
+    # D^J restricted to H through h -> R_h^-1, chi_J = sum_{m=-J}^{J} cos(m theta) by the Chebyshev recursion from the
+    # classes' cos theta (turns 0, 120, 180, 90, 180 degrees), exactly; and the physical states per J by parity
+    cos_turn = [Fraction(1), Fraction(-1, 2), Fraction(-1), Fraction(0), Fraction(-1)]
+    def chi_J(J, c):
+        cm = [Fraction(1), c]
+        while len(cm) <= J: cm.append(2*c*cm[-1] - cm[-2])
+        return cm[0] + 2*sum(cm[1:J + 1])
     j_table = []
     for J in range(0, 7):
-        ch = [chi_J(J, a) for a in angles]
-        mult = {k: int(round(sum(n * c * v[i] for i, (n, _, _, _), c in zip(range(5), cls, ch)) / 24)) for k, v in TD.items()}
-        assert sum(m * TD[k][0] for k, m in mult.items()) == 2 * J + 1
+        ch = [chi_J(J, c) for c in cos_turn]
+        mult = {k: Fraction(sum(n*c*v[i] for i, (n, _, _, _), c in zip(range(5), cls, ch)), 24) for k, v in TD.items()}
+        assert all(m.denominator == 1 for m in mult.values()) and sum(m*TD[k][0] for k, m in mult.items()) == 2*J + 1
+        mult = {k: int(m) for k, m in mult.items()}
         j_table.append({'J': J, 'species': {k: m for k, m in mult.items() if m},
-                        'even': sum(m * weights['Even'][k] for k, m in mult.items()), 'odd': sum(m * weights['Odd'][k] for k, m in mult.items())})
-    # under the proper rotations T = A4: classes E, 3 C2, 4 C3, 4 C3' with chi_spin 16, 4, 4, 4; A, 1E, 2E, T
-    w3 = cmath.exp(2j*math.pi/3)
-    TT = {'A': [1, 1, 1, 1], '1E': [1, 1, w3, w3**2], '2E': [1, 1, w3**2, w3], 'T': [3, -1, 0, 0]}
+                        'even': sum(m*weights['Even'][k] for k, m in mult.items()), 'odd': sum(m*weights['Odd'][k] for k, m in mult.items())})
+    # under the proper rotations T = A4: classes E, 3 half-turns, 4 and 4 third-turns, with chi_spin 16, 4, 4, 4; the
+    # species A, 1E, 2E, T with values in Q(omega)
+    w = Q.QOmega(0, 1)
+    TT = {'A': [1, 1, 1, 1], '1E': [1, 1, w, w*w], '2E': [1, 1, w*w, w], 'T': [3, -1, 0, 0]}
     tcls = [1, 3, 4, 4]; tspin = [16, 4, 4, 4]
-    spin_t = {k: int(round((sum(n*s*v.conjugate() for n, s, v in zip(tcls, tspin, map(complex, ch)))/12).real)) for k, ch in TT.items()}
+    spin_t = {k: int((sum((Q.QOmega(n*sp)*Q.QOmega(v).conj() for n, sp, v in zip(tcls, tspin, ch)), Q.QOmega(0))*Q.QOmega(Fraction(1, 12))).rational()) for k, ch in TT.items()}
     isomers = [('A', 'A', 1), ('1E', '2E', 1), ('2E', '1E', 1), ('T', 'T', 3)]      # (Gamma_rot, Gamma_nuc, d): Gamma_rot x Gamma_nuc contains A
-    kernel_index = {k: int(round(12/sum(n for n, v in zip(tcls, ch) if abs(complex(v) - ch[0]) < 1e-9))) for k, ch in TT.items()}
+    kernel_index = {k: 12 // sum(n for n, v in zip(tcls, ch) if Q.QOmega(v) == Q.QOmega(ch[0])) for k, ch in TT.items()}
     summary['methane_rigid'] = {'spin_Td': spin_td, 'weights': weights, 'spin_T': spin_t,
                                 'isomers': [(r, nu, d, spin_t[nu]) for r, nu, d in isomers],
                                 'entangled_fraction': [3*spin_t['T'], 16], 'monodromy_orders': kernel_index,
                                 'gamma_3N': gamma_3n, 'gamma_vib': gamma_vib, 'J_table': j_table}
 
     # ---- methylamine
-    X0 = G.methylamine(0.0, ETA0)
-    summary['methylamine_frame'] = {k: round(v, 5) for k, v in G.MLA_FRAME.items()}
-    summary['methylamine_X0'] = [[round(v, 4) for v in c] for c in X0]
-    summary['methylamine_X0_Xm'] = [round(v, 12) for v in G.mass_moment(X0, G.MLA_MASSES)]
+    X0 = G.methylamine(0.0, IOTA0)
     emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     # figure 5 turns its glyphs in the page so that the projected half-turn axis of b (the body y axis) stands upright
     ax = G.project([(0.0, 1.0, 0.0)], CAM_MLA)[0]
     num.append(f'\\def\\mlaTurn{{{-math.degrees(math.atan2(-ax[0], ax[1])):.2f}}}')
     emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
-    RwX = G.rotate(Rw, wX)
-    summary['water_matrices'] = {'X': [[round(v, 4) for v in c] for c in wX], 'RX': [[round(v, 4) for v in c] for c in RwX]}
     emit_pic(mol, 'mol3d-water-RX', pic_code_rods(G.rotate(Rw, wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     emit_pic(mol, 'mol3d-water-minusX', pic_code_rods(G.invert_config(wX), G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     for k, (d, th) in enumerate(samples):
         emit_pic(mol, f'mol3d-water-sample-{k+1}', pic_code_rods(G.water(d, th), G.WATER_ELEMENTS, bonds_w, CAM_FLAT))
     # b X0 and R_b X0
     bX0 = G.apply_perm_inversion(X0, Q.b[0], Q.b[1])
-    Rb = G.rot_y(math.pi)
-    res_b = G.config_distance(bX0, G.rotate(Rb, X0))
-    summary['b_equals_rotation_residual'] = res_b
     emit_pic(mol, 'mol3d-mla-bref', pic_code_rods(bX0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
-    summary['mirror_plane_normal_is_Rb_axis'] = True
-    # shapes along the t path at fixed orientation: tau = pi/3 (eclipsed) and 2 pi/3 (the version tH) (figure 6d)
-    summary['tau_shapes_deg'] = [0, 60, 120]
+    # Newman projections along the t path: tau = 0 (H), pi/3 (eclipsed), 2 pi/3 (tH), and tuH (figure 6)
     for deg in (0, 60, 120):
-        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(20.0 if deg == 60 else 0.0)))
-    emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
-    # fragment loops in page coordinates (figure 4)
+        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), IOTA0), twist_deg=(20.0 if deg == 60 else 0.0)))
+    emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -IOTA0)))
+    # fragment loops in page coordinates (figure 5)
     P0 = G.project(X0, CAM_MLA)
     for name, members in (('methyl', [1, 2, 3, 6]), ('amino', [4, 5, 7])):
         pts = rounded_loop([(P0[i-1][0], P0[i-1][1]) for i in members], 0.78)
         num.append(f'\\def\\fragloop{name}{{' + ' '.join(f'({fmt(x)},{fmt(y)})' for x, y in pts) + '}')
     # version labels (figure 5c): position j carries label g(j)
     versions = version_positions()
-    vlines = []
-    for cname, gname, ta, et in versions:
-        g = Q.E(Q.N)
-        for ch in gname.replace('^2', '2'):
-            pass
-        # rebuild g from its name
-        word = {'E': [], 't': ['t'], 't^2': ['t', 't'], 'u': ['u'], 'tu': ['t', 'u'], 't^2u': ['t', 't', 'u']}[gname]
-        for w in word:
-            g = Q.mul(g, {'t': Q.t, 'u': Q.u}[w])
-        labels = [g[0][j] + 1 for j in range(7)]
-        vlines.append(f'{{{cname}}}/{{{gname}}}/{"/".join(str(l) for l in labels)}')
+    vlines = [f'{{{cname}}}/{{{gname}}}/' + '/'.join(str(g[0][j] + 1) for j in range(7)) for cname, gname, g, ta, io in versions]
     num.append('\\def\\versionList{' + ','.join(vlines) + '}')
-    summary['versions'] = [(c, g, round(ta/math.pi, 6), round(et, 5)) for c, g, ta, et in versions]
-    actions, worst = derive_family_actions()
-    summary['family_actions'] = actions; summary['family_action_residual'] = worst
-    # H-invariant cell U = [-pi/3, pi/3] x [0, eta0] and its five translates under the derived actions
-    acts = {'t': (2/3, 1), 'u': (1.0, -1), 'tu': (-1/3, -1), 't^2': (4/3, 1), 't^2u': (1/3, -1)}
-    cells = [('H', -1/3, 1/3, 0, 1)]
-    for gname, (shift, sgn) in acts.items():
-        lo, hi = -1/3 + shift, 1/3 + shift
-        elo, ehi = (0, 1) if sgn > 0 else (-1, 0)
-        # reduce to (-1, 1] in units of pi, splitting at the seam
-        pieces = []
-        lo2 = ((lo + 1) % 2) - 1; hi2 = lo2 + (hi - lo)
-        if hi2 <= 1 + 1e-9:
-            pieces.append((lo2, hi2))
-        else:
-            pieces.append((lo2, 1.0)); pieces.append((-1.0, hi2 - 2))
-        for a, b in pieces:
-            cells.append((gname + 'H', a, b, elo, ehi))
-    num.append('\\def\\chartCells{' + ','.join(f'{{{n}}}/{a:.4f}/{b:.4f}/{e1}/{e2}' for n, a, b, e1, e2 in cells) + '}')
-    summary['chart_cells'] = cells
+    summary['versions'] = [(c, gname, round(ta/math.pi, 6), round(io, 5)) for c, gname, g, ta, io in versions]
+    # the H-invariant cell U = [-pi/3, pi/3] x [0, iota0] (tau in units of pi, iota in units of iota0) and its translates,
+    # the cell of the version gH shifted by its tau and on its side of iota = 0; a cell across the seam is split
+    cells = []
+    for cname, gname, g, ta, io in versions:
+        lo = ((ta/math.pi - 1/3 + 1) % 2) - 1; hi = lo + 2/3
+        side = (0, 1) if io > 0 else (-1, 0)
+        cells += [(lo, min(hi, 1.0)) + side] + ([(-1.0, hi - 2) + side] if hi > 1 + 1e-9 else [])
+    num.append('\\def\\chartCells{' + ','.join(f'{a:.4f}/{b:.4f}/{e1}/{e2}' for a, b, e1, e2 in cells) + '}')
 
     # normal frame and T_tu (figure 10)
     nf = normal_frame_data()
-    summary['normal_frame'] = {'gram': nf['gram'], 'ortho': nf['ortho'], 'M': nf['M'],
-                               'resid': nf['resid'], 'cfg_res': nf['cfg_res'],
-                               'tangent_dim': nf['tangent_dim']}
-    amp = 0.42        # actual normal displacement q (angstrom) used for the displaced drawing
-    arrow_gain = 3.0  # arrows are drawn 2.5 x longer than the displacement; declared in the figure
-    def arrows_for(e):
-        Pe = [(G.dot(v, CAM_MLA[0]), G.dot(v, CAM_MLA[1])) for v in e]
-        return [(arrow_gain*amp*px, arrow_gain*amp*py) if math.hypot(px, py)*amp > 0.04 else None for px, py in Pe]
+    summary['normal_frame'] = {'ortho': nf['ortho'], 'M': nf['M'], 'resid': nf['resid'], 'tangent_dim': nf['tangent_dim']}
+    amp = 0.42        # the normal displacement drawn (angstrom), illustrative
     CAM_SIDE = G.camera(azimuth_deg=75.0, elevation_deg=18.0)   # the C-N axis lies in the page: both normal displacements at full length;
     # azimuth 75 (not 90) so that no methyl hydrogen sits on the line of sight through the carbon
     def arrows_side(e, longest=1.1):
         # side views: each direction's arrows scaled so that its largest arrow is `longest` angstrom on the page
-        # (the direction is the content; a common gain cannot serve a hydrogen twist and a heavy-atom stretch); declared
+        # (the direction is the content; a common gain cannot serve a hydrogen twist and a heavy-atom stretch), a drawing choice
         Pe = [(G.dot(v, CAM_SIDE[0]), G.dot(v, CAM_SIDE[1])) for v in e]
         big = max(math.hypot(px, py) for px, py in Pe)
         g = longest / big
@@ -558,47 +464,25 @@ def main():
     moved = {k for k in range(len(X0)) if shift[k] > 0.05}
     assert moved == {3, 4} and min(shift[k] for k in moved) > 0.2 and max(shift[k] for k in range(len(X0)) if k not in moved) < 0.04, shift
     emit_pic(mol, 'mla-disp-ghost', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, only=moved))
-    summary['mla_disp_page_shift'] = [round(v, 4) for v in shift]
     emit_pic(mol, 'mla-rot-disp', pic_code_rods(G.rotate(Rdisp, Xdisp), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
 
-    # generic X and bX (figure 11b): X = X0(0.22, eta0) + small normal displacement
-    Xg = G.methylamine(0.22, ETA0)
-    eg, _ = G.normal_vector([(0,0,0)]*3 + [(0,0,1.0), (0,0,-1.0)] + [(0,0,0)]*2, 0.22, ETA0)
+    # generic X and bX (figure 11): X = X0(0.22, iota0) + a small normal displacement
+    Xg = G.methylamine(0.22, IOTA0)
+    eg, _ = G.normal_vector([(0,0,0)]*3 + [(0,0,1.0), (0,0,-1.0)] + [(0,0,0)]*2, 0.22, IOTA0)
     Xg = [G.add(x, G.scale(v, 0.30)) for x, v in zip(Xg, eg)]
     bXg = G.apply_perm_inversion(Xg, Q.b[0], Q.b[1])
     R, res = G.kabsch_rotation(Xg, bXg, G.MLA_MASSES)
     summary['generic_X_bX_best_rotation_residual'] = res
-    summary['generic_X_Xm'] = [round(v, 12) for v in G.mass_moment(Xg, G.MLA_MASSES)]
     emit_pic(mol, 'mol3d-mla-X', pic_code_rods(Xg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
     emit_pic(mol, 'mol3d-mla-bX', pic_code_rods(bXg, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
-    # free-action check near the reference: min_g ||gX0 - X0|| over g != E in G12
-    dmin = min(G.config_distance(G.apply_perm_inversion(X0, g[0], g[1]), X0) for g in Q.G12 if g != Q.E(Q.N))
-    summary['min_displacement_by_nontrivial_G12_element'] = dmin
 
-    # continuation results
-    tb = Q.mul(Q.t, Q.b); bt = Q.mul(Q.b, Q.t); t2b = Q.mul(Q.mul(Q.t, Q.t), Q.b)
-    summary['bt_equals_t2b'] = (bt == t2b); summary['tb_ne_bt'] = (tb != bt)
-    summary['btb_equals_tinv'] = (Q.mul(Q.b, Q.mul(Q.t, Q.b)) == Q.inv(Q.t))
-
-    # ---- KRb (figure 4b)
+    # ---- KRb (figure 4)
     K = G.krb_schematic()
-    Sk, Gin, GK, GRb, p12, p34, Es = Q.krb_groups()
-    summary['krb_orders'] = [len(Sk), len(Gin), len(GK), len(GRb)]
-    summary['krb_any_two_generate'] = all(len(Q.close(list(a | b), 4)) == 8 for a, b in [(Gin, GK), (Gin, GRb), (GK, GRb)])
-    # the three channel groups meet exactly in <E*> and cover S (figure 4c, nested outlines)
+    Sk, Gin, GK, GRb, _, _, Es = Q.krb_groups()
+    # the three channel groups meet exactly in <E*> and cover S
     core = Gin & GK & GRb
     assert core == (Gin & GK) == (Gin & GRb) == (GK & GRb) == {Q.E(4), Es}, 'channel groups must meet in <E*>'
     assert Gin | GK | GRb == Sk, 'channel groups must cover S'
-    def krb_name(g):
-        perm, star = g
-        cyc = []
-        if perm[0] == 1: cyc.append('(12)')
-        if perm[2] == 3: cyc.append('(34)')
-        base = ''.join(cyc) if cyc else 'E'
-        return base + ('^*' if star else '')
-    def elist(S_):
-        return ', '.join(krb_name(g) for g in sorted(S_, key=lambda g: (bool(g[1]), g[0])))
-    summary['krb_core'] = elist(core); summary['krb_lobes'] = {'in': elist(Gin - core), 'K': elist(GK - core), 'Rb': elist(GRb - core)}
     for name, lines_ in (('in', [(1, 3), (2, 4)]), ('complex', [(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]), ('out', [(1, 2), (3, 4)])):
         emit_pic(mol, f'mol3d-krb-{name}', pic_code_grouped(K, G.KRB_ELEMENTS, lines_, CAM_FLAT))
     # every subgroup of S (order 8): generated by at most three elements
@@ -614,11 +498,12 @@ def main():
              frozenset(GK): 'G_{\\mathrm K}', frozenset(GRb): 'G_{\\mathrm{Rb}}', frozenset(Sk): 'S'}
     rows = {}
     for K_ in allsubs: rows.setdefault(len(K_), []).append(K_)
-    # center the named subgroups in their rows
+    # the named subgroups at the center of their rows: G_Rb in the middle, G_in at its left, G_K at its right, so that
+    # the strands run up from G_in to S and down to G_K and G_Rb without crossing
+    priority = {frozenset(GRb): 0, frozenset(Gin): 1, frozenset(GK): 2}
     for L, row in rows.items():
-        row.sort(key=lambda K_: (0 if K_ in named else 1, sorted(K_)))
+        row.sort(key=lambda K_: (0 if K_ in named else 1, priority.get(K_, 0), sorted(K_)))
         n_ = len(row); named_in = [K_ for K_ in row if K_ in named]; others = [K_ for K_ in row if K_ not in named]
-        order_ = []
         mid = (n_ - 1)/2
         slots = sorted(range(n_), key=lambda i: abs(i - mid))
         placed = {}
@@ -630,19 +515,18 @@ def main():
         for i, K_ in enumerate(row):
             key_[K_] = len(nodes)
             x = (i + 0.5)/len(row)
-            nodes.append((key_[K_], x, ylev[L], 1 if K_ in named else 0, named.get(K_, '')))
+            nodes.append((key_[K_], x, ylev[L], 1 if K_ in named else 0))
     cov_ = []
     for A in allsubs:
         for B in allsubs:
             if A < B and len(B) == 2*len(A):
                 cov_.append((key_[A], key_[B], 1 if (A in named and B in named) else 0))
-    num.append('\\def\\krbNodes{' + ','.join(f'{i}/{x:.4f}/{y:.1f}/{m}/{{{nm}}}' for i, x, y, m, nm in nodes) + '}')
+    num.append('\\def\\krbNodes{' + ','.join(f'{i}/{x:.4f}/{y:.1f}/{m}' for i, x, y, m in nodes) + '}')
     idx = {named[K_]: key_[K_] for K_ in named}
     core_name = '\\langle E^*\\rangle'; in_name = 'G_{\\mathrm{in}}'; k_name = 'G_{\\mathrm K}'; rb_name = 'G_{\\mathrm{Rb}}'
     num.append('\\def\\krbIdxE{%d}\\def\\krbIdxCore{%d}\\def\\krbIdxIn{%d}\\def\\krbIdxK{%d}\\def\\krbIdxRb{%d}\\def\\krbIdxS{%d}'
                % (idx['E'], idx[core_name], idx[in_name], idx[k_name], idx[rb_name], idx['S']))
     num.append('\\def\\krbCovers{' + ','.join(f'{a}/{b}/{m}' for a, b, m in cov_) + '}')
-    summary['krb_subgroups'] = len(allsubs); summary['krb_covers'] = len(cov_)
 
     # ---- subgroup interval (figure 5b)
     subs, names, cov = Q.interval_data()
@@ -653,10 +537,8 @@ def main():
              '\\langle G_6,u^*\\rangle': -4.4, 'B': 0.0}
     ordered = sorted(subs, key=lambda K: (len(K), names[K]))
     key = {names[K]: i for i, K in enumerate(ordered)}
-    num.append('\\def\\hasseNodes{' + ','.join(
-        f'{key[names[K]]}/{xslot[names[K]]}/{math.log2(len(K)//2):.4f}/{len(K)//2}/{{{names[K]}}}' for K in ordered) + '}')
+    num.append('\\def\\hasseNodes{' + ','.join(f'{key[names[K]]}/{xslot[names[K]]}/{math.log2(len(K)//2):.4f}' for K in ordered) + '}')
     # the generator added along each cover of [H, B], and a minimal generator form of every subgroup (b always first)
-    from itertools import combinations
     cands = [('t', Q.t), ('u', Q.u), ('E^*', Q.Estar), ('u^*', Q.mul(Q.u, Q.Estar)), ('t^*', Q.mul(Q.t, Q.Estar))]
     labels = []
     for a_, b_ in cov:
@@ -678,18 +560,16 @@ def main():
             found = ','.join(['b'] + form)
         else:
             for r in range(0, 4):
-                for combo in combinations(cands, r):
+                for combo in itertools.combinations(cands, r):
                     if frozenset(Q.close([Q.b] + [g for _, g in combo], Q.N)) == frozenset(K_):
                         found = ','.join(['b'] + [nm for nm, _ in combo]); break
                 if found: break
         assert found, 'no generator form'
         gens[key[names[K_]]] = found
-    summary['bond_interval_generators'] = {names[K_]: gens[key[names[K_]]] for K_ in subs}
-    chainnames = {'H': 'H', 'G_6': 'G_6', 'G_{12}': 'G_{12}', 'B': 'B'}
     labs = []
     for K_ in subs:
         k = key[names[K_]]; gform = '\\langle ' + gens[k] + '\\rangle'
-        labs.append((k, (chainnames[names[K_]] + '=' + gform) if names[K_] in chainnames else gform))
+        labs.append((k, (names[K_] + '=' + gform) if names[K_] in chain_forms else gform))
     num.append('\\def\\hasseLabels{' + ','.join(f'{k}/{{{l}}}' for k, l in sorted(labs)) + '}')
     # the whole interval [H, S]: every subgroup containing H, with covers; the bond interval is a sub-poset
     big = Q.interval(Q.H, Q.S, Q.N)
@@ -698,7 +578,6 @@ def main():
     bigkey = {K: i for i, K in enumerate(bigsorted)}
     inbond = {bigkey[K] for K in big if K <= Q.B}
     levels = sorted(set(len(K) for K in big))
-    lev = {K: levels.index(len(K)) for K in big}
     yof = {K: math.log(len(K)/2)/math.log(120) for K in big}      # height by log of the version count
     below = {K: [a for a, b in bigcov if b == K] for K in big}
     above = {K: [b for a, b in bigcov if a == K] for K in big}
@@ -752,72 +631,64 @@ def main():
                 if best is None or score < best[0]:
                     best = (score, xp, (pull, median, sweeps))
     xpos = best[1]
-    summary['interval_HS_layout'] = {'crossings': best[0][0], 'pull': best[2][0], 'median': best[2][1], 'sweeps': best[2][2]}
-    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}/{{{names.get(K, "")}}}' for K in bigsorted) + '}')
+    # four nodes nudged so that no cover passes through a node: G_6 and another node of the bond interval, two outside it
+    for k_, x_ in ((6, 0.38), (8, 0.12), (15, 0.21), (26, 0.26)):
+        xpos[bigsorted[k_]] = x_
+    assert names.get(bigsorted[6]) == 'G_6' and bigsorted[8] <= Q.B and not bigsorted[15] <= Q.B and not bigsorted[26] <= Q.B
+    num.append('\\def\\bigNodes{' + ','.join(f'{bigkey[K]}/{xpos[K]:.4f}/{yof[K]:.4f}/{1 if bigkey[K] in inbond else 0}' for K in bigsorted) + '}')
     num.append('\\def\\bigCovers{' + ','.join(f'{bigkey[a]}/{bigkey[b]}/{1 if (a <= Q.B and b <= Q.B) else 0}' for a, b in bigcov) + '}')
     chain_keys = {names[K]: bigkey[K] for K in big if K in names and names[K] in ('H', 'G_6', 'G_{12}', 'B')}
     num.append('\\def\\bigChain{' + ','.join(str(chain_keys[n]) for n in ('H', 'G_6', 'G_{12}', 'B')) + '}')
     chain_seq = [chain_keys[n] for n in ('H', 'G_6', 'G_{12}', 'B')]
     num.append('\\def\\bigChainCovers{' + ','.join(f'{a}/{b}' for a, b in zip(chain_seq, chain_seq[1:])) + '}')
-    summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond),
-                              'orders': sorted(len(K) for K in big)}
+    summary['interval_HS'] = {'subgroups': len(big), 'covers': len(bigcov), 'in_bond_interval': len(inbond)}
     summary['interval'] = {'subgroups': len(subs), 'covers': len(cov),
                            'versions': sorted(order_of.values())}
 
-    # ---- species and spin weights (figures 7, 8)
-    cnames, act_t, act_b = Q.coset_action_table()
-    summary['coset_action'] = {'t': act_t, 'b': act_b}
+    # ---- spin weights (figure 8)
     w = Q.spin_weights()
     summary['spin_weights'] = {str(k): v for k, v in w.items()}
     num.append(f'\\def\\spinAone{{{w[1]["A1"]}}}\\def\\spinAtwo{{{w[1]["A2"]}}}\\def\\spinE{{{w[1]["E"]}}}\\def\\spinDim{{{w[1]["A1"]+w[1]["A2"]+2*w[1]["E"]}}}')   # figure 8, the proton factor
-    # multiplicities of species in C[G6/H]: permutation character (3, 0, 1)
-    perm_char = {'E': 3, 't': 0, 'b': 1}
-    local = {n: int(round(sum(Q.G6_CHARS[n][c]*perm_char[c]*{'E': 1, 't': 2, 'b': 3}[c] for c in 'Etb')/6)) for n in Q.G6_CHARS}
-    summary['local_copies'] = local
 
     # ---- Gaussian shares (figure 9)
     with open(os.path.join(DATA, 'gaussian-shares.dat'), 'w') as f:
-        f.write('x wA1 wE wA2\n')
-        f.write('0.00 0.333333 0.666667 0\n')   # the limit: no overlap, shares 1/3 and 2/3
-        for i in range(2, 201):
+        f.write('x wA1 wE\n')
+        f.write('0.00 0.333333 0.666667\n')   # the limit: no overlap, shares 1/3 and 2/3
+        for i in range(2, 101):
             x = i/100
             c = math.exp(-1/(8*x*x))
-            f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f} 0\n')
+            f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f}\n')
     # figure 9's three rows: Delta/d, the packet width in degrees for d = 120 degrees, the A1 share
     rows = [(r, (1 + 2*math.exp(-1/(8*float(r)**2)))/3) for r in (Fraction(1, 6), Fraction(1, 3), Fraction(2, 3))]
     num.append('\\def\\packetRows{' + ','.join(f'{{{r}}}/{float(r)*120:g}/{w:.4f}' for r, w in rows) + '}')
     num.append('\\def\\packetMarks{' + ' '.join(f'({float(r):.4f},{w:.4f})' for r, w in rows) + '}')
-    x_show = 1/3; c_show = math.exp(-1/(8*x_show*x_show))
-    summary['gaussian_shown'] = {'Delta_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
 
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
-    # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X) = -(b xi + a eta),
-    # i.e. b = -a: the proton singlet (xi - eta) times a scalar f(theta).  f is an illustrative Gaussian in theta.
+    # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X), i.e. f_zeta = -f_xi:
+    # the proton singlet (xi - zeta) times a scalar f(theta), f an illustrative Gaussian in theta.
     COMP_CENTER, COMP_WIDTH = 104.5, 14.0   # degrees
     num.append(f'\\def\\compCenter{{{COMP_CENTER}}}\\def\\compWidth{{{COMP_WIDTH}}}')
-    def comp_a(th): return math.exp(-((th-COMP_CENTER)/COMP_WIDTH)**2/2)
-    def comp_b(th): return -comp_a(th)
+    def f_xi(th): return math.exp(-((th-COMP_CENTER)/COMP_WIDTH)**2/2)
+    def f_zeta(th): return -f_xi(th)   # the singlet: f_zeta = -f_xi
     with open(os.path.join(DATA, 'component-functions.dat'), 'w') as f:
-        f.write('theta a b n2\n')
+        f.write('theta fxi fzeta norm\n')
         for i in range(0, 101):
             th = 80 + i
-            f.write(f'{th} {comp_a(th):.5f} {comp_b(th):.5f} {comp_a(th)**2+comp_b(th)**2:.5f}\n')
+            f.write(f'{th} {f_xi(th):.5f} {f_zeta(th):.5f} {f_xi(th)**2+f_zeta(th)**2:.5f}\n')
     for k, (d, th) in enumerate(samples):
         tag = 'one two three'.split()[k]
-        num.append(f'\\def\\sampleTheta{tag}{{{th:g}}}\\def\\sampleA{tag}{{{comp_a(th):.2f}}}\\def\\sampleB{tag}{{{comp_b(th):+.2f}}}')
-    summary['sample_components'] = [(th, round(comp_a(th), 4), round(comp_b(th), 4)) for d, th in samples]
+        num.append(f'\\def\\sampleTheta{tag}{{{th:g}}}')
 
     # ---- momentum labels (figure 12)
-    rho = 0.5          # the symmetric frame: each turn of the frame is half the torsion (Mellor, Yurchenko, Mant, Jensen 2019)
-    num.append(f'\\def\\rhoIll{{{rho}}}')
+    rho = Fraction(1, 2)   # the symmetric frame: each turn of the frame is half the torsion (Mellor, Yurchenko, Mant, Jensen 2019)
+    num.append(f'\\def\\rhoIll{{{float(rho)}}}')
     rows = []
     for Kq in (-2, -1, 0, 1, 2):
-        rows.append(f'{Kq}/' + '{' + ','.join(f'{m + rho*Kq:.1f}' for m in range(-3, 4)) + '}')
+        rows.append(f'{Kq}/' + '{' + ','.join(f'{float(m + rho*Kq):.1f}' for m in range(-3, 4)) + '}')
     num.append('\\def\\kappaRows{' + ','.join(rows) + '}')
     tms = torsion_mode_species()
     num.append('\\def\\torsionSpecies{' + ','.join(f'{m}/{c}/{s if s else "none"}' for m, c, s in tms) + '}')
     summary['torsion_species'] = tms
-    summary['kappa_rule'] = 'kappa = m + rho K from (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q) and D^J_MK(r R_z(omega)) = e^{-iK omega} D^J_MK(r)'
 
     with open(os.path.join(DATA, 'molecules.tex'), 'w') as f:
         f.write('\n'.join(mol) + '\n')
@@ -826,9 +697,6 @@ def main():
     with open(os.path.join(DATA, 'summary.json'), 'w') as f:
         json.dump(summary, f, indent=1, default=float)
     print('wrote', DATA)
-    print(json.dumps({k: summary[k] for k in ('b_equals_rotation_residual', 'family_action_residual',
-          'normal_frame', 'generic_X_bX_best_rotation_residual', 'min_displacement_by_nontrivial_G12_element',
-          'versions', 'spin_weights', 'local_copies', 'torsion_species', 'interval', 'krb_any_two_generate')}, indent=1, default=float))
 
 if __name__ == '__main__':
     main()

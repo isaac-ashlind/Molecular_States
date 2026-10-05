@@ -167,10 +167,12 @@
 \newcommand\sheet[3]{\pgfmathsetmacro{\shw}{\pgfkeysvalueof{/tikz/sheet/w}}\pgfmathsetmacro{\shd}{\pgfkeysvalueof{/tikz/sheet/d}}%
   \pgfmathsetmacro{\shs}{\pgfkeysvalueof{/tikz/sheet/s}}%
   \draw[#3] ({#1-\shw},#2)--({#1+\shw},#2)--({#1+\shw+\shs},{#2+\shd})--({#1-\shw+\shs},{#2+\shd})--cycle;}
-% ---- the bond interval [H, B] as a Hasse diagram (data: \hasseNodes, \hasseCoverLabels): \hassecovers[options] places
-% the nodes h0, h1, ... and draws each cover in the line style of the generator it adds (t solid, u dashed, starred dotted)
+% ---- the bond interval [H, B] as a Hasse diagram (data: \hasseNodes, \hasseCoverLabels): \hassenodes places the nodes
+% h0, h1, ..., and \hassecovers[options] draws each cover in the line style of the generator it adds (t solid, u
+% dashed, a starred one dotted)
 \def\gent{t}\def\genu{u}
-\newcommand\hassecovers[1][]{\foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
+\newcommand\hassenodes{\foreach \i/\x/\y in \hasseNodes {\coordinate (h\i) at (\x,\y);}}
+\newcommand\hassecovers[1][]{%
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gent \draw[tlift,#1] (h\a)--(h\b);\else\ifx\gg\genu \draw[ulift,#1] (h\a)--(h\b);\else \draw[blift,#1] (h\a)--(h\b);\fi\fi}}
 % ---- Newman projection macros (used by the newman-* pics; coordinates in angstrom, pic scale sets the size)
 % back carbon: a circle of radius \nmR with its hydrogens on fine bonds from the rim; front nitrogen: a disc at the

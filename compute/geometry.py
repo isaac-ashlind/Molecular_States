@@ -21,9 +21,6 @@ MASS = {
     'Rb': 86.90918,  # 87Rb
 }
 
-# Nuclear spin numbers used in the figures.
-SPIN = {'H': 0.5, 'C': 0.0, 'N': 1.0, 'O': 0.0, 'K': 4.0, 'Rb': 1.5}
-
 # ---------------------------------------------------------------- vectors ---
 
 def add(a, b): return tuple(x + y for x, y in zip(a, b))
@@ -40,23 +37,9 @@ def unit(a):
 def matvec(M, v):
     return tuple(dot(row, v) for row in M)
 
-def matmul(A, B):
-    n = len(A); m = len(B[0]); k = len(B)
-    return [[sum(A[i][l]*B[l][j] for l in range(k)) for j in range(m)] for i in range(n)]
 
 def transpose(A):
     return [list(col) for col in zip(*A)]
-
-def identity(n):
-    return [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
-
-def rot_x(a):
-    c, s = math.cos(a), math.sin(a)
-    return [[1, 0, 0], [0, c, -s], [0, s, c]]
-
-def rot_y(a):
-    c, s = math.cos(a), math.sin(a)
-    return [[c, 0, s], [0, 1, 0], [-s, 0, c]]
 
 def rot_z(a):
     c, s = math.cos(a), math.sin(a)
@@ -80,10 +63,6 @@ def center(X, masses):
          sum(m*x[1] for m, x in zip(masses, X)) / M,
          sum(m*x[2] for m, x in zip(masses, X)) / M)
     return [sub(x, c) for x in X]
-
-def mass_moment(X, masses):
-    """The 3-vector X m; zero for a centered configuration."""
-    return tuple(sum(m*x[k] for m, x in zip(masses, X)) for k in range(3))
 
 def rotate(R, X):
     return [matvec(R, x) for x in X]
@@ -160,7 +139,7 @@ def water(delta_ratio, theta_deg, ell=WATER_ELL):
     """Centered planar water with r1 = ell(1+delta_ratio), r2 = ell(1-delta_ratio).
 
     Oxygen is nucleus 3.  Before centering the oxygen sits at the origin and the
-    bisector of the bond angle points along -y, so the hydrogens are above.
+    bisector of the bond angle points along +y, so the hydrogens are above.
     The returned configuration is centered on the mass center, which is NOT the
     oxygen position: that is the point of drawing it this way.
     """
@@ -193,9 +172,9 @@ MLA_BONDS = [(6, 7), (6, 1), (6, 2), (6, 3), (7, 4), (7, 5)]   # 1-based
 
 # Model parameters for the reference family (angstrom, degrees).  These are
 # representative structural values for CH3NH2, not a fitted equilibrium
-# geometry.  The family X0(tau, eta) follows the manuscript's footnote:
+# geometry.  The family X0(tau, iota) follows the manuscript's footnote:
 # methyl hydrogens at angles tau - 2 pi (k-1)/3 at fixed radius and height
-# about the C-N axis, amino hydrogens at (eta, +-a, z_A).
+# about the C-N axis, amino hydrogens at (iota, +-b_A, z_A).
 MLA = {
     'r_CN': 1.471, 'r_CH': 1.093, 'r_NH': 1.010,
     'angle_HCN': 110.3, 'angle_HNC': 110.0, 'angle_HNH': 107.0,
@@ -213,14 +192,12 @@ def _mla_frame_params(p=MLA):
     cos_hnh = math.cos(math.radians(p['angle_HNH']))
     cos2phi = (cos_hnh*p['r_NH']**2 - dz*dz)/(proj*proj)
     phi = 0.5*math.acos(cos2phi)
-    eta0 = proj*math.cos(phi)
-    a = proj*math.sin(phi)
-    return dict(rho_M=rho_M, z_M=z_M, z_C=z_C, z_N=z_N, z_A=z_A, eta0=eta0, a=a, phi=phi)
+    return dict(rho_M=rho_M, z_M=z_M, z_C=z_C, z_N=z_N, z_A=z_A, iota0=proj*math.cos(phi), b_A=proj*math.sin(phi))
 
 MLA_FRAME = _mla_frame_params()
 
-def methylamine(tau, eta, frame=MLA_FRAME):
-    """Centered reference family X0(tau, eta); tau in radians, eta in angstrom.
+def methylamine(tau, iota, frame=MLA_FRAME):
+    """Centered reference family X0(tau, iota); tau in radians, iota in angstrom.
 
     Column order is the manuscript's: H1 H2 H3 (methyl), H4 H5 (amino), C6, N7.
     At tau = 0 the nucleus H1 lies in the +x half of the xz-plane, which is the
@@ -231,19 +208,18 @@ def methylamine(tau, eta, frame=MLA_FRAME):
     for k in range(3):
         phi = tau - 2*math.pi*k/3
         cols.append((f['rho_M']*math.cos(phi), f['rho_M']*math.sin(phi), f['z_M']))
-    cols.append((eta, f['a'], f['z_A']))
-    cols.append((eta, -f['a'], f['z_A']))
+    cols.append((iota, f['b_A'], f['z_A']))
+    cols.append((iota, -f['b_A'], f['z_A']))
     cols.append((0.0, 0.0, f['z_C']))
     cols.append((0.0, 0.0, f['z_N']))
     return center(cols, MLA_MASSES)
 
-def d_methylamine(tau, eta, h=1e-5):
-    """Tangent vectors (dX0/dtau, dX0/deta) by central differences."""
-    Xp = methylamine(tau+h, eta); Xm = methylamine(tau-h, eta)
-    dt = [scale(sub(a, b), 1/(2*h)) for a, b in zip(Xp, Xm)]
-    Xp = methylamine(tau, eta+h); Xm = methylamine(tau, eta-h)
-    de = [scale(sub(a, b), 1/(2*h)) for a, b in zip(Xp, Xm)]
-    return dt, de
+def d_methylamine(tau, frame=MLA_FRAME):
+    """The tangent vectors (dX0/dtau, dX0/diota), analytically: the methyl hydrogens turn, the amino ones slide in x."""
+    r = frame['rho_M']; zero = (0.0, 0.0, 0.0)
+    dt = [(-r*math.sin(tau - 2*math.pi*k/3), r*math.cos(tau - 2*math.pi*k/3), 0.0) for k in range(3)] + [zero]*4
+    di = [zero]*3 + [(1.0, 0.0, 0.0)]*2 + [zero]*2
+    return center(dt, MLA_MASSES), center(di, MLA_MASSES)
 
 def rotation_generators(X):
     """Infinitesimal rotations L_k X for k = x, y, z (displacement patterns)."""
@@ -263,16 +239,16 @@ def gram_schmidt_mass(vectors, masses, tol=1e-9):
             out.append([scale(a, 1/n) for a in w])
     return out
 
-def normal_vector(pattern, tau, eta, masses=MLA_MASSES):
-    """Project a displacement pattern onto the mass-normal space at X0(tau,eta).
+def normal_vector(pattern, tau, iota, masses=MLA_MASSES):
+    """Project a displacement pattern onto the mass-normal space at X0(tau, iota).
 
     The normal space is the mass-orthogonal complement of the shape tangents
     and the three rotation generators; the pattern is first made translation
-    free (sum m_i v_i = 0).  Returns the unit normal vector.
+    free (sum m_i v_i = 0).  Returns the unit normal vector and the mass-orthonormal
+    tangent basis.
     """
-    X = methylamine(tau, eta)
-    dt, de = d_methylamine(tau, eta)
-    tangent = gram_schmidt_mass([dt, de] + rotation_generators(X), masses)
+    X = methylamine(tau, iota)
+    tangent = gram_schmidt_mass(list(d_methylamine(tau)) + rotation_generators(X), masses)
     M = sum(masses)
     c = scale(tuple(sum(m*v[k] for m, v in zip(masses, pattern)) for k in range(3)), 1/M)
     w = [sub(v, c) for v in pattern]
@@ -290,10 +266,9 @@ KRB_MASSES = [MASS[e] for e in KRB_ELEMENTS]
 def krb_schematic():
     """A schematic planar K2Rb2 arrangement (angstrom-like units), centered.
 
-    This is NOT a computed complex geometry; it is declared schematic in the
-    figure.  Potassium on the upper row, rubidium on the lower row, so that the
-    three groupings (incoming pairs K1Rb3 | K2Rb4, one complex, outgoing pairs
-    K1K2 | Rb3Rb4) are drawn by envelopes that never cross.
+    A schematic layout, not a computed complex geometry.  Potassium on the upper
+    row, rubidium on the lower row, so that the grouping lines of the three
+    groupings (KRb + KRb, the complex, K2 + Rb2) never cross.
     """
     cols = [(-1.35, 0.8, 0.0),   # K1
             ( 1.35, 0.8, 0.0),   # K2
@@ -328,6 +303,3 @@ def project(X, cam):
     right, up, out = cam
     return [(dot(x, right), dot(x, up), dot(x, out)) for x in X]   # (px, py, depth)
 
-def draw_order(P):
-    """Indices sorted back to front (increasing depth = toward viewer)."""
-    return sorted(range(len(P)), key=lambda i: P[i][2])

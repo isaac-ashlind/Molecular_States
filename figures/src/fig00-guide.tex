@@ -68,8 +68,8 @@
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], gray, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]
-  \hassecovers[draw=ColGrayed]
-  \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[ring,draw=ColGrayed,fill=white] (h\i) circle[radius=2pt];}
+  \hassenodes\hassecovers[draw=ColGrayed]
+  \foreach \i/\x/\y in \hasseNodes {\draw[ring,draw=ColGrayed,fill=white] (h\i) circle[radius=2pt];}
   \node[sub,anchor=north,text=ColGrayed] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=ColGrayed] at ($(h9)+(0,.18)$) {$B$};
   \node[sub,anchor=south east,text=ColGrayed,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
 \end{scope}

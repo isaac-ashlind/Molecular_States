@@ -1,22 +1,22 @@
 """Symbolic (exact) checks of the identities behind the figures.  Needs sympy.
 
 Run from the repository root:  python3 checks/verify_symbolic.py
-The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the family is centered, X m = 0; the
-overlap c = exp(-d^2/8 Delta^2) and the density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3; the E-pair
-matrices of t and b; the seam relation kappa = m + rho K.
+The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the overlap c = exp(-d^2/8 Delta^2) and the
+density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3 from the projectors on three packets of overlap c;
+the E-pair matrices of t and b; the seam relation kappa = m + rho K for every integer m.
 """
 import sympy as sp
 
-tau, eta, rhoM, zM, a, zA, zC, zN, mH, mC, mN = sp.symbols('tau eta rho_M z_M a z_A z_C z_N m_H m_C m_N', real=True)
+tau, iota, rhoM, zM, bA, zA, zC, zN, mH, mC, mN = sp.symbols('tau iota rho_M z_M b_A z_A z_C z_N m_H m_C m_N', real=True)
 masses = [mH]*5 + [mC, mN]
 
-def family(tau, eta):
-    """Uncentered reference family; centering commutes with the checks below (see docs)."""
+def family(tau, iota):
+    """The reference family before centering (centering commutes with the actions)."""
     cols = []
     for k in range(3):
         phi = tau - 2*sp.pi*k/3
         cols.append(sp.Matrix([rhoM*sp.cos(phi), rhoM*sp.sin(phi), zM]))
-    cols += [sp.Matrix([eta, a, zA]), sp.Matrix([eta, -a, zA]), sp.Matrix([0, 0, zC]), sp.Matrix([0, 0, zN])]
+    cols += [sp.Matrix([iota, bA, zA]), sp.Matrix([iota, -bA, zA]), sp.Matrix([0, 0, zC]), sp.Matrix([0, 0, zN])]
     return cols
 
 def center(cols):
@@ -42,26 +42,21 @@ def compose(s, tt):                       # (s t)(i) = s(t(i))
     return ([s[0][tt[0][i]] for i in range(7)], s[1] ^ tt[1])
 tu = compose(t, u)
 
-X = center(family(tau, eta))
+X = center(family(tau, iota))
 cases = {
-    't':  (t,  (tau + 2*sp.pi/3, eta), sp.eye(3)),
-    'u':  (u,  (tau + sp.pi, -eta), R_z(sp.pi)),
-    'b':  (b,  (-tau, eta), R_y(sp.pi)),
-    'tu': (tu, (tau - sp.pi/3, -eta), R_z(sp.pi)),
+    't':  (t,  (tau + 2*sp.pi/3, iota), sp.eye(3)),
+    'u':  (u,  (tau + sp.pi, -iota), R_z(sp.pi)),
+    'b':  (b,  (-tau, iota), R_y(sp.pi)),
+    'tu': (tu, (tau - sp.pi/3, -iota), R_z(sp.pi)),
 }
-for name, (g, (tp, ep), A) in cases.items():
+for name, (g, (tp, ip), A) in cases.items():
     lhs = act(X, g[0], g[1])
-    rhs = [A*x for x in center(family(tp, ep))]
+    rhs = [A*x for x in center(family(tp, ip))]
     for l, r in zip(lhs, rhs):
         d = sp.simplify(sp.expand_trig(l - r))
         assert d == sp.zeros(3, 1), (name, d)
-    print(f'{name}: g.X0(tau,eta) = A_g X0(tau\',eta\') holds identically  (A_g = {"I" if A == sp.eye(3) else name and ("R_z(pi)" if A == R_z(sp.pi) else "R_y(pi)")})')
-# centering: X m = 0 identically
-Mtot = sum(masses)
-assert sp.simplify(sum((m*x for m, x in zip(masses, X)), sp.zeros(3, 1))) == sp.zeros(3, 1)
-print('centered family: X m = 0 identically')
-
-# Gaussian overlap: amplitudes with density variance Delta^2 in the plane (width Delta, approved notation)
+    print(f'{name}: g.X0(tau, iota) = A_g X0(tau\', iota\') holds identically')
+# Gaussian overlap: amplitudes with density variance Delta^2 in the plane
 x, y, d, sg = sp.symbols('x y d Delta', real=True, positive=True)
 g0 = sp.exp(-(x**2 + y**2)/(4*sg**2)); g1 = sp.exp(-((x - d)**2 + y**2)/(4*sg**2))
 num = sp.integrate(sp.integrate(g0*g1, (x, -sp.oo, sp.oo)), (y, -sp.oo, sp.oo))
@@ -71,11 +66,17 @@ assert sp.simplify(c - sp.exp(-d**2/(8*sg**2))) == 0
 var = sp.integrate(sp.integrate(x**2*g0**2, (x, -sp.oo, sp.oo)), (y, -sp.oo, sp.oo))/den
 assert sp.simplify(var - sg**2) == 0
 print('Gaussian: density variance Delta^2 and c = exp(-d^2/(8 Delta^2)) hold exactly')
-cc = sp.symbols('c')
-wA1 = (1 + 2*cc)/3; wE = 2*(1 - cc)/3
-assert sp.simplify(wA1 + wE - 1) == 0
-# shares from the projector with all pairwise overlaps c: ||(g0+g1+g2)/3||^2 = (3 + 6c)/9
-assert sp.simplify(sp.Rational(1, 9)*(3 + 6*cc) - wA1) == 0
+cc = sp.symbols('c', real=True)
+# the shares from the projectors on the span of three packets with pairwise overlap c: the Gram matrix of the packets
+# and the site action of t; w_Gamma = <eta_0, P_Gamma eta_0> with P_Gamma = (d_Gamma/3) sum_k chi_Gamma(t^k) t^k
+Gm = sp.Matrix(3, 3, lambda i, j: 1 if i == j else cc)
+T3 = sp.Matrix([[0, 0, 1], [1, 0, 0], [0, 1, 0]])
+e0 = sp.Matrix([1, 0, 0]); w3 = sp.Rational(-1, 2) + sp.sqrt(3)*sp.I/2   # omega = e^{2 pi i/3}
+def share(chars, d):
+    P = sum((d*sp.conjugate(chars[k])/3*T3**k for k in range(3)), sp.zeros(3, 3))
+    return sp.simplify(sp.expand((e0.T*Gm*P*e0)[0]))
+wA1 = share([1, 1, 1], 1); wE = share([1, w3, w3**2], 1) + share([1, w3**2, w3], 1)
+assert sp.simplify(wA1 - (1 + 2*cc)/3) == 0 and sp.simplify(wE - 2*(1 - cc)/3) == 0 and sp.simplify(wA1 + wE - 1) == 0
 print('shares: w_A1 = (1+2c)/3, w_E = 2(1-c)/3, sum rule exact')
 
 # E pair matrices in the orthonormal basis v2, v3
@@ -90,10 +91,9 @@ assert T*v1 == v1 and Bm*v1 == v1
 print('E pair: t -> rotation by 2pi/3, b -> diag(1,-1); A1 vector fixed: exact')
 
 # seam and Wigner phase: D(r R_z(omega)) = e^{-iK omega} D(r) with (r,tau+2pi,q) ~ (r R_z(-2 pi rho),tau,q)
-K, m, rho, kappa = sp.symbols('K m rho kappa')
+K, rho, kappa = sp.symbols('K rho kappa'); m = sp.symbols('m', integer=True)
 lhs = sp.exp(2*sp.pi*sp.I*kappa)                       # from e^{i kappa (tau + 2 pi)}
 rhs = sp.exp(-sp.I*K*(-2*sp.pi*rho))                    # from D(r R_z(-2 pi rho))
-assert sp.simplify((lhs - rhs).subs(kappa, m + rho*K).subs(m, 3)) == 0
-assert sp.simplify((lhs - rhs).subs(kappa, m + rho*K).subs(m, -2)) == 0
+assert sp.simplify(sp.powsimp(sp.expand((lhs/rhs).subs(kappa, m + rho*K)))) == 1   # for every integer m
 print('seam: e^{2 pi i kappa} = e^{2 pi i rho K} with kappa = m + rho K, m integer: exact')
 print('verify_symbolic.py: all checks passed')

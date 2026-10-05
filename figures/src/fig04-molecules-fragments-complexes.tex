@@ -31,12 +31,12 @@
 \draw[rbarrow] (8.8,9.057) -- (9.2,9.057) .. controls (9.7,9.057) and (9.7,8.597) .. (10.2,8.597) -- (10.85,8.597);
 % ------------------------------------------------ B. the sixteen subgroups of S with the same two strands
 \begin{scope}[shift={(2.3,.9)}]   % the lattice centered on the plate, S under the complex; the order column to its left
-  \foreach \i/\x/\y/\m/\name in \krbNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=10 \pgfmathsetmacro{\xx}{0.6429}\fi\ifnum\i=12 \pgfmathsetmacro{\xx}{0.3571}\fi \coordinate (k\i) at ({10.4*\xx},{1.65*\y});}
+  \foreach \i/\x/\y/\m in \krbNodes {\coordinate (k\i) at ({10.4*\x},{1.65*\y});}
   \foreach \a/\b/\m in \krbCovers {\ifnum\m=1\else\draw[faint] (k\a)--(k\b);\fi}   % the m=1 covers are drawn as strands or ink below
   \draw[kline] ($(k\krbIdxIn)+(-.06,0)$)--($(k\krbIdxS)+(-.06,0)$); \draw[rbline] ($(k\krbIdxIn)+(.06,0)$)--($(k\krbIdxS)+(.06,0)$);
   \draw[kline] (k\krbIdxS)--(k\krbIdxK); \draw[rbline] (k\krbIdxS)--(k\krbIdxRb);
   \draw[heavy] (k\krbIdxCore)--(k\krbIdxIn) (k\krbIdxCore)--(k\krbIdxK) (k\krbIdxCore)--(k\krbIdxRb) (k\krbIdxE)--(k\krbIdxCore);
-  \foreach \i/\x/\y/\m/\name in \krbNodes {\ifnum\m=1\else\fill[ColFaint] (k\i) circle[radius=1pt];\fi}
+  \foreach \i/\x/\y/\m in \krbNodes {\ifnum\m=1\else\fill[ColFaint] (k\i) circle[radius=1pt];\fi}
   \draw[ring,fill=white] (k\krbIdxE) circle[radius=3.1pt]; \draw[ring,fill=white] (k\krbIdxCore) circle[radius=3.1pt]; \draw[ring,fill=white] (k\krbIdxS) circle[radius=3.1pt];
   \draw[ring,fill=ColPotassium] (k\krbIdxK) circle[radius=3.1pt]; \draw[ring,fill=ColRubidium] (k\krbIdxRb) circle[radius=3.1pt];
   \begin{scope}\clip (k\krbIdxIn) circle[radius=3.1pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=3.1pt];

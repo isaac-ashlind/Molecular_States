@@ -10,7 +10,9 @@ python3 build.py              # data, checks, plates, manuscript (build/manuscri
 python3 build.py --only 06    # one plate (data and checks still run)
 ```
 A failing check stops the build. Requires TeX Live (pdflatex, bibtex, TikZ, PGFPlots, standalone, titlesec),
-Python 3 and poppler (pdftoppm, pdftotext). numpy, SymPy and GAP run further checks; the build says when it skips one.
+Python 3 with SymPy and poppler (pdftoppm, pdftotext). GAP, when present, runs an independent cross-check. The checks
+work in exact arithmetic (integers, rationals, the cyclotomic field of the cube roots of unity) wherever the quantity
+allows.
 
 ## Layout
 ```
@@ -20,7 +22,7 @@ figures/shared/             figurestyle.sty (palette, type) and primitives.tex (
 figures/data/               written by compute/make_data.py, never by hand
 figures/pdf/, figures/png/  the compiled plates, vector and 600 dpi
 compute/                    geometry, groups and the data emitter
-checks/                     independent checks of every number the plates draw; the text-collision report
+checks/                     independent checks of what the plates draw and the text states; the collision report
 build.py                    the one entry point
 ```
 Every plate is 15.2 cm wide and is included at `\linewidth`, so all plates print at one scale.

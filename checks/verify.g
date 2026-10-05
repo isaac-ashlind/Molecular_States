@@ -44,7 +44,7 @@ tbl := CharacterTable(G6);;
 irr := Irr(tbl);;
 cls := ConjugacyClasses(tbl);;
 reps := List(cls, Representative);;
-Print("G6 class sizes ", List(cls,Size), "\n");
+Assert(0, SortedList(List(cls, Size)) = [1, 2, 3]);
 # class functions: spin character 2^(cycles on 1..5), statistics sgn, parity (+/- on E*)
 cyclesOn5 := g -> Length(Cycles(g,[1..5]));;
 spinchar := List(reps, g -> 2^cyclesOn5(g));;
@@ -52,8 +52,7 @@ statchar := List(reps, g -> SignPerm(RestrictedPerm(g,[1..5])));;
 parchar  := List(reps, g -> SignPerm(RestrictedPerm(g,[8,9])));;
 # name the irreducibles by their values on t and b
 nameOf := function(chi)
-  local vt, vb;
-  vt := chi[Position(reps, First(reps, g -> g in ConjugacyClass(G6,t)))];
+  local vb;
   vb := chi[Position(reps, First(reps, g -> g in ConjugacyClass(G6,b)))];
   if chi[1] = 2 then return "E"; elif vb = 1 then return "A1"; else return "A2"; fi;
 end;;
@@ -73,6 +72,8 @@ lookup := function(w,n) return First(w, p -> p[1]=n)[2]; end;;
 Assert(0, [lookup(we,"A1"),lookup(we,"A2"),lookup(we,"E")] = [12,4,8]);
 Assert(0, [lookup(wo,"A1"),lookup(wo,"A2"),lookup(wo,"E")] = [4,12,8]);
 Assert(0, lookup(we,"A1")+lookup(we,"A2")+2*lookup(we,"E") = 32);
+# the full spin space: carbon-12 (C^1) and nitrogen-14 (C^3) are not permuted, so every weight triples
+Assert(0, List(["A1","A2","E"], n -> 1*3*lookup(we,n)) = [36,12,24] and List(["A1","A2","E"], n -> 1*3*lookup(wo,n)) = [12,36,24]);
 # permutation character of G6 on G6/H: multiplicities (A1,A2,E) = (1,0,1)
 permchar := PermutationCharacter(G6,H);;
 mult := List(irr, chi -> [nameOf(chi), ScalarProduct(tbl, ClassFunction(tbl, List(reps, g -> permchar[Position(reps,g)])), chi)]);;
@@ -86,5 +87,23 @@ Print("KRb: |S| = ", Size(SK), ", subgroups = ", Length(AllSubgroups(SK)),
       ", channel orders = ", List([Gin,GK,GRb],Size), "\n");
 Assert(0, Size(SK)=8 and Length(AllSubgroups(SK))=16 and List([Gin,GK,GRb],Size)=[4,4,4]);
 Assert(0, ForAll(Combinations([Gin,GK,GRb],2), p -> ClosureGroup(p[1],p[2]) = SK));
+
+# rigid methane in exact cyclotomic arithmetic: Td(M) is S4 on the four protons with the odd relabelings starred,
+# T the even ones (A4); the species of Td(M) named by degree and value on a transposition (A2 and T1 odd there)
+Td := SymmetricGroup(4);;  T := AlternatingGroup(4);;
+spin4 := ClassFunction(Td, List(ConjugacyClasses(Td), c -> 2^Length(Cycles(Representative(c), [1..4]))));;
+tdname := chi -> [chi[1], chi[Position(ConjugacyClasses(Td), ConjugacyClass(Td, (1,2)))]];;
+Assert(0, Set(List(Irr(Td), chi -> [tdname(chi), ScalarProduct(chi, spin4)])) =
+  Set([[[1,1],5], [[1,-1],0], [[2,0],1], [[3,1],3], [[3,-1],0]]));          # 5 A1 + E + 3 T2
+irrT := Irr(T);;  spinT := RestrictedClassFunction(spin4, T);;
+Assert(0, SortedList(List(irrT, chi -> [chi[1], ScalarProduct(chi, spinT)])) = [[1,1],[1,1],[1,5],[3,3]]);   # 5 A + 1E + 2E + 3 T
+Assert(0, SortedList(List(irrT, chi -> ScalarProduct(chi, PermutationCharacter(T, TrivialSubgroup(T))))) = [1,1,1,3]);              # C[T]
+Assert(0, SortedList(List(Irr(Td), chi -> SortedList(List(irrT, psi -> ScalarProduct(RestrictedClassFunction(chi, T), psi))))) =
+  SortedList([[0,0,0,1],[0,0,0,1],[0,0,1,1],[0,0,0,1],[0,0,0,1]]));             # A1, A2 -> A; E -> 1E + 2E; T1, T2 -> T
+isomers := Filtered(Cartesian(irrT, irrT), p -> ScalarProduct(p[1]*p[2], TrivialCharacter(T)) <> 0);;
+Assert(0, SortedList(List(isomers, p -> [p[1][1], ScalarProduct(p[2], spinT)])) = [[1,1],[1,1],[1,5],[3,3]]);
+Assert(0, SortedList(List(irrT, chi -> Index(T, KernelOfCharacter(chi)))) = [1,3,3,12]);                   # monodromy
+Assert(0, ScalarProduct(First(irrT, chi -> chi[1] = 3)^2, TrivialCharacter(T)) = 1);   # one invariant in T x T
+Print("methane: 5 A1 + E + 3 T2, 5 A + 1E + 2E + 3 T, C[T], the species on T, the isomers, |T/ker| = 1, 3, 3, 12: ok\n");
 Print("GAP cross-check: all assertions passed\n");
 QUIT;

@@ -4,10 +4,9 @@
     python3 build.py            # data -> checks -> plates -> text-collision report -> manuscript
     python3 build.py --only 03  # one plate (data and checks still run; no manuscript)
 
-Requires python3, pdflatex and bibtex with standalone, TikZ, PGFPlots and titlesec, and poppler (pdftoppm for the
-600 dpi plates, pdftotext for the text-collision report). Optional: numpy (spin-structure and methane checks), SymPy
-(symbolic checks), GAP (independent algebra); each is skipped, with a note, when absent. Any failing step stops the
-build.
+Requires python3 with SymPy, pdflatex and bibtex with standalone, TikZ, PGFPlots and titlesec, and poppler (pdftoppm
+for the 600 dpi plates, pdftotext for the text-collision report). GAP, when present, runs an independent cross-check.
+Any failing step stops the build.
 """
 import os, re, shutil, subprocess, sys
 from pathlib import Path
@@ -53,16 +52,9 @@ def main():
     if '--only' in sys.argv:
         only = sys.argv[sys.argv.index('--only') + 1]
     print('[1/5] regenerate data'); run([sys.executable, 'compute/make_data.py'])
-    print('[2/5] checks'); run([sys.executable, 'checks/verify.py'], quiet=False)
-    run([sys.executable, 'checks/verify_antiprism.py'], quiet=False)
-    for module, script, what in (('sympy', 'checks/verify_symbolic.py', 'symbolic checks'),
-                                 ('numpy', 'checks/verify_spin.py', 'spin-structure check'),
-                                 ('numpy', 'checks/verify_methane.py', 'methane check')):
-        try:
-            __import__(module)
-        except ImportError:
-            print(f'      {what}: {module} not found, skipped (the stdlib checks already passed)'); continue
-        run([sys.executable, script], quiet=False)
+    print('[2/5] checks')
+    for script in ('verify.py', 'verify_spin.py', 'verify_methane.py', 'verify_symbolic.py'):
+        run([sys.executable, 'checks/' + script], quiet=False)
     if shutil.which('gap'):
         run(['gap', '-q', '-b', '--quitonbreak', 'checks/verify.g'], quiet=False)
     else:

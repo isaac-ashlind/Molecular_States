@@ -4,7 +4,7 @@ An element is (perm, star): perm is a tuple of 0-based images, star is 0/1.
 The product is composition, (s t)(i) = s(t(i)), which matches the manuscript's
 left action s.(t.X) = (st).X with s.X = X P_s and P_{st} = P_t P_s.
 """
-import math
+from fractions import Fraction
 from itertools import permutations
 
 def E(n):
@@ -74,19 +74,6 @@ def cycle_count(perm):
 def sign(perm):
     return (-1)**(len(perm) - cycle_count(perm))
 
-def cycle_notation(g, n, labels=None):
-    """Cycle notation on the first n labels (1-based), with * for inversion."""
-    perm, star = g
-    seen = set(); parts = []
-    for i in range(n):
-        if i in seen or perm[i] == i:
-            seen.add(i); continue
-        c = []; j = i
-        while j not in seen:
-            seen.add(j); c.append(j); j = perm[j]
-        parts.append('(' + ''.join(str(k+1) for k in c) + ')')
-    s = ''.join(parts) if parts else 'E'
-    return s + ('^*' if star else '')
 
 # ----------------------------------------------------------- methylamine ---
 
@@ -149,26 +136,21 @@ G6_CHARS = {'A1': {'E': 1, 't': 1, 'b': 1},
             'A2': {'E': 1, 't': 1, 'b': -1},
             'E':  {'E': 2, 't': -1, 'b': 0}}
 
-def spin_weights(G=G6, n_protons=5, spin=0.5):
-    """Multiplicity of each partner spin species, by total parity.
+def spin_weights(G=G6, n_protons=5, two_spin=1):
+    """Multiplicity of each partner spin species, by total parity, for the proton factor (two_spin = 2I = 1).
 
     weight[parity][Gamma] = (1/|G|) sum_g chi_Gamma(g) chi_spin(g) chi_stat(g) chi_parity(g)
     with chi_spin(g) = (2I+1)^{cycles of sigma_g on the protons},
     chi_stat(g) = (sgn sigma_g)^{2I}, chi_parity(g) = parity^{star(g)}.
-    It equals the number of copies of Gamma (x) chi in the spin space, i.e. the
-    number of physical states per spatial level of species Gamma.
+    It equals the number of copies of Gamma (x) chi in the proton spin space, the
+    proton factor of the physical states per spatial level of species Gamma.
     """
     out = {}
     for parity in (1, -1):
         vals = {}
         for name, chi in G6_CHARS.items():
-            tot = 0
-            for g in G:
-                perm = g[0][:n_protons]
-                chi_spin = (int(round(2*spin))+1)**cycle_count(perm)
-                chi_stat = sign(perm)**int(round(2*spin))
-                chi_par = parity**g[1]
-                tot += chi[g6_class(g)]*chi_spin*chi_stat*chi_par
+            tot = sum(chi[g6_class(g)]*(two_spin + 1)**cycle_count(g[0][:n_protons])*sign(g[0][:n_protons])**two_spin*parity**g[1]
+                      for g in G)
             assert tot % len(G) == 0
             vals[name] = tot // len(G)
         out[parity] = vals
@@ -192,3 +174,20 @@ def krb_groups():
     GK = close([p12, Es], n)
     GRb = close([p34, Es], n)
     return Sk, Gin, GK, GRb, p12, p34, Es
+
+# ------------------------------------------------------- cyclotomic numbers ---
+
+class QOmega:
+    """a + b omega in the cyclotomic field Q(omega), omega = e^{2 pi i/3}, omega^2 = -1 - omega (exact characters of T)."""
+    def __init__(self, a, b=0):
+        if isinstance(a, QOmega): a, b = a.a, a.b
+        self.a, self.b = Fraction(a), Fraction(b)
+    def __add__(self, o): o = QOmega(o); return QOmega(self.a + o.a, self.b + o.b)
+    __radd__ = __add__
+    def __mul__(self, o): o = QOmega(o); return QOmega(self.a*o.a - self.b*o.b, self.a*o.b + self.b*o.a - self.b*o.b)
+    __rmul__ = __mul__
+    def conj(self): return QOmega(self.a - self.b, -self.b)
+    def __eq__(self, o): o = QOmega(o); return self.a == o.a and self.b == o.b
+    def rational(self):
+        assert self.b == 0
+        return self.a
