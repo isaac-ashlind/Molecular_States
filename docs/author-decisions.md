@@ -295,3 +295,7 @@ docs/notation-migration.md.
   6's labels at one size (uH stays at note size: its slot is too low) and the eclipsed Newman back set turned 20
   degrees; figure 7's t head off the v3 axis; figure 12's K rings dashed exactly where they lie behind the sphere;
   the closing plate's projection dotted once per span, digit 2 off the z axis, the hidden half of z shortened.
+- Label size (author, 2026-10-05): when one label cannot take the plate's size, the others come down to it rather than
+  mixing sizes; figure 6's labels are all at note size, matching uH. Figure 1's RX, RXP and -X strip cells widened to
+  0.82 cm (entries had 1.5-2.6 pt of air, now about 5 pt like the X strips); figure 11's graph nodes 8.6 mm (labels
+  had down to 0.5 pt of air, now at least 3.2 pt). The hand-off leaves only prose to the author.

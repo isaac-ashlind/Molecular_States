@@ -44,26 +44,23 @@ closing pages, from explicit matrices (`checks/verify_methane.py`); text overlap
 - Labels on what they name with air; text under an object centred; in-plate text lowercase without full stops.
 - Minimal captions; headings with a period after the number only.
 
-## Open items for the author
-1. **Camera handedness of the methylamine glyphs.** `compute/geometry.py`'s `camera()` builds a left-handed frame, so
-   every glyph drawn through it is a mirror image: all 3D methylamine glyphs (cover, figures 5, 10, 11). Nothing the
-   reader is told is affected: the mirror is uniform, the inversion E* commutes with every permutation and rotation,
-   so every stated relation (bX0 = R_b X0 with R_b = R_y(pi), the lifts to tX and bX, the parity of the normal
-   displacements under tu) holds the same way in the mirror copy; no mirrored glyph sits beside a true view of the
-   same configuration (figure 6's Newman projections are true views and figure 6 has no 3D glyph); and no turning
-   sense is stated for a mirrored glyph. The closing plate uses its own right-handed camera. To make every glyph a
-   true view, change `out = cross(up, right)` to `cross(right, up)` in `camera()` and re-check each plate's look
-   (depth order flips; layouts were tuned by eye).
-2. **`geometry.kabsch_rotation`** (a Newton polar iteration) does not converge for third-turns; it is exact for the
-   small turns and half-turns the methylamine plates use. The methane check fits by SVD instead.
-3. **Captions** are minimal by decision; the disclosures a careful caption may want (schematic elements, declared
-   approximations) are listed per plate in `docs/caption-notes.md`.
-4. **`reference/`** holds the author's materials and was not touched.
-5. **Two tight spots left by the last label pass** (every leader and label was measured; these need geometry, not a
-   nudge): in figure 1 the 7 pt entries of the column strips sit 1.3 to 2 pt from the cell rules (wider cells or
-   smaller text would fix it); in figure 11 the labels of the bookkeeping graph nearly touch their circles (bigger
-   nodes would fix it). Two leaders cross more than one line because their dot sits inside shading or hatch:
-   figure 6 t²uH (five thin wall lines, the fewest possible) and sF (the hatched slab).
+## What is left for you
+Prose only. The captions are minimal by decision; the disclosures a careful caption may want (schematic elements,
+declared approximations) are listed per plate in `docs/caption-notes.md`. Everything on the plates is finished.
+
+## Background notes (nothing to do)
+- **Camera handedness of the methylamine glyphs.** `compute/geometry.py`'s `camera()` builds a left-handed frame, so
+  every glyph drawn through it is a mirror image: all 3D methylamine glyphs (cover, figures 5, 10, 11). Nothing the
+  reader is told is affected: the mirror is uniform, the inversion E* commutes with every permutation and rotation,
+  so every stated relation (bX0 = R_b X0 with R_b = R_y(pi), the lifts to tX and bX, the parity of the normal
+  displacements under tu) holds the same way in the mirror copy; no mirrored glyph sits beside a true view of the
+  same configuration (figure 6's Newman projections are true views and figure 6 has no 3D glyph); and no turning
+  sense is stated for a mirrored glyph. The closing plate uses its own right-handed camera.
+- **`geometry.kabsch_rotation`** (a Newton polar iteration) does not converge for third-turns; it is exact for the
+  small turns and half-turns the methylamine plates use. The methane check fits by SVD instead.
+- **Two leaders cross more than one line** because their dot sits inside shading or hatch: figure 6's t²uH (five
+  thin wall lines, the fewest possible) and sF (the hatched slab).
+- **`reference/`** holds the author's materials and was not touched.
 
 ## Last changes (2026-10-05)
 Each is logged in `docs/author-decisions.md`; every change is its own commit on `figures-v2`, so each diff can be read
@@ -75,3 +72,5 @@ alone.
   loops lambda, s' in the action rule, the proton spin space (C^2)^{x5}, Section 2's components f_xi and f_zeta, Table
   A's classes by relabellings), defined the rest at first use, and completed the notation page.
 - Plates (244892e to 24fd9a7): a seven-inspector, seven-skeptic audit; 46 confirmed findings applied plate by plate.
+- Then: every label on figure 6 at note size (uH's slot cannot take label size); figure 1's tight strip cells widened;
+  figure 11's graph nodes enlarged so every label has at least 3 pt of air.
