@@ -1,8 +1,8 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: IN PROGRESS
-Live check-in trigger: trig_014phRPXxhsqFrtWUQEcwo2a (fires 2026-10-05T17:39Z)
-Workflow runs: none yet
+Live check-in trigger: trig_01XfFJ9hVGVvvc8YXyLGJYKf (fires 2026-10-05T17:41Z)
+Audit (step 4): three background Agent auditors, launched 16:11Z, reports to .final-pass/audit/{plates,manuscript,compute}.md. If a report is missing after an interruption, re-run that auditor (prompt: read-only, the five headings in CALIBRATION section 8 for its area).
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
 
