@@ -34,14 +34,14 @@
   \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
 \end{scope}
 \leaderlabel{10.86}{9.65}{.0}{-.55}{north}{$H$}
-\leaderlabel{11.82}{11.16}{.45}{.4}{west}{$tH$}
+\leaderlabel{11.82}{11.16}{.2}{.56}{south}{$tH$}
 \leaderlabel{8.22}{10.75}{-.5}{.45}{east}{$t^2H$}
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,10.29)--++(.66,-.42); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.87) {eclipsed};
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.38,9.05)--(13.04,9.35); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.04,9.35) {$t^2uH$};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.377,10.286)--(13.02,10.876); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.02,10.876) {eclipsed};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.377,9.046)--(11.45,8.119); \node[sub,anchor=north east,inner sep=2.5pt,fill=white] at (11.45,8.119) {$t^2uH$};
 % uH sits on the sheet's bottom edge at the back, inside the wall: its leader rises through the back rim to a name above it,
 % slanted so that it is not lost among the inner wall's vertical lines
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (9.74,10.15)--(10.8,11.5); \node[sub,anchor=south,inner sep=2pt] at (10.8,11.5) {$uH$};
-\node[lab,anchor=west] at (12.9,10.75) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
+\draw[leader,shorten >=3pt,shorten <=3.5pt] (9.744,10.152)--(10.164,9.83); \node[sub,anchor=west,inner sep=2.5pt] at (10.164,9.83) {$uH$};
+\node[lab] at (12.7,11.2) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
 % the version point tuH at the lower end of the iota line)
 \zoombubble{8.73}{9.28}{.95}{3.0}{9.9}{1.5}
@@ -63,7 +63,7 @@
   \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmi*cos(\fa)-\cy)});
   \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[line width=.4pt,draw=PlateInk] (s1)--(s4) (s2)--(s3);
   \hatom{0}{-\m*.62}{.08}{ColDot}
-  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.22}) {$tuH$};
+  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.19}) {$tuH$};
   % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
   \coordinate (qa) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.2-\E*\Rmo*cos(\fa)-\cy)});
   \coordinate (qb) at ({\m*(2.45*sin(\fa)-\cx)},{\m*(.2-\E*2.45*cos(\fa)-\cy)});
