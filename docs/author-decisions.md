@@ -308,3 +308,8 @@ docs/notation-migration.md.
   intervals of real numbers. The subgroup intervals are written in words, "the subgroups between H and B" ([H, B]
   reads as a commutator); functions on a finite set are C^{G/H} and C^{T} (C[...] reads as a polynomial ring); the
   normal-frame matrix entry is (M_s(a))_{beta alpha}.
+- Spin space (author, 2026-10-05): H_spin includes every nucleus, the integer-spin ones too. For methylamine Section 8
+  writes H_spin = (C^2)^{x5} x C^1 x C^3 (protons, carbon-12, nitrogen-14); the carbon and nitrogen factor is not
+  permuted, carries A1 and triples every count, so H_spin = 36 A1 + 12 A2 + 24 E and the physical weights are 36, 12,
+  24 (even) and 12, 36, 24 (odd), as the methane pages count in their full H_spin. Figure 8 draws the proton factor,
+  32 lines, and its caption says nitrogen triples every bundle.

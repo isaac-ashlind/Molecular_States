@@ -127,11 +127,12 @@ image b v; the plane beneath shows the three images of v2 at a third turn with t
 are exact (verify_symbolic.py); C^(G6/H) = A1 + E, no A2 (GAP).
 
 ## Figure 8, nuclear spin weights
-Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space (C^2)^(x5) (H_spin also holds the carbon and nitrogen factors, set aside) in the
+Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space (C^2)^(x5) in the
 centre as bundles of hairlines, one line per state, 12 A1, 4 A2 and 8 E pairs (32 in all); even-parity spatial
 species (chi_+ = A1) at the left joined straight across to the spin species of the same name; odd-parity species
 (chi_- = A2) at the right joined with A1 and A2 swapped and E kept; a level's weight is the number of lines in the
-bundle it is joined to: 12, 4, 8 (even A1, A2, E) and 4, 12, 8 (odd); these are multiplicities (copies of a species),
+bundle it is joined to, tripled by nitrogen-14's three spin states (H_spin = (C^2)^(x5) x C^1 x C^3, the
+carbon and nitrogen factor carrying A1): 36, 12, 24 (even A1, A2, E) and 12, 36, 24 (odd), the text's table; these are multiplicities (copies of a species),
 not dimensions, so the eight E pairs fill sixteen of the thirty-two dimensions. chi_stat = +1 on G6 (t is a 3-cycle
 and the permutation part of b is a double transposition). Counts from the character
 computation (GAP, verify.py); the same counts arise as the product of the methyl multiplets (4 A1 + 2 E) and the
