@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Clean-state build of the plates, the proofs and the manuscript.
+"""Clean-state build of the plates and the manuscript.
 
-    python3 build.py            # data -> checks -> plates -> previews -> numbering check -> proofs -> manuscript
-    python3 build.py --only 03  # one plate (data and checks still run; no proofs, no manuscript)
+    python3 build.py            # data -> checks -> plates -> text-collision report -> manuscript
+    python3 build.py --only 03  # one plate (data and checks still run; no manuscript)
 
-Requires python3 and pdflatex/bibtex with standalone, TikZ, PGFPlots and titlesec; pdftoppm and pdftotext (poppler)
-for previews and the text-collision report. Optional: numpy (spin-structure and methane checks), SymPy (symbolic
-checks), GAP (independent algebra), Ghostscript (grayscale proof); each is skipped, with a note, when absent.
-Nothing here fabricates success: any failing step stops the build.
+Requires python3, pdflatex and bibtex with standalone, TikZ, PGFPlots and titlesec, and poppler (pdftoppm for the
+600 dpi plates, pdftotext for the text-collision report). Optional: numpy (spin-structure and methane checks), SymPy
+(symbolic checks), GAP (independent algebra); each is skipped, with a note, when absent. Any failing step stops the
+build.
 """
 import os, re, shutil, subprocess, sys
 from pathlib import Path
@@ -16,7 +16,6 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / 'figures' / 'src'
 BUILD = ROOT / 'build'
 FIGS = BUILD / 'figures'
-PREV = BUILD / 'previews'
 
 def run(cmd, cwd=ROOT, env=None, quiet=True):
     r = subprocess.run(cmd, cwd=cwd, env=env, capture_output=quiet, text=True)
@@ -27,21 +26,34 @@ def run(cmd, cwd=ROOT, env=None, quiet=True):
     return r
 
 def deliver(pdfs):
-    """Copy each plate PDF to figures/pdf and render it at 600 dpi to figures/png (the high-resolution plates)."""
+    """Copy each plate PDF to figures/pdf and render it at 600 dpi to figures/png."""
     out, png = ROOT / 'figures' / 'pdf', ROOT / 'figures' / 'png'
     out.mkdir(exist_ok=True); png.mkdir(exist_ok=True)
     for pdf in pdfs:
         shutil.copy2(pdf, out / pdf.name)
         if shutil.which('pdftoppm'):
             run(['pdftoppm', '-r', '600', '-png', '-singlefile', str(pdf), str(png / pdf.stem)])
-    return out
+    r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in pdfs],
+                       cwd=ROOT, capture_output=True, text=True)
+    print(r.stdout.strip())
+    return r.stdout
+
+def check_numbering(ms):
+    """Figure k sits in Section k and is numbered k (k = 1..12); the guide and the closing plate are unnumbered."""
+    src = (ROOT / 'docs' / 'manuscript.tex').read_text()
+    placed = [re.findall(r'\\label\{fig:(\d+)\}', s) for s in src.split('\\subsection{')[1:]]
+    numbers = dict(re.findall(r'\\newlabel\{fig:(\d+)\}\{\{(\d+)\}', (ms / 'manuscript.aux').read_text()))
+    want = [str(k) for k in range(1, 13)]
+    if placed != [[k] for k in want] or numbers != {k: k for k in want} or src.count('\\caption{') != 12:
+        raise SystemExit(f'figure numbering mismatch: sections hold {placed}, numbers {numbers}')
+    print('    figures 1-12 numbered as their sections; the guide and the closing plate unnumbered')
 
 def main():
     only = None
     if '--only' in sys.argv:
         only = sys.argv[sys.argv.index('--only') + 1]
-    print('[1/7] regenerate data'); run([sys.executable, 'compute/make_data.py'])
-    print('[2/7] checks'); run([sys.executable, 'checks/verify.py'], quiet=False)
+    print('[1/5] regenerate data'); run([sys.executable, 'compute/make_data.py'])
+    print('[2/5] checks'); run([sys.executable, 'checks/verify.py'], quiet=False)
     run([sys.executable, 'checks/verify_antiprism.py'], quiet=False)
     for module, script, what in (('sympy', 'checks/verify_symbolic.py', 'symbolic checks'),
                                  ('numpy', 'checks/verify_spin.py', 'spin-structure check'),
@@ -59,18 +71,16 @@ def main():
         raise SystemExit('pdflatex not installed')
     if FIGS.exists():
         shutil.rmtree(FIGS)
-    FIGS.mkdir(parents=True); PREV.mkdir(parents=True, exist_ok=True)
+    FIGS.mkdir(parents=True)
     env = os.environ.copy()
     env['TEXINPUTS'] = os.pathsep.join([str(ROOT / 'figures' / 'shared') + '//',
                                         str(ROOT / 'figures' / 'data') + '//',
                                         env.get('TEXINPUTS', '')])
     sources = sorted(SRC.glob('fig*.tex'))
-    expected = [f'fig{i:02d}' for i in range(13)]
-    have = [s.stem.split('-')[0] for s in sources]
-    missing = [e for e in expected if e not in have]
+    missing = [f'fig{i:02d}' for i in range(14) if f'fig{i:02d}' not in [s.stem.split('-')[0] for s in sources]]
     if missing and not only:
-        raise SystemExit('Figures not implemented: ' + ', '.join(missing))
-    print('[3/7] compile plates')
+        raise SystemExit('plates missing: ' + ', '.join(missing))
+    print('[3/5] compile plates')
     for src in sources:
         if only and not src.stem.startswith('fig' + only):
             continue
@@ -79,44 +89,12 @@ def main():
         log = (FIGS / (src.stem + '.log')).read_text(errors='replace')
         over = re.findall(r'Overfull \\hbox', log)
         print(f'    {src.stem}.pdf', f'(overfull boxes: {len(over)})' if over else '')
-    print('[4/7] previews (150 dpi colour, 150 dpi grayscale)')
-    if shutil.which('pdftoppm'):
-        for pdf in sorted(FIGS.glob('fig*.pdf')):
-            run(['pdftoppm', '-r', '150', '-png', '-singlefile', str(pdf), str(PREV / pdf.stem)])
-            run(['pdftoppm', '-r', '150', '-gray', '-png', '-singlefile', str(pdf), str(PREV / (pdf.stem + '-gray'))])
-    else:
-        print('    pdftoppm not found: previews skipped')
+    print('[4/5] plates to figures/pdf and, at 600 dpi, figures/png; text-collision report')
+    report = deliver(sorted(FIGS.glob('fig*.pdf')))
     if only:
-        deliver(sorted(FIGS.glob('fig*.pdf')))   # a single-plate build still refreshes its deliverables
-        r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))], cwd=ROOT, capture_output=True, text=True)
-        print(r.stdout.strip())
         return
-    print('[5/7] numbering check')
-    for _ in range(2):
-        run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
-             '-output-directory=' + str(BUILD), 'scaffold/outline.tex'], env=env)
-    aux = (BUILD / 'outline.aux').read_text()
-    labels = dict(re.findall(r'\\newlabel\{fig:(\d+)\}\{\{(\d+)\}', aux))
-    bad = {k: v for k, v in labels.items() if k != v}
-    if len(labels) != 12 or bad:
-        raise SystemExit(f'figure numbering mismatch: {labels}')
-    if 'fig:guide' in aux or 'fig:0' in aux:
-        raise SystemExit('the guide must not define a numbered figure label')
-    print('    figure numbers 1-12 match their sections; guide unnumbered')
-    print('[6/7] proof sheet, grayscale proof, deliverable PDFs and 600 dpi PNGs, text-collision report')
-    run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
-         '-output-directory=' + str(BUILD), 'scaffold/proofsheet.tex'], env=env)
-    if shutil.which('gs'):
-        run(['gs', '-q', '-o', str(BUILD / 'proofsheet-gray.pdf'), '-sDEVICE=pdfwrite',
-             '-sColorConversionStrategy=Gray', '-dProcessColorModel=/DeviceGray', str(BUILD / 'proofsheet.pdf')])
-    elif shutil.which('pdftoppm'):
-        run(['pdftoppm', '-r', '110', '-gray', '-png', str(BUILD / 'proofsheet.pdf'), str(PREV / 'proofsheet-gray')])
-    out = deliver(sorted(FIGS.glob('fig*.pdf')))
-    r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))],
-                       cwd=ROOT, capture_output=True, text=True)
-    (BUILD / 'collisions.txt').write_text(r.stdout)
-    print(r.stdout.strip())
-    print('[7/7] manuscript')
+    (BUILD / 'collisions.txt').write_text(report)
+    print('[5/5] manuscript')
     ms = BUILD / 'ms'; ms.mkdir(exist_ok=True)
     tex = ['pdflatex', '-interaction=nonstopmode', '-halt-on-error', '-output-directory=' + str(ms), 'docs/manuscript.tex']
     run(tex)
@@ -131,7 +109,8 @@ def main():
     print(f'    build/manuscript.pdf: {pages.group(1) if pages else "?"} pages, {undefined} undefined references, {bad} over- or underfull boxes')
     if undefined:
         raise SystemExit('undefined references in the manuscript')
-    print('done:', BUILD / 'manuscript.pdf', BUILD / 'proofsheet.pdf', out)
+    check_numbering(ms)
+    print('done:', BUILD / 'manuscript.pdf')
 
 if __name__ == '__main__':
     main()

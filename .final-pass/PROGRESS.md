@@ -11,7 +11,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
          primitives.tex headers, check docstrings); delete HANDOFF.md, docs/author-decisions.md, caption-notes.md,
          verification.md, storyline.md, style.md, docs/history/; rewrite README as a short build note
 - [x] 2. Remove reference/
-- [ ] 3. build.py without scaffold (numbering check folded in, reading the manuscript's aux); delete scaffold/;
+- [x] 3. build.py without scaffold (numbering check folded in, reading the manuscript's aux); delete scaffold/;
          fix every comment that points at deleted files
 - [ ] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
          inconsistent styles across plates, table formatting, stale comments, arbitrary constants
@@ -25,3 +25,4 @@ Log (one line per step: step, commit, note):
 - 0: started 2026-10-05T16:04Z, backstop deleted, check-in armed
 - 1: docs folded and deleted (rules in figurestyle.sty, primitives.tex, check docstrings, camera()/kabsch docstrings), figures/preamble.tex removed (unused), README short. Per-plate disclosures for step 5 headers: git show d40f495:docs/caption-notes.md
 - 2: reference/ removed (git history keeps it)
+- 3: build.py 5 steps (data, checks, plates+pdf/png+collisions, manuscript+numbering check from the manuscript source and aux); scaffold/, previews, proofs and checks/cvd_preview.py removed; plate PDFs reproducible (no date, no trailer ID)
