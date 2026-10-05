@@ -58,14 +58,14 @@ not a schematic boundary. Commuting square: the rotation matrix R = R_z(40 deg) 
 matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{ss'} = P_{s'} P_s).
 
 ## Figure 2, ambient Hilbert space
-A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
-configuration; on each fibre the value Psi(X) as its two components a (teal) and b (gold) in the basis
-|up down> omega, |down up> omega (the text's xi and zeta; zeta replaces the earlier eta, which is the amino
-coordinate elsewhere); three configurations X1, X2, X3 standing on the slice, a sample of the one-parameter family along the slice, not a
-special set; the component functions plotted beneath on the same theta scale with the norm density |a|^2 + |b|^2 as
+A slice of C (delta = 0, theta from 4pi/9 to pi, ticks in radians as on figure 1) as a baseline with a comb of fibres, one spin space over every
+configuration; on each fibre the value Psi(X) as its two components f_xi (teal) and f_zeta (gold) in the basis
+xi, zeta of the text (zeta replaces the earlier eta; f_xi, f_zeta replace a, b, which are the shape and a generator
+elsewhere); three configurations X1, X2, X3 standing on the slice, a sample of the one-parameter family along the slice, not a
+special set; the component functions plotted beneath on the same theta scale with the norm density |f_xi|^2 + |f_zeta|^2 as
 a thin ink curve (no marks: each sample stands directly above its density value because the scales agree). The
 state drawn is physical on this slice by the author's choice: rotation-invariant and exchange-antisymmetric, so
-b = -a (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
+f_zeta = -f_xi (the proton singlet times f(theta), f an illustrative Gaussian, declared). Nothing in the ambient space
 forces this; the caption should say the plate shows a physical representative, not a generic one.
 
 ## Figure 3, physical Hilbert space
@@ -127,7 +127,7 @@ image b v; the plane beneath shows the three images of v2 at a third turn with t
 are exact (verify_symbolic.py); C[G6/H] = A1 + E, no A2 (GAP).
 
 ## Figure 8, nuclear spin weights
-Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space H_spin = (C^2)^(x5) in the
+Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space (C^2)^(x5) (H_spin also holds the carbon and nitrogen factors, set aside) in the
 centre as bundles of hairlines, one line per state, 12 A1, 4 A2 and 8 E pairs (32 in all); even-parity spatial
 species (chi_+ = A1) at the left joined straight across to the spin species of the same name; odd-parity species
 (chi_- = A2) at the right joined with A1 and A2 swapped and E kept; a level's weight is the number of lines in the
@@ -173,14 +173,14 @@ Over a patch of the quotient F/G, drawn the size of one sheet and pale gold like
 sheet maps onto it), the version pairs {gX, gbX}
 side by side: the X-side column at the left headed by X, the bX-side at the right headed by bX (two configurations over
 the one point [X], a red point like the version points; no rotation carries one to the
-other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop l_t (solid) lifts by
-climbing a column, l_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
+other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop lambda_t (solid) lifts by
+climbing a column, lambda_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
 ends at btX = t^2 bX two levels up on the right: the lifts of the same loops end apart. The rule behind both: the group
-acts on the left, so the lift of l_t that starts at gX ends at gtX, and from bX that is btX = t^2 bX because btb = t^-1;
+acts on the left, so the lift of lambda_t that starts at gX ends at gtX, and from bX that is btX = t^2 bX because btb = t^-1;
 "t then b" names the order of the two moves from X. The six sheets drawn are the G6 block of the twelve (one per
 element of G6 over the point [X], rows named by the cosets of H); the u-half is alike. At the right the six sheets as
-a graph: the solid arrows are the lifts of l_t, which turn the outer triangle one way and the inner the other; the
-dotted edges are the lifts of l_b. The projections from [X] to X and bX are dotted like the cover's. Loop figure after
+a graph: the solid arrows are the lifts of lambda_t, which turn the outer triangle one way and the inner the other; the
+dotted edges are the lifts of lambda_b. The projections from [X] to X and bX are dotted like the cover's. Loop figure after
 Harter (1993), Fig. 5.4.2 in spirit.
 
 ## Figure 12, momentum representation
@@ -225,7 +225,7 @@ vertices a little further out (the caption says so; the exact curved version and
 drawn and rejected by the author as unreadable). The lift of the third-turn loop as the one heavy arrow from the
 centre through a face to the dot beyond, its inner part drawn before the gold edges so that the edge in front of it
 covers it. Solid for what faces the viewer, dashed for what lies behind.
-Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point, a
+Right, with room: the covering in figure 11's grammar: the gold base patch with the loop lambda_g through its point, a
 line without arrowhead as on the cover (the author withdrew the arrowheads); three sheets r, r R_g, r R_g^2 of the
 twelve; the lift as figure 11's smooth bow from the dot on sheet r to the dot on sheet r R_g, reaching as far left
 as the loop beneath it; one vertical dotted line of projection through every dot, hidden behind each sheet and

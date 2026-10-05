@@ -2,9 +2,9 @@
 % assigns to each configuration a vector of that space (two components here); the norm is the integral of the
 % squared length over C. Drawing: a slice of C as a baseline with a comb of fibres, three configurations standing
 % on it, the two components as bars on each fibre; the component functions plotted beneath on the same theta scale.
-% Colours: red is oxygen only; the two components a and b are the dual pair teal and gold (free on this plate). Hatch unused.
-% The plot shares the theta scale of the comb, so each sample stands above its value of |a|^2+|b|^2; no marks repeat that.
-% The state is physical on this slice: rotation-invariant and exchange-antisymmetric, so b = -a (the proton
+% Colours: red is oxygen only; the two components f_xi and f_zeta are the dual pair teal and gold (free on this plate). Hatch unused.
+% The plot shares the theta scale of the comb, so each sample stands above its value of |f_xi|^2+|f_zeta|^2; no marks repeat that.
+% The state is physical on this slice: rotation-invariant and exchange-antisymmetric, so f_zeta = -f_xi (the proton
 % singlet times f(theta), f an illustrative Gaussian, declared); samples and functions from figures/data.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -20,7 +20,7 @@
 \begin{scope}[shift={(1.6,6.9)}]
   \draw[heavy] (-.2,0)--(9.6,0);
     \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}\draw[fine] (\x,0)--(\x,2.6);}
-  \node[sub,anchor=south] at (4.7,2.75) {$\spin$ over every $\X$; on each fibre $\Psi(\X)=a\,|{\uparrow\downarrow}\rangle\omega+b\,|{\downarrow\uparrow}\rangle\omega$};
+  \node[sub,anchor=south] at (4.7,2.75) {$\spin$ over every $\X$; on each fibre $\Psi(\X)=f_\xi\,\xi+f_\zeta\,\zeta$};
   \foreach \th in {80,90,...,180} {\pgfmathsetmacro{\x}{(\th-80)/100*9.4}
     \pgfmathsetmacro{\av}{exp(-((\th-104.5)/14.0)^2/2)}\pgfmathsetmacro{\bv}{-\av}
     \draw[line width=2.2pt,line cap=butt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
@@ -36,13 +36,13 @@
   \draw[leader] (-.2,1.3)--(9.6,1.3); \node[sub,anchor=west] at (9.8,1.3) {$0$ in $\spin$};
   \end{scope}
 % ------------------------------------------------ the component functions on the same theta scale
-\begin{axis}[at={(1.6cm,1.1cm)},scale only axis,width=9.4cm,height=3.3cm,xmin=80,xmax=180,ymin=-1.25,ymax=2.2,ytick={-1,0,1,2},xtick={80,100,120,140,160,180},
+\begin{axis}[at={(1.6cm,1.1cm)},scale only axis,width=9.4cm,height=3.3cm,xmin=80,xmax=180,ymin=-1.25,ymax=2.2,ytick={-1,0,1,2},xtick={90,120,150,180},xticklabels={$\pi/2$,$2\pi/3$,$5\pi/6$,$\pi$},
   xlabel={$\theta$},xlabel style={at={(axis description cs:1,0)},anchor=west,xshift=3pt},axis lines=left,axis line style={-},tick align=outside,clip=false]
   \addplot[ColDualA,line width=.9pt] table[x=theta,y=a] {component-functions.dat};
   \addplot[ColDualB,line width=.9pt] table[x=theta,y=b] {component-functions.dat};
   \addplot[PlateInk,line width=.5pt] table[x=theta,y=n2] {component-functions.dat};   % ink, thinner than the two components
-  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.16) {$a$}; \node[lab,anchor=south,text=ColDualB] at (axis cs:104.5,-.76) {$b=-a$}; \node[lab,anchor=south west] at (axis cs:117,1.25) {$|a|^2+|b|^2$};
+  \node[lab,anchor=south,text=ColDualA] at (axis cs:104.5,1.16) {$f_\xi$}; \node[lab,anchor=south,text=ColDualB] at (axis cs:104.5,-.76) {$f_\zeta=-f_\xi$}; \node[lab,anchor=south west] at (axis cs:117,1.25) {$|f_\xi|^2+|f_\zeta|^2$};
 \end{axis}
-\node[lab,anchor=east] at (14.6,2.9) {$\|\Psi\|^2=\int_{\conf}(|a|^2+|b|^2)\,d\X$};
+\node[lab,anchor=east] at (14.6,2.9) {$\|\Psi\|^2=\int_{\conf}(|f_\xi|^2+|f_\zeta|^2)\,d\X$};
 \end{tikzpicture}
 \end{document}
