@@ -359,15 +359,17 @@ def main():
     # symmetry rotations and one cell, the vibrational species, the J ladder; the numbers against Albert et al.
     CH4 = G.methane_c2()
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
-    # two cameras. The molecule's is a right-handed frame (author): z toward the viewer, x to the right, y up, tilted
-    # 26 degrees off z so that no bond hides another. The ball's is the suite's G.camera at azimuth 108, elevation 21
-    # (author: "rotate it back"); G.camera builds a left-handed frame, so its picture is a mirror image, which for the
-    # ball's centrally symmetric content (sphere, coordinate circles, cube, dual octahedron) is a true view of the same
-    # objects from another direction; it is never used for the molecule, whose mirror image is the other labelled copy.
-    _out = G.unit((0.25, 0.35, 0.90)); _up = G.unit(G.sub((0.0, 1.0, 0.0), G.scale(_out, _out[1]))); _right = G.cross(_up, _out)
-    CAM_MOL = (_right, _up, _out)
-    assert G.dot(G.cross(_right, _up), _out) > 0.999          # right-handed: a true view of the labelled molecule
-    CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)
+    # one camera for both panels, so that bond 1 on the molecule points along the arrow in the ball (author). It is the
+    # suite's G.camera(108, 21), the ball view the author chose, with the x and z components of its three vectors
+    # exchanged. G.camera builds a left-handed frame (a mirror image); the exchange x <-> z is a mirror symmetry of the
+    # cube, the dual octahedron and the bond tetrahedron (it fixes bond 1 and exchanges hydrogens 2 and 4), so the
+    # frame becomes right-handed, every ball element lands where the old picture drew one of its kind, the arrow lands
+    # on the third-turn about bond 1, and the molecule is a true view with x to the right, y up, z toward the viewer.
+    def _swap_xz(v): return (v[2], v[1], v[0])
+    CAM_BALL = tuple(_swap_xz(v) for v in G.camera(azimuth_deg=108.0, elevation_deg=21.0))
+    CAM_MOL = CAM_BALL
+    assert G.dot(G.cross(CAM_BALL[0], CAM_BALL[1]), CAM_BALL[2]) > 0.999          # right-handed
+    assert _swap_xz(tuple(CH4[0])) == tuple(CH4[0]) and _swap_xz(tuple(CH4[1])) == tuple(CH4[3])   # x <-> z fixes H1 and exchanges H2 and H4
     emit_pic(mol, 'mol3d-ch4-c2', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_MOL, labels=True))
     front, back = [], []
     for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):

@@ -1,13 +1,15 @@
 % Rigid methane (closing pages, unnumbered): three panels, titles only, no leader labels.
 % Upper left: methane, CH4, the reference X0 in its body frame, drawn small with the suite's molecule primitive
-% (mol3d-ch4-c2) from a right-handed camera with z toward the viewer, x to the right and y up (author); the C2 axes
-% x, y, z through the midpoints of opposite edges as thin lines, each split at the carbon, the half toward the viewer
-% drawn over the molecule and the half away from it behind; its title in the corner.
-% Middle, large, beside the molecule: the orientation space SO(3) as the axis-angle ball from the suite's camera at
-% azimuth 108, elevation 21 (author: the earlier view, restored), direction the axis and distance the angle, radius
-% pi; the sphere teal with its three great circles (the skin is the half-turns, each point its own antipode). The
-% twelve rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, the three
-% half-turns on the skin, each drawn once at its far representative and pale, so that it reads as distant (author).
+% (mol3d-ch4-c2); the C2 axes x, y, z through the midpoints of opposite edges as thin lines, each split at the carbon,
+% the half toward the viewer drawn over the molecule and the half away from it behind; its title in the corner.
+% Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL, the suite's G.camera(108, 21) with x and
+% z exchanged; see the comment there), so bond 1 points along the arrow in the ball, x runs right, y up, z toward
+% the viewer, and the ball looks as the author chose it.
+% Middle, large, beside the molecule: the orientation space SO(3) as the axis-angle ball, direction the axis and
+% distance the angle, radius pi; the sphere teal with its three great circles (the skin is the half-turns, each point
+% its own antipode). The twelve rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the
+% body diagonals, the three half-turns on the skin, each drawn once at its far representative and pale, so that it
+% reads as distant (author).
 % The cell of the centre as the schematic exact in Rodrigues coordinates: the gold wire octahedron dual to the thin
 % ink cube spanned by the third-turns, its vertices (the quarter-turns, ink rings) on the cube's face centres; in the
 % ball the true edges bow outward (the caption says so). The lift of the third-turn loop as the one heavy arrow from
