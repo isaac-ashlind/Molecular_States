@@ -71,7 +71,7 @@
   \coordinate (bx) at (.5,.3);
   \csheet{0}{0}{1.2}{heavy}{ColRetained!50}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\lambda_g$};
+  \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\gamma_g$};
   % one vertical line of projection through every dot: from the base dot to the front edge of sheet r, then above each
   % dot up to the next sheet, which hides it below its dot; it runs on past the top sheet (each span dotted once)
   \draw[projection,shorten <=2.3pt] (bx)--(.5,1.4);
@@ -86,6 +86,6 @@
   \foreach \k in {0,1,2} {\hatomat{p\k}{.08}{ColDot}}
   \hatomat{bx}{.08}{ColDot}
 \end{scope}
-\node[under] at (11.95,2.55) {over the base $SO(3)/T$, twelve sheets,\\one for each rotation in $T$, three drawn;\\the third-turn closes as a loop $\lambda_g$ in the base\\and, lifted, climbs from sheet $r$ to sheet $r\Rmat_g$;\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$,\\${}^2\mathrm E$ as $e^{4\pi i/3}$, $\mathrm T$ as $x\to y\to z$};
+\node[under] at (11.95,2.55) {over the base $SO(3)/T$, twelve sheets,\\one for each rotation in $T$, three drawn;\\the third-turn closes as a loop $\gamma_g$ in the base\\and, lifted, climbs from sheet $r$ to sheet $r\Rmat_g$;\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$,\\${}^2\mathrm E$ as $e^{4\pi i/3}$, $\mathrm T$ as $x\to y\to z$};
 \end{tikzpicture}
 \end{document}

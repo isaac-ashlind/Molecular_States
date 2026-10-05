@@ -173,14 +173,14 @@ Over a patch of the quotient F/G, drawn the size of one sheet and pale gold like
 sheet maps onto it), the version pairs {gX, gbX}
 side by side: the X-side column at the left headed by X, the bX-side at the right headed by bX (two configurations over
 the one point [X], a red point like the version points; no rotation carries one to the
-other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop lambda_t (solid) lifts by
-climbing a column, lambda_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
+other, best-fit residual 0.76 A; the action is free near X0, nearest image 2.30 A). The loop gamma_t (solid) lifts by
+climbing a column, gamma_b (dotted) by hopping across; from X, t then b ends at tbX one level up on the right, b then t
 ends at btX = t^2 bX two levels up on the right: the lifts of the same loops end apart. The rule behind both: the group
-acts on the left, so the lift of lambda_t that starts at gX ends at gtX, and from bX that is btX = t^2 bX because btb = t^-1;
+acts on the left, so the lift of gamma_t that starts at gX ends at gtX, and from bX that is btX = t^2 bX because btb = t^-1;
 "t then b" names the order of the two moves from X. The six sheets drawn are the G6 block of the twelve (one per
 element of G6 over the point [X], rows named by the cosets of H); the u-half is alike. At the right the six sheets as
-a graph: the solid arrows are the lifts of lambda_t, which turn the outer triangle one way and the inner the other; the
-dotted edges are the lifts of lambda_b. The projections from [X] to X and bX are dotted like the cover's. Loop figure after
+a graph: the solid arrows are the lifts of gamma_t, which turn the outer triangle one way and the inner the other; the
+dotted edges are the lifts of gamma_b. The projections from [X] to X and bX are dotted like the cover's. Loop figure after
 Harter (1993), Fig. 5.4.2 in spirit.
 
 ## Figure 12, momentum representation
@@ -225,7 +225,7 @@ vertices a little further out (the caption says so; the exact curved version and
 drawn and rejected by the author as unreadable). The lift of the third-turn loop as the one heavy arrow from the
 centre through a face to the dot beyond, its inner part drawn before the gold edges so that the edge in front of it
 covers it. Solid for what faces the viewer, dashed for what lies behind.
-Right, with room: the covering in figure 11's grammar: the gold base patch with the loop lambda_g through its point, a
+Right, with room: the covering in figure 11's grammar: the gold base patch with the loop gamma_g through its point, a
 line without arrowhead as on the cover (the author withdrew the arrowheads); three sheets r, r R_g, r R_g^2 of the
 twelve; the lift as figure 11's smooth bow from the dot on sheet r to the dot on sheet r R_g, reaching as far left
 as the loop beneath it; one vertical dotted line of projection through every dot, hidden behind each sheet and

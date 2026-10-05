@@ -299,3 +299,6 @@ docs/notation-migration.md.
   mixing sizes; figure 6's labels are all at note size, matching uH. Figure 1's RX, RXP and -X strip cells widened to
   0.82 cm (entries had 1.5-2.6 pt of air, now about 5 pt like the X strips); figure 11's graph nodes 8.6 mm (labels
   had down to 0.5 pt of air, now at least 3.2 pt). The hand-off leaves only prose to the author.
+- Loops (author, 2026-10-05): the loops in the quotient are gamma_t, gamma_b, gamma_g (were lambda after the notation
+  audit, ell before). gamma is the paper's letter for a path (Section 5, gamma from X_0 to rs X_0), and such a loop is
+  the image of that path with s = t, b or g; ell stays the bond scale.
