@@ -25,13 +25,14 @@ def fmt(x, nd=4):
 
 # --------------------------------------------------------------- pic emit ---
 
-def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, labels=False):
+def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, labels=False, only=None):
     """TikZ pic code for the v2 molecule primitive with correct layering.
 
     Items (atoms and rods) are painted back to front.  A rod is painted just after its farther atom
     and before its nearer atom.  It starts where the bond cylinder leaves the far sphere (the junction
     circle, projected as a half-ellipse computed in TeX from the atom radius) and vanishes under the
     silhouette of the near sphere.  Rod depth = depth of the far atom + a small epsilon.
+    `only`, a set of atom indices, restricts the drawing to those atoms and the rods that touch them.
     """
     right, up, out = cam
     P = G.project(X, cam)
@@ -50,6 +51,8 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
     items.sort(key=lambda t: (t[0], t[1]))
     lines = []
     for z, kind, i, j in items:
+        if only is not None and i not in only and (kind == 0 or j not in only):
+            continue
         if kind == 0:
             lines.append(f'\\molatom{{{elements[i]}}}{{{label_macros[i]}}}{{{fmt(P[i][0])}}}{{{fmt(P[i][1])}}}')
         else:
@@ -376,6 +379,17 @@ def main():
     num.append('\\def\\ballCubeVisible{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(cvis)) + '}')
     num.append('\\def\\ballCubeHidden{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(chid)) + '}')
     assert len(cvis) + len(chid) == 12
+    # a point is hidden when every edge at it is hidden: one corner of the cube, one vertex of the cell; drawn pale,
+    # under the front lines, like the far half-turns (author)
+    def split_points(names, vis_e, hid_e):
+        back = [n_ for n_ in sorted(names) if all(e in hid_e for e in vis_e | hid_e if n_ in e)]
+        return [n_ for n_ in sorted(names) if n_ not in back], back
+    cube_front, cube_back = split_points(verts, cvis, chid)
+    cell_front, cell_back = split_points({vname(i, sg) for i in range(3) for sg in (1, -1)}, vis, hid)
+    assert len(cube_back) == 1 and len(cell_back) == 1, (cube_back, cell_back)
+    assert all(G.dot(verts[n_], outv) < 0 for n_ in cube_back)
+    for tag, lst in (('CubeFront', cube_front), ('CubeBack', cube_back), ('CellFront', cell_front), ('CellBack', cell_back)):
+        num.append(f'\\def\\ball{tag}Pts{{' + ','.join(lst) + '}')
     # the three great circles of the coordinate planes as the depth cue: front and back arcs
     def circle_pts(plane):
         out = []
@@ -533,6 +547,14 @@ def main():
     Xdisp = [G.add(x, G.scale(v, amp)) for x, v in zip(X0, nf['e_minus'])]
     Rdisp = G.rot_axis((0.3, 1.0, 0.25), math.radians(55.0))
     emit_pic(mol, 'mla-disp', pic_code_rods(Xdisp, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
+    # the undisplaced ghost beneath it (figure 10): only the atoms that visibly move and the rods that touch them; an
+    # atom that moves less than a quarter of a hydrogen radius on the page would show only as a sliver beside its copy
+    P0, Pd = G.project(X0, CAM_MLA), G.project(Xdisp, CAM_MLA)
+    shift = [math.hypot(Pd[k][0] - P0[k][0], Pd[k][1] - P0[k][1]) for k in range(len(X0))]
+    moved = {k for k in range(len(X0)) if shift[k] > 0.05}
+    assert moved == {3, 4} and min(shift[k] for k in moved) > 0.2 and max(shift[k] for k in range(len(X0)) if k not in moved) < 0.04, shift
+    emit_pic(mol, 'mla-disp-ghost', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, only=moved))
+    summary['mla_disp_page_shift'] = [round(v, 4) for v in shift]
     emit_pic(mol, 'mla-rot-disp', pic_code_rods(G.rotate(Rdisp, Xdisp), G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA))
 
     # generic X and bX (figure 11b): X = X0(0.22, eta0) + small normal displacement

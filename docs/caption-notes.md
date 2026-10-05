@@ -157,7 +157,8 @@ carries the version points but not the paths, which are read on the sheet and th
 version points and the two paths (t solid, tu dashed); iota = 0 is the planar amino locus. Middle row: over a point
 a of the chart sit every normal displacement q and every orientation r, drawn as the reconstruction: the shape X0(a),
 the shape displaced along the normal frame X0(a) + sum q e(a) (amplitude 0.42 A along e_-, illustrative, declared;
-its undisplaced shape beneath as faded solid outlines), and the result rotated, phi(r,a,q) = R(r)(...) (rotation about (0.3, 1, 0.25) by
+beneath it, the undisplaced positions of the two hydrogens that visibly move, as a simple faded outline with their bonds, the
+other atoms moving less than a quarter of a hydrogen radius on the page), and the result rotated, phi(r,a,q) = R(r)(...) (rotation about (0.3, 1, 0.25) by
 55 degrees, illustrative, declared). Bottom row: the two normal directions at a, e_-(a) (the amino twist, hydrogens 4
 and 5 against each other along the axis) and e_+(a) (the C-N stretch, carbon against nitrogen along the axis), on
 the molecule seen from the side (camera azimuth 75, elevation 18, so the C-N axis lies in the page and no methyl
@@ -216,7 +217,8 @@ distance the angle, radius pi. The sphere teal with its three great circles, sol
 skin is the half-turns, each point its own antipode. The twelve rotations of T as version points (two-tone spheres, radius 0.08 cm, as on every plate): the centre, the eight
 third-turns at 2pi/3 along the body diagonals, joined by the thin ink edges of the cube they span (a reading aid: no
 edge between two points is intrinsic), and the three half-turns on the skin, each drawn once at its far
-representative, pale in a dashed ghost outline, so that they read as distant (author). The cell of the centre as the schematic that is
+representative, pale in a dashed ghost outline, so that they read as distant (author); the cube's one hidden corner
+(every edge at it dashed) and the cell's one hidden vertex likewise pale, under the front lines. The cell of the centre as the schematic that is
 exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its vertices, the quarter-turns as ink
 rings, on the cube's face centres, every edge straight; in the ball the true cell has edges that bow outward and its
 vertices a little further out (the caption says so; the exact curved version and the Rodrigues-only version were

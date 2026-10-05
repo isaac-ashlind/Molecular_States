@@ -33,8 +33,10 @@
     \node[sub,anchor=north west] at (1.1,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
-% the undisplaced shape beneath its displaced copy: faded solid outlines (dotted is for starred operations and hidden lines)
-\newcommand\molfaded{\renewcommand\molrodj[8]{\draw[line width=.4pt,draw=PlateInk!40] (##1,##2)--(##3,##4);}
+% the undisplaced shape beneath its displaced copy, as a simple outline (author): the suite's rods (white band, the end
+% on the far sphere) with both edges one faded weight, and white atoms with a faded contour; only the atoms that
+% visibly move and their rods (mla-disp-ghost), since an atom that barely moves would show only as a sliver
+\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={line width=.4pt,draw=PlateInk!40},rodshade/.style={rodedge}}%
   \renewcommand\molatom[4]{\if##1H\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radH];\else\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
 \begin{tikzpicture}[plate]
@@ -69,7 +71,7 @@
 \node[sub,anchor=north west,align=left] at (.5,7.95) {over each point $a$ of the chart, the normal displacements $q$ within the chart's domain\\and every orientation $r$: $x=(r,a,q)$};
 \begin{scope}\molsolid\mollabelsfalse
   \pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
-  \begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mol3d-mla-ref};\end{scope}
+  \begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mla-disp-ghost};\end{scope}
   \pic[scale=.8] at (7.5,6.05) {mla-disp};
   \pic[scale=.8] at (12.15,6.05) {mla-rot-disp};
 \end{scope}

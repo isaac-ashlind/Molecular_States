@@ -466,6 +466,15 @@
   "cfg_res": 7.820969768615058e-16,
   "tangent_dim": 5
  },
+ "mla_disp_page_shift": [
+  0.02,
+  0.0309,
+  0.0219,
+  0.2595,
+  0.2684,
+  0.0131,
+  0.0135
+ ],
  "generic_X_bX_best_rotation_residual": 0.7587146406226174,
  "generic_X_Xm": [
   0.0,

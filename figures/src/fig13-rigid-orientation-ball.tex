@@ -4,7 +4,8 @@
 % and beside it the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi;
 % the skin is the half-turns, each point its own antipode): the sphere and its three great circles teal; the twelve
 % rotations of T as version points (the centre, the eight third-turns at the corners of the thin ink cube they span,
-% the three half-turns on the skin drawn once each at their far side, faded); the cell of the centre as the gold
+% the three half-turns on the skin drawn once each at their far side; every hidden point pale and under the front
+% lines: the far half-turns, the cube's one hidden corner, the cell's one hidden vertex); the cell of the centre as the gold
 % octahedron dual to that cube, its vertices the quarter-turns (ink rings) on the cube's face centres; the lift of the
 % third-turn loop as the one heavy arrow, passing behind the gold edge in front of it. The octahedron is the schematic
 % exact in Rodrigues coordinates; in the ball the true edges bow outward (the caption says so).
@@ -46,6 +47,11 @@
   \foreach \pl in {XY,YZ,ZX} {\draw[tealthin,back] plot[smooth] coordinates {\csname ballArc\pl Back\endcsname};}
   \foreach \p/\q in \ballCubeHidden {\draw[thin,back] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \p/\q in \ballCellHidden {\draw[gold,back] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
+  % the hidden points, pale and under every front line: the half-turns at their far side, the cube's one hidden corner
+  % and the cell's one hidden vertex (every edge at each of them dashed)
+  \foreach \s in \ballSkinBack {\draw[ghost,fill=ColDot!45] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.08];}
+  \foreach \p in \ballCubeBackPts {\draw[ghost,fill=ColDot!45] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.08];}
+  \foreach \p in \ballCellBackPts {\draw[ghost,fill=white] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
   % the lift: its inner part first, so that the gold edge in front of it covers it
   \draw[line width=.9pt,draw=PlateInk] (0,0)--(\ballFax,\ballFay);
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
@@ -54,11 +60,10 @@
   \foreach \p/\q in \ballCubeVisible {\draw[thin] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \pl in {XY,YZ,ZX} {\draw[tealthin] plot[smooth] coordinates {\csname ballArc\pl Front\endcsname};}
   \draw[teal] (0,0) circle[radius=\ballR];
-  % the twelve rotations of T, and the quarter-turns at the cell's vertices
-  \foreach \k in {a,b,c,d} {\hatom{\csname ballC\k x\endcsname}{\csname ballC\k y\endcsname}{.08}{ColDot}\hatom{\csname ballD\k x\endcsname}{\csname ballD\k y\endcsname}{.08}{ColDot}}
-  \foreach \s in \ballSkinBack {\draw[ghost,fill=ColDot!45] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.08];}
+  % the visible rotations of T, and the quarter-turns at the cell's visible vertices
+  \foreach \p in \ballCubeFrontPts {\hatom{\csname \p x\endcsname}{\csname \p y\endcsname}{.08}{ColDot}}
   \hatom{0}{0}{.08}{ColDot}
-  \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.045];}}
+  \foreach \p in \ballCellFrontPts {\draw[fine,fill=white] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
 \end{scope}
 \node[under] at (4.3,2.55) {the orientation space $SO(3)$ as a ball,\\direction the axis and distance the angle:\\the twelve rotations of $T$ in red,\\the cell $\mathcal U$ at $q=0$ in gold,\\and the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$};
 % ================================================ right column: the covering

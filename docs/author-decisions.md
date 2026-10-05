@@ -256,3 +256,12 @@ docs/notation-migration.md.
 - Figure 5 (author, 2026-10-05): the methyl and amino fragments now turn with their clip outlines. The enclosing
   scope's rotation reached the clip but not the glyph (a TikZ pic takes only its position from the scope), so the
   outline cut hydrogen 2; each fragment pic now carries the rotation itself, as the reference glyph does.
+- Figure 10 (author, 2026-10-05): the undisplaced ghost is a simple outline: the suite's rods with both edges one
+  faded weight, white atoms with a faded contour, so a ghost hydrogen is white and its bond is a proper bond (the
+  ghost rods were single lines, and the one to hydrogen 4 ran into its ring). Only the two hydrogens that visibly move
+  are ghosted, with their bonds (data: mla-disp-ghost); the other five atoms move at most 0.031 on the page and their
+  ghosts showed only as slivers beside the atoms.
+- Closing plate (author, 2026-10-05): every hidden point drawn pale in a ghost outline under the front lines: the
+  three far half-turns (as before), the cube's one hidden corner, the third-turn about bond 2 (all three of its edges
+  dashed; it was a full red sphere on top), and the cell's one hidden vertex, the quarter-turn on -z (all four of its
+  edges dashed). make_data names the hidden points (a point is hidden when every edge at it is hidden).

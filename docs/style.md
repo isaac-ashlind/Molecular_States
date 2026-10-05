@@ -14,7 +14,9 @@ carry no meaning stay white. Everything below lives in `figures/shared/figuresty
 - Actions carry no colour; the line style says which, at action weight: solid = t, dashed = u or tu, beaded dots =
   a starred operation (b, E*). Stealth heads only where a path has a direction.
 - A hidden part of a contour is the same stroke dashed (`back`: on 1.5 pt, off 1.1 pt), on every plate.
-- A hidden or faded object's outline is dashed (`ghost`); a hidden version point is a pale dot in a ghost outline.
+- A hidden or faded object's outline is dashed (`ghost`); a hidden point (every edge at it hidden) is pale in a ghost
+  outline, drawn under the front lines. One exception: the undisplaced ghost under the displaced molecule of figure 10
+  is a simple faded outline, solid, with the suite's rods and white atoms (author).
 - A projection or lift between levels is thin and dotted (`projection`), as on the cover and in figures 11 and 13.
 - Leaders (`leader`, 0.3 pt) start on the object and stop short of the label; they cross no other element; where a
   short leader would cross clutter it is made longer instead. No white halos.
