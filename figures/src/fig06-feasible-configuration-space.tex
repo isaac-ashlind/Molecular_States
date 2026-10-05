@@ -1,14 +1,11 @@
-% Figure 6. Feasible configuration space. What the reader must see, as three levels of zoom: C holds twenty
-% disjoint images of F (middle strip, one image white, the rest gray); F is a solid, the thickened reference family,
-% drawn as a short thick tube cut open in the orientation of the cover (top right), the wall being the vibrations; its cut face enlarged (top left)
-% shows the family as a thin sheet with the normal coordinate q across the wall and iota along the height; the
-% versions sit on the sheet's edges and the two generators are two paths on the sheet, followed again beneath as
-% Newman projections down the C-N axis. Colors: teal = the core sheet (band and strip), red = version points
-% (faded, dashed = hidden behind the wall), blue = nitrogen; actions carry no color (t solid, tu dashed).
-% Hatch = cut material (the cut faces; the part of C outside the images). Gray = the inactive images.
-% Disclosures for the caption notes: one radial thickness stands for the 13 normal coordinates;
-% the SO(3) factor is suppressed; the tube's topology is not a claim about F; assumptions are an
-% embedded tubular neighborhood and separation of the images.
+% Figure 6, feasible configuration space, three levels of zoom. In the middle strip C holds twenty disjoint images of
+% F, one white and the rest faint. At the top right F is a short thick tube cut open as on the guide, the wall being
+% the vibrations, and at the top left its cut face is enlarged, the family a thin sheet with the normal coordinate q
+% across the wall and iota along the height. The versions sit on the sheet's edges and the two generators are two
+% paths on it, followed again at the bottom as Newman projections down the C-N axis.
+% Declared, one radial thickness stands for the 13 normal coordinates, SO(3) is suppressed, and the tube's topology is
+% no claim about F (an embedded tubular neighborhood and separated images are assumed). The version positions, the
+% paths and the Newman projections are computed. Red marks the versions, teal the core sheet, blue nitrogen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -39,9 +36,8 @@
 \leaderlabel{vt240}{-.5}{.45}{east}{$t^2H$}
 \leaderlabel{ecl}{.653}{.567}{west}{eclipsed}
 \leaderlabel{vb60}{-.927}{-.927}{north east}{$t^2uH$}   % crosses the hatched face: its dot sits behind it
-% uH sits on the sheet's bottom edge at the back, inside the wall, just above the inner bottom rim: its leader drops through
-% the rim to a name on the clear floor of the hole (a leader up would cross the wall); the name stays at note size, the
-% slot is too low for label size
+% uH sits on the sheet's bottom edge at the back, inside the wall, just above the inner bottom rim, so its leader drops
+% through the rim to a name on the clear floor of the hole (a leader up would cross the wall)
 \leaderlabel{vb180}{.384}{-.322}{west}{$uH$}
 \node[lab] at (12.62,11.27) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
@@ -74,21 +70,21 @@
 \end{scope}
 \node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
 \node[sub,anchor=north] at (3.0,7.85) {the core sheet is the family $\X_0(\tau,\iota)$};
-% ------------------------------------------------ level 1: the images of F inside C; the active image is an exact miniature of the solid above
+% ------------------------------------------------ level 1: the images of F inside C; the active image is the solid in miniature
 \draw[heavy] (.3,3.5) rectangle (14.7,6.3); \hatchregion{45}{(.3,3.5) rectangle (14.7,6.3)}
 \node[lab,anchor=south west] at (.35,6.42) {$\conf$};
 \foreach \i in {0,...,9} \foreach \j in {0,1} {
   \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
   \begin{scope}\tikzset{image,tube/wallfill=ColFaint,tube/topfill=ColFaint,tube/innerfill=ColFaint,tube/bandfill=ColFaint}\pic at (\cx,\cy) {thicktube};\end{scope}}
 \leaderlabel[shorten <=0pt]{2.68,5.8}{0}{.7}{south}{$s\mathcal F$}   % crosses the hatch: the image sits in the cut material
-% the active image: white, closed, no decoration (author, 2026-10-04: the version points are read on the enlargement)
+% the active image, white, closed and undecorated (the version points are read on the enlargement)
 \begin{scope}\tikzset{image,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
 \draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(8.26,8.46); \draw[fine] (11.22,5.77)--(12.75,9.05);   % the left line ends on the zoom circle
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
 \node[sub,anchor=north west] at (.35,3.3) {the same two paths seen down the C--N axis, N in front};
-% the two steps between versions, each one arrow from H (author, 2026-10-04): tu to tuH on the left, t to tH on the
+% the two steps between versions, each one arrow from H, tu to tuH on the left and t to tH on the
 % right; the eclipsed shape stands apart as a reference, midway in tau on the path of t, not a version
 \begin{scope}
   \pic[scale=.9] at (1.7,1.65) {newman-tuH};

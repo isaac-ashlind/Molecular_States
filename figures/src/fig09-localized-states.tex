@@ -1,17 +1,16 @@
-% Figure 9. Localized states. What the reader must see: three version packets stand on the torsion circle, here
-% unrolled; their width sets the overlap c, which sets the projection shares; narrow packets are 1/3 A1 and 2/3 E,
-% broad packets nearly all A1. Drawing: three rows (Delta/d = 1/6, 1/3 as drawn elsewhere, 2/3; Delta is the packet
-% width, the density's standard deviation per coordinate, and d the spacing of the versions) of periodic Gaussians
-% at tau = 0, 2pi/3, 4pi/3, the overlap as the darker gold; at the right of each row the A1 share as the filled part
-% of a bar; the share curves small with the three rows marked. Colors: gold = the overlap and the A1 share it sets (small areas only), red = the
-% version points; ink elsewhere. Hatch unused. Shares from figures/data (verified exactly in checks/verify_symbolic.py).
+% Figure 9, localized states. The torsion circle unrolled, with three version packets in each of three rows of width
+% Delta/d = 1/6, 1/3 and 2/3 (Delta the packet width, d the spacing of the versions), their overlap in gold. At the
+% right of each row the A1 share is the filled part of a bar, and below the share curves carry the three rows as
+% points. Narrow packets are 1/3 A1 and 2/3 E, broad ones nearly all A1.
+% Declared, the overlap and shares use the planar Gaussian formula, not a torsional potential. The shares come from
+% figures/data (checks/verify.py, checks/verify_symbolic.py). Red marks the versions.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{numbers.tex}
 % packets on the unrolled torsion line: \packetrow{x}{y}{Delta in degrees}{width cm}{height cm} draws the three
-% periodic Gaussians at tau = 0, 120, 240 (-120) over [-180,180], gold fill, overlap darker, profiles fine, union heavy.
+% periodic Gaussians at tau = 0, 120, 240 (-120) over [-180,180], white, their overlap gold, the profiles fine
 \newcommand\packetrow[5]{\begin{scope}[shift={(#1,#2)},x={#4cm/360},y={#5cm}]
   \foreach \c in {0,120,-120} {\path[fill=white] plot[domain=-180:180,samples=121,variable=\t] (\t,{exp(-((\t-\c)/#3)^2/2)+exp(-((\t-\c-360)/#3)^2/2)+exp(-((\t-\c+360)/#3)^2/2)}) -- (180,0) -- (-180,0) -- cycle;}
   % overlap: the smaller of each neighboring pair, drawn as the min of all pairs (two packets at most overlap visibly)

@@ -1,9 +1,8 @@
-% Figure 1. Configuration space. What the reader must see: a configuration is a centered matrix of column vectors;
-% the water family lays shapes out over their own two coordinates (bond asymmetry delta, bend theta) with the
-% equal-bond locus and the linear boundary as dotted lines; what the family leaves out is supplied below: on the
-% left a rotation turns every column, on the right a permutation moves the columns and the inversion negates
-% them, and left and right actions commute. Colors: oxygen red; gold unused. Hatch unused. Glyphs computed from
-% one parameter table (compute/geometry.py); digits inside the hydrogen discs are the column labels.
+% Figure 1, configuration space. At the top the water family is laid out over its two shape coordinates, the bond
+% asymmetry delta and the bend theta, with the loci delta = 0 and theta = pi as thin lines. Below is what the family
+% leaves out. A rotation R acts from the left (the arrow to the right), the permutation P_sigma and the inversion E*
+% act from the right (down, and to the left), and the two sides commute. Each glyph stands beside its matrix.
+% The glyphs and matrices are computed (compute/geometry.py, figures/data). Red is oxygen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -27,7 +26,7 @@
   % the meaning of delta, under the right end of its axis (clear of the tick labels and of the names below)
   \node[sub,anchor=north east] at (13.3,-.62) {bond lengths $\ell\pm\delta$};
 \end{scope}
-% ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
+% ------------------------------------------------ what the family leaves out: rotation from the left, permutation and inversion from the right
 \begin{scope}\mollabelsinside
   \pic[scale=.8] at (4.0,3.8) {mol3d-water-minusX};
   \pic[scale=.8] at (6.5,3.8) {mol3d-water-X}; \pic[scale=.8] at (11.0,3.8) {mol3d-water-RX};

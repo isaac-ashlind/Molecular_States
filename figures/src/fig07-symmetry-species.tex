@@ -1,16 +1,14 @@
-% Figure 7. Symmetry species. What the reader must see: the three version states are three sites on the torsion
-% circle; t turns the sites by a third, b is the mirror through H; a vector on the sites is drawn as three discs
-% (area = amplitude, ink positive, white negative, a tick for zero); the grid shows each mode with its t image and
-% its b image, so A1 reads as unchanged and E as a pair that mixes; beneath, the E plane with the three images of
-% v2 at a third turn and the mirror axis, drawn upright under the key so that it is visibly the same geometry as the sites. Mode pictures after Harter (1993)
-% fig. 4.4.3 in spirit. Colors: red = the version sites; ink elsewhere; dotted = the starred b. Vectors verified exactly.
+% Figure 7, symmetry species. The three version states are three sites on the torsion circle, t turns them by a
+% third and b mirrors them through H. A vector on the sites is three discs (area the amplitude, ink positive, white
+% negative, a tick for zero). The grid shows each mode with its t image and its b image, so A1 stays and the E pair
+% mixes. Below is the E plane with the three images of v2 under t and the mirror axis, upright under the key.
+% The mode pictures follow Harter (1993), fig. 4.4.3. The vectors are exact (checks/verify_symbolic.py). Red marks the
+% version sites.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{numbers.tex}
-% shared drawing for the figure 7 drafts: a mode picture is three discs on the three version sites;
-% disc area = |amplitude|, ink positive, white negative, a tick for zero. Sites at 90, 210, 330 degrees.
 % \modepic{x}{y}{R}{a}{b}{c}: the amplitudes a, b, c at the sites 90, 210, 330 on a torsion circle of radius R
 \newcommand\modepic[6]{\begin{scope}[shift={(#1,#2)}]
   \draw[fine] (0,0) circle[radius=#3];
@@ -50,7 +48,7 @@
   \draw[blift] (0,-\L-.35)--(0,0); \draw[fine] (-\L-.25,0)--(\L+.25,0); \node[lab,anchor=west] at (.12,-\L-.2) {$b$};
   \node[lab,anchor=west] at (\L+.4,0) {$v_3$};
   \foreach \a/\l/\anc in {90/{v_2}/south,210/{t\,v_2}/north east,330/{t^2v_2}/north west} {\draw[harrow] (0,0)--(\a:\L); \node[lab,anchor=\anc] at (\a:{\L+.16}) {$\l$};}
-  \draw[tpath] (104:1.0) arc[start angle=104,end angle=198,radius=1.0]; \node[lab] at (150:1.3) {$t$};   % clear of both shafts and of the v3 axis
+  \draw[tpath] (104:1.0) arc[start angle=104,end angle=196,radius=1.0]; \node[lab] at (150:1.3) {$t$};   % clear of both shafts and of the v3 axis
 \end{scope}
 \node[lab,anchor=north] at (10.0,2.7) {$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$, no $\mathrm A_2$};
 \node[sub,anchor=north] at (10.0,1.95) {disc area is the amplitude, ink positive, white negative, a tick for zero};

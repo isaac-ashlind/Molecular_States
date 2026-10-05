@@ -1,22 +1,15 @@
-% Rigid methane (closing pages, unnumbered). Two columns that read as two figures (author).
-% Left column: methane, CH4, the reference X0 in its body frame (mol3d-ch4-c2; the C2 axes x, y, z through the midpoints
-% of opposite edges, thin, each split at the carbon by depth, z's front half drawn longer so that it clears hydrogen 2),
-% and beside it the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi;
-% the skin is the half-turns, each point its own antipode): the sphere and its three great circles teal; the twelve
-% rotations of T as version points (the center, the eight third-turns at the corners of the thin ink cube they span,
-% the three half-turns on the skin drawn once each at their far side; every hidden point pale and under the front
-% lines: the far half-turns, the cube's one hidden corner, the cell's one hidden vertex); the cell of the center as the gold
-% octahedron dual to that cube, its vertices the quarter-turns (ink rings) on the cube's face centers; the lift of the
-% third-turn loop as the one heavy arrow, passing behind the gold edge in front of it. The octahedron is the schematic
-% exact in Rodrigues coordinates; in the ball the true edges bow outward (the caption says so).
-% Right column: the covering in figure 11's grammar: the gold base patch SO(3)/T with the loop l_g, three of the twelve
-% sheets r, r R_g, r R_g^2, the lift as figure 11's bow from the dot on sheet r to the dot on sheet r R_g, and one
-% vertical dotted line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running
-% on past the top sheet: the stack goes on. The sheets are the cartoon of figure 11, not a computed surface.
-% Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL), so bond 1 points along the arrow.
-% Suite rules: hidden contours dashed (back), projections dotted, version points \hatom; text under an object centered,
-% lowercase phrases without full stops. Every coordinate from figures/data (make_data), the geometry recomputed in
-% checks/verify_methane.py.
+% The closing plate (unnumbered), rigid methane, in two columns that read as two figures.
+% At the left methane, CH4, the reference X0 in its body frame with its twofold axes x, y, z (each split at the carbon
+% by depth, z's front half longer so that it clears hydrogen 2), and beside it SO(3) as the axis-angle ball (direction
+% the axis, distance the angle, radius pi, the skin the half-turns). The twelve rotations of T are version points, the
+% center, the eight third-turns at the corners of the thin cube they span and the three half-turns, each drawn once at
+% its far side. The cell of the center is the gold octahedron dual to the cube, its vertices the quarter-turns (rings).
+% The heavy arrow lifts the third-turn loop. Every hidden point is pale and under the front lines.
+% At the right the covering in figure 11's manner, the gold base SO(3)/T with the loop gamma_g, three of the twelve
+% sheets r, r R_g, r R_g^2, the lift as figure 11's bow and one dotted projection through every dot.
+% Declared, the octahedron is exact in Rodrigues coordinates and bowed in the ball (the caption says so), and the sheets
+% are a cartoon. Both panels share one right-handed camera (make_data, CAM_BALL), so bond 1 points along the arrow.
+% The ball's coordinates come from figures/data and are recomputed in checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}

@@ -1,11 +1,9 @@
-% Figure 2. Ambient Hilbert space. What the reader must see: one spin space over every configuration; a state
-% assigns to each configuration a vector of that space (two components here); the norm is the integral of the
-% squared length over C. Drawing: a slice of C as a baseline with a comb of fibers, three configurations standing
-% on it, the two components as bars on each fiber; the component functions plotted beneath on the same theta scale.
-% Colors: red is oxygen only; the two components f_xi and f_zeta are the dual pair teal and gold (free on this plate). Hatch unused.
-% The plot shares the theta scale of the comb, so each sample stands above its value of |f_xi|^2+|f_zeta|^2; no marks repeat that.
-% The state is physical on this slice: rotation-invariant and exchange-antisymmetric, so f_zeta = -f_xi (the proton
-% singlet times f(theta), f an illustrative Gaussian, declared); samples and functions from figures/data.
+% Figure 2, ambient Hilbert space. A slice of C (delta = 0) is a baseline with a comb of fibers, one spin space over
+% every configuration, and on each fiber the components f_xi and f_zeta of Psi(X) stand as bars. Three configurations
+% stand on the slice. Below, on the same theta scale, are the component functions and the density |f_xi|^2 + |f_zeta|^2,
+% so each sample stands above its own value.
+% Declared in the caption, the state drawn is physical on the slice (rotation-invariant and exchange-antisymmetric,
+% f_zeta = -f_xi), with f an illustrative Gaussian (figures/data). Red is oxygen, teal and gold the two components.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -39,7 +37,7 @@
   xlabel={$\theta$},xlabel style={at={(axis description cs:1,0)},anchor=west,xshift=3pt},axis lines=left,axis line style={-},tick align=outside,clip=false]
   \addplot[heavy,draw=ColDualA] table[x=theta,y=a] {component-functions.dat};
   \addplot[heavy,draw=ColDualB] table[x=theta,y=b] {component-functions.dat};
-  \addplot[PlateInk,line width=.5pt] table[x=theta,y=n2] {component-functions.dat};   % ink, thinner than the two components
+  \addplot[fine] table[x=theta,y=n2] {component-functions.dat};   % thinner than the two components
   \node[lab,anchor=south] at (axis cs:\compCenter,1.16) {$f_\xi$}; \node[lab,anchor=south] at (axis cs:\compCenter,-.76) {$f_\zeta=-f_\xi$}; \node[lab,anchor=south west] at (axis cs:117,1.25) {$|f_\xi|^2+|f_\zeta|^2$};
 \end{axis}
 \node[lab,anchor=east] at (14.6,2.9) {$\|\Psi\|^2=\int_{\conf}(|f_\xi|^2+|f_\zeta|^2)\,d\X$};

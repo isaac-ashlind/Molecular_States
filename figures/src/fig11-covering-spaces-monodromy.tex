@@ -1,13 +1,10 @@
-% Figure 11. Covering spaces and monodromy. What the reader must see: over a patch of the quotient F/G the sheets group in
-% version pairs {gX, gbX}; a loop downstairs lifts to a path from one sheet to another; t then b and b then t end on
-% different sheets. Drawing: the pairs side by side over V, the X-side column at the left and the bX-side at the
-% right, each headed by its configuration; t climbs a column (solid), b hops across (dotted, the starred generator);
-% t then b ends one level up on the right, b then t two levels up on the right (gold rings); b hops straight across; the six sheets as a
-% graph at the right for the bookkeeping, where t turns the outer triangle one way and the inner the other.
-% The loop figure after Harter (1993) fig. 5.4.2 in spirit (a closed path downstairs whose lift does not close).
-% Colors: red = the points over [X] (versions), gold = the endpoints, blue = nitrogen; ink elsewhere. Hatch unused.
-% The u-half of the twelve sheets is alike and left to the caption. The relations bt = t^2 b, btb = t^-1 and the
-% best-fit residual between X and bX are computed (checks/).
+% Figure 11, covering spaces and monodromy, after Harter (1993), fig. 5.4.2. Over a patch of the quotient F/G stand
+% the sheets in version pairs {gX, gbX}, the X column at the left and the bX column at the right, each headed by its
+% configuration. The loop gamma_t lifts by climbing a column, gamma_b by hopping across, so t then b ends one level up
+% on the right and b then t two levels up. At the right the six sheets form a graph, where t turns the outer triangle
+% one way and the inner the other. The six drawn are the G6 block of the twelve sheets.
+% The relations bt = t^2 b and btb = t^-1 and the best-fit residual between X and bX are computed (checks/). Red marks
+% the points over [X], gold the patch, blue nitrogen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -36,7 +33,7 @@
   \draw[blift] (pa0)--(pb0);
   \draw[tlift] (pb0) .. controls (4.5,{1.7+.45+1.0}) and (4.5,{1.7+3.6+.45-1.0}) .. (pb2);   % stays inside the sheets, clear of the middle sheet's corner
   \foreach \k in {0,1,2} {\vpoint{pa\k} \vpoint{pb\k}}
-  \vpoint{bx} \leaderlabel[sub]{bx}{0}{-.65}{north}{$[\X]$}   % on the loop names' line   % from the dot's edge, across the patch's edge, short of the name
+  \vpoint{bx} \leaderlabel[sub]{bx}{0}{-.65}{north}{$[\X]$}   % on the loop names' line
   \node[sub,anchor=south] at ($(pb1)+(0,.62)$) {$t$ then $b$}; \node[sub,anchor=south] at ($(pb2)+(0,.62)$) {$b$ then $t$};
 \end{scope}
 % the two configurations over [X] head their columns, drawn at the scale of figure 5

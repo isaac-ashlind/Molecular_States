@@ -1,13 +1,13 @@
 \ProvidesPackage{figurestyle}[2026/10/05 Plate style of the manuscript]
-% The plates are ink drawings; the drawing shows the structure and text is bookkeeping. Every plate is 15.2 cm wide
+% The plates are ink drawings. The drawing shows the structure, and text is bookkeeping. Every plate is 15.2 cm wide
 % and is included at \linewidth, so all plates print at one scale.
-% Type: labels 9pt (lab), notes 8pt (sub); smaller only inside dense marks: 7pt in small cells and graph nodes
-% (dense), 6.5pt for digits in discs (digit). If one label on a plate cannot take its size, every label on that plate
-% comes down to it (figure 6).
-% A label sits on what it names, with air, never on a line or another label. Text under an object is centered on it;
-% a row or corner title is left-aligned at the margin, a note in a right corner right-aligned. In-plate text is
-% lowercase, without full stops or colons; the guide's part headings repeat the manuscript's part titles. Text is
-% ink: a hue never colors text, and only a grayed-out object's own labels are gray.
+% Labels are 9pt (lab) and notes 8pt (sub). Smaller sizes appear only inside dense marks, 7pt in small cells and graph
+% nodes (dense) and 6.5pt for digits in discs (digit). If one label on a plate cannot take its size, every label on
+% that plate comes down to it (figure 6).
+% A label sits on what it names, with air, never on a line or another label. Text under an object is centered on it,
+% a row or corner title is left-aligned at the margin, and a note in a right corner is right-aligned. In-plate text is
+% lowercase, without full stops or colons, except the guide's part headings, which repeat the manuscript's part titles.
+% Text is ink. A hue never colors text, and only a grayed-out object's own labels are gray.
 % The line vocabulary (weights, action styles, hidden contours, leaders, hatch) lives in primitives.tex.
 \pdfinfoomitdate=1 \pdftrailerid{}   % no date or random ID in the PDF, so a rebuild reproduces it byte for byte
 \RequirePackage{amsmath,amssymb}

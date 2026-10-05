@@ -15,7 +15,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
          fix every comment that points at deleted files
 - [x] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
          inconsistent styles across plates, table formatting, stale comments, arbitrary constants
-- [ ] 5. Shared primitives and plate defragmentation, each plate checked with diffsheet before and after
+- [x] 5. Shared primitives and plate defragmentation, each plate checked with diffsheet before and after
 - [ ] 6. compute/, figures/data/ and checks/ cleanup (no unused emissions, no dead code, accurate docstrings)
 - [ ] 7. Manuscript LaTeX: preamble, macros, tables (Section 8, Tables A-D, notation page) formatted perfectly
 - [ ] 8. Full python3 build.py: every check passes, no collisions, text inside every plate, manuscript clean
@@ -31,3 +31,4 @@ Log (one line per step: step, commit, note):
 - 5b (partial): one head for heavy arrows (harrow = tpath head), sarrow/farrow; off-scale weights snapped (.7 covers and mode curves heavy, .35 thin, .45/.65 fig13 fine/heavy, joins fine); greys to ColGreyed/ColFaint; gold tints to ColPatch; \inkdot 1.5pt; digits 6.5pt in every disc; Hasse names dense; \leaderlabel from named coordinates at the dot edge; fig13 head 3pt short; loop and note centring. Checked with diff sheets. Next 5c: tube geometry macros, data-driven numbers (shares, counts, Gaussian, fig05 turn), then 5d headers.
 - 5c (partial): \tubegeom and cover view (tube numbers read from the tube; the cover solid takes figure 6 proportions); image style in fig06; make_data emits mlaTurn, spin counts, packet rows and marks, Gaussian centre/width; fig07 amplitudes exact. Next: American spelling pass (author request), then 5d headers.
 - 5 spelling: American spelling across manuscript, plates, comments and identifiers (ColGrayed, \nmcenter, \compCenter, center()); refs.bib titles untouched; figure 2 labels f_xi, f_zeta in ink (author)
+- 5d: all 14 plate headers rewritten (what the plate shows, what is computed, what is declared, the colors; no colons, no history); stale body comments fixed (V, eta0, author/date narration, drafts); shared headers without colons; fig05 axis thin, fig07 plane arc 14 degrees clear like the key. Step 5 done.

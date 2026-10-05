@@ -1,14 +1,11 @@
-% Guide (unnumbered). The whole story as one carved scene, read bottom to top: the configuration space C as a
-% hatched slab with the hole the carving leaves and one configuration as a point of it; the feasible solid F lifted
-% out and cut open, with the two generator paths and the version points on its core sheet and a packet on one
-% version; above, the quotient patch V with the two loops, and over V the six sheets, one per version, on which the two loops
-% lift: neither lift closes, and they end on different sheets (monodromy); the sheets carry no names on the cover.
-% The four parts of the paper are headings
-% beside their objects, with section ranges only.
-% The solid's decoration is turned by 15 degrees so that the projection line from H to [X] passes no other point.
-% Colors (the anchored palette): red = versions, teal tint = the core sheet, gold = the
-% packet and the quotient patch (a chart neighborhood), white = the vibrations (the solid's wall) and the sheets, blue = nitrogen. Ink carries the drawing; color only guides the eye. The two actions are ink, t solid and tu dashed,
-% on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
+% The guide (unnumbered), the paper as one scene read from the bottom up. The configuration space C is a hatched slab
+% with one configuration as a point of it and the hole the feasible solid F leaves. F is lifted out and cut open, and
+% its core sheet carries the version points, the two generator paths and a packet on H. Above it are the quotient
+% patch with the two loops and six sheets over the patch, on which the loops lift without closing and end on
+% different sheets. At the top left, grayed out, is the bond interval [H, B] of figure 5, whose G is the G of F/G.
+% The four part headings stand beside their objects with their section ranges.
+% The scene is schematic. The solid is figure 6's, its decoration turned by \coverturn degrees.
+% Red marks the version points, teal the core sheet, gold the packet and the patch, blue nitrogen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -20,8 +17,6 @@
 \path[use as bounding box] (0,1.1) rectangle (15,15.6);
 \tikzset{tube/Ro=2.3,tube/Ri=2.3*1.8/2.5,tube/H=2.3*.62/2.5,tube/istep=6.5,cover view}\tubegeom   % figure 6's solid, scaled
 \pgfmathsetmacro{\dx}{.45}   % the slide of the tube, the sheets and their headings to the right of the molecule and the lattice
-% arrangement (author, 2026-10-04): the bond interval [H, B] in gray at the top left under heading III, the molecule at
-% the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \hatchfit{42.51}{.12059}{-.03599}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
 \node[lab,anchor=south west] at (3.0,4.14) {$\conf$};
@@ -51,7 +46,7 @@
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,6.1) {II\quad Fragments and}; \node[head,anchor=west] at (10.7+\dx,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7+\dx,5.48) {\S\S\,4--6};
 \node[head,anchor=west] at (.5,12.7) {III\quad Symmetry and}; \node[head,anchor=west] at (.5,12.3) {Localization}; \node[rng,anchor=north west] at (.5,12.08) {\S\S\,7--9};
-% ------------------------------------------------ the quotient patch V with the two loops; over it the six sheets with the two lifts
+% ------------------------------------------------ the quotient patch with the two loops; over it the six sheets with the two lifts
 \draw[projection,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
 \node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]

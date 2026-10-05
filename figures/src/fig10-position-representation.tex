@@ -1,20 +1,17 @@
-% Figure 10. Position representation. What the reader must see: the solid F of figure 6 stripped of its vibrations is the
-% core sheet, the reference family X0(a), an open cylinder in a = (tau, iota); cut at the seam tau = +-pi and
-% unrolled it is the chart [-pi, pi] x [-iota0, iota0] with the six H-cells and the reference cell U, the same six
-% version points and the same two paths; over each point a of the chart sit every normal displacement q and every
-% orientation r, which is the reconstruction x = (r, a, q) -> R(r)(X0(a) + sum q e(a)), drawn as the shape, the shape
-% displaced along the normal frame (its undisplaced ghost beneath) and the result rotated; the two normal directions
-% e_-(a) (the amino twist) and e_+(a) (the C-N stretch) are drawn on the molecule from the side. Colors: red =
-% version points, gold (pale) = the reference cell, teal = the sheet; ink elsewhere, t solid, tu dashed. Hatch = cut
-% material (the solid's cut faces). Cells, normal directions and the displaced and rotated copies computed
-% (compute/, checks/); the displacement amplitude and the rotation are illustrative (declared).
+% Figure 10, position representation. At the top the solid F of figure 6, stripped of its vibrations, is the core
+% sheet X0(a), an open cylinder in a = (tau, iota), and cut at the seam tau = +-pi and unrolled it is the chart
+% [-pi, pi] x [-iota0, iota0] with the six H-cells, the reference cell U, the version points and the two paths. In the
+% middle, over a point a of the chart, the reconstruction x = (r, a, q), drawn as the shape, the shape displaced along
+% the normal frame and the result rotated. At the bottom the two normal directions e_-(a) and e_+(a) seen from the side.
+% Declared, the displacement amplitude and the rotation are illustrative. The cells, normal directions and copies are
+% computed (compute/, checks/). Red marks the versions, gold the cell U, teal the sheet.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-% the chart of the band: \chartpic{x}{y}{halfwidth cm}{halfheight cm}{fill} draws [-pi,pi] x [-eta0,eta0] with
+% the chart of the band: \chartpic{x}{y}{halfwidth cm}{halfheight cm}{fill} draws [-pi,pi] x [-iota0,iota0] with
 % the six H-cells, U gold, the six version points, the t and tu paths from H; labels inside the cells.
 \newcommand\chartpic[5]{\begin{scope}[shift={(#1,#2)},x=#3,y=#4]
     \path[fill=#5] (-1,-1) rectangle (1,1);
@@ -33,9 +30,9 @@
     \node[sub,anchor=north west] at (1.1,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
-% the undisplaced shape beneath its displaced copy, as a simple outline (author): the suite's rods (white band, the end
-% on the far sphere) with both edges one faded weight, and white atoms with a faded contour; only the atoms that
-% visibly move and their rods (mla-disp-ghost), since an atom that barely moves would show only as a sliver
+% the undisplaced shape beneath its displaced copy, a faded solid outline (the one exception to dashed ghosts): the
+% rods with both edges one faded weight and white atoms with a faded contour, only for the atoms that visibly move
+% (mla-disp-ghost), since an atom that barely moves would show only as a sliver
 \newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={fine,draw=ColGrayed},rodshade/.style={rodedge}}%
   \renewcommand\molatom[4]{\if##1H\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
