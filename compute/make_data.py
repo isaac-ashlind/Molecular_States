@@ -367,6 +367,12 @@ def main():
     for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
         px, py, _ = G.project([v], CAM_MOL)[0]
         num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
+    # the same molecule seen with the ball's camera, so that its bond 1 points the way the lift arrow does (author);
+    # its axes projected with that camera
+    emit_pic(mol, 'mol3d-ch4-ball', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_BALL, labels=True))
+    for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
+        px, py, _ = G.project([v], CAM_BALL)[0]
+        num.append(f'\\def\\baAxis{name}x{{{px:.4f}}}\\def\\baAxis{name}y{{{py:.4f}}}')
     # the orientation space as the axis-angle ball (direction the axis, distance the angle, radius pi; the skin is the
     # half-turns, each point its own antipode). The twelve rotations of T: the centre, the eight third-turns at 2pi/3
     # along the body diagonals, the three half-turns on the skin along the C2 axes. The cell of the centre is drawn as
@@ -390,7 +396,9 @@ def main():
         for sgn, t in ((1.0, 'p'), (-1.0, 'm')):
             emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
             emit_point(f'ballV{a_}{t}', v, sgn * face_centre)           # quarter-turn, drawn on the cube's face centre: a vertex of the dual octahedron
+    emit_point('ballFa', D[0], 2 * math.pi / 9 * bs)             # where the lift leaves the octahedron: the centroid of its face toward bond 1 (the dual octahedron's face plane x+y+z = c lies at c/sqrt3 on the diagonal)
     num.append('\\def\\ballSkinFront{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) >= 0) + '}')
+    num.append('\\def\\ballSkinBack{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')   # the far representatives, drawn pale (author: so they look far away)
     # the octahedron: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
     faces = [f for f in itertools.product((1, -1), repeat=3)]
     front = [f for f in faces if G.dot(f, outv) > 0]
