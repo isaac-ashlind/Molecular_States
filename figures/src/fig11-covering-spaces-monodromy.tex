@@ -47,9 +47,9 @@
 % the six sheets as a graph, for the bookkeeping: t turns the outer triangle one way and the inner the other;
 % edges run node to node so every head ends on a node's border
 \begin{scope}[shift={(12.6,6.4)}]
-  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.75*cos(\a)},{1.75*sin(\a)}); \coordinate (i\k) at ({.6*cos(\a)},{.6*sin(\a)});}
-  \foreach \k/\l in {0/{\X},1/{t\X},2/{t^2\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=6.6mm,font=\fontsize{7}{8}\selectfont] (no\k) at (o\k) {$\l$};
-  \foreach \k/\l in {0/{b\X},1/{tb\X},2/{t^2b\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=6.6mm,font=\fontsize{7}{8}\selectfont] (ni\k) at (i\k) {$\l$};
+  \foreach \k in {0,1,2} {\pgfmathsetmacro{\a}{90+120*\k}\coordinate (o\k) at ({1.9*cos(\a)},{1.9*sin(\a)}); \coordinate (i\k) at ({.71*cos(\a)},{.71*sin(\a)});}
+  \foreach \k/\l in {0/{\X},1/{t\X},2/{t^2\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=8.6mm,font=\fontsize{7}{8}\selectfont] (no\k) at (o\k) {$\l$};
+  \foreach \k/\l in {0/{b\X},1/{tb\X},2/{t^2b\X}} \node[circle,draw=PlateInk,fill=white,line width=.5pt,inner sep=0pt,minimum size=8.6mm,font=\fontsize{7}{8}\selectfont] (ni\k) at (i\k) {$\l$};
   \foreach \k/\n in {0/1,1/2,2/0} \draw[tpath] (no\k) to[bend right=24] (no\n);
   \foreach \k/\n in {0/2,2/1,1/0} \draw[tpath] (ni\k) to[bend left=30] (ni\n);
   \foreach \k in {0,1,2} \draw[blift] (no\k)--(ni\k);
