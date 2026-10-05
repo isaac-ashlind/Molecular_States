@@ -1,6 +1,6 @@
 % Rigid methane (closing pages, unnumbered). Two columns that read as two figures (author).
 % Left column: methane, CH4, the reference X0 in its body frame (mol3d-ch4-c2; the C2 axes x, y, z through the midpoints
-% of opposite edges, thin, each split at the carbon by depth, z drawn longer so that its front half clears hydrogen 2),
+% of opposite edges, thin, each split at the carbon by depth, z's front half drawn longer so that it clears hydrogen 2),
 % and beside it the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi;
 % the skin is the half-turns, each point its own antipode): the sphere and its three great circles teal; the twelve
 % rotations of T as version points (the centre, the eight third-turns at the corners of the thin ink cube they span,
@@ -37,8 +37,8 @@
 % ================================================ left column: methane and the orientation ball
 \node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\the $C_2$ axes $x,y,z$ through the midpoints of opposite edges};
 \begin{scope}[shift={(1.25,6.55)}]
-  \foreach \a/\s in \chAxisBack {\def\L{1.2}\if Z\a\def\L{2.2}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}
+  \foreach \a/\s in \chAxisBack {\def\L{1.2}\if Z\a\def\L{.9}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
+  \begin{scope}\molsolid\renewcommand\mollabel[6]{\if#1H\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at ({#3-\ifnum#2=2 .03\else 0\fi},{#4-\ifnum#2=2 .033\else 0\fi}) {#2};\fi}\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}   % digits inside the discs, 2 nudged off the front half of z
   \foreach \a/\s in \chAxisFront {\def\L{1.2}\if Z\a\def\L{2.2}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
   \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/2.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname chAxis\a x\endcsname+.06},{\e*\csname chAxis\a y\endcsname}) {\lab};}
 \end{scope}
@@ -55,7 +55,7 @@
   % the lift: its inner part first, so that the gold edge in front of it covers it
   \draw[line width=.9pt,draw=PlateInk] (0,0)--(\ballFax,\ballFay);
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
-  \draw[tpath,shorten >=2.5pt] (\ballFax,\ballFay)--(\ballCax,\ballCay);
+  \draw[tpath,shorten >=3.4pt] (\ballFax,\ballFay)--(\ballCax,\ballCay);
   % the front
   \foreach \p/\q in \ballCubeVisible {\draw[thin] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \pl in {XY,YZ,ZX} {\draw[tealthin] plot[smooth] coordinates {\csname ballArc\pl Front\endcsname};}
@@ -72,9 +72,9 @@
   \csheet{0}{0}{1.2}{heavy}{ColRetained!50}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
   \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\lambda_g$};
-  % one vertical line of projection through every dot: drawn under the sheets, so that each sheet hides it below its
-  % dot, and redrawn above each dot, so that it re-emerges; it runs on past the top sheet
-  \draw[projection,shorten <=2.3pt] (bx)--(.5,5.3);
+  % one vertical line of projection through every dot: from the base dot to the front edge of sheet r, then above each
+  % dot up to the next sheet, which hides it below its dot; it runs on past the top sheet (each span dotted once)
+  \draw[projection,shorten <=2.3pt] (bx)--(.5,1.4);
   \foreach \k/\lab in {0/{r},1/{r\Rmat_g},2/{r\Rmat_g^{\,2}}} {
     \pgfmathsetmacro{\y}{1.4+1.3*\k}
     \csheet{0}{\y}{1.2}{fine}{white}
