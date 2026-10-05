@@ -821,12 +821,12 @@ methylamine lies outside the present example.
 % ---- closing pages (author, 2026-10-05): rigid methane run through the twelve sections, then set against Albert et al.;
 % three pages, unnumbered, one two-panel figure in ink, the numbers from make_data and checks/verify_methane.py
 \section*{Recovery of the rigid formulation}
-\begin{center}\includegraphics[width=.92\linewidth]{fig13-rigid-orientation-ball}\end{center}
+\begin{center}\includegraphics[width=.88\linewidth]{fig13-rigid-orientation-ball}\end{center}
 \captionsetup{type=figure}
-\caption*{Rigid methane. Left, the reference $\X_0$ in its body frame, the $C_2$ axes $x,y,z$ through the midpoints of opposite edges. Middle, $SO(3)$ as a ball (direction the axis, distance the angle; the skin is the half-turns, each point its own antipode): the twelve rotations of $T$, the eight third-turns at the vertices of a cube, one cell, and the lift of the third-turn loop. Right, the covering as in Figure~11: the sheets over a point of $SO(3)/T$ and the lift of $\ell_g$ from one sheet to the next.}
+\caption*{Rigid methane. Top: the reference $\X_0$ in its body frame; the solid $\mathcal F$ cut open, its core $SO(3)$ and its wall the vibrations; the core in Rodrigues coordinates with the twelve rotations of $T$, one cell at $q=0$ and the lift of the third-turn loop. Bottom: the covering as in Figure~11, and Figure~12's rings of $K$ under the third-turn.}
 {\small\setlength{\abovedisplayskip}{4pt}\setlength{\belowdisplayskip}{4pt}\setlength{\abovedisplayshortskip}{2pt}\setlength{\belowdisplayshortskip}{2pt}\setlength{\parskip}{2pt}
 \newcommand{\closingtable}[2]{\par\medskip\noindent\begin{minipage}{\linewidth}\footnotesize\renewcommand{\arraystretch}{.92}\setlength{\tabcolsep}{4.5pt}\centering #1\\[2pt]#2\end{minipage}\par\medskip}
-\noindent Methane frozen at its tetrahedron, run through the sections in order and then set against Albert, Kubischta, Lemeshko and Liu~\cite{AlbertEtAlOrientation}. Protons $1$ to $4$, carbon $5$. Kinematics only, no energies.
+\noindent Methane frozen at its tetrahedron, run through the sections in order, then set against Albert, Kubischta, Lemeshko and Liu~\cite{AlbertEtAlOrientation}. Protons $1$ to $4$, carbon $5$; kinematics only, no energies.
 
 \noindent\textbf{1--2. Configurations and states.}\quad $\conf=\{\X\in\hom(\R^5,\R^3):\X\mathbf m=0\}$ is twelve-dimensional, $S=S_4\times S_1\times\{E,E^*\}$ has order $48$, and $\spin$ is sixteen-dimensional. In the body frame of the figure, with $\ell=1.087$~\AA,
 \[
@@ -844,7 +844,7 @@ H=\{h\in S:h\X_0\in SO(3)\X_0\}=T_d(\mathrm M)\cong S_4,\qquad h\X_0=\Rmat_h\X_0
 \]
 The $\Rmat_h$ form the cube group $O$; the twelve of the unstarred $h$ form the tetrahedral group $T$. The rigid regime is $G=H$: one version, $G/H=\{H\}$. The full set $S/H$ has two, the second the mirror-labelled tetrahedron $E^*\X_0$, not reachable.
 
-\noindent\textbf{4. Feasible configuration space.}\quad The orbit thickened by its nine normal directions, $\mathcal F\cong SO(3)\times D^9$, with $h\mathcal F=\mathcal F$ for $h\in H$ and $E^*\mathcal F\cap\mathcal F=\varnothing$: two copies $S/G$, one version in each. The figure draws the factor $SO(3)$; the disc $D^9$ thickens every point of it.
+\noindent\textbf{4. Feasible configuration space.}\quad The orbit thickened by its nine normal directions, $\mathcal F\cong SO(3)\times D^9$, with $h\mathcal F=\mathcal F$ for $h\in H$ and $E^*\mathcal F\cap\mathcal F=\varnothing$: two copies $S/G$, one version in each. The figure's second panel is this solid cut open as on the cover: the core is $SO(3)$ and the wall is the disc $D^9$, one normal direction drawn for nine.
 
 \noindent\textbf{5. Symmetry species.}\quad The species of $G$ are $\mathrm A_1,\mathrm A_2,\mathrm E,\mathrm T_1,\mathrm T_2$ and $\mathbb C[G/H]=\mathrm A_1$: no version modes. What the one version carries is its orientation fibre and its normal disc,
 \[
@@ -869,9 +869,9 @@ the analogue of Section~9's $(1+2c)/3$ and $2(1-c)/3$; a packet narrow against t
 T_h(r,q)=(r\Rmat_h,\mathbf M_hq),\qquad
 \psi(r\Rmat_h,\mathbf M_hq)\sim\stat(h)\chi_\pm(h)\,h\act\psi(r,q).
 \]
-The orientation chart is the ball of the figure. The cell $\mathcal U$ of the centre, the orientations nearer to it than to any other dot, is an octahedron in Rodrigues coordinates $\tan(\theta/2)\,\mathbf n$, namely $|x|+|y|+|z|\le1$, with the six quarter-turns at its vertices; its translates $\mathcal U\Rmat_h$, $h$ unstarred, tile $SO(3)$ up to their faces, $(T\times\mathcal U)/{\sim}\cong SO(3)$. Each face is the midplane to one third-turn $\Rmat_g$ and is glued to the opposite face by $r\mapsto r\Rmat_g^{-1}$, with a third of a twist; $\mathcal U$ with its faces glued is $SO(3)/T$.
+The orientation chart is the figure's Rodrigues picture, direction the axis and distance $\tan(\theta/2)$, in which the third-turns sit at $(\pm1,\pm1,\pm1)$. A cell of $\mathcal F$ in the sense of Section~11 carries its normal coordinates: $\mathcal U$ is the octahedron $|x|+|y|+|z|\le1$ of orientations nearer the centre than any other dot, with the six quarter-turns at its vertices, the face centres of that cube, times the disc $D^9$; the figure draws $\mathcal U$ at $q=0$. Its translates $T_h\,\mathcal U$, $h$ unstarred, tile $\mathcal F$ up to their faces, $(T\times\mathcal U)/{\sim}\cong\mathcal F$. Each face is the midplane to one third-turn $\Rmat_g$ and is glued to the opposite face by $T_g^{-1}$: a third of a twist in orientation, $r\mapsto r\Rmat_g^{-1}$, and $\mathbf M_g^{-1}$ on the vibrations; $\mathcal U$ with its faces glued is $\mathcal F/T$, the disc bundle $SO(3)\times_T D^9$ over $SO(3)/T$.
 
-\noindent\textbf{9. Covering spaces and monodromy.}\quad $\mathcal F\to\mathcal F/H$ is a covering with deck group $H$, twenty-four sheets; its unstarred half is $SO(3)\to SO(3)/T$, twelve sheets, the cells of the figure, and the remaining factor $O/T\cong\mathbb Z_2$ is parity. A third of a turn about the bond to hydrogen $1$ returns $\X_0$ to its position with $2,3,4$ cycled: in the quotient a loop $\ell_g$, whose lift runs from $r$ to $r\Rmat_g$, out of the central cell through a face into the cell beyond, from one sheet to the next (the figure's right panel). A species sees $g$ through $\Gamma(g)$: $\mathrm A(g)=1$, ${}^1\mathrm E(g)=\omega=e^{2\pi i/3}$, ${}^2\mathrm E(g)=\omega^2$, and $\mathrm T(g)$ cycles the axes $x,y,z$; the monodromy groups $T/\ker\Gamma$ are $1$, $C_3$, $C_3$, $T$.
+\noindent\textbf{9. Covering spaces and monodromy.}\quad $\mathcal F\to\mathcal F/H$ is a covering with deck group $H$, twenty-four sheets; its unstarred half is $\mathcal F\to\mathcal F/T$, twelve sheets, the cells of the figure each with its disc, which over $q=0$ is $SO(3)\to SO(3)/T$; the remaining factor $O/T\cong\mathbb Z_2$, the starred half, is where parity enters. A third of a turn about the bond to hydrogen $1$ returns $\X_0$ to its position with $2,3,4$ cycled: in the quotient a loop $\ell_g$, whose lift runs from $r$ to $r\Rmat_g$, out of the central cell through a face into the cell beyond, from one sheet to the next (the figure's right panel). A species sees $g$ through $\Gamma(g)$: $\mathrm A(g)=1$, ${}^1\mathrm E(g)=\omega=e^{2\pi i/3}$, ${}^2\mathrm E(g)=\omega^2$, and $\mathrm T(g)$ cycles the axes $x,y,z$; the monodromy groups $T/\ker\Gamma$ are $1$, $C_3$, $C_3$, $T$.
 
 \noindent\textbf{10. Momentum representation.}\quad On $SO(3)\times\R^9$ there is no torsional label:
 \[
@@ -879,7 +879,7 @@ The orientation chart is the ball of the figure. The cell $\mathcal U$ of the ce
 \qquad
 D^J_{MK}\bigl(r\Rmat_z(\tfrac{2\pi}{3})\bigr)=e^{-2\pi iK/3}D^J_{MK}(r),
 \]
-the second in the frame with $z$ along the bond to hydrogen $1$: the seam rule of Section~12 with $\omega=2\pi/3$, so the ring $K$ carries $\mathrm A$ when $3\mid K$ and the $\mathrm E$ pair otherwise (the rule of Figure~12 with $m\to K$); the half-turns send $K\to-K$ and complete $T$. Restricting $D^J$ to $H$ through $h\mapsto\Rmat_h^{-1}$, by characters, gives Table~C: the species of each $J$ and its physical states by parity.
+the second in the frame with $z$ along the bond to hydrogen $1$: the seam rule of Section~12 with $\omega=2\pi/3$, so $\Uop{g}$ multiplies the ring $K$ by $\omega^K$ and the ring carries $\mathrm A$ when $3\mid K$ and ${}^1\mathrm E$ or ${}^2\mathrm E$ otherwise (the rule of Figure~12 with $m\to K$; the figure's last panel). The other generator of $T$, a half-turn about an axis at the tetrahedral angle to $z$, mixes the rings; restricting $D^J$ to all of $H$ through $h\mapsto\Rmat_h^{-1}$, by characters, gives Table~C: the species of each $J$ and its physical states by parity.
 
 \closingtable{\textbf{Table A.} The classes of $H=T_d(\mathrm M)$: their equivalent rotations, the class functions and the species.}{%
 \begin{tabular}{@{}llllrrrrrrrrr@{}}
@@ -894,7 +894,7 @@ $6\,\sigma_d$ & 2-cycles & yes & half-turn about a cube edge & $-1$ & $-1$ & $8$
 \hline
 \end{tabular}}
 
-\closingtable{\textbf{Table B.} The species of $H$: copies in $\spin$, physical states by parity, and their isomers (their Table~II, $T$ block).}{%
+\closingtable{\textbf{Table B.} The species of $H$: spin copies, physical states by parity, their isomers (their Table~II, $T$ block).}{%
 \begin{tabular}{@{}lcccclccc@{}}
 \hline
 $\Gamma$ & copies in $\spin$ & $w_+$ & $w_-$ & on $T$ & $(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$ & $\mathfrak d$ & $\mathfrak m_{\mathrm{nuc}}$ & $T/\ker\Gamma$\\
@@ -907,7 +907,7 @@ $\mathrm T_2$ & $3$ & $0$ & $3$ & $\mathrm T$ & $(\mathrm T,\mathrm T)$ & $3$ & 
 \hline
 \end{tabular}}
 
-\closingtable{\textbf{Table C.} The $J$ ladder: $D^J$ restricted to $H$, and the physical states of each $J$ by parity, one per copy of the partner spin species.}{%
+\closingtable{\textbf{Table C.} The $J$ ladder: $D^J$ restricted to $H$, and the physical states of each $J$ by parity.}{%
 \begin{tabular}{@{}clccc@{}}
 \hline
 $J$ & $D^J\!\downarrow\!H$ & even & odd & both\\
@@ -917,26 +917,24 @@ $1$ & $\mathrm T_1$ & $3$ & $0$ & $3$\\
 $2$ & $\mathrm E\oplus\mathrm T_2$ & $1$ & $4$ & $5$\\
 $3$ & $\mathrm A_2\oplus\mathrm T_1\oplus\mathrm T_2$ & $8$ & $3$ & $11$\\
 $4$ & $\mathrm A_1\oplus\mathrm E\oplus\mathrm T_1\oplus\mathrm T_2$ & $4$ & $9$ & $13$\\
-$5$ & $\mathrm E\oplus2\,\mathrm T_1\oplus\mathrm T_2$ & $7$ & $4$ & $11$\\
-$6$ & $\mathrm A_1\oplus\mathrm A_2\oplus\mathrm E\oplus\mathrm T_1\oplus2\,\mathrm T_2$ & $9$ & $12$ & $21$\\
 \hline
 \end{tabular}}
 
-\noindent\textbf{Projection onto Albert et al.}\quad Their rigid body is this orbit with the disc projected out, $(r,q)\mapsto r$, and their symmetry group is $T$, the unstarred half of $H$ read through $h\mapsto\Rmat_h^{-1}$.\footnote{The other reading, through $h\mapsto\Rmat_h$, conjugates every character and exchanges ${}^1\mathrm E$ with ${}^2\mathrm E$ on both sides of the pairing at once.} Table~D is the dictionary; Table~B carries their isomers. Two things their formalism sets aside are carried here: parity, the starred half of $H$ ($O/T$), which fixes $w_+$ against $w_-$ and so the parity of every level in Table~C; and the vibrations, the disc $D^9$ of species $\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2$, which ride along under $\mathbf M_h$. The entangled isomer: for a $\mathrm T$ level and one $\mathrm T$ copy of the spins the physical state is the invariant $\sum_{i=1}^3e_i\otimes f_i$ of $\mathrm T\otimes\mathrm T$, of Schmidt rank $3=\mathfrak d$ (their eq.~4), nine of the sixteen spin-rotation states, their ``over $56\%$'' (Example~23).
+\noindent\textbf{Projection onto Albert et al.}\quad Their rigid body is this orbit with the disc projected out, $(r,q)\mapsto r$, and their symmetry group is $T$, the unstarred half of $H$ read through $h\mapsto\Rmat_h^{-1}$ (the reading through $h\mapsto\Rmat_h$ exchanges ${}^1\mathrm E$ with ${}^2\mathrm E$ on both sides of the pairing at once). Table~D is the dictionary; Table~B carries their isomers. Two things their formalism sets aside are carried here: parity, the starred half of $H$ ($O/T$), which fixes $w_+$ against $w_-$ and so the parity of every level in Table~C; and the vibrations, the disc $D^9$ of species $\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2$, which ride along under $\mathbf M_h$. The entangled isomer: for a $\mathrm T$ level and one $\mathrm T$ copy of the spins the physical state is the invariant $\sum_{i=1}^3e_i\otimes f_i$ of $\mathrm T\otimes\mathrm T$, of Schmidt rank $3=\mathfrak d$ (their eq.~4), nine of the sixteen spin-rotation states, their ``over $56\%$'' (Example~23).
 
 \closingtable{\textbf{Table D.} The dictionary.}{%
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{7.1cm}>{\raggedright\arraybackslash}p{8.7cm}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{6.6cm}>{\raggedright\arraybackslash}p{9.2cm}@{}}
 \hline
 this paper & Albert et al.\\
 \hline
 the orbit $SO(3)\X_0$, the ball of the figure & the orientation space of the rigid body\\
-$T$, the $\Rmat_h$ of the unstarred $h$, through $h\mapsto\Rmat_h^{-1}$ & the symmetry group $\mathsf G$ of a perrotationally symmetric molecule (eq.~41; Example~21)\\
-the cell $\mathcal U$ with its faces glued; $SO(3)/T$ & the position space, the octahedral space (Example~42)\\
-the twelve translates $g_h$ of a packet; the sheets over one position & the coset states $f(rg)=\Gamma_{\mathrm{rot}}(g)f(r)$ (eqs.~90, 91, 103); the fibre of dimension $\mathfrak d$ (eq.~44a)\\
-a species $\Gamma$ of $T$ with a spin partner $\Gamma'$, $\Gamma\otimes\Gamma'\ni\mathrm A$ & an isomer $(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$ with $\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{nuc}}\downarrow\Gamma_{\mathrm{mol}}$ (eq.~1; Table~II)\\
+$T$, the $\Rmat_h$ of the unstarred $h$ & the symmetry group $\mathsf G$ of a perrotationally symmetric molecule (eq.~41; Example~21)\\
+the cell $\mathcal U$ at $q=0$ with its faces glued, $SO(3)/T$ & the position space, the octahedral space (Example~42)\\
+the twelve translates $g_h$ of a packet; the sheets & the coset states $f(rg)=\Gamma_{\mathrm{rot}}(g)f(r)$ (eqs.~90, 91, 103); the fibre, dimension $\mathfrak d$ (eq.~44a)\\
+a species $\Gamma$ of $T$ with a partner $\Gamma'$, $\Gamma\otimes\Gamma'\ni\mathrm A$ & an isomer $(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$, $\Gamma_{\mathrm{rot}}\otimes\Gamma_{\mathrm{nuc}}\downarrow\Gamma_{\mathrm{mol}}$ (eq.~1; Table~II)\\
 $w_+$, $w_-$: one physical state per copy & $\mathfrak m_{\mathrm{nuc}}$, the copies of $\Gamma_{\mathrm{nuc}}$; parity not resolved\\
-$\Gamma(g)$ on the lift of a loop; $T/\ker\Gamma$ & the monodromy $\Gamma_{\mathrm{rot}}(\mathsf g^{-1})$; $\mathsf G_{\mathrm{mono}}=\mathsf G/\ker\Gamma_{\mathrm{rot}}$ (eqs.~127, 130)\\
-$D^J\!\downarrow\!H$, Table~C & $\Gamma_{\mathrm{rot}}\!\uparrow\!SO(3)$, the $J$ carrying each isomer (their Theorem); the missing levels\\
+$\Gamma(g)$ on the lift of a loop; $T/\ker\Gamma$ & the monodromy $\Gamma_{\mathrm{rot}}(\mathsf g^{-1})$ and $\mathsf G_{\mathrm{mono}}=\mathsf G/\ker\Gamma_{\mathrm{rot}}$ (eqs.~127, 130)\\
+$D^J\!\downarrow\!H$, Table~C & $\Gamma_{\mathrm{rot}}\!\uparrow\!SO(3)$, the $J$ carrying each isomer (their Theorem); missing levels\\
 the seam rule with $\omega=2\pi/3$ & the $C_3$ part of $T$ (Examples~17 and~35)\\
 the invariant of $\mathrm T\otimes\mathrm T$, Schmidt rank $3$ & eq.~4; Example~23\\
 $\chi_\pm$, the starred half of $H$; the disc $D^9$ with $\mathbf M_h$ & absent: trivial electronic and vibrational factors assumed\\

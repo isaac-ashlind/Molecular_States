@@ -161,6 +161,11 @@ def main():
     vert = sorted(tuple(np.round(rodrigues(R[q]), 6)) for q in allp if cycle_type(q) == (4,))
     ok &= vert == sorted(tuple(np.round(np.array(v, float), 6)) for v in [(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)])
     print('ball: the identity cell is the octahedron |x|+|y|+|z|<=1 (mismatches %d of %d samples); its vertices are the six starred 4-cycles, the quarter-turns about x, y, z' % (bad, tested))
+    cube = sorted(tuple(np.round(rodrigues(R[q]), 6)) for q in allp if cycle_type(q) == (3, 1))
+    ok &= cube == sorted(tuple(float(c) for c in v) for v in itertools.product((1.0, -1.0), repeat=3))
+    face_centres = sorted(tuple(np.round(np.mean([np.array(v) for v in cube if v[i] == sg], axis=0), 6)) for i in range(3) for sg in (1.0, -1.0))
+    ok &= face_centres == vert
+    print('Rodrigues: the eight third-turns are the cube (+-1,+-1,+-1); the six face centres of that cube are exactly the cell vertices:', face_centres == vert)
     # the loop: a third of a turn about the bond to hydrogen 1, +2pi/3, returns X0 with 2, 3, 4 cycled (an even relabelling)
     AX = np.array(X0[0]) / np.linalg.norm(X0[0])
     Rg = np.array(G.rot_axis(tuple(AX), 2 * math.pi / 3))

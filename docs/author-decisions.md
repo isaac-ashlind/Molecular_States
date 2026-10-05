@@ -196,3 +196,13 @@ docs/notation-migration.md.
   its sheets as in figure 11. Author's rules applied: no molecule inside the ball, no point drawn twice, dotted lines
   reserved for hidden edges and the one projection, three line weights otherwise. The full-page plate and the
   snapshot row are gone (the studies of rounds 5 and 6 record the rejected attempts).
+- The closing plate, final form (author, 2026-10-05): five panels in the cover's vocabulary. The molecule with the
+  suite's primitive and its own camera; the solid F cut open (teal core, hatched wall) leading, "stripped to its
+  core", to the orientation space drawn in Rodrigues coordinates, where the cell is an exact octahedron whose
+  vertices are the face centres of the cube of third-turns ("don't fudge anything": the axis-angle ball with flat
+  faces was rejected); the half-turns at infinity, each axis drawn once; the covering with its sheets as in figure
+  11, the loop kept on the sheet; figure 12's rings of K under the third-turn. Solid in front, dashed behind, dotted
+  only for the projection; teal, gold, ink and the red dots untangle the nested surfaces; titles under each panel.
+  The cell carries its normal disc (a cell of F, Section 11); the figure draws it at q = 0, the text says so, and
+  F/T is written as the disc bundle over SO(3)/T, not a product.
+

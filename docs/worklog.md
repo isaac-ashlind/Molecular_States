@@ -132,3 +132,9 @@ scanned camera; the eight third-turns joined as the cube they span; three great 
 dashed behind, dotted only for the projection; the sphere teal, the cell gold (the base patch at right in figure
 11's gold tint), the cube in ink, the dots red. Build clean, no collisions, 24 pages.
 
+Same day, final form of the plate: the orientation space redrawn in Rodrigues coordinates (exact octahedron, cube
+of third-turns, half-turns at infinity; the data layer emits the Rodrigues points and the check confirms the cell's
+vertices are the cube's face centres); the solid F cut open with the cover's hatch and the teal core (cut* macros
+from make_data); figure 12's rings of K under the third-turn; the covering panel's loop kept on its sheet; the cell
+written with its normal disc. Manuscript 24 pages, no bad boxes, no text collisions.
+

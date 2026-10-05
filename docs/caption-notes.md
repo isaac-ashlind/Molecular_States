@@ -193,44 +193,53 @@ species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level r
 Fig. 4.2.3.
 
 ## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
-What the reader sees at a squint: a labelled tetrahedron with three axes; a circle holding a scatter of red dots, a
-small wire octahedron and one arrow; a stack of three flat sheets over a base patch with a loop and a lift. The ball
-panel has its own camera (make_data: CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the
-maximum, from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate and bond 1
-faces the viewer); the molecule panel has the molecule's (CAM_MOL, azimuth 18, elevation 59, chosen by scan so that
-every hydrogen disc clears the carbon and every other hydrogen by 0.61 A on the page with every C2 axis at least 26
-degrees off the view). The two panels share the body frame, not the camera. Left: the reference X0 in its C2 frame
-(geometry.methane_c2: hydrogens on the body diagonals, C-H 1.087 A) drawn with the suite's molecule primitive
-(mol3d-ch4-c2: shaded atoms, rods, the digits inside the hydrogens), the axes x, y, z through the midpoints of
-opposite edges as fine lines behind it.
-Middle: the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi drawn
-2 cm; the skin is the half-turns, each point its own antipode): the twelve symmetry rotations of T as red dots, the
-centre, eight third-turns (a tetrahedron through the bonds at +2pi/3, one through the faces at -2pi/3) joined by the
-thin edges of the cube they span, and three half-turns on the skin at the crossings of the great circles, each drawn
-once at its visible representative; the three great circles of the coordinate planes give the depth; one cell of
-the twelve, the orientations nearer the centre than any other dot, as a wire octahedron (an octahedron in Rodrigues
-coordinates, |x|+|y|+|z| <= 1; drawn with flat faces, the true faces bulge) with the six quarter-turns, the starred
-4-cycles, as ink rings at its vertices; the lift of the
-third-turn loop as a solid arrow from the centre through a face to the dot beyond (r -> r R_g). No molecule inside
-the ball and no point drawn twice (author, 2026-10-05). Right: the covering in figure 11's grammar: a patch of
-SO(3)/T (the cell with its faces glued) with the loop l_g, the sheets r, r R_g, r R_g^2 of the twelve over it, the
-lift of l_g from the dot on sheet r to the dot on sheet r R_g, one dotted projection from the base point to its
-sheet; the sheets are the cartoon of figure 11, not a computed surface. Line vocabulary (author, 2026-10-05): solid
-for what faces the viewer, dashed for what lies behind; dotted only for the projection. Colours untangle the nested
-surfaces (author): the sphere teal, the orientation space taking over the core sheet's role; the cell gold, the
-chart patch as in figures 10 and 11, and the base patch at right in figure 11's gold tint; the cube in thin ink; the
-dots red; the lift in ink. This is the honest form of Albert et al.'s
-Fig. 3(c): their fibre over a position is these twelve sheets (the regular representation of T), and their
-monodromy action is the lift moving from one sheet to the next. The red dots carry the version-dot role of figure 10,
-handed to orientations. Every coordinate is emitted by make_data (numbers.tex, the ball*
-macros) and the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations
-closing as the cube group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the
-octahedron (3000 random rotations); its vertices are the quarter-turns; the face x+y+z=1 is glued to x+y+z=-1 by
-R -> R R_g^{-1} with the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about bond 1 returns
-X0 with 2, 3, 4 cycled and R_g cycles x, y, z. The three pages carry the pipeline (sections 1 to 10 instantiated on
-rigid methane; the vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet shares
-(1+8c3+3c2)/12, (1-4c3+3c2)/12, 3(1-c2)/4; the J ladder D^J restricted to H with the physical states by parity,
-J = 0..6) and the projection onto Albert et al. (Tables A to D: the classes of Td(M); the species with their isomers,
-their Table II T block; the J ladder; the dictionary with their equation and example numbers). Declared: no
-energies; parity (the starred half of H) and the vibrations (the disc D^9 under M_h) are what their formalism sets
-aside; the labels 1E, 2E are exchanged together by the other reading of the transport (footnote).
+What the reader sees at a squint: a labelled tetrahedron with three axes; a ball bitten open with a hatched wall and
+a teal core; a cube with a gold octahedron inside it and one arrow; a stack of three sheets over a gold patch with
+a loop and a lift; a sphere ringed by five circles. Five panels in two rows, the cover's vocabulary.
+Row 1, left: the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals, C-H 1.087 A)
+drawn with the suite's molecule primitive (mol3d-ch4-c2; camera CAM_MOL, azimuth 346, elevation 64, chosen by scan
+so that every hydrogen disc clears the carbon and every other hydrogen by 0.61 A on the page with every C2 axis at
+least 26 degrees off the view), the axes x, y, z through the midpoints of opposite edges as thin lines behind it.
+Row 1, middle: the solid F for methane cut open as on the cover, an octant removed and the viewer looking in: the
+core is the ball SO(3) (teal, its exposed octant), the wall the nine vibrations (white, the three cut faces hatched
+quarter-annuli); radii 1.45 and 0.95 cm on the page, the curves emitted by make_data (cut* macros); a schematic in
+the sense of the cover's tube, declared in the title. "Stripped to its core" (figure 10's words) leads right.
+Row 1, right: the orientation space SO(3) in Rodrigues coordinates, direction the axis and distance tan(theta/2),
+from the ball camera (CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the maximum, from every
+symmetry axis of the cube so that the eight third-turns and the six quarter-turns all separate on the page). The
+twelve rotations of T as red dots: the centre, the eight third-turns at (+-1, +-1, +-1), the vertices of a cube drawn
+with thin ink edges, and the three half-turns, which lie at infinity along the C2 axes and are shown by the three
+axes leaving the panel with an arrowhead (each axis drawn once, both directions being one point at infinity). One
+cell of the twelve, the exact octahedron |x|+|y|+|z| <= 1, in gold, with the six quarter-turns as ink rings at its
+vertices, which are the face centres of the cube (checked); the cell proper carries the disc D^9 of normal
+coordinates with it (Section 11's cell is a cell of F), and the panel draws it at q = 0 (author, 2026-10-05). The lift of the third-turn loop as the one heavy arrow,
+from the centre through a face to the dot beyond. Every line is straight in these coordinates; nothing is
+approximated (the earlier axis-angle ball, with flat faces where the true faces bulge, was rejected by the author:
+"don't fudge anything"). Row 2, left: the covering in figure 11's grammar: a patch of SO(3)/T (the cell with its
+faces glued, figure 11's gold tint) with the loop l_g kept on the sheet, the sheets r, r R_g, r R_g^2 of the twelve
+over it, the lift of l_g from the dot on sheet r to the dot on sheet r R_g, one dotted projection from the base
+point to its sheet (the convention of the cover); the sheets are the cartoon of figure 11, not a computed surface.
+This is the honest form of Albert et al.'s Fig. 3(c): their fibre over a position is these twelve sheets (the
+regular representation of T), and their monodromy action is the lift moving from one sheet to the next. Row 2,
+right: figure 12's rings of K on the sphere |J| for J = 2, the body axis z along the bond to hydrogen 1, each ring
+named by what the third-turn does to it: U_g multiplies ring K by omega^K (T_g r = r R_g, U_g psi = psi o T_g^-1,
+D(r R_z(w)) = e^{-iKw} D(r)), so A when 3 divides K, 1E (K = 1, -2) or 2E (K = 2, -1) otherwise, 1E(g) = omega by
+the check's convention; the other reading exchanges the two E labels everywhere at once (stated in the text).
+Line vocabulary (author, 2026-10-05): solid for what faces the viewer, dashed for what lies behind; dotted only for
+the projection; hatch is cut material. Colours untangle the nested surfaces (author): the core and the ball-less
+Rodrigues picture carry no sphere, the cut solid's core is teal (the orientation space takes over the core sheet's
+role), the cell gold (the chart patch, as in figures 10 and 11, and the base patch at right in figure 11's gold
+tint), the cube in thin ink, the dots red (the version-dot role of figure 10 handed to orientations), the lift in
+ink. Titles sit under each panel; leader labels only beside the Rodrigues picture. Every coordinate is emitted by
+make_data (numbers.tex: chAxis*, ball*, ray*, cut* macros; molecules.tex: mol3d-ch4-c2) and the geometry is
+recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations closing as the cube group O, the
+even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the octahedron (3000 random rotations);
+its vertices are the quarter-turns and the face centres of the cube of third-turns; the face x+y+z=1 is glued to
+x+y+z=-1 by R -> R R_g^{-1} with the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about
+bond 1 returns X0 with 2, 3, 4 cycled and R_g cycles x, y, z. The three pages carry the pipeline (sections 1 to 10
+instantiated on rigid methane; the vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet
+shares (1+8c3+3c2)/12, (1-4c3+3c2)/12, 3(1-c2)/4; the J ladder D^J restricted to H with the physical states by
+parity, J = 0..4 in the table, 0..6 in the data) and the projection onto Albert et al. (Tables A to D: the classes
+of Td(M); the species with their isomers, their Table II T block; the J ladder; the dictionary with their equation
+and example numbers). Declared: no energies; parity (the starred half of H) and the vibrations (the disc D^9 under
+M_h) are what their formalism sets aside.

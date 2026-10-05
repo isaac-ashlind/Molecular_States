@@ -1,21 +1,26 @@
-% Rigid methane (closing pages, unnumbered): three panels. Left, from the molecule camera (make_data: CAM_MOL, azimuth
-% 346, elevation 64, chosen by scan for the clearest glyph with every C2 axis at least 26 degrees off the view): the
-% reference X0 drawn with the suite's molecule primitive (mol3d-ch4-c2), the C2 axes x, y, z through the midpoints of
-% opposite edges as thin lines behind it. Middle, from the ball camera (CAM_BALL, azimuth 108, elevation 21, chosen
-% by scan to sit 27 degrees from every symmetry axis of the cube so that nothing overlaps): the orientation space
-% SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi drawn 2 cm; the skin is the
-% half-turns, each point its own antipode), its three great circles in the coordinate planes for depth, the twelve
-% symmetry rotations of T as red dots: the centre, the eight third-turns at the vertices of a cube (drawn with thin
-% edges, a tetrahedron through the bonds and one through the faces), the three half-turns on the skin at the crossings
-% of the circles, each drawn once; one cell of the twelve as a wire octahedron with the six quarter-turns as ink rings
-% at its vertices; the lift of the third-turn loop as a solid arrow from the centre through a face to the dot beyond.
-% Right, the covering in figure 11's grammar: a patch of SO(3)/T with the loop l_g, the sheets r, r R_g, r R_g^2 of
-% the twelve over it, the lift from one sheet to the next, one dotted projection (the convention of the cover).
-% Line vocabulary of this plate (author, 2026-10-05): solid for what faces the viewer, dashed for what lies behind;
-% dotted only for the projection. Colours untangle the nested surfaces (author): the sphere teal (the orientation
-% space takes over the core sheet's role), the cell gold (the chart patch, as in figures 10 and 11; the base patch
-% at right carries figure 11's gold tint), the cube in thin ink, the dots red, the lift in ink. Every coordinate
-% from figures/data (make_data), the geometry recomputed in checks/verify_methane.py.
+% Rigid methane (closing pages, unnumbered): five panels in two rows, the cover's vocabulary.
+% Row 1. Left, from the molecule camera (make_data: CAM_MOL, azimuth 346, elevation 64, chosen by scan for the
+% clearest glyph with every C2 axis at least 26 degrees off the view): the reference X0 drawn with the suite's
+% molecule primitive (mol3d-ch4-c2), the C2 axes x, y, z through the midpoints of opposite edges as thin lines behind
+% it. Middle, the solid F for methane cut open as on the cover: the core is the ball SO(3) (teal), the wall the nine
+% vibrations (white, its cut faces hatched); an octant is removed and the viewer looks in. "Stripped to its core"
+% (figure 10's words) leads to the right panel: from the ball camera (CAM_BALL, azimuth 108, elevation 21, chosen by
+% scan to sit 27 degrees from every symmetry axis of the cube so that nothing overlaps) the orientation space SO(3)
+% in Rodrigues coordinates (direction the axis, distance tan(theta/2); the half-turns at infinity, each axis drawn
+% once with an arrow toward them): the twelve symmetry rotations of T as red dots, the centre and the eight
+% third-turns at (+-1,+-1,+-1), the vertices of a cube drawn with thin ink edges; one cell of the twelve, the exact
+% octahedron |x|+|y|+|z| <= 1, in gold, with the six quarter-turns as ink rings at its vertices, which are the face
+% centres of the cube; the lift of the third-turn loop as the one heavy arrow, from the centre through a face to the
+% dot beyond. Every line is straight in these coordinates; nothing is approximated.
+% Row 2. Left, under the solid: the covering in figure 11's grammar: a patch of SO(3)/T (the cell with its faces
+% glued, figure 11's gold tint) with the loop l_g, the sheets r, r R_g, r R_g^2 of the twelve over it, the lift of
+% l_g from one sheet to the next, one dotted projection (the convention of the cover). Right, under the ball: figure
+% 12's rings of K on the sphere |J| for J = 2, the body axis z along the bond to hydrogen 1, each ring named by what
+% the third-turn does to it, omega^K: A when 3 divides K, 1E or 2E otherwise.
+% Line vocabulary (author, 2026-10-05): solid for what faces the viewer, dashed for what lies behind; dotted only for
+% the projection. Colours: the sphere and the core teal (the orientation space takes over the core sheet's role), the
+% cell gold (the chart patch, as in figures 10 and 11), the cube in thin ink, the dots red, the lift in ink; hatch is
+% cut material. Every coordinate from figures/data (make_data), the geometry recomputed in checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -27,61 +32,84 @@
 \begin{tikzpicture}[plate,
   thin/.style={line width=.3pt,draw=PlateInk},
   thindash/.style={line width=.3pt,draw=PlateInk,dash pattern=on 1.5pt off 1.1pt},
+  finedash/.style={line width=.4pt,draw=PlateInk,dash pattern=on 1.8pt off 1.2pt},
   teal/.style={line width=.45pt,draw=ColBandLine},
   tealthin/.style={line width=.35pt,draw=ColBandLine},
   tealdash/.style={line width=.35pt,draw=ColBandLine,dash pattern=on 1.5pt off 1.1pt},
   gold/.style={line width=.65pt,draw=ColGoldStroke},
-  golddash/.style={line width=.55pt,draw=ColGoldStroke,dash pattern=on 1.8pt off 1.2pt}]
-\path[use as bounding box] (0,0) rectangle (15,6.3);
-% ================================================ left: the reference in its body frame
-\begin{scope}[shift={(2.3,3.45)}]
+  golddash/.style={line width=.55pt,draw=ColGoldStroke,dash pattern=on 1.8pt off 1.2pt},
+  title/.style={sub,anchor=north,align=center},
+  stepline/.style={line width=.4pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}}]
+\path[use as bounding box] (0,0) rectangle (15,10.0);
+% ================================================ row 1, left: the reference in its body frame
+\begin{scope}[shift={(1.9,7.65)}]
   \foreach \a/\lab/\anc in {X/$x$/west,Y/$y$/south,Z/$z$/west} {
-    \draw[thin] ({-2.05*\csname chAxis\a x\endcsname},{-2.05*\csname chAxis\a y\endcsname})--({2.05*\csname chAxis\a x\endcsname},{2.05*\csname chAxis\a y\endcsname});
-    \node[sub,anchor=\anc,inner sep=1.5pt] at ({2.12*\csname chAxis\a x\endcsname},{2.12*\csname chAxis\a y\endcsname}) {\lab};}
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=1.15] at (0,0) {mol3d-ch4-c2};\end{scope}
-  \node[sub,anchor=north,align=center] at (0,-2.3) {$\X_0$ in its body frame};
+    \draw[thin] ({-1.75*\csname chAxis\a x\endcsname},{-1.75*\csname chAxis\a y\endcsname})--({1.75*\csname chAxis\a x\endcsname},{1.75*\csname chAxis\a y\endcsname});
+    \node[sub,anchor=\anc,inner sep=1.5pt] at ({1.82*\csname chAxis\a x\endcsname},{1.82*\csname chAxis\a y\endcsname}) {\lab};}
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=1.0] at (0,0) {mol3d-ch4-c2};\end{scope}
+  \node[title] at (0,-2.0) {$\X_0$ in its body frame};
 \end{scope}
-% ================================================ middle: the orientation ball
-\begin{scope}[shift={(6.5,3.55)}]
-  % the back: dashed great circles, hidden cube edges, hidden cell edges
-  \foreach \pl in {XY,YZ,ZX} {\draw[tealdash] plot[smooth] coordinates {\csname ballArc\pl Back\endcsname};}
+% ================================================ row 1, middle: the solid cut open
+\begin{scope}[shift={(5.3,7.65)}]
+  \foreach \pl in {XY,YZ,ZX} {
+    \path[fill=white] plot coordinates {\csname cutFace\pl\endcsname} -- cycle;
+    \hatchregion{45}{plot coordinates {\csname cutFace\pl\endcsname} -- cycle}
+    \draw[fine] plot coordinates {\csname cutFace\pl\endcsname} -- cycle;}
+  \path[fill=ColBand] plot coordinates {\cutCore} -- cycle;
+  \draw[teal] plot coordinates {\cutCore} -- cycle;
+  \draw[fine] (0,0) circle[radius=1.45];
+  \node[title] at (-.15,-1.75) {$\mathcal F$ cut open: the core is $SO(3)$,\\the wall the nine vibrations};
+\end{scope}
+\draw[stepline] (7.1,7.65)--(7.95,7.65); \node[sub,anchor=south,inner sep=1.5pt] at (7.52,7.73) {stripped to};
+\node[sub,anchor=north,inner sep=1.5pt] at (7.52,7.57) {its core};
+% ================================================ row 1, right: the orientation space in Rodrigues coordinates
+\begin{scope}[shift={(10.3,7.65)}]
+  % the back: hidden cube edges, hidden cell edges, the rays behind the cube
   \foreach \p/\q in \ballCubeHidden {\draw[thindash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \p/\q in \ballCellHidden {\draw[golddash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
-  % the front: solid
+  \foreach \r in \rayBack {\draw[thindash,-{Stealth[length=1.4mm,width=1.1mm]}] (\csname ballV\r x\endcsname,\csname ballV\r y\endcsname)--(\csname ballE\r x\endcsname,\csname ballE\r y\endcsname);}
+  % the front
   \foreach \p/\q in \ballCubeVisible {\draw[thin] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
-  \foreach \pl in {XY,YZ,ZX} {\draw[tealthin] plot[smooth] coordinates {\csname ballArc\pl Front\endcsname};}
-  \draw[teal] (0,0) circle[radius=\ballR];
-  % the lift of the loop: from the centre through the face to the third-turn about bond 1
+  \foreach \r in \rayFront {\draw[thin,-{Stealth[length=1.4mm,width=1.1mm]}] (\csname ballV\r x\endcsname,\csname ballV\r y\endcsname)--(\csname ballE\r x\endcsname,\csname ballE\r y\endcsname);}
   \draw[tpath,shorten >=2.5pt] (0,0)--(\ballCax,\ballCay);
-  % the twelve rotations of T and the six quarter-turns
   \foreach \k in {a,b,c,d} {\fill[ColDot] (\csname ballC\k x\endcsname,\csname ballC\k y\endcsname) circle[radius=.065]; \fill[ColDot] (\csname ballD\k x\endcsname,\csname ballD\k y\endcsname) circle[radius=.065];}
-  \foreach \s in \ballSkinFront {\fill[ColDot] (\csname ballS\s x\endcsname,\csname ballS\s y\endcsname) circle[radius=.065];}
   \fill[ColDot] (0,0) circle[radius=.065];
   \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.045];}}
-  % labels
-  \node[sub,anchor=south,align=center] at (0,{\ballR+.12}) {$SO(3)$ as a ball: direction the axis, distance the angle};
-  \draw[leader] ($(\ballCax,\ballCay)+(.08,.04)$)--({\ballR+.35},1.05); \node[sub,anchor=west,align=left] at ({\ballR+.4},1.05) {the third-turn\\about bond $1$};
-  \draw[leader] ($(\ballSxpx,\ballSxpy)+(.07,-.04)$)--({\ballR+.3},-1.35); \node[sub,anchor=west,align=left] at ({\ballR+.35},-1.35) {a half-turn,\\on the skin};
-  \node[sub,anchor=north,align=center] at (0,{-\ballR-.12}) {the twelve rotations of $T$: the centre,\\a cube of third-turns, three on the skin;\\one cell $\mathcal U$ and the lift $r\to r\Rmat_g$};
+  \foreach \a/\t in {x/p,y/p,z/m} {\node[sub,inner sep=1pt] at ({1.1*\csname ballE\a\t x\endcsname},{1.1*\csname ballE\a\t y\endcsname}) {$\a$};}
+  \draw[leader] ($(\ballCax,\ballCay)+(.08,.04)$)--(2.2,1.45); \node[sub,anchor=west,align=left] at (2.25,1.45) {the lift $r\to r\Rmat_g$\\of the third-turn\\about bond $1$};
+  \draw[leader] ($(\ballVxpx,\ballVxpy)+(.0,-.08)$)--(2.2,-1.25); \node[sub,anchor=west,align=left] at (2.25,-1.25) {a quarter-turn:\\a cell vertex on\\a cube face centre};
+  \node[title] at (.15,-2.3) {$SO(3)$ in Rodrigues coordinates, direction the axis\\and distance $\tan\tfrac\theta2$: the centre, the cube of third-turns,\\the cell $\mathcal U$ at $q=0$, the half-turns at infinity};
 \end{scope}
-% ================================================ right: the covering, figure 11's grammar
-\begin{scope}[shift={(12.1,.7)}]
+% ================================================ row 2, left: the covering, figure 11's grammar
+\begin{scope}[shift={(5.5,1.15)}]
   \csheet{0}{0}{heavy}{ColRetained!50}
-  \coordinate (bx) at (.3,.25);
-  \draw[tlift] (bx) .. controls (-1.6,.62) and (-1.6,-.12) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (-.5,-.06) {$\ell_g$};
-  \node[sub,anchor=west,inner sep=1pt] at (1.6,.25) {$SO(3)/T$};
+  \coordinate (bx) at (.55,.25);
+  \draw[tlift] (bx) .. controls (-.5,.6) and (-.5,-.1) .. (bx);
+  \node[sub,anchor=north,inner sep=1.5pt] at (.05,-.07) {$\ell_g$};
+  \node[sub,anchor=east,inner sep=1pt] at (-1.05,.3) {$SO(3)/T$};
   \foreach \k/\lab in {0/{r},1/{r\Rmat_g},2/{r\Rmat_g^{\,2}}} {
-    \pgfmathsetmacro{\y}{1.35+1.05*\k}
+    \pgfmathsetmacro{\y}{1.2+1.0*\k}
     \csheet{0}{\y}{fine}{white}
-    \coordinate (p\k) at (.3,{\y+.25});
-    \node[sub,anchor=west,inner sep=1pt] at (1.6,{\y+.25}) {$\lab$};}
-  \node[sub,anchor=south east,inner sep=1pt] at (1.5,4.5) {$\cdots$ twelve sheets, one per rotation of $T$};
+    \coordinate (p\k) at (.55,{\y+.25});
+    \node[sub,anchor=east,inner sep=1pt] at (-1.05,{\y+.25}) {$\lab$};}
+  \node[sub,anchor=south east,inner sep=1pt] at (1.5,3.78) {$\cdots$ twelve sheets, one per rotation of $T$};
   \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (bx)--(p0);
-  \draw[tlift] (p0) .. controls (-1.3,{1.35+.25+.3}) and (-1.3,{1.35+1.05+.25-.3}) .. (p1);
+  \draw[tlift] (p0) .. controls (-1.2,{1.2+.25+.3}) and (-1.2,{1.2+1.0+.25-.3}) .. (p1);
   \foreach \k in {0,1,2} {\fill[ColDot] (p\k) circle[radius=.065];}
   \fill[ColDot] (bx) circle[radius=.065];
+  \node[title] at (.3,-.4) {the covering $SO(3)\to SO(3)/T$ as in Figure~11;\\the lift of $\ell_g$ runs from sheet $r$ to sheet $r\Rmat_g$};
+\end{scope}
+% ================================================ row 2, right: the rings of K, figure 12's grammar
+\begin{scope}[shift={(11.2,2.95)}]
+  \pgfmathsetmacro{\s}{.48}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.6}
+  \hatom{0}{0}{\R}{white}
+  \draw[fine] (0,{-\R-.15})--(0,{\R+.25});
+  \foreach \K/\sp in {2/{{}^2\mathrm E},1/{{}^1\mathrm E},0/{\mathrm A},-1/{{}^2\mathrm E},-2/{{}^1\mathrm E}} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
+    \draw[finedash] ({-\r},\h) arc[start angle=180,end angle=0,x radius=\r,y radius={\E*\r}];
+    \draw[fine] ({-\r},\h) arc[start angle=180,end angle=360,x radius=\r,y radius={\E*\r}];
+    \node[sub,anchor=east,inner sep=1pt] at ({-\R-.15},\h) {$K=\K$}; \node[sub,anchor=west,inner sep=1pt] at ({\R+.15},\h) {$\sp$};}
+  \node[title] at (.3,{-\R-.3}) {Figure~12's rings of $K$, $J=2$, $z$ along bond $1$:\\the third-turn multiplies ring $K$ by $\omega^K$,\\so $\mathrm A$ when $3\mid K$, else ${}^1\mathrm E$ or ${}^2\mathrm E$};
 \end{scope}
 \end{tikzpicture}
 \end{document}

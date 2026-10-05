@@ -82,6 +82,41 @@
    0.0
   ]
  ],
+ "methane_rodrigues": {
+  "cube_vertices": [
+   [
+    1.0,
+    1.0,
+    1.0
+   ],
+   [
+    1.0,
+    -1.0,
+    -1.0
+   ],
+   [
+    -1.0,
+    1.0,
+    -1.0
+   ],
+   [
+    -1.0,
+    -1.0,
+    1.0
+   ]
+  ],
+  "cell_vertices_are_cube_face_centres": true,
+  "scale_cm": 0.95
+ },
+ "methane_cutaway": {
+  "view": [
+   0.6954,
+   0.5795,
+   0.425
+  ],
+  "RO": 1.45,
+  "RI": 0.95
+ },
  "methane_loop": {
   "axis": "C-H1",
   "turn_deg": 120.0,
