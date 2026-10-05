@@ -1,7 +1,0 @@
-# Checks and unsettled issues
-Verified existing source mismatch: water delta=-ell/4 column uses -.1; new drawing must use -.25 via one parameter table. Distinguish O-centered layout from mass-centered underlying X.
-Current convention: sX=XP_s; P_st=P_t P_s. Older transpose notation must not leak in.
-Unsettled: meaning/domain of F versus reference family, normal thickening/product assumptions, separation of symmetry images, reduced torsion/umbrella action and cell partition, free-covering domain, Wigner/seam sign consistency, normal-frame transitions, comparative-molecule table assumptions.
-Define each object/map before final drawing. Algebraic/computational questions should be checked; author-physics choices recorded. If blocked, provide accurate restricted local schematic and describe restriction, not fictitious final model. No global topology from cartoon tube. No a.e. L2 statement used to prove pointwise node condition without regularity.
-Some original files were accessible earlier but not available for this package. The author will supply Overleaf export: inventory manuscript.tex, refs.bib, motifs.tex, reaction-lattice.tex, subgroup-lattice.tex, version-species.tex, position-coordinates.tex, monodromy.tex, momentum-states.tex. Do not ask for re-upload if present in export. Do not reconstruct prose from PDF.
-Preparation environment has no TeX compiler. Seed TeX/tooling uncompiled. Python checks executed and result supplied; no claim of full mathematical verification or render completion.

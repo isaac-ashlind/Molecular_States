@@ -1,7 +1,7 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: IN PROGRESS
-Live check-in trigger: trig_01Npf4KvXr3pwG94gx7eQyti (fires 2026-10-05T17:35Z)
+Live check-in trigger: trig_014phRPXxhsqFrtWUQEcwo2a (fires 2026-10-05T17:39Z)
 Workflow runs: none yet
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
@@ -10,7 +10,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 - [x] 1. Read every process doc, README and build.py; fold the necessary rules into source comments (figurestyle.sty,
          primitives.tex headers, check docstrings); delete HANDOFF.md, docs/author-decisions.md, caption-notes.md,
          verification.md, storyline.md, style.md, docs/history/; rewrite README as a short build note
-- [ ] 2. Remove reference/
+- [x] 2. Remove reference/
 - [ ] 3. build.py without scaffold (numbering check folded in, reading the manuscript's aux); delete scaffold/;
          fix every comment that points at deleted files
 - [ ] 4. Read-only audit (small workflow, record run id): dead definitions and code, duplicated plate machinery and
@@ -24,3 +24,4 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 Log (one line per step: step, commit, note):
 - 0: started 2026-10-05T16:04Z, backstop deleted, check-in armed
 - 1: docs folded and deleted (rules in figurestyle.sty, primitives.tex, check docstrings, camera()/kabsch docstrings), figures/preamble.tex removed (unused), README short. Per-plate disclosures for step 5 headers: git show d40f495:docs/caption-notes.md
+- 2: reference/ removed (git history keeps it)
