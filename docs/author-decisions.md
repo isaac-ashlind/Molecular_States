@@ -230,3 +230,7 @@ docs/notation-migration.md.
 - Camera handedness (found 2026-10-05): G.camera builds a left-handed frame, so every glyph drawn through it is a
   mirror image. The closing plate no longer uses it for the molecule. The methylamine glyphs (CAM_MLA, CAM_SIDE)
   still do; see the hand-off for why the reader-facing logic is unaffected.
+- Headings (author, 2026-10-05): a period after the number, none after the title ("1. Configuration Space",
+  "I. Configurations and States"; unnumbered titles bare). This replaces the 2026-10-04 rule of a period after every
+  title. The run-in heads of the closing pages follow it ("6. Nuclear spin weights").
+
