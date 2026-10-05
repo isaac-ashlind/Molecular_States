@@ -1,22 +1,27 @@
-\ProvidesPackage{figurestyle}[2026/10/03 Textbook ink figure style]
+\ProvidesPackage{figurestyle}[2026/10/05 Plate style of the manuscript]
+% The plates are ink drawings; the drawing shows the structure and text is bookkeeping. Every plate is 15.2 cm wide
+% and is included at \linewidth, so all plates print at one scale.
+% Type: labels 9pt (lab), notes 8pt (sub); smaller only inside dense marks (digits in discs, graph nodes, strip
+% cells). If one label on a plate cannot take its size, every label on that plate comes down to it (figure 6).
+% A label sits on what it names, with air, never on a line or another label. Text under an object is centred on it;
+% a row or corner title is left-aligned at the margin. In-plate text is lowercase, without full stops or colons.
+% The line vocabulary (weights, action styles, hidden contours, leaders, hatch) lives in primitives.tex.
 \RequirePackage{amsmath,amssymb}
 \RequirePackage{tikz,pgfplots}
 \usetikzlibrary{arrows.meta,calc,positioning,patterns,patterns.meta,decorations.pathreplacing,backgrounds}
 \pgfplotsset{compat=1.18}
 
-% ---- the palette, anchored on the cover plate (author decision, 2026-10-04) and LOCKED on 2026-10-04 after the grayscale
-% study (studies/alternatives/round3/palette-grayscale.tex, gray/): these hex values are final; every plate draws from these alone.
-% The plates are ink drawings first; a hue is spent only where it speeds comprehension or guides the eye.
+% ---- the palette. Ink first; a hue is spent only where it carries meaning. Hues are used pure, never darkened; a
+% faded tint marks only an obscured element. White is the cladding and hydrogen; grey is ink thinned, for greyed-out
+% objects only.
 \definecolor{PlateInk}{HTML}{303438}       % ink: contours, text, hatching, and every action path
 \definecolor{ColRed}{HTML}{D56860}         % oxygen on the water plates; the version points on the methylamine plates
 \definecolor{ColBlue}{HTML}{397BA8}        % nitrogen, nothing else
 \definecolor{ColTeal}{HTML}{4F9C97}        % the reference family as a surface (pale tint); rubidium (full strength)
 \definecolor{ColGold}{HTML}{E0B84F}        % retained regions (a packet, the reference cell, the one image); potassium
-% White is the cladding and the hydrogen; grey is ink thinned.  Green and violet left the palette with this decision.
 \providecommand\PaletteOverride{}\PaletteOverride   % a study may redefine the hues here, before the roles are derived
-% Hues are used pure; a faded tint marks only an obscured element (a version point behind a wall). Never darken a hue.
 \colorlet{ColOxygen}{ColRed}\colorlet{ColNitrogen}{ColBlue}\colorlet{ColPotassium}{ColGold}\colorlet{ColRubidium}{ColTeal}
-\colorlet{ColGoldStroke}{ColGold}   % strokes keep the pure hue (author, 2026-10-04); gold strokes are drawn heavier instead
+\colorlet{ColGoldStroke}{ColGold}   % strokes keep the pure hue; gold strokes are drawn heavier instead
 
 % ---- colour roles (the only places a hue is spent)
 \colorlet{ColDot}{ColRed}                    % version points, packet centres
@@ -29,7 +34,7 @@
 % Actions carry no colour.  Line style says which: solid = t, dashed = u or tu, dotted = a starred operation (b, E*).
 % The styles tpath, upath, bpath and the lift styles live in primitives.tex.
 
-% ---- the plate: ink lines only (grey is for greyed-out objects), labels 9pt (8pt minimum); the line styles live in primitives.tex
+% ---- the plate
 \tikzset{
   plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,
     draw=PlateInk,text=PlateInk,>={Stealth[length=1.8mm,width=1.4mm]}},
@@ -67,7 +72,7 @@
 \newcommand{\stat}{\chi_{\mathrm{stat}}}
 \newcommand{\act}{\mathbin{\cdot}}
 \newcommand{\R}{\mathbb{R}}
-% notation (approved 2026-10-04), the same macros as the manuscript preamble: arrays bold, operators sans serif
+% notation, the same macros as the manuscript preamble: arrays bold, operators sans serif
 \newcommand{\X}{\mathbf{X}}                 % configuration matrix; \X_0 the reference
 \newcommand{\Pmat}[1]{\mathbf{P}_{#1}}      % signed right-action matrix
 \newcommand{\Rmat}{\mathbf{R}}              % rotation matrix

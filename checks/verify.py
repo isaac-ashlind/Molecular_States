@@ -1,11 +1,16 @@
-"""Verification tests for the figure data (python3 stdlib only).
+"""Checks of the figure data, exact first, then floating point (python3 stdlib only).
 
 Run from the repository root:  python3 checks/verify.py
-Exact (integer / rational) checks come first; the geometric model checks use
-floating point and report their residuals.  Any assertion failure is a build
-failure.  checks/verify_symbolic.py repeats the trigonometric identities and
-the Gaussian formulas symbolically (needs sympy); checks/verify.g repeats the
-group facts in GAP.
+Exact: the orders of H, G6, G12, B, S (2, 6, 12, 24, 240) and their cosets; [H,B] has 10 subgroups and 17 covers,
+with three order-12 extensions of G6, any two generating B; btb = t^-1 and bt = t^2 b; the action of t and b on
+G6/H; the proton-spin weights 12, 4, 8 (even parity) and 4, 12, 8 (odd); chi_stat trivial on G6; the KRb groups
+and the 16 subgroups of S; P_st = P_t P_s; the E-pair matrices of t and b; the torsion species; the share sum rule
+and its limits.
+Floating point: c = exp(-d^2/8 Delta^2) by quadrature; X0 centred and bX0 = R_y(pi) X0; the actions of t, u, b, tu
+on X0(tau, iota) (manuscript, Section 10); water centred, rotations commuting with relabellings; no element of G12
+but E fixes X0; summary.json and gaussian-shares.dat agree with recomputation.
+verify_symbolic.py repeats the identities symbolically and verify.g the group facts in GAP. A failed assertion
+stops the build.
 """
 import json, math, os, sys
 from fractions import Fraction as Fr
@@ -117,7 +122,7 @@ assert max(abs(v) for v in G.mass_moment(X0, G.MLA_MASSES)) < 1e-12
 bX0 = G.apply_perm_inversion(X0, Q.b[0], Q.b[1])
 res_b = G.config_distance(bX0, G.rotate(G.rot_y(math.pi), X0))
 assert res_b < 1e-12
-# the (tau, eta) actions derived in docs/verification.md
+# the actions of t, u, b, tu on the family (manuscript, Section 10)
 eta0 = G.MLA_FRAME['eta0']
 checks = {
     't': (Q.t, lambda a, e: (a + 2*math.pi/3, e), G.identity(3)),

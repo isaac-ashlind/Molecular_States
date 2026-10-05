@@ -128,8 +128,9 @@ def kabsch_rotation(X, Y, masses):
 
     Implemented by a small Jacobi SVD-free method: we solve the orthogonal
     Procrustes problem via the polar decomposition of the 3x3 cross-covariance
-    computed with Newton iteration for the symmetric square root.  Adequate for
-    the well-conditioned, exactly-symmetric cases used here (residual ~1e-12).
+    computed with Newton iteration for the symmetric square root.  Exact for
+    the small turns and half-turns used here (residual ~1e-12); it does not
+    converge for third-turns, so the methane check fits by SVD instead.
     """
     H = [[sum(m*x[i]*y[j] for m, x, y in zip(masses, X, Y)) for j in range(3)] for i in range(3)]
     # polar decomposition H = U S, U orthogonal, by Higham iteration
@@ -314,10 +315,13 @@ def krb_schematic():
 def camera(azimuth_deg, elevation_deg):
     """Orthographic camera.  Returns (right, up, towards-viewer) unit vectors.
 
-    The view direction is rotated from +y (looking at the xz-plane face-on,
-    with x up the page and z to the right) by azimuth about z and elevation
-    towards +x ... concretely: page_x = molecular z, page_y = x cos b + y sin b
-    for elevation 0 and azimuth b; elevation tilts the C-N axis.
+    For azimuth b and elevation 0: right = z (the C-N axis across the page),
+    up = (cos b, sin b, 0), out = up x right; the elevation turns right and out
+    about up.  The frame is left-handed (right x up = -out), so a glyph drawn
+    through it is a mirror image.  The methylamine plates use it throughout:
+    every relation they state commutes with the mirror, and no mirrored glyph
+    sits beside a true view of the same configuration.  The closing plate makes
+    it right-handed (make_data, CAM_BALL).
     """
     b = math.radians(azimuth_deg); e = math.radians(elevation_deg)
     # basis before elevation: right = z, up = (cos b, sin b, 0), out = up x right

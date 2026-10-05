@@ -1,6 +1,9 @@
-"""Symbolic (exact) verification of the identities behind the figures.  Needs sympy.
+"""Symbolic (exact) checks of the identities behind the figures.  Needs sympy.
 
 Run from the repository root:  python3 checks/verify_symbolic.py
+The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the family is centred, X m = 0; the
+overlap c = exp(-d^2/8 Delta^2) and the density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3; the E-pair
+matrices of t and b; the seam relation kappa = m + rho K.
 """
 import sympy as sp
 

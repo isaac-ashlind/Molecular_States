@@ -180,8 +180,8 @@ def rounded_loop(points, margin):
 def derive_family_actions():
     """For g in {t, u, b, tu}: find (tau', eta') and A_g with g.X0(tau,eta) = A_g X0(tau',eta').
 
-    The candidate formulas are the ones derived in docs/verification.md; here
-    they are confirmed numerically at several (tau, eta) by a residual check.
+    The candidate formulas are those of the manuscript's Section 10; here they
+    are confirmed numerically at several (tau, eta) by a residual check.
     """
     results = {}
     cands = {

@@ -7,7 +7,7 @@ Workflow runs: none yet
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
 
 - [x] 0. Start: follow the interruption protocol, arm the check-in, set Status to IN PROGRESS
-- [ ] 1. Read every process doc, README and build.py; fold the necessary rules into source comments (figurestyle.sty,
+- [x] 1. Read every process doc, README and build.py; fold the necessary rules into source comments (figurestyle.sty,
          primitives.tex headers, check docstrings); delete HANDOFF.md, docs/author-decisions.md, caption-notes.md,
          verification.md, storyline.md, style.md, docs/history/; rewrite README as a short build note
 - [ ] 2. Remove reference/
@@ -23,3 +23,4 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 
 Log (one line per step: step, commit, note):
 - 0: started 2026-10-05T16:04Z, backstop deleted, check-in armed
+- 1: docs folded and deleted (rules in figurestyle.sty, primitives.tex, check docstrings, camera()/kabsch docstrings), figures/preamble.tex removed (unused), README short. Per-plate disclosures for step 5 headers: git show d40f495:docs/caption-notes.md
