@@ -143,3 +143,7 @@ outline octahedron, schematic declared in the caption; the covering), the text o
 the tables with air. The data layer emits only what the plate uses; the check keeps the Rodrigues facts the caption
 rests on. Manuscript 24 pages, no bad boxes, no text collisions.
 
+Same day, the plate signed off in its final layout (molecule and ball sharing one camera, the covering with its
+vertical line of projection, loop and lift as lines). Page breaks: items 1 to 4 under the figure, items 5 to 10,
+then the tables and the projection. Manuscript 24 pages, no bad boxes, no text collisions, all checks pass.
+

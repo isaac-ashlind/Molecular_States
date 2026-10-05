@@ -193,38 +193,43 @@ species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level r
 Fig. 4.2.3.
 
 ## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
-What the reader sees at a squint: a labelled tetrahedron with three axes; a teal globe holding a thin cube with a
-gold octahedron inside it, red dots at the cube's corners and one arrow; three sheets stacked over a gold patch with
-a loop and a lift. Three panels in one row, a title under each, no leader labels.
-Left: the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals, C-H 1.087 A) drawn
-with the suite's molecule primitive (mol3d-ch4-c2; camera CAM_MOL, azimuth 346, elevation 64, chosen by scan so that
-every hydrogen disc clears the carbon and every other hydrogen by 0.61 A on the page with every C2 axis at least 26
-degrees off the view), the axes x, y, z through the midpoints of opposite edges as thin lines behind it.
-Middle: the orientation space SO(3) as the axis-angle ball, direction the axis and distance the angle, radius pi
-drawn 2 cm (camera CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the maximum, from every
-symmetry axis of the cube so that the twelve sites and the six cell vertices all separate on the page, bond 1 toward
-the viewer). The sphere teal with its three great circles, solid in front and dashed behind; the skin is the
-half-turns, each point its own antipode. The twelve rotations of T as red dots: the centre, the eight third-turns at
-2pi/3 along the body diagonals, joined by the thin ink edges of the cube they span (a reading aid: no edge between
-two points is intrinsic), and the three half-turns on the skin at the crossings of the circles, each drawn once. The
-cell of the centre as the schematic that is exact in Rodrigues coordinates: the gold wire octahedron dual to that
-cube, its vertices, the quarter-turns as ink rings, on the cube's face centres, every edge straight; in the ball the
-true cell has edges that bow outward and its vertices a little further out (the caption says so; the exact curved
-version and the Rodrigues-only version were drawn and rejected by the author as unreadable). The lift of the
-third-turn loop as the one heavy arrow, from the centre through a face to the dot beyond. Solid for what faces the
-viewer, dashed for what lies behind.
-Right: the covering in figure 11's grammar: a patch of SO(3)/T (the cell with its faces glued, figure 11's gold
-tint) with the loop l_g kept on the sheet, the sheets r, r R_g, r R_g^2 of the twelve over it, the lift of l_g from
-the dot on sheet r to the dot on sheet r R_g, one dotted projection from the base point to its sheet (the convention
-of the cover); the sheets are the cartoon of figure 11, not a computed surface. This is the honest form of Albert et
-al.'s Fig. 3(c): their fibre over a position is these twelve sheets (the regular representation of T), and their
-monodromy action is the lift moving from one sheet to the next; what each species sees is in the title.
+What the reader sees at a squint: a small labelled tetrahedron with three axes in the upper left; beside it a large
+teal globe holding a thin cube with a gold octahedron inside, red dots at the cube's corners and one arrow; on the
+right three sheets stacked over a gold patch, a loop on the patch, a curve rising from one sheet to the next, and
+one dotted vertical through every dot. Three panels, two blocks of text under the last two, no leader labels.
+Upper left: methane, CH4, the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals,
+C-H 1.087 A), drawn with the suite's molecule primitive seen with the ball's own camera (mol3d-ch4-ball), so that
+its bond 1 points the way the lift arrow in the ball does (author); the axes x, y, z through the midpoints of
+opposite edges as thin lines behind it; its title in the corner names the molecule and the formula.
+Middle, large and close to the molecule since the two share one orientation: the orientation space SO(3) as the
+axis-angle ball, direction the axis and distance the angle, radius pi (camera CAM_BALL, azimuth 108, elevation 21,
+chosen by scan to sit 27 degrees, the maximum, from every symmetry axis of the cube so that the twelve sites and the
+six cell vertices all separate on the page, bond 1 toward the viewer). The sphere teal with its three great
+circles, solid in front and dashed behind; the skin is the half-turns, each point its own antipode. The twelve
+rotations of T as red dots: the centre, the eight third-turns at 2pi/3 along the body diagonals, joined by the thin
+ink edges of the cube they span (a reading aid: no edge between two points is intrinsic), and the three half-turns
+on the skin, each drawn once at its far representative and pale, so that they read as distant (author). The cell of
+the centre as the schematic that is exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its
+vertices, the quarter-turns as ink rings, on the cube's face centres, every edge straight; in the ball the true cell
+has edges that bow outward and its vertices a little further out (the caption says so; the exact curved version and
+the Rodrigues-only version were drawn and rejected by the author as unreadable). The lift of the third-turn loop as
+the one heavy arrow from the centre through a face to the dot beyond, its inner part drawn before the gold edges so
+that the edges in front of it cover it. Solid for what faces the viewer, dashed for what lies behind.
+Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point, a
+line without arrowhead as on the cover (author: "I was wrong about the arrowheads"); three sheets r, r R_g, r R_g^2
+of the twelve; the lift as the loop's own curve raised from the dot on sheet r to the dot on sheet r R_g; one
+vertical dotted line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running
+on past the top sheet to a vertical ellipsis (author): the stack goes on. The sheets are the cartoon of figure 11,
+not a computed surface. This is the honest form of Albert et al.'s Fig. 3(c): their fibre over a position is these
+twelve sheets (the regular representation of T) and their monodromy action is the lift moving from one sheet to the
+next; what each species sees is in the text block.
+Text blocks: two, left-aligned on one line with a gap between, under the ball and under the covering (author).
 Colours: the sphere teal (the orientation space takes over the core sheet's role), the cell gold (the chart patch,
 as in figures 10 and 11; the base patch at right in figure 11's tint), the cube thin ink, the dots red (the
 version-dot role of figure 10 handed to orientations), the lift ink. Dotted only for the projection.
-Every coordinate is emitted by make_data (numbers.tex: chAxis* and ball* macros; molecules.tex: mol3d-ch4-c2) and
-the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations closing as the cube
-group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the octahedron
+Every coordinate is emitted by make_data (numbers.tex: baAxis* and ball* macros; molecules.tex: mol3d-ch4-ball)
+and the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations closing as the
+cube group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the octahedron
 |x|+|y|+|z| <= 1 in Rodrigues coordinates (3000 random rotations); its vertices are the quarter-turns and the face
 centres of the cube of third-turns at (+-1,+-1,+-1); the face x+y+z=1 is glued to x+y+z=-1 by R -> R R_g^{-1} with
 the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about bond 1 returns X0 with 2, 3, 4 cycled
@@ -232,7 +237,7 @@ and R_g cycles x, y, z. The three pages carry the pipeline (sections 1 to 10 ins
 vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet shares (1+8c3+3c2)/12, (1-4c3+3c2)/12,
 3(1-c2)/4; the J ladder D^J restricted to H with the physical states by parity, J = 0..4 in the table, 0..6 in the
 data; U_g multiplies the ring K by omega^K, so 1E for K = 1, -2 and 2E for K = 2, -1 with 1E(g) = omega by the
-check's convention) and the projection onto Albert et al. (Tables A to D: the classes of Td(M); the species with
-their isomers, their Table II T block; the J ladder; the dictionary with their equation and example numbers).
+check's convention) and the projection onto Albert et al. (page 3: Tables A to D, the classes of Td(M); the species
+with their isomers, their Table II T block; the J ladder; the dictionary with their equation and example numbers).
 Declared: no energies; parity (the starred half of H) and the vibrations (the disc D^9 under M_h) are what their
 formalism sets aside; a cell carries its disc, and the plate draws it at q = 0.

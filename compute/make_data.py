@@ -359,7 +359,10 @@ def main():
     # symmetry rotations and one cell, the vibrational species, the J ladder; the numbers against Albert et al.
     CH4 = G.methane_c2()
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
-    CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)  # chosen by scan: 27 deg (the maximum) from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate on the page; bond 1 toward the viewer
+    # the camera of the ball and of the molecule beside it (author): z toward the viewer, x to the right, y up, tilted
+    # 26 degrees off z (toward +y more than +x) so that the cube's faces do not stack; built directly as a frame
+    _out = G.unit((0.25, 0.35, 0.90)); _up = G.unit(G.sub((0.0, 1.0, 0.0), G.scale(_out, _out[1]))); _right = G.cross(_up, _out)
+    CAM_BALL = (_right, _up, _out)
     # the glyph for the left panel: the suite's molecule primitive with its own camera, chosen by scan (every hydrogen
     # disc 0.61 A clear of the carbon and of every other hydrogen on the page, every C2 axis at least 26 deg off the view)
     CAM_MOL = G.camera(azimuth_deg=346.0, elevation_deg=64.0)
@@ -370,9 +373,12 @@ def main():
     # the same molecule seen with the ball's camera, so that its bond 1 points the way the lift arrow does (author);
     # its axes projected with that camera
     emit_pic(mol, 'mol3d-ch4-ball', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_BALL, labels=True))
+    front, back = [], []
     for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
-        px, py, _ = G.project([v], CAM_BALL)[0]
+        px, py, pz = G.project([v], CAM_BALL)[0]
         num.append(f'\\def\\baAxis{name}x{{{px:.4f}}}\\def\\baAxis{name}y{{{py:.4f}}}')
+        (front if pz >= 0 else back).append(name + '/1'); (back if pz >= 0 else front).append(name + '/-1')   # each half-axis: toward the viewer in front of the molecule, away from it behind
+    num.append('\\def\\baAxisFront{' + ','.join(front) + '}\\def\\baAxisBack{' + ','.join(back) + '}')
     # the orientation space as the axis-angle ball (direction the axis, distance the angle, radius pi; the skin is the
     # half-turns, each point its own antipode). The twelve rotations of T: the centre, the eight third-turns at 2pi/3
     # along the body diagonals, the three half-turns on the skin along the C2 axes. The cell of the centre is drawn as
