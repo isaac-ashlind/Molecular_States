@@ -12,8 +12,9 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-\newcommand\spinup[2]{\draw[line width=.9pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (#1,#2-.2)--(#1,#2+.2);}
-\newcommand\spindn[2]{\draw[line width=.9pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] (#1,#2+.2)--(#1,#2-.2);}
+% a spin arrow at (x,y): \spinup{x}{y}, \spindn{x}{y}
+\newcommand\spinup[2]{\draw[sarrow] (#1,#2-.2)--(#1,#2+.2);}
+\newcommand\spindn[2]{\draw[sarrow] (#1,#2+.2)--(#1,#2-.2);}
 % the spin value as a bracket of two arrows in slot order: \spinval{x}{y}{sign}{first}{second} with first/second = up or dn
 \newcommand\spinval[5]{\begin{scope}[shift={(#1,#2)}]
   \node[lab,anchor=east,inner sep=1pt] at (-.62,0) {$#3$};
@@ -34,7 +35,7 @@
 \draw[harrow] (4.165,4.7)--(5.465,4.7); \node[lab,anchor=south] at (4.815,4.88) {$\sigma=(12)$}; \node[lab,anchor=north] at (4.815,4.5) {$\stat(\sigma)=-1$};
 \draw[bpath] (9.4,4.7)--(10.7,4.7); \node[lab,anchor=base] at (10.05,4.995) {$E^*$}; \node[lab,anchor=north] at (10.05,4.5) {$\chi_\pm(E^*)=\pm1$};   % E* on the baseline of sigma=(12)
 % ------------------------------------------------ Psi: the value over each configuration, in the spin space
-\foreach \x in {2.4,7.5,12.6} {\draw[fine,-{Stealth[length=1.4mm,width=1.1mm]}] (\x,3.12)--(\x,2.38); \node[sub,anchor=east,inner sep=1.5pt] at ({\x-.06},2.75) {$\Psi$};}
+\foreach \x in {2.4,7.5,12.6} {\draw[farrow] (\x,3.12)--(\x,2.38); \node[sub,anchor=east,inner sep=1.5pt] at ({\x-.06},2.75) {$\Psi$};}
 % ------------------------------------------------ the spin story: the same two arrows on the values, slots permuted and signed, then signed again
 \spinval{2.4}{1.75}{}{up}{dn}
 \spinval{7.5}{1.75}{-}{dn}{up}

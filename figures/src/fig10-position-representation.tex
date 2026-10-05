@@ -36,8 +36,8 @@
 % the undisplaced shape beneath its displaced copy, as a simple outline (author): the suite's rods (white band, the end
 % on the far sphere) with both edges one faded weight, and white atoms with a faded contour; only the atoms that
 % visibly move and their rods (mla-disp-ghost), since an atom that barely moves would show only as a sliver
-\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={line width=.4pt,draw=PlateInk!40},rodshade/.style={rodedge}}%
-  \renewcommand\molatom[4]{\if##1H\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radH];\else\draw[line width=.4pt,draw=PlateInk!40,fill=white] (##3,##4) circle[radius=\radX];\fi}}
+\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={fine,draw=ColGreyed},rodshade/.style={rodedge}}%
+  \renewcommand\molatom[4]{\if##1H\draw[fine,draw=ColGreyed,fill=white] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=ColGreyed,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.3);
@@ -48,7 +48,7 @@
   \foreach \p in {bot60,bot180} {\vpointhidden[blend mode=multiply]{sf-\p}}   % pale, the front lines showing through
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
-\draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.4,10.47) {strip the\\vibrations};
+\draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.375,10.47) {strip the\\vibrations};
 \begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
@@ -57,14 +57,14 @@
   \path[fill=white] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005})--(.035,{.37+.42*1.24+.005})--(.035,{-.37+.42*1.16})--cycle;
   \vpointhidden{bd-bot180}   % the hidden point at the seam, under the cut edges and the rim
   \draw[heavy] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005}) (.035,{-.37+.42*1.16})--(.035,{.37+.42*1.24+.005});
-  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.63pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({1.16*sin(\a)},{-.37-.42*1.16*cos(\a)});\end{scope}   % the inner bottom rim over it
+  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.9*.7pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({1.16*sin(\a)},{-.37-.42*1.16*cos(\a)});\end{scope}   % the inner bottom rim over it
   \draw[heavy] (-.13,{.37+.42*1.24+.07})--(.13,{.37+.42*1.24+.07}) (-.13,{-.37+.42*1.16-.117})--(.13,{-.37+.42*1.16-.117});
   \draw[tpath] plot[domain=0:103,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});   % the head stops short of the dot at 120
   \draw[upath] plot[domain=0:.76,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
   \foreach \p in {top0,top120,top240,bot60,bot300} {\vpoint{bd-\p}}
-  \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.09})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
+  \leaderlabel[sub,shorten <=0pt]{0,{.37+.42*1.24+.09}}{0}{.41}{south}{cut at the seam, $\tau=\pm\pi$}
   % H named outside the sheet, below it at the left, its leader crossing the front wall
-  \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.08); \node[sub,anchor=north east,inner sep=1.5pt] at (-.55,-1.08) {$H$};
+  \leaderlabel[sub]{bd-top0}{-.55}{-.946}{north east}{$H$}
 \end{scope}
 \draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.47) {unroll};
 \chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}

@@ -15,7 +15,7 @@
 \newcommand\packetrow[5]{\begin{scope}[shift={(#1,#2)},x={#4cm/360},y={#5cm}]
   \foreach \c in {0,120,-120} {\path[fill=white] plot[domain=-180:180,samples=121,variable=\t] (\t,{exp(-((\t-\c)/#3)^2/2)+exp(-((\t-\c-360)/#3)^2/2)+exp(-((\t-\c+360)/#3)^2/2)}) -- (180,0) -- (-180,0) -- cycle;}
   % overlap: the smaller of each neighbouring pair, drawn as the min of all pairs (two packets at most overlap visibly)
-  \path[fill=ColRetained!60] plot[domain=-180:180,samples=181,variable=\t] (\t,{max(min(exp(-((\t)/#3)^2/2)+exp(-((\t-360)/#3)^2/2)+exp(-((\t+360)/#3)^2/2),exp(-((\t-120)/#3)^2/2)+exp(-((\t-480)/#3)^2/2)+exp(-((\t+240)/#3)^2/2)),min(exp(-((\t)/#3)^2/2)+exp(-((\t-360)/#3)^2/2)+exp(-((\t+360)/#3)^2/2),exp(-((\t+120)/#3)^2/2)+exp(-((\t-240)/#3)^2/2)+exp(-((\t+480)/#3)^2/2)),min(exp(-((\t-120)/#3)^2/2)+exp(-((\t-480)/#3)^2/2)+exp(-((\t+240)/#3)^2/2),exp(-((\t+120)/#3)^2/2)+exp(-((\t-240)/#3)^2/2)+exp(-((\t+480)/#3)^2/2)))}) -- (180,0) -- (-180,0) -- cycle;
+  \path[fill=ColPatch] plot[domain=-180:180,samples=181,variable=\t] (\t,{max(min(exp(-((\t)/#3)^2/2)+exp(-((\t-360)/#3)^2/2)+exp(-((\t+360)/#3)^2/2),exp(-((\t-120)/#3)^2/2)+exp(-((\t-480)/#3)^2/2)+exp(-((\t+240)/#3)^2/2)),min(exp(-((\t)/#3)^2/2)+exp(-((\t-360)/#3)^2/2)+exp(-((\t+360)/#3)^2/2),exp(-((\t+120)/#3)^2/2)+exp(-((\t-240)/#3)^2/2)+exp(-((\t+480)/#3)^2/2)),min(exp(-((\t-120)/#3)^2/2)+exp(-((\t-480)/#3)^2/2)+exp(-((\t+240)/#3)^2/2),exp(-((\t+120)/#3)^2/2)+exp(-((\t-240)/#3)^2/2)+exp(-((\t+480)/#3)^2/2)))}) -- (180,0) -- (-180,0) -- cycle;
   \foreach \c in {0,120,-120} {\draw[fine] plot[domain=-180:180,samples=121,variable=\t] (\t,{exp(-((\t-\c)/#3)^2/2)+exp(-((\t-\c-360)/#3)^2/2)+exp(-((\t-\c+360)/#3)^2/2)});}
   \draw[fine] (-180,0)--(180,0);   % the torsion line, after the fills so that it shows under the broad packets too
   \end{scope}
@@ -37,9 +37,9 @@
 \node[lab] at (4.6,6.8) {$c$};
 % the share curves across the width of the rows, the three rows marked at their ratios
 \begin{axis}[at={(1.8cm,.75cm)},scale only axis,width=12.2cm,height=2.1cm,xmin=0,xmax=1,ymin=0,ymax=1.05,restrict x to domain=0:1,xtick={0,0.1667,0.3333,0.5,0.6667,1},xticklabels={$0$,$1/6$,$1/3$,$1/2$,$2/3$,$1$},ytick={0,0.3333,0.6667,1},yticklabels={$0$,$1/3$,$2/3$,$1$},axis lines=left,axis line style={-},tick align=outside,clip=false,xlabel={$\Delta/d$},xlabel style={at={(axis description cs:1,0)},anchor=north west,xshift=2pt,yshift=-3pt}]
-  \addplot[PlateInk,line width=.9pt] table[x=x,y=wA1] {gaussian-shares.dat};
+  \addplot[heavy] table[x=x,y=wA1] {gaussian-shares.dat};
   \addplot[PlateInk,line width=.5pt] table[x=x,y=wE] {gaussian-shares.dat};   % ink, thinner than the A1 share
-  \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(0.1667,0.341) (0.3333,0.550) (0.6667,0.837)};
+  \addplot[only marks,mark=*,mark size=1.5pt,PlateInk] coordinates {(0.1667,0.341) (0.3333,0.550) (0.6667,0.837)};
   \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.90) {$w_{\mathrm A_1}$}; \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.07) {$w_{\mathrm E}$};
 \end{axis}
 \end{tikzpicture}

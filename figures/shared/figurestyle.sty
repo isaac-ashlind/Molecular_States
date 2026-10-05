@@ -32,6 +32,8 @@
 \colorlet{ColBand}{ColTeal!38}               % the reference family (core sheet) as a surface
 \colorlet{ColSphere}{ColTeal}                % the orientation sphere of the closing plate
 \colorlet{ColWall}{white}                    % the cladding of the solid
+\colorlet{ColGreyed}{PlateInk!45}            % a greyed-out object: the guide's bond interval, a faded outline
+\colorlet{ColFaint}{PlateInk!20}             % a background object: subgroups outside an interval, the inactive images
 \colorlet{ColRetained}{ColGold}              % a retained region or mark: the cell's edges, the chain, the shear line
 \colorlet{ColPatch}{ColRetained!50}          % a retained region as a surface: the reference cell, a base patch
 \colorlet{ColDualA}{ColTeal}                 % a dual pair (two components of one object) on a plate with no core
@@ -40,16 +42,15 @@
 
 % ---- the plate
 \tikzset{
-  plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,draw=PlateInk,text=PlateInk},
+  plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,draw=PlateInk,text=PlateInk,
+    >={Stealth[length=2mm,width=1.6mm]}},
 }
 
 % ---- molecules. The pics in figures/data/molecules.tex draw with \molrodj (primitives.tex), \molatom and \mollabel,
-% in angstrom; the enclosing pic scale sets the display scale. \molA..\molG are the labels of columns 1..7.
+% in angstrom (\molarrow too); the enclosing pic scale sets the display scale. \molA..\molG are the labels of columns 1..7.
 \newcommand\molresetlabels{\def\molA{1}\def\molB{2}\def\molC{3}\def\molD{4}\def\molE{5}\def\molF{6}\def\molG{7}}
 \molresetlabels
 \newcommand\mollabel[6]{}                    % no labels unless a plate asks for them (primitives.tex)
-\tikzset{molarrow/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.5mm,width=1.2mm]},shorten <=.4mm}}
-\newcommand\molarrow[4]{\draw[molarrow] (#1,#2)--++(#3,#4);}
 
 % ---- notation, the same macros as the manuscript preamble: arrays bold
 \newcommand{\conf}{\mathcal{C}}

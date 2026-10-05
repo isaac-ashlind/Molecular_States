@@ -12,15 +12,15 @@
 \input{primitives.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk}]
+\begin{tikzpicture}[plate,jn/.style={fine}]
 \path[use as bounding box] (0,.55) rectangle (15,6.75);
 % heights of the three species rows
 \def\yA{5.0}\def\yB{3.4}\def\yE{1.7}
 % ---- the spin space: bundles of hairlines, one line per state, E as pairs
 \begin{scope}[shift={(7.5,0)}]
-  \foreach \k in {0,...,11} {\draw[line width=.35pt,draw=PlateInk] (-1.1,{\yA-.385+.07*\k})--(1.1,{\yA-.385+.07*\k});}
-  \foreach \k in {0,...,3} {\draw[line width=.35pt,draw=PlateInk] (-1.1,{\yB-.105+.07*\k})--(1.1,{\yB-.105+.07*\k});}
-  \foreach \k in {0,...,7} {\draw[line width=.35pt,draw=PlateInk] (-1.1,{\yE-.4675+.14*\k})--(1.1,{\yE-.4675+.14*\k}); \draw[line width=.35pt,draw=PlateInk] (-1.1,{\yE-.4675+.14*\k+.045})--(1.1,{\yE-.4675+.14*\k+.045});}
+  \foreach \k in {0,...,11} {\draw[thin] (-1.1,{\yA-.385+.07*\k})--(1.1,{\yA-.385+.07*\k});}
+  \foreach \k in {0,...,3} {\draw[thin] (-1.1,{\yB-.105+.07*\k})--(1.1,{\yB-.105+.07*\k});}
+  \foreach \k in {0,...,7} {\draw[thin] (-1.1,{\yE-.4675+.14*\k})--(1.1,{\yE-.4675+.14*\k}); \draw[thin] (-1.1,{\yE-.4675+.14*\k+.045})--(1.1,{\yE-.4675+.14*\k+.045});}
   \node[sub,anchor=south] at (0,{\yA+.5}) {$\mathrm A_1$, $12$}; \node[sub,anchor=south] at (0,{\yB+.22}) {$\mathrm A_2$, $4$}; \node[sub,anchor=south] at (0,{\yE+.6725}) {$\mathrm E$, $8$ pairs};
   \node[lab,anchor=base] at (0,6.3) {$(\mathbb C^2)^{\otimes5}$, $32$};
   \draw[fine] (-1.1,6.18)--(-1.1,6.03)--(1.1,6.03)--(1.1,6.18);

@@ -11,21 +11,25 @@
 \tikzset{
   heavy/.style={line width=.9pt,draw=PlateInk},
   fine/.style={line width=.4pt,draw=PlateInk},
-  projection/.style={line width=.45pt,draw=PlateInk,line cap=round,dash pattern=on 0pt off 1.5pt},  % dotted: a projection or lift between levels
-  back/.style={dash pattern=on 1.5pt off 1.1pt},   % the hidden part of a contour: the same stroke as its front part, dashed
-  ghost/.style={line width=.5pt,draw=PlateInk,dash pattern=on 1.2pt off .9pt},   % a hidden or faded object's outline, dashed
-  harrow/.style={heavy,-{Stealth[length=2.2mm,width=1.8mm]}},
-  % actions: solid = t, dashed = u or tu, dotted (beaded) = a starred operation (b, E*); arrowheads on the path styles only
-  tpath/.style={line width=.9pt,draw=PlateInk,-{Stealth[length=2mm,width=1.6mm]}},
-  upath/.style={line width=.9pt,draw=PlateInk,dash pattern=on 2.6pt off 1.6pt,-{Stealth[length=2mm,width=1.6mm]}},
-  bpath/.style={line width=1.1pt,draw=PlateInk,line cap=round,dash pattern=on 0pt off 2.2pt,-{Stealth[length=2mm,width=1.6mm]}},
-  tlift/.style={line width=.9pt,draw=PlateInk},
-  ulift/.style={line width=.9pt,draw=PlateInk,dash pattern=on 2.6pt off 1.6pt},
-  blift/.style={line width=1.1pt,draw=PlateInk,line cap=round,dash pattern=on 0pt off 2.2pt},
-  thin/.style={line width=.3pt,draw=PlateInk},    % leaders, axes behind a molecule, chart loci, zero lines
+  thin/.style={line width=.3pt,draw=PlateInk},    % leaders, axes behind a molecule, chart loci, zero lines, hairlines
   hatch/.style={line width=.22pt,draw=PlateInk},  % cut material
   ring/.style={line width=.5pt,draw=PlateInk},    % the contour of a disc or a node
+  faint/.style={thin,draw=ColFaint},              % a line of a background object (the subgroups outside an interval)
   leader/.style={thin},
+  back/.style={dash pattern=on 1.5pt off 1.1pt},   % the hidden part of a contour: the same stroke as its front part, dashed
+  ghost/.style={ring,dash pattern=on 1.2pt off .9pt},   % a hidden or faded object's outline, dashed
+  projection/.style={line width=.45pt,draw=PlateInk,dash pattern=on 0pt off 1.5pt},  % dotted: a projection or lift between levels
+  % actions: solid = t, dashed = u or tu, beaded dots = a starred operation (b, E*); the beads take a wider pen to read
+  tlift/.style={heavy},
+  ulift/.style={heavy,dash pattern=on 2.6pt off 1.6pt},
+  blift/.style={line width=1.1pt,draw=PlateInk,dash pattern=on 0pt off 2.2pt},
+  % arrows: the plate's head (>) on heavy strokes; smaller heads on lighter strokes
+  tpath/.style={tlift,->},
+  upath/.style={ulift,->},
+  bpath/.style={blift,->},
+  harrow/.style={heavy,->},                        % a vector, or a map from one picture to the next
+  sarrow/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}},   % a mark on a glyph: spin, turning sense, displacement
+  farrow/.style={fine,-{Stealth[length=1.4mm,width=1.1mm]}},   % a correspondence between two rows (figure 3's Psi)
   lab/.style={font=\fontsize{9}{11}\selectfont,inner sep=1pt},
   sub/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text=PlateInk},
   dense/.style={font=\fontsize{7}{8}\selectfont,inner sep=0pt},     % text in a small cell or graph node
@@ -68,8 +72,10 @@
 % two lines, never on one. \hatchregion{angle}{path} is the default spacing .12 cm, phase 0.
 \newcommand\hatchfit[4]{\begin{scope}\clip #4; \begin{scope}[rotate=#1]\foreach \k in {-260,...,260} \draw[hatch] (-32,{\k*#2+#3})--(32,{\k*#2+#3});\end{scope}\end{scope}}
 \newcommand\hatchregion[2]{\hatchfit{#1}{.12}{0}{#2}}
-% ---- leader label: \leaderlabel{x}{y}{dx}{dy}{anchor}{text}
-\newcommand\leaderlabel[6]{\draw[leader,shorten >=3pt,shorten <=2.3pt] (#1,#2)--({#1+#3},{#2+#4}); \node[lab,anchor=#5,inner sep=2.5pt] at ({#1+#3},{#2+#4}) {#6};}  % a leader stops short of its label; the label keeps air
+% ---- leader and label: \leaderlabel[style]{coordinate}{dx}{dy}{anchor}{text}. The leader starts at the edge of a version
+% point (shorten <=0pt for any other object) and stops 3pt short of the label, which keeps 2.5pt of air
+\newcommand\leaderlabel[6][]{\draw[leader,shorten >=3pt,shorten <=\vrad cm,#1] (#2)--++(#3,#4);
+  \node[lab,#1,anchor=#5,inner sep=2.5pt] at ($(#2)+(#3,#4)$) {#6};}
 % ---- zoom bubble: \zoombubble{x}{y}{r}{X}{Y}{R} draws the small circle, the large circle and two tangent lines
 \newcommand\zoombubble[6]{\draw[fine] (#1,#2) circle[radius=#3]; \draw[heavy,fill=white] (#4,#5) circle[radius=#6];
   \pgfmathsetmacro{\za}{atan2(#5-#2,#4-#1)}\pgfmathsetmacro{\zd}{sqrt((#4-#1)*(#4-#1)+(#5-#2)*(#5-#2))}
@@ -140,6 +146,8 @@
   }}}
 % ---- atom at a coordinate, round in a scaled scope too: \hatomat{coordinate}{r}{fill}
 \newcommand\hatomat[3]{\begin{scope}[shift={(#1)},x=1cm,y=1cm]\hatom{0}{0}{#2}{#3}\end{scope}}
+% ---- a point in ink (a configuration, a lattice point, a centre): \inkdot{coordinate}
+\newcommand\inkdot[1]{\fill[PlateInk] (#1) circle[radius=1.5pt];}
 % ---- version points: \vpoint{coordinate}; a hidden one, \vpointhidden[options]{coordinate}, is pale in a ghost outline
 \def\vrad{.08}
 \newcommand\vpoint[1]{\hatomat{#1}{\vrad}{ColDot}}
@@ -168,7 +176,9 @@
 \newcommand\nmcentre{\hatom{0}{0}{.27}{ColNitrogen}}
 % ---- digits inside the discs: \mollabelsinside (hydrogens only), \mollabelsinsideall (every disc: potassium, rubidium)
 \newcommand\mollabelsinside{\renewcommand\mollabel[6]{\if##1H\node[digit] at (##3,##4) {##2};\fi}}
-\newcommand\mollabelsinsideall{\renewcommand\mollabel[6]{\node[dense] at (##3,##4) {##2};}}
-% ---- grouping line between grouped nuclei (figure 4): \gline{x1}{y1}{x2}{y2}
-\tikzset{glinestyle/.style={line width=.5pt,draw=PlateInk}}
-\newcommand\gline[4]{\draw[glinestyle] (#1,#2)--(#3,#4);}
+\newcommand\mollabelsinsideall{\renewcommand\mollabel[6]{\node[digit] at (##3,##4) {##2};}}
+% ---- displacement arrow on a glyph (the molecule pics): \molarrow{x}{y}{dx}{dy}
+\tikzset{molarrow/.style={sarrow,shorten <=.4mm}}
+\newcommand\molarrow[4]{\draw[molarrow] (#1,#2)--++(#3,#4);}
+% ---- grouping line between grouped nuclei (figure 4), at the weight of the contours it joins: \gline{x1}{y1}{x2}{y2}
+\newcommand\gline[4]{\draw[ring] (#1,#2)--(#3,#4);}

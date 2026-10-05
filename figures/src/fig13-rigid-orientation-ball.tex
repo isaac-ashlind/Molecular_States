@@ -25,9 +25,9 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,
-  teal/.style={line width=.45pt,draw=ColSphere},
-  tealthin/.style={line width=.35pt,draw=ColSphere},
-  gold/.style={line width=.65pt,draw=ColRetained}]
+  teal/.style={fine,draw=ColSphere},
+  tealthin/.style={thin,draw=ColSphere},
+  gold/.style={heavy,draw=ColRetained}]
 \path[use as bounding box] (0,0) rectangle (15,8.8);
 % ================================================ left column: methane and the orientation ball
 \node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$, the reference $\X_0$ in its body frame\\its twofold axes $x$, $y$, $z$ pass through midpoints of opposite edges};
@@ -50,7 +50,7 @@
   % the lift: its inner part first, so that the gold edge in front of it covers it
   \draw[tlift] (0,0)--(\ballFax,\ballFay);
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
-  \draw[tpath,shorten >=3.4pt] (\ballFax,\ballFay)--(\ballCax,\ballCay);
+  \draw[tpath,shorten >={\vrad cm+3pt}] (\ballFax,\ballFay)--(\ballCax,\ballCay);
   % the front
   \foreach \p/\q in \ballCubeVisible {\draw[thin] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \pl in {XY,YZ,ZX} {\draw[tealthin] plot[smooth] coordinates {\csname ballArc\pl Front\endcsname};}
@@ -66,7 +66,7 @@
   \coordinate (bx) at (.5,.3);
   \sheet{0}{0}{heavy,fill=ColPatch}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\gamma_g$};
+  \node[sub,anchor=north,inner sep=1.5pt] at (.05,-.08) {$\gamma_g$};   % centred under the loop
   % one vertical line of projection through every dot: from the base dot to the front edge of sheet r, then above each
   % dot up to the next sheet, which hides it below its dot; it runs on past the top sheet (each span dotted once)
   \draw[projection,shorten <=2.3pt] (bx)--(.5,1.4);
@@ -81,6 +81,6 @@
   \foreach \k in {0,1,2} {\vpoint{p\k}}
   \vpoint{bx}
 \end{scope}
-\node[under] at (11.95,2.55) {over the base $SO(3)/T$ lie twelve sheets\\one for each rotation in $T$, three drawn\\the third-turn's path $\gamma_g$ is a loop in the base\\lifted, it climbs from sheet $r$ to sheet $r\Rmat_g$\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$\\${}^2\mathrm E$ as $e^{4\pi i/3}$ and $\mathrm T$ as $x\to y\to z$};
+\node[under] at (11.75,2.55) {over the base $SO(3)/T$ lie twelve sheets\\one for each rotation in $T$, three drawn\\the third-turn's path $\gamma_g$ is a loop in the base\\lifted, it climbs from sheet $r$ to sheet $r\Rmat_g$\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$\\${}^2\mathrm E$ as $e^{4\pi i/3}$ and $\mathrm T$ as $x\to y\to z$};
 \end{tikzpicture}
 \end{document}

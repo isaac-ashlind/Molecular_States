@@ -19,8 +19,7 @@
   \foreach \i/\lab in {0/{-\ell/2},1/{-\ell/4},2/{0},3/{\ell/4},4/{\ell/2}} {\draw[fine] ({1.1+2.3*\i},-.08)--({1.1+2.3*\i},.08); \node[lab,anchor=north] at ({1.1+2.3*\i},-.14) {$\lab$};}
   \foreach \j/\lab in {0/{\pi/3},1/{\pi/2},2/{2\pi/3},3/{5\pi/6},4/{\pi}} {\draw[fine] (-.08,{.9+1.35*\j})--(.08,{.9+1.35*\j}); \node[lab,anchor=east] at (-.14,{.9+1.35*\j}) {$\lab$};}
   \node[lab,anchor=west] at (12.3,-.05) {$\delta$}; \node[lab,anchor=south] at (0,7.05) {$\theta$};
-  \draw[leader] (5.7,.08)--(5.7,6.95);   % chart references: ink, thinner than the axes (no grey lines; line styles are for actions)
-  \draw[leader] (0,6.3)--(12.2,6.3);
+  \draw[thin] (5.7,.08)--(5.7,6.95) (0,6.3)--(12.2,6.3);   % the two loci, thinner than the axes
   \node[sub,anchor=south] at (5.7,7.05) {$\delta=0$}; \node[sub,anchor=west] at (12.3,6.3) {$\theta=\pi$};
   \begin{scope}\def\radH{.17}\def\radX{.27}\def\rodw{.045}
     \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.72] at ({1.1+2.3*\i},{.9+1.35*\j}) {mol3d-water-grid-\i\j};}

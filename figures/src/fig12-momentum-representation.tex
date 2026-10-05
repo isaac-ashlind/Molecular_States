@@ -32,7 +32,7 @@
   % outside the sphere at the right, clear of the lattice beside it (author, 2026-10-04)
   \pgfmathsetmacro{\ja}{355}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
   \coordinate (jt) at ({\jr*cos(\ja)},{\jh+\E*\jr*sin(\ja)});
-  \draw[harrow] (0,0)--(jt); \fill[PlateInk] (0,0) circle[radius=1.3pt];
+  \draw[harrow] (0,0)--(jt); \inkdot{0,0}
   \node[lab,anchor=west,inner sep=1pt] at ({\R+.1},{\jh+\E*\jr*sin(\ja)+.06}) {$\mathbf J$};
   \node[sub,anchor=north] at (0,{-\R-.4}) {$J=2$, $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$};
 \end{scope}
@@ -42,16 +42,16 @@
 \pgfmathsetmacro{\dm}{.5}\pgfmathsetmacro{\dk}{.5}
 \draw[fine] ({7.6-3.5*\dm},{9.4-2.5*\dk}) rectangle ({7.6+3.5*\dm},{9.4+2.5*\dk});
 \foreach \K in {-2,...,2} {\pgfmathsetmacro{\y}{9.4+\dk*\K}\node[sub,anchor=east] at ({7.6-3.5*\dm-.1},\y) {$\K$};
-  \foreach \m in {-3,...,3} \fill[PlateInk] ({7.6+\dm*\m},\y) circle[radius=1.5pt];}
+  \foreach \m in {-3,...,3} {\inkdot{{7.6+\dm*\m},\y}}}
 \foreach \m in {-3,...,3} \node[sub,anchor=north] at ({7.6+\dm*\m},{9.4-2.5*\dk-.08}) {$\m$};
 \node[sub,anchor=west] at ({7.6+3.5*\dm+.08},{9.4-2.5*\dk-.2}) {$m$};
 \node[sub,anchor=east] at ({7.6-3.5*\dm-.1},{9.4+2.5*\dk+.22}) {$K$};
 \pgfmathsetmacro{\sh}{\dm*\rhoIll}
 \draw[fine] ({12.4-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.4-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 % the zero line (ink, thin) and the gold line kappa = rho K, drawn before the lattice dots so that no dot is covered
-\draw[leader] (12.4,{9.4-2.5*\dk-.05})--(12.4,{9.4+2.5*\dk+.05});
-\draw[line width=1.6pt,draw=ColGold] ({12.4-2.5*\sh},{9.4-2.5*\dk})--({12.4+2.5*\sh},{9.4+2.5*\dk});
-\foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list \fill[PlateInk] ({12.4+\dm*\k},\y) circle[radius=1.5pt];}
+\draw[thin] (12.4,{9.4-2.5*\dk-.05})--(12.4,{9.4+2.5*\dk+.05});
+\draw[line width=1.6pt,draw=ColRetained] ({12.4-2.5*\sh},{9.4-2.5*\dk})--({12.4+2.5*\sh},{9.4+2.5*\dk});
+\foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list {\inkdot{{12.4+\dm*\k},\y}}}
 \node[sub,anchor=south west] at ({12.4+2.5*\sh+.05},{9.4+2.5*\dk+.16}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.4,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=north] at ({12.4+3.5*\dm-2.5*\sh+.2},{9.4-2.5*\dk-.08}) {$\kappa$};
 \node[sub,anchor=north] at (12.4,7.58) {$\kappa=m+\rho K$};
@@ -63,8 +63,8 @@
   \pgfmathsetmacro{\cx}{2.55+1.78*\m}
   \node[lab,anchor=base] at (\cx,5.12) {$\m$};
   \foreach \yc/\f/\sp in {4.4/cos/\cs,3.2/sin/\ss} {
-    \draw[leader] (\cx,\yc) circle[radius=.4];   % the torsion circle in thin ink; the mode curve is the heavier line
-    \edef\spx{\sp}\ifx\spx\spnone\else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)});\fi
+    \draw[thin] (\cx,\yc) circle[radius=.4];   % the torsion circle thin, the mode curve heavy
+    \edef\spx{\sp}\ifx\spx\spnone\else \draw[heavy] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)});\fi
     \foreach \a in {90,210,330} {\vpoint{{\cx+.4*cos(\a)},{\yc+.4*sin(\a)}}}}   % the version points after the curve, on top
   \edef\spc{\cs}\edef\sps{\ss}
   \ifx\spc\spE
