@@ -55,6 +55,8 @@ The same text is in the scratchpad at FINAL_PASS_CALIBRATION.md; the repository 
 - Closing pages: content length moves page breaks. The author said not to stress layout now.
 
 ## 5. Writing rules (author's voice and punctuation)
+- In-plate text is always ink; a hue never colours text (author, 2026-10-05: figure 2's teal and gold labels were hard to
+  read). Only a greyed-out object's own labels are grey (the guide's bond interval).
 - AMERICAN ENGLISH everywhere (author, 2026-10-05, mid-pass): fiber, center, centered, color, gray, neighborhood,
   labeled, modeled, behavior, normalize; in prose, captions, plate text, comments and our own identifiers alike.
 - Voice = the opening pages (Sections 1 and 2): plain declarative sentences, one idea each, "Consider", "Take", "We",

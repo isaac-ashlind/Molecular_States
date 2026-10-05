@@ -1,5 +1,5 @@
 """Text-collision check for the plates: parse `pdftotext -bbox` output and report overlapping word boxes
-that belong to different lines (same-line neighbours are expected to touch).  Usage: collisions.py file.pdf ...
+that belong to different lines (same-line neighbors are expected to touch).  Usage: collisions.py file.pdf ...
 Exit status 1 when any overlap larger than the tolerance is found."""
 import subprocess, sys, re, itertools
 

@@ -3,7 +3,7 @@
 # Orders and cosets; [H,B] (10 subgroups, 17 covers) and [H,S] (36, 73); the three order-12 extensions of G6; the
 # class sizes of G6; the proton-spin weights by parity; C[G6/H] = A1 + E; the KRb groups.
 #
-# Model: the five protons are points 1..5; inversion E* is modelled as the
+# Model: the five protons are points 1..5; inversion E* is modeled as the
 # transposition (8,9) of two extra points, so S = S_5 x C_2 is a permutation
 # group of order 240.  A starred operation sigma* is sigma*(8,9).
 

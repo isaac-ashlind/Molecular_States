@@ -3,7 +3,7 @@
 % group written by generators; the two product channels as two arrows, gold for potassium and teal for rubidium,
 % parallel from the reactants into the complex and diverging out of it to their own pairs of nuclei; the same two strands on
 % the lattice of the sixteen subgroups of S, up from G_in to S and down to G_K and G_Rb, the complex above and the
-% common core below. Colours: gold = potassium and its strand, teal = rubidium and its strand; ink elsewhere.
+% common core below. Colors: gold = potassium and its strand, teal = rubidium and its strand; ink elsewhere.
 % Hatch unused. Positions schematic (declared); the lattice is computed (checks/verify.g).
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -21,17 +21,17 @@
     \node[lab,anchor=north] at (0,-1.25) {\cap}; \node[under] at (0,-1.68) {\grp};
   \end{scope}
 }
-% the two channels as arrows: parallel and centred into the complex, parallel out of it and diverging, each head
+% the two channels as arrows: parallel and centered into the complex, parallel out of it and diverging, each head
 % aimed at its own pair of nuclei (potassium above, rubidium below)
-% nucleus rows: K at y = 9.0 + .8*1.096 = 9.877, Rb at 9.0 - .8*.504 = 8.597 (pic scale .8); the pair is centred on their midline 9.237
-% each pair sits centred in its gap (author): the in-arrows between the bond 2-4 of the reactants (x = 3.675) and the bond 1-3
+% nucleus rows: K at y = 9.0 + .8*1.096 = 9.877, Rb at 9.0 - .8*.504 = 8.597 (pic scale .8); the pair is centered on their midline 9.237
+% each pair sits centered in its gap (author): the in-arrows between the bond 2-4 of the reactants (x = 3.675) and the bond 1-3
 % of the complex (x = 6.415), about .3 clear at each end; the out-arrows between the bond 2-4 of the complex (x = 8.575)
 % and the product atoms' edges (K radius .24, Rb radius .288 at this scale, nuclei 1 and 3 at x = 11.32), about .2 clear
 \draw[karrow] (4.02,9.417)--(6.12,9.417); \draw[rbarrow] (4.02,9.057)--(6.12,9.057);
 \draw[karrow] (8.8,9.417) -- (9.2,9.417) .. controls (9.7,9.417) and (9.7,9.877) .. (10.2,9.877) -- (10.9,9.877);
 \draw[rbarrow] (8.8,9.057) -- (9.2,9.057) .. controls (9.7,9.057) and (9.7,8.597) .. (10.2,8.597) -- (10.85,8.597);
 % ------------------------------------------------ B. the sixteen subgroups of S with the same two strands
-\begin{scope}[shift={(2.3,.9)}]   % the lattice centred on the plate, S under the complex; the order column to its left
+\begin{scope}[shift={(2.3,.9)}]   % the lattice centered on the plate, S under the complex; the order column to its left
   \foreach \i/\x/\y/\m/\name in \krbNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=10 \pgfmathsetmacro{\xx}{0.6429}\fi\ifnum\i=12 \pgfmathsetmacro{\xx}{0.3571}\fi \coordinate (k\i) at ({10.4*\xx},{1.65*\y});}
   \foreach \a/\b/\m in \krbCovers {\ifnum\m=1\else\draw[faint] (k\a)--(k\b);\fi}   % the m=1 covers are drawn as strands or ink below
   \draw[kline] ($(k\krbIdxIn)+(-.06,0)$)--($(k\krbIdxS)+(-.06,0)$); \draw[rbline] ($(k\krbIdxIn)+(.06,0)$)--($(k\krbIdxS)+(.06,0)$);

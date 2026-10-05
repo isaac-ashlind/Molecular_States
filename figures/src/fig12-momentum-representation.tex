@@ -3,7 +3,7 @@
 % fig. 5.5.3, no energies); the seam turn shears the (m, K) lattice of torsional labels to kappa = m + rho K;
 % periodic torsion modes drawn as radial plots on the torsion circle (the circle of figure 9) sort into A1, A2
 % and E pairs, with level-rule typography (after fig. 4.2.3).
-% Colours: gold = the shear line kappa = rho K; red = the version marks on the torsion circle; ink elsewhere. Hatch unused.
+% Colors: gold = the shear line kappa = rho K; red = the version marks on the torsion circle; ink elsewhere. Hatch unused.
 % Text reduced to labels (2026-10-04). rho = 1/2, the symmetric frame of Mellor, Yurchenko, Mant and Jensen (author);
 % the species table and kappa rows are computed (compute/, checks/).
 \documentclass[10pt,border=1mm]{standalone}
@@ -17,7 +17,7 @@
 % ------------------------------------------------ A. the K ladder on the sphere |J| = sqrt(J(J+1)), J = 2
 \begin{scope}[shift={(3.0,9.25)}]
   % the sphere is seen from a higher elevation than the tubes (E = .6) so that the ring planes open and a vector from the
-  % centre to a ring reads in depth; the body axis stays upright (author, 2026-10-04)
+  % center to a ring reads in depth; the body axis stays upright (author, 2026-10-04)
   \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.6}
   \hatom{0}{0}{\R}{white}
   \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
@@ -28,7 +28,7 @@
     \ifdim\vc pt<1pt \draw[fine,back] ({\r*cos(\va)},{\h+\E*\r*sin(\va)}) arc[start angle=\va,end angle={180-\va},x radius=\r,y radius={\E*\r}];\fi
     \ifdim\vc pt>-1pt \draw[fine] ({\r*cos(180-\va)},{\h+\E*\r*sin(180-\va)}) arc[start angle={180-\va},end angle={360+\va},x radius=\r,y radius={\E*\r}];\fi
     \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
-  % the vector J: from the centre (marked) up to the right end of the K = 1 ring (its z component is K = 1), named
+  % the vector J: from the center (marked) up to the right end of the K = 1 ring (its z component is K = 1), named
   % outside the sphere at the right, clear of the lattice beside it (author, 2026-10-04)
   \pgfmathsetmacro{\ja}{355}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
   \coordinate (jt) at ({\jr*cos(\ja)},{\jh+\E*\jr*sin(\ja)});

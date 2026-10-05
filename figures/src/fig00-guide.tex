@@ -6,8 +6,8 @@
 % The four parts of the paper are headings
 % beside their objects, with section ranges only.
 % The solid's decoration is turned by 15 degrees so that the projection line from H to [X] passes no other point.
-% Colours (the anchored palette): red = versions, teal tint = the core sheet, gold = the
-% packet and the quotient patch (a chart neighbourhood), white = the vibrations (the solid's wall) and the sheets, blue = nitrogen. Ink carries the drawing; colour only guides the eye. The two actions are ink, t solid and tu dashed,
+% Colors (the anchored palette): red = versions, teal tint = the core sheet, gold = the
+% packet and the quotient patch (a chart neighborhood), white = the vibrations (the solid's wall) and the sheets, blue = nitrogen. Ink carries the drawing; color only guides the eye. The two actions are ink, t solid and tu dashed,
 % on the solid and on the sheets alike. Hatch = cut material. Arrowheads only on the two paths on the solid.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
@@ -20,7 +20,7 @@
 \path[use as bounding box] (0,1.1) rectangle (15,15.6);
 \tikzset{tube/Ro=2.3,tube/Ri=2.3*1.8/2.5,tube/H=2.3*.62/2.5,tube/istep=6.5,cover view}\tubegeom   % figure 6's solid, scaled
 \pgfmathsetmacro{\dx}{.45}   % the slide of the tube, the sheets and their headings to the right of the molecule and the lattice
-% arrangement (author, 2026-10-04): the bond interval [H, B] in grey at the top left under heading III, the molecule at
+% arrangement (author, 2026-10-04): the bond interval [H, B] in gray at the top left under heading III, the molecule at
 % the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \hatchfit{42.51}{.12059}{-.03599}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
@@ -30,8 +30,8 @@
 % ------------------------------------------------ one configuration, a point of C
 \inkdot{4.0,3.25}
 \pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};
-% the molecule is drawn mass-centred (its centre of mass is the pic origin), so the drop to its point of C is the
-% vertical through the centre of mass, dotted like the lift from H to the patch, from the point to the C--N rod's lower edge
+% the molecule is drawn mass-centered (its center of mass is the pic origin), so the drop to its point of C is the
+% vertical through the center of mass, dotted like the lift from H to the patch, from the point to the C--N rod's lower edge
 \draw[projection,shorten <=1.6pt] (4.0,3.25)--(4.0,6.049);
 \node[head,anchor=west] at (.5,4.8) {I\quad Configurations}; \node[head,anchor=west] at (.5,4.4) {and States}; \node[rng,anchor=north west] at (.5,4.18) {\S\S\,1--3};
 % ------------------------------------------------ the feasible solid F lifted out: core sheet, two paths, versions, a packet
@@ -70,13 +70,13 @@
   \foreach \k in {0,...,5} {\vpoint{p\k}}
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
-% ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar
+% ------------------------------------------------ the symmetry groups: the bond interval [H, B], gray, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]
-  \hassecovers[draw=ColGreyed]
-  \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[ring,draw=ColGreyed,fill=white] (h\i) circle[radius=2pt];}
-  \node[sub,anchor=north,text=ColGreyed] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=ColGreyed] at ($(h9)+(0,.18)$) {$B$};
-  \node[sub,anchor=south east,text=ColGreyed,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
+  \hassecovers[draw=ColGrayed]
+  \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[ring,draw=ColGrayed,fill=white] (h\i) circle[radius=2pt];}
+  \node[sub,anchor=north,text=ColGrayed] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=ColGrayed] at ($(h9)+(0,.18)$) {$B$};
+  \node[sub,anchor=south east,text=ColGrayed,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
 \end{scope}
 \end{tikzpicture}
 \end{document}

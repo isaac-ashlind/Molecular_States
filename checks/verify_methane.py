@@ -2,11 +2,11 @@
 (arXiv:2403.04572v4), recomputed from explicit matrices and compared with the numbers make_data emits
 (summary.json, keys methane_rigid and methane_loop).
 
-  geometry   every element of Td(M) = {even relabellings} u {odd relabellings}* carries the tetrahedron X0 into its
+  geometry   every element of Td(M) = {even relabelings} u {odd relabelings}* carries the tetrahedron X0 into its
              rotational orbit (a proper rotation R_h, residual ~ 0); all 24 close as the cube group O, the 12 even as T
-  spin       (C^2)^4 under the relabellings: 5 A1 + E + 3 T2 (Td labels); under the proper rotations: 5 A + 1E + 2E + 3 T
+  spin       (C^2)^4 under the relabelings: 5 A1 + E + 3 T2 (Td labels); under the proper rotations: 5 A + 1E + 2E + 3 T
   pairing    physical states per rotational species and parity (chi_stat chi_pm is A2 for even parity, A1 for odd)
-  vibrations the fifteen Cartesian displacements: A1 + E + T1 + 3 T2; the nine normal to the orbit in the centred
+  vibrations the fifteen Cartesian displacements: A1 + E + T1 + 3 T2; the nine normal to the orbit in the centered
              space: A1 + E + 2 T2 (from explicit 15 x 15 matrices and a mass-orthonormal normal basis)
   J ladder   D^J restricted to H through h -> R_h^-1 (from the actual turning angles), J = 0..6, and the physical
              states of each J by parity
@@ -81,7 +81,7 @@ def main():
     closed_all = all(any(np.allclose(R[a] @ R[b], R[c]) for c in allp) for a in allp for b in allp)
     angles = sorted(round(math.degrees(axis_angle(R[q])[1])) for q in allp)
     ok &= closed and len(even) == 12 and closed_all and angles == [0] + [90] * 6 + [120] * 8 + [180] * 9
-    print('geometry: 24 relabellings carry X0 into its orbit by proper rotations; the 12 even ones close:', closed,
+    print('geometry: 24 relabelings carry X0 into its orbit by proper rotations; the 12 even ones close:', closed,
           '| all 24 close as the cube group O (1, 6 quarter-turns, 8 third-turns, 9 half-turns):', closed_all and angles == [0] + [90] * 6 + [120] * 8 + [180] * 9)
     # spin characters and the Td decomposition (A1, A2, E, T1, T2 by cycle type and star)
     TD = {'A1': {(1,1,1,1): 1, (3,1): 1, (2,2): 1, (4,): 1, (2,1,1): 1},
@@ -100,9 +100,9 @@ def main():
     ok &= weights['Even'] == {'A1': 0, 'A2': 5, 'E': 1, 'T1': 3, 'T2': 0} and weights['Odd'] == {'A1': 5, 'A2': 0, 'E': 1, 'T1': 0, 'T2': 3}
     print('physical states per rotational species, even | odd parity:', weights)
     # vibrations: h acts on a displacement dX (3 x 5) by dX -> +-R_h^-1 dX P_sigma (relabel, invert if starred, rotate
-    # back into the body frame); explicit 15 x 15 matrices; then restricted to the centred space minus the orbit tangent
+    # back into the body frame); explicit 15 x 15 matrices; then restricted to the centered space minus the orbit tangent
     def disp_matrix(q):
-        P = np.array(G.perm_matrix(list(q) + [4], 5), float)        # X P : column j <- column of the relabelling
+        P = np.array(G.perm_matrix(list(q) + [4], 5), float)        # X P : column j <- column of the relabeling
         sgn = -1.0 if parity(q) < 0 else 1.0
         Rt = R[q].T
         M = np.zeros((15, 15))
@@ -163,10 +163,10 @@ def main():
     print('ball: the identity cell is the octahedron |x|+|y|+|z|<=1 (mismatches %d of %d samples); its vertices are the six starred 4-cycles, the quarter-turns about x, y, z' % (bad, tested))
     cube = sorted(tuple(np.round(rodrigues(R[q]), 6)) for q in allp if cycle_type(q) == (3, 1))
     ok &= cube == sorted(tuple(float(c) for c in v) for v in itertools.product((1.0, -1.0), repeat=3))
-    face_centres = sorted(tuple(np.round(np.mean([np.array(v) for v in cube if v[i] == sg], axis=0), 6)) for i in range(3) for sg in (1.0, -1.0))
-    ok &= face_centres == vert
-    print('Rodrigues: the eight third-turns are the cube (+-1,+-1,+-1); the six face centres of that cube are exactly the cell vertices:', face_centres == vert)
-    # the loop: a third of a turn about the bond to hydrogen 1, +2pi/3, returns X0 with 2, 3, 4 cycled (an even relabelling)
+    face_centers = sorted(tuple(np.round(np.mean([np.array(v) for v in cube if v[i] == sg], axis=0), 6)) for i in range(3) for sg in (1.0, -1.0))
+    ok &= face_centers == vert
+    print('Rodrigues: the eight third-turns are the cube (+-1,+-1,+-1); the six face centers of that cube are exactly the cell vertices:', face_centers == vert)
+    # the loop: a third of a turn about the bond to hydrogen 1, +2pi/3, returns X0 with 2, 3, 4 cycled (an even relabeling)
     AX = np.array(X0[0]) / np.linalg.norm(X0[0])
     Rg = np.array(G.rot_axis(tuple(AX), 2 * math.pi / 3))
     Xg = [tuple(Rg @ np.array(x)) for x in X0]
@@ -207,7 +207,7 @@ def main():
           'T': lambda q: np.trace(R[q])}
     spin_t = {k: round((sum(chi[q] * complex(f(q)).conjugate() for q in even) / 12).real) for k, f in TT.items()}
     ok &= spin_t == {'A': 5, '1E': 1, '2E': 1, 'T': 3}
-    print('1E is a homomorphism of the even relabellings:', hom, '| 1E(g) = omega | spin under T:', spin_t)
+    print('1E is a homomorphism of the even relabelings:', hom, '| 1E(g) = omega | spin under T:', spin_t)
     # packets: shares of a real packet with class overlaps c3 (third-turns), c2 (half-turns) against the closed forms
     for c3, c2 in ((0.0, 0.0), (0.2, 0.05), (0.37, 0.11)):
         cq = {q: 1.0 if q == (0, 1, 2, 3) else (c3 if cycle_type(q) == (3, 1) else c2) for q in even}
@@ -215,7 +215,7 @@ def main():
         closed_form = {'A': (1 + 8 * c3 + 3 * c2) / 12, '1E': (1 - 4 * c3 + 3 * c2) / 12, '2E': (1 - 4 * c3 + 3 * c2) / 12, 'T': 3 * (1 - c2) / 4}
         ok &= all(abs(share[k] - closed_form[k]) < 1e-12 for k in TT) and abs(sum(share.values()) - 1) < 1e-12
     print('packet shares agree with the closed forms (1+8c3+3c2)/12, (1-4c3+3c2)/12, 3(1-c2)/4, summing to 1')
-    # isomers: Gamma_rot x Gamma_nuc contains A (the even relabellings carry chi_stat = +1)
+    # isomers: Gamma_rot x Gamma_nuc contains A (the even relabelings carry chi_stat = +1)
     iso = []
     for r, fr in TT.items():
         for nu, fn in TT.items():

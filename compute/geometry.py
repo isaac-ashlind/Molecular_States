@@ -74,7 +74,7 @@ def rot_axis(axis, a):
 # ---------------------------------------------------------- configurations ---
 
 def center(X, masses):
-    """Translate so that X m = 0 (mass-weighted centre at the origin)."""
+    """Translate so that X m = 0 (mass-weighted center at the origin)."""
     M = sum(masses)
     c = (sum(m*x[0] for m, x in zip(masses, X)) / M,
          sum(m*x[1] for m, x in zip(masses, X)) / M,
@@ -82,7 +82,7 @@ def center(X, masses):
     return [sub(x, c) for x in X]
 
 def mass_moment(X, masses):
-    """The 3-vector X m; zero for a centred configuration."""
+    """The 3-vector X m; zero for a centered configuration."""
     return tuple(sum(m*x[k] for m, x in zip(masses, X)) for k in range(3))
 
 def rotate(R, X):
@@ -166,11 +166,11 @@ WATER_MASSES = [MASS[e] for e in WATER_ELEMENTS]
 WATER_ELL = 0.9575                           # mean O-H bond length (angstrom)
 
 def water(delta_ratio, theta_deg, ell=WATER_ELL):
-    """Centred planar water with r1 = ell(1+delta_ratio), r2 = ell(1-delta_ratio).
+    """Centered planar water with r1 = ell(1+delta_ratio), r2 = ell(1-delta_ratio).
 
-    Oxygen is nucleus 3.  Before centring the oxygen sits at the origin and the
+    Oxygen is nucleus 3.  Before centering the oxygen sits at the origin and the
     bisector of the bond angle points along -y, so the hydrogens are above.
-    The returned configuration is centred on the mass centre, which is NOT the
+    The returned configuration is centered on the mass center, which is NOT the
     oxygen position: that is the point of drawing it this way.
     """
     th = math.radians(theta_deg)
@@ -188,9 +188,9 @@ CH4_BONDS = [(5, 1), (5, 2), (5, 3), (5, 4)]       # 1-based
 CH4_CH = 1.087                                    # C-H bond length (angstrom)
 
 def methane_c2(ch=CH4_CH):
-    """Centred regular tetrahedron in its C2 frame: the body axes x, y, z run through the midpoints of opposite edges,
+    """Centered regular tetrahedron in its C2 frame: the body axes x, y, z run through the midpoints of opposite edges,
     so the hydrogens sit on the body diagonals, 1 at (+,+,+), 2 at (+,-,-), 3 at (-,+,-), 4 at (-,-,+); the carbon at
-    the origin, which is the mass centre.  The frame of the orientation ball (closing pages)."""
+    the origin, which is the mass center.  The frame of the orientation ball (closing pages)."""
     s = ch / math.sqrt(3.0)
     return center([(s, s, s), (s, -s, -s), (-s, s, -s), (-s, -s, s), (0.0, 0.0, 0.0)], CH4_MASSES)
 
@@ -229,7 +229,7 @@ def _mla_frame_params(p=MLA):
 MLA_FRAME = _mla_frame_params()
 
 def methylamine(tau, eta, frame=MLA_FRAME):
-    """Centred reference family X0(tau, eta); tau in radians, eta in angstrom.
+    """Centered reference family X0(tau, eta); tau in radians, eta in angstrom.
 
     Column order is the manuscript's: H1 H2 H3 (methyl), H4 H5 (amino), C6, N7.
     At tau = 0 the nucleus H1 lies in the +x half of the xz-plane, which is the
@@ -260,7 +260,7 @@ def rotation_generators(X):
     return [[cross(ax, x) for x in X] for ax in axes]
 
 def gram_schmidt_mass(vectors, masses, tol=1e-9):
-    """Mass-orthonormalise a list of displacement patterns (drops dependent ones)."""
+    """Mass-orthonormalize a list of displacement patterns (drops dependent ones)."""
     out = []
     for v in vectors:
         w = [tuple(x) for x in v]
@@ -297,7 +297,7 @@ KRB_ELEMENTS = ['K', 'K', 'Rb', 'Rb']   # labels 1, 2, 3, 4
 KRB_MASSES = [MASS[e] for e in KRB_ELEMENTS]
 
 def krb_schematic():
-    """A schematic planar K2Rb2 arrangement (angstrom-like units), centred.
+    """A schematic planar K2Rb2 arrangement (angstrom-like units), centered.
 
     This is NOT a computed complex geometry; it is declared schematic in the
     figure.  Potassium on the upper row, rubidium on the lower row, so that the
@@ -313,7 +313,7 @@ def krb_schematic():
 # ------------------------------------------------------------- projection ---
 
 def camera(azimuth_deg, elevation_deg):
-    """Orthographic camera.  Returns (right, up, towards-viewer) unit vectors.
+    """Orthographic camera.  Returns (right, up, toward-viewer) unit vectors.
 
     For azimuth b and elevation 0: right = z (the C-N axis across the page),
     up = (cos b, sin b, 0), out = up x right; the elevation turns right and out
@@ -327,7 +327,7 @@ def camera(azimuth_deg, elevation_deg):
     # basis before elevation: right = z, up = (cos b, sin b, 0), out = up x right
     right = (0.0, 0.0, 1.0)
     up = (math.cos(b), math.sin(b), 0.0)
-    out = cross(up, right)   # towards the viewer
+    out = cross(up, right)   # toward the viewer
     # elevation: rotate right and out about the up axis
     R = rot_axis(up, e)
     right = matvec(R, right); out = matvec(R, out)
@@ -338,5 +338,5 @@ def project(X, cam):
     return [(dot(x, right), dot(x, up), dot(x, out)) for x in X]   # (px, py, depth)
 
 def draw_order(P):
-    """Indices sorted back to front (increasing depth = towards viewer)."""
+    """Indices sorted back to front (increasing depth = toward viewer)."""
     return sorted(range(len(P)), key=lambda i: P[i][2])

@@ -2,7 +2,7 @@
 whose symmetry group, inside the symmetries of the cylinder, has order 12 and is isomorphic to G12 = <b, t, u>.
 
 Checks (exact, finite):
-  1. G12, modelled as (permutation of 1..5, star sign), has order 12 and the element-order profile of D6 = S3 x C2
+  1. G12, modeled as (permutation of 1..5, star sign), has order 12 and the element-order profile of D6 = S3 x C2
      (orders 1, 2, 3, 6 with multiplicities 1, 7, 2, 2).
   2. G12 acts faithfully on the six cosets G12/H, H = <b>, so its image on the six version points is all of G12.
   3. The stabiliser of the six points {(0,+), (2pi/3,+), (4pi/3,+), (pi,-), (5pi/3,-), (pi/3,-)} in the finite group

@@ -3,10 +3,10 @@
 % of opposite edges, thin, each split at the carbon by depth, z's front half drawn longer so that it clears hydrogen 2),
 % and beside it the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi;
 % the skin is the half-turns, each point its own antipode): the sphere and its three great circles teal; the twelve
-% rotations of T as version points (the centre, the eight third-turns at the corners of the thin ink cube they span,
+% rotations of T as version points (the center, the eight third-turns at the corners of the thin ink cube they span,
 % the three half-turns on the skin drawn once each at their far side; every hidden point pale and under the front
-% lines: the far half-turns, the cube's one hidden corner, the cell's one hidden vertex); the cell of the centre as the gold
-% octahedron dual to that cube, its vertices the quarter-turns (ink rings) on the cube's face centres; the lift of the
+% lines: the far half-turns, the cube's one hidden corner, the cell's one hidden vertex); the cell of the center as the gold
+% octahedron dual to that cube, its vertices the quarter-turns (ink rings) on the cube's face centers; the lift of the
 % third-turn loop as the one heavy arrow, passing behind the gold edge in front of it. The octahedron is the schematic
 % exact in Rodrigues coordinates; in the ball the true edges bow outward (the caption says so).
 % Right column: the covering in figure 11's grammar: the gold base patch SO(3)/T with the loop l_g, three of the twelve
@@ -14,7 +14,7 @@
 % vertical dotted line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running
 % on past the top sheet: the stack goes on. The sheets are the cartoon of figure 11, not a computed surface.
 % Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL), so bond 1 points along the arrow.
-% Suite rules: hidden contours dashed (back), projections dotted, version points \hatom; text under an object centred,
+% Suite rules: hidden contours dashed (back), projections dotted, version points \hatom; text under an object centered,
 % lowercase phrases without full stops. Every coordinate from figures/data (make_data), the geometry recomputed in
 % checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
@@ -66,7 +66,7 @@
   \coordinate (bx) at (.5,.3);
   \sheet{0}{0}{heavy,fill=ColPatch}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (.05,-.08) {$\gamma_g$};   % centred under the loop
+  \node[sub,anchor=north,inner sep=1.5pt] at (.05,-.08) {$\gamma_g$};   % centered under the loop
   % one vertical line of projection through every dot: from the base dot to the front edge of sheet r, then above each
   % dot up to the next sheet, which hides it below its dot; it runs on past the top sheet (each span dotted once)
   \draw[projection,shorten <=2.3pt] (bx)--(.5,1.4);

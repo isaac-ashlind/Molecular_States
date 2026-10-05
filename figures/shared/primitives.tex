@@ -2,7 +2,7 @@
 % Every line is ink. Weights: heavy .9pt (silhouettes, retained structure, action paths), fine .4pt (construction,
 % detail), .3pt (leaders, axes behind a molecule), hatch .22pt. Actions by line style at action weight: solid = t,
 % dashed = u or tu, beaded dots = a starred operation (b, E*). Arrowheads only where a path has a direction; a head
-% stops about 3pt short of the dot it points at, and an arrow sits centred in its gap. The hidden part of a contour is
+% stops about 3pt short of the dot it points at, and an arrow sits centered in its gap. The hidden part of a contour is
 % the same stroke dashed (back); a hidden or faded object's outline is dashed (ghost); a hidden point (every edge at it
 % hidden) is pale in a ghost outline under the front lines; a projection or lift between levels is dotted
 % (projection). Leaders start on the object, stop short of the label and cross nothing where avoidable; no halos.
@@ -34,13 +34,13 @@
   sub/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text=PlateInk},
   dense/.style={font=\fontsize{7}{8}\selectfont,inner sep=0pt},     % text in a small cell or graph node
   digit/.style={font=\fontsize{6.5}{7}\selectfont,inner sep=0pt},   % a digit in a disc
-  under/.style={sub,anchor=north,align=center},                     % a note centred under its object
+  under/.style={sub,anchor=north,align=center},                     % a note centered under its object
 }
 % ---- atom: two tones of one gouache, the darker as the shadow (light from the upper left), ink contour
 \newcommand\hatom[4]{\fill[#4!74!PlateInk] ({#1},{#2}) circle[radius=#3];
   \begin{scope}\clip ({#1},{#2}) circle[radius=#3];\fill[#4] ({(#1)-0.17*#3},{(#2)+0.17*#3}) circle[radius={0.93*#3}];\end{scope}
   \draw[ring] ({#1},{#2}) circle[radius=#3];}
-% ---- rod: a cylinder in ink. \molrodj{px}{py}{qx}{qy}{dx}{dy}{uz}{r}: far centre p, near centre q, page unit
+% ---- rod: a cylinder in ink. \molrodj{px}{py}{qx}{qy}{dx}{dy}{uz}{r}: far center p, near center q, page unit
 % direction (dx,dy) from p to q, uz = depth component of the bond direction (0 = in the page, 1 = at the viewer),
 % r = radius of the far sphere. The rod starts on the junction circle where the cylinder leaves the far sphere
 % (projected: a half ellipse bulging toward p), runs to q and is hidden there by the near sphere, painted later.
@@ -154,14 +154,14 @@
   \pgfmathsetmacro{\tbw}{\pgfkeysvalueof{/tikz/tube/bw}}\pgfmathsetmacro{\ths}{\pgfkeysvalueof{/tikz/tube/hs}}\pgfmathsetmacro{\twa}{\pgfkeysvalueof{/tikz/tube/a1}}}
 % ---- atom at a coordinate, round in a scaled scope too: \hatomat{coordinate}{r}{fill}
 \newcommand\hatomat[3]{\begin{scope}[shift={(#1)},x=1cm,y=1cm]\hatom{0}{0}{#2}{#3}\end{scope}}
-% ---- a point in ink (a configuration, a lattice point, a centre): \inkdot{coordinate}
+% ---- a point in ink (a configuration, a lattice point, a center): \inkdot{coordinate}
 \newcommand\inkdot[1]{\fill[PlateInk] (#1) circle[radius=1.5pt];}
 % ---- version points: \vpoint{coordinate}; a hidden one, \vpointhidden[options]{coordinate}, is pale in a ghost outline
 \def\vrad{.08}
 \newcommand\vpoint[1]{\hatomat{#1}{\vrad}{ColDot}}
 \newcommand\vpointhidden[2][]{\draw[ghost,fill=ColDotHidden,#1] (#2) circle[radius=\vrad];}
 % ---- a sheet of a covering, or its base patch: \sheet{x}{y}{style}, a parallelogram whose front edge, of half-width
-% sheet/w, is centred at (x,y), its back edge sheet/d higher and sheet/s to the right
+% sheet/w, is centered at (x,y), its back edge sheet/d higher and sheet/s to the right
 \tikzset{sheet/w/.initial=1.8,sheet/d/.initial=.5,sheet/s/.initial=.7}
 \newcommand\sheet[3]{\pgfmathsetmacro{\shw}{\pgfkeysvalueof{/tikz/sheet/w}}\pgfmathsetmacro{\shd}{\pgfkeysvalueof{/tikz/sheet/d}}%
   \pgfmathsetmacro{\shs}{\pgfkeysvalueof{/tikz/sheet/s}}%
@@ -173,7 +173,7 @@
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gent \draw[tlift,#1] (h\a)--(h\b);\else\ifx\gg\genu \draw[ulift,#1] (h\a)--(h\b);\else \draw[blift,#1] (h\a)--(h\b);\fi\fi}}
 % ---- Newman projection macros (used by the newman-* pics; coordinates in angstrom, pic scale sets the size)
 % back carbon: a circle of radius \nmR with its hydrogens on fine bonds from the rim; front nitrogen: a disc at the
-% centre with its hydrogens on rod bonds. Order of painting: back bonds and atoms, circle, front bonds and atoms, centre.
+% center with its hydrogens on rod bonds. Order of painting: back bonds and atoms, circle, front bonds and atoms, center.
 \def\nmR{.5}\def\nmr{.2}
 \newcommand\nmback[3]{\pgfmathsetmacro{\nml}{sqrt((#1)*(#1)+(#2)*(#2))}
   \draw[line width=.6pt,draw=PlateInk] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
@@ -181,7 +181,7 @@
 \newcommand\nmcircle{\draw[ring,fill=white] (0,0) circle[radius=\nmR];}
 \newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=2.4pt,double=white] (0,0)--(#1,#2);
   \hatom{#1}{#2}{\nmr}{white}\node[digit] at (#1,#2) {#3};}
-\newcommand\nmcentre{\hatom{0}{0}{.27}{ColNitrogen}}
+\newcommand\nmcenter{\hatom{0}{0}{.27}{ColNitrogen}}
 % ---- digits inside the discs: \mollabelsinside (hydrogens only), \mollabelsinsideall (every disc: potassium, rubidium)
 \newcommand\mollabelsinside{\renewcommand\mollabel[6]{\if##1H\node[digit] at (##3,##4) {##2};\fi}}
 \newcommand\mollabelsinsideall{\renewcommand\mollabel[6]{\node[digit] at (##3,##4) {##2};}}

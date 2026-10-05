@@ -6,8 +6,8 @@ with three order-12 extensions of G6, any two generating B; btb = t^-1 and bt = 
 G6/H; the proton-spin weights 12, 4, 8 (even parity) and 4, 12, 8 (odd); chi_stat trivial on G6; the KRb groups
 and the 16 subgroups of S; P_st = P_t P_s; the E-pair matrices of t and b; the torsion species; the share sum rule
 and its limits.
-Floating point: c = exp(-d^2/8 Delta^2) by quadrature; X0 centred and bX0 = R_y(pi) X0; the actions of t, u, b, tu
-on X0(tau, iota) (manuscript, Section 10); water centred, rotations commuting with relabellings; no element of G12
+Floating point: c = exp(-d^2/8 Delta^2) by quadrature; X0 centered and bX0 = R_y(pi) X0; the actions of t, u, b, tu
+on X0(tau, iota) (manuscript, Section 10); water centered, rotations commuting with relabelings; no element of G12
 but E fixes X0; summary.json and gaussian-shares.dat agree with recomputation.
 verify_symbolic.py repeats the identities symbolically and verify.g the group facts in GAP. A failed assertion
 stops the build.
@@ -72,14 +72,14 @@ for a, (va, na) in vecs.items():
 T = [[0, 0, 1], [1, 0, 0], [0, 1, 0]]; Bm = [[1, 0, 0], [0, 0, 1], [0, 1, 0]]
 def mv(M, v): return [sum(M[i][j]*v[j] for j in range(3)) for i in range(3)]
 assert mv(T, [1, 1, 1]) == [1, 1, 1] and mv(Bm, [1, 1, 1]) == [1, 1, 1]
-# T v2 = -1/2 v2 + (sqrt3/2) v3  <=>  2 T v2 = -v2 + sqrt3 v3; compare coordinates with sqrt3 v3 = (0, sqrt3, -sqrt3)/sqrt2 ... use the unnormalised vectors:
-# in unnormalised form: T(2,-1,-1) = (-1,2,-1) = -1/2 (2,-1,-1) + 3/2 (0,1,-1)
+# T v2 = -1/2 v2 + (sqrt3/2) v3  <=>  2 T v2 = -v2 + sqrt3 v3; compare coordinates with sqrt3 v3 = (0, sqrt3, -sqrt3)/sqrt2 ... use the unnormalized vectors:
+# in unnormalized form: T(2,-1,-1) = (-1,2,-1) = -1/2 (2,-1,-1) + 3/2 (0,1,-1)
 assert mv(T, [2, -1, -1]) == [-1, 2, -1]
 assert all(Fr(x) == Fr(-1, 2)*a + Fr(3, 2)*c for x, a, c in zip([-1, 2, -1], [2, -1, -1], [0, 1, -1]))
 # T(0,1,-1) = (-1,0,1) = -1/2 (2,-1,-1) - 1/2 (0,1,-1)
 assert mv(T, [0, 1, -1]) == [-1, 0, 1]
 assert all(Fr(x) == Fr(-1, 2)*a + Fr(-1, 2)*c for x, a, c in zip([-1, 0, 1], [2, -1, -1], [0, 1, -1]))
-# with normalisation this is the rotation by 120 degrees: entries (-1/2, -sqrt3/2; sqrt3/2, -1/2)
+# with normalization this is the rotation by 120 degrees: entries (-1/2, -sqrt3/2; sqrt3/2, -1/2)
 assert mv(Bm, [2, -1, -1]) == [2, -1, -1] and mv(Bm, [0, 1, -1]) == [0, -1, 1]    # b = diag(1,-1) on E
 report['coefficient_basis'] = 'orthonormal; t -> rotation by 2pi/3, b -> diag(1,-1) on the E pair: ok'
 
@@ -138,7 +138,7 @@ for name, (g, f, A) in checks.items():
         tp, ep = f(a, e)
         worst = max(worst, G.config_distance(gX, G.rotate(A, G.methylamine(tp, ep))))
 assert worst < 1e-12
-# the water configurations are centred and the rotation/relabelling actions commute
+# the water configurations are centered and the rotation/relabeling actions commute
 wX = G.water(0.2, 112.0)
 assert max(abs(v) for v in G.mass_moment(wX, G.WATER_MASSES)) < 1e-12
 Rw = G.rot_z(0.7)
@@ -148,7 +148,7 @@ assert G.config_distance(G.rotate(Rw, G.apply_perm_inversion(wX, sig, 0)),
 # free action near the reference: no nontrivial element of G12 fixes X0
 dmin = min(G.config_distance(G.apply_perm_inversion(X0, g[0], g[1]), X0) for g in Q.G12 if g != Q.E(Q.N))
 assert dmin > 1.0
-report['geometry'] = f'centring < 1e-12; b = R_y(pi) residual {res_b:.1e}; family actions residual {worst:.1e}; min |gX0-X0| = {dmin:.3f} A'
+report['geometry'] = f'centering < 1e-12; b = R_y(pi) residual {res_b:.1e}; family actions residual {worst:.1e}; min |gX0-X0| = {dmin:.3f} A'
 
 # ----------------------------------------- numeric: emitted data consistency --
 with open(os.path.join(ROOT, 'figures', 'data', 'summary.json')) as f:

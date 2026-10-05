@@ -4,7 +4,7 @@
 % version points and the same two paths; over each point a of the chart sit every normal displacement q and every
 % orientation r, which is the reconstruction x = (r, a, q) -> R(r)(X0(a) + sum q e(a)), drawn as the shape, the shape
 % displaced along the normal frame (its undisplaced ghost beneath) and the result rotated; the two normal directions
-% e_-(a) (the amino twist) and e_+(a) (the C-N stretch) are drawn on the molecule from the side. Colours: red =
+% e_-(a) (the amino twist) and e_+(a) (the C-N stretch) are drawn on the molecule from the side. Colors: red =
 % version points, gold (pale) = the reference cell, teal = the sheet; ink elsewhere, t solid, tu dashed. Hatch = cut
 % material (the solid's cut faces). Cells, normal directions and the displaced and rotated copies computed
 % (compute/, checks/); the displacement amplitude and the rotation are illustrative (declared).
@@ -36,8 +36,8 @@
 % the undisplaced shape beneath its displaced copy, as a simple outline (author): the suite's rods (white band, the end
 % on the far sphere) with both edges one faded weight, and white atoms with a faded contour; only the atoms that
 % visibly move and their rods (mla-disp-ghost), since an atom that barely moves would show only as a sliver
-\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={fine,draw=ColGreyed},rodshade/.style={rodedge}}%
-  \renewcommand\molatom[4]{\if##1H\draw[fine,draw=ColGreyed,fill=white] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=ColGreyed,fill=white] (##3,##4) circle[radius=\radX];\fi}}
+\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={fine,draw=ColGrayed},rodshade/.style={rodedge}}%
+  \renewcommand\molatom[4]{\if##1H\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.3);

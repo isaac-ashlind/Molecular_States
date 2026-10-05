@@ -71,7 +71,7 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
         for k in range(n):
             if arrows[k] is not None:
                 dx, dy = arrows[k]
-                # the shaft starts on the atom's silhouette, not at its centre (visible on a light disc)
+                # the shaft starts on the atom's silhouette, not at its center (visible on a light disc)
                 L = math.hypot(dx, dy); r = rad_a.get(elements[k], 0.36)
                 if L > r + 0.15:
                     ux, uy = dx/L, dy/L
@@ -79,7 +79,7 @@ def pic_code_rods(X, elements, bonds, cam, label_macros=None, arrows=None, label
                 else:
                     lines.append(f'\\molarrow{{{fmt(P[k][0])}}}{{{fmt(P[k][1])}}}{{{fmt(dx)}}}{{{fmt(dy)}}}')
     if labels:
-        # label direction: away from the mean page position of the bonded neighbours (or straight up)
+        # label direction: away from the mean page position of the bonded neighbors (or straight up)
         for k in range(n):
             nb = [b-1 for a, b in bonds if a-1 == k] + [a-1 for a, b in bonds if b-1 == k]
             if nb:
@@ -105,8 +105,8 @@ def pic_code_grouped(X, elements, lines_, cam):
 
 def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitrogen=7, twist_deg=0.0):
     """Newman projection down the C-N axis (viewer on the N side): back carbon as a circle with its
-    hydrogens on fine bonds from the rim; front nitrogen as a disc at the centre with its hydrogens on
-    rod bonds from the centre.  Page coordinates are the molecular (x, y) in angstrom; the digit is the
+    hydrogens on fine bonds from the rim; front nitrogen as a disc at the center with its hydrogens on
+    rod bonds from the center.  Page coordinates are the molecular (x, y) in angstrom; the digit is the
     column label (version labels are supplied by the \\molA.. macros).  twist_deg turns the back set on
     the page by a small angle, the drawing convention for an eclipsed projection (declared, not geometry)."""
     lines = []
@@ -119,7 +119,7 @@ def pic_code_newman(X, elements, methyl=(1, 2, 3), amino=(4, 5), carbon=6, nitro
     for k in amino:
         x, y, _ = X[k-1]
         lines.append(f'\\nmfront{{{fmt(x)}}}{{{fmt(y)}}}{{\\mol{"ABCDEFG"[k-1]}}}')
-    lines.append('\\nmcentre')
+    lines.append('\\nmcenter')
     return lines
 
 def emit_pic(out, name, lines):
@@ -296,7 +296,7 @@ def main():
                                 'Xm': [round(v, 12) for v in G.mass_moment(wX, G.WATER_MASSES)]}
     bonds_w = [(1, 3), (2, 3)]
     Rw = G.rot_z(math.radians(40.0))
-    # shape grid for figure 1(c): delta ratios and angles, drawn mass-centred
+    # shape grid for figure 1(c): delta ratios and angles, drawn mass-centered
     grid_d = [-0.5, -0.25, 0.0, 0.25, 0.5]; grid_t = [60.0, 90.0, 120.0, 150.0, 180.0]
     for i, d in enumerate(grid_d):
         for j, th in enumerate(grid_t):
@@ -330,10 +330,10 @@ def main():
         (front if pz >= 0 else back).append(name + '/1'); (back if pz >= 0 else front).append(name + '/-1')   # each half-axis: toward the viewer over the molecule, away from it behind
     num.append('\\def\\chAxisFront{' + ','.join(front) + '}\\def\\chAxisBack{' + ','.join(back) + '}')
     # the orientation space as the axis-angle ball (direction the axis, distance the angle, radius pi; the skin is the
-    # half-turns, each point its own antipode). The twelve rotations of T: the centre, the eight third-turns at 2pi/3
-    # along the body diagonals, the three half-turns on the skin along the C2 axes. The cell of the centre is drawn as
+    # half-turns, each point its own antipode). The twelve rotations of T: the center, the eight third-turns at 2pi/3
+    # along the body diagonals, the three half-turns on the skin along the C2 axes. The cell of the center is drawn as
     # the schematic exact in Rodrigues coordinates: the octahedron dual to the cube spanned by the eight third-turns,
-    # its vertices (the quarter-turns) on the cube's face centres, every edge straight; in the ball the true edges bow
+    # its vertices (the quarter-turns) on the cube's face centers, every edge straight; in the ball the true edges bow
     # outward (the caption says so). The cube itself is a reading aid: no edge between two points is intrinsic.
     BALL_R = 2.0                                                # cm for the angle pi: the ball's radius on the page
     bs = BALL_R / math.pi                                       # cm per radian
@@ -347,11 +347,11 @@ def main():
         emit_point('ballC' + tag, D[k], 2 * math.pi / 3 * bs)   # third-turn about bond k, +2pi/3: a cube vertex
         emit_point('ballD' + tag, D[k], -2 * math.pi / 3 * bs)  # the opposite turn
     axes = {'x': (1.0, 0.0, 0.0), 'y': (0.0, 1.0, 0.0), 'z': (0.0, 0.0, 1.0)}
-    face_centre = 2 * math.pi / 3 * bs / math.sqrt(3.0)          # the cube's half-edge: where its face centres sit on the axes
+    face_center = 2 * math.pi / 3 * bs / math.sqrt(3.0)          # the cube's half-edge: where its face centers sit on the axes
     for a_, v in axes.items():
         for sgn, t in ((1.0, 'p'), (-1.0, 'm')):
             emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
-            emit_point(f'ballV{a_}{t}', v, sgn * face_centre)           # quarter-turn, drawn on the cube's face centre: a vertex of the dual octahedron
+            emit_point(f'ballV{a_}{t}', v, sgn * face_center)           # quarter-turn, drawn on the cube's face center: a vertex of the dual octahedron
     emit_point('ballFa', D[0], 2 * math.pi / 9 * bs)             # where the lift leaves the octahedron: the centroid of its face toward bond 1 (the dual octahedron's face plane x+y+z = c lies at c/sqrt3 on the diagonal)
     num.append('\\def\\ballSkinBack{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) < 0) + '}')   # the far representatives, drawn pale (author: so they look far away)
     # the octahedron: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
@@ -409,7 +409,7 @@ def main():
                 else: break
             num.append(f'\\def\\ballArc{plane}{tag}{{{" ".join(run)}}}')
     summary['methane_ball'] = {'radius_cm': BALL_R, 'schematic': 'octahedron dual to the cube of third-turns, exact in Rodrigues coordinates',
-                               'quarter_turn_true_radius': round(math.pi / 2 * bs, 4), 'drawn_radius': round(face_centre, 4)}
+                               'quarter_turn_true_radius': round(math.pi / 2 * bs, 4), 'drawn_radius': round(face_center, 4)}
     # the loop: a third of a turn about the bond to hydrogen 1 returns X0 to its position with 2, 3, 4 cycled
     Rg = G.rot_axis(D[0], 2 * math.pi / 3)
     Xg = G.rotate(Rg, CH4)
@@ -614,7 +614,7 @@ def main():
              frozenset(GK): 'G_{\\mathrm K}', frozenset(GRb): 'G_{\\mathrm{Rb}}', frozenset(Sk): 'S'}
     rows = {}
     for K_ in allsubs: rows.setdefault(len(K_), []).append(K_)
-    # centre the named subgroups in their rows
+    # center the named subgroups in their rows
     for L, row in rows.items():
         row.sort(key=lambda K_: (0 if K_ in named else 1, sorted(K_)))
         n_ = len(row); named_in = [K_ for K_ in row if K_ in named]; others = [K_ for K_ in row if K_ not in named]
@@ -705,8 +705,8 @@ def main():
     rows = {L: [K for K in bigsorted if len(K) == L] for L in levels}
 
     def layout(pull, median, sweeps):
-        """Layered placement: y by level; x by repeated barycentre (or median) ordering of each level from its
-        neighbours, alternating the sweep direction, nodes spread evenly in each level; the bond interval pulled
+        """Layered placement: y by level; x by repeated barycenter (or median) ordering of each level from its
+        neighbors, alternating the sweep direction, nodes spread evenly in each level; the bond interval pulled
         left by `pull` so that [H, B] reads as one side of the picture."""
         xpos = {K: 0.5 for K in big}
         for sweep in range(sweeps):
@@ -793,9 +793,9 @@ def main():
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
     # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X) = -(b xi + a eta),
     # i.e. b = -a: the proton singlet (xi - eta) times a scalar f(theta).  f is an illustrative Gaussian in theta.
-    COMP_CENTRE, COMP_WIDTH = 104.5, 14.0   # degrees
-    num.append(f'\\def\\compCentre{{{COMP_CENTRE}}}\\def\\compWidth{{{COMP_WIDTH}}}')
-    def comp_a(th): return math.exp(-((th-COMP_CENTRE)/COMP_WIDTH)**2/2)
+    COMP_CENTER, COMP_WIDTH = 104.5, 14.0   # degrees
+    num.append(f'\\def\\compCenter{{{COMP_CENTER}}}\\def\\compWidth{{{COMP_WIDTH}}}')
+    def comp_a(th): return math.exp(-((th-COMP_CENTER)/COMP_WIDTH)**2/2)
     def comp_b(th): return -comp_a(th)
     with open(os.path.join(DATA, 'component-functions.dat'), 'w') as f:
         f.write('theta a b n2\n')

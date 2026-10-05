@@ -1,7 +1,7 @@
 """Symbolic (exact) checks of the identities behind the figures.  Needs sympy.
 
 Run from the repository root:  python3 checks/verify_symbolic.py
-The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the family is centred, X m = 0; the
+The actions of t, u, b, tu on the family X0(tau, iota) hold identically; the family is centered, X m = 0; the
 overlap c = exp(-d^2/8 Delta^2) and the density variance Delta^2; the shares (1 + 2c)/3 and 2(1 - c)/3; the E-pair
 matrices of t and b; the seam relation kappa = m + rho K.
 """
@@ -11,7 +11,7 @@ tau, eta, rhoM, zM, a, zA, zC, zN, mH, mC, mN = sp.symbols('tau eta rho_M z_M a 
 masses = [mH]*5 + [mC, mN]
 
 def family(tau, eta):
-    """Uncentred reference family; centring commutes with the checks below (see docs)."""
+    """Uncentered reference family; centering commutes with the checks below (see docs)."""
     cols = []
     for k in range(3):
         phi = tau - 2*sp.pi*k/3
@@ -19,7 +19,7 @@ def family(tau, eta):
     cols += [sp.Matrix([eta, a, zA]), sp.Matrix([eta, -a, zA]), sp.Matrix([0, 0, zC]), sp.Matrix([0, 0, zN])]
     return cols
 
-def centre(cols):
+def center(cols):
     M = sum(masses)
     c = sum((m*x for m, x in zip(masses, cols)), sp.zeros(3, 1))/M
     return [x - c for x in cols]
@@ -42,7 +42,7 @@ def compose(s, tt):                       # (s t)(i) = s(t(i))
     return ([s[0][tt[0][i]] for i in range(7)], s[1] ^ tt[1])
 tu = compose(t, u)
 
-X = centre(family(tau, eta))
+X = center(family(tau, eta))
 cases = {
     't':  (t,  (tau + 2*sp.pi/3, eta), sp.eye(3)),
     'u':  (u,  (tau + sp.pi, -eta), R_z(sp.pi)),
@@ -51,15 +51,15 @@ cases = {
 }
 for name, (g, (tp, ep), A) in cases.items():
     lhs = act(X, g[0], g[1])
-    rhs = [A*x for x in centre(family(tp, ep))]
+    rhs = [A*x for x in center(family(tp, ep))]
     for l, r in zip(lhs, rhs):
         d = sp.simplify(sp.expand_trig(l - r))
         assert d == sp.zeros(3, 1), (name, d)
     print(f'{name}: g.X0(tau,eta) = A_g X0(tau\',eta\') holds identically  (A_g = {"I" if A == sp.eye(3) else name and ("R_z(pi)" if A == R_z(sp.pi) else "R_y(pi)")})')
-# centring: X m = 0 identically
+# centering: X m = 0 identically
 Mtot = sum(masses)
 assert sp.simplify(sum((m*x for m, x in zip(masses, X)), sp.zeros(3, 1))) == sp.zeros(3, 1)
-print('centred family: X m = 0 identically')
+print('centered family: X m = 0 identically')
 
 # Gaussian overlap: amplitudes with density variance Delta^2 in the plane (width Delta, approved notation)
 x, y, d, sg = sp.symbols('x y d Delta', real=True, positive=True)
