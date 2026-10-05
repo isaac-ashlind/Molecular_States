@@ -61,7 +61,12 @@ def main():
     even = [tuple(p) for p in perms if parity(p) > 0]
     closed = all(any(np.allclose(R[a] @ R[b], R[c]) for c in even) for a in even for b in even)
     ok &= closed and len(even) == 12
-    print('geometry: 24 relabellings carry X0 into its orbit by proper rotations; the 12 even ones close:', closed)
+    allp = [tuple(p) for p in perms]
+    closed_all = all(any(np.allclose(R[a] @ R[b], R[c]) for c in allp) for a in allp for b in allp)
+    angles = sorted(round(math.degrees(math.acos(max(-1.0, min(1.0, (np.trace(R[q]) - 1) / 2))))) for q in allp)
+    ok &= closed_all and angles == [0] + [90] * 6 + [120] * 8 + [180] * 9
+    print('geometry: 24 relabellings carry X0 into its orbit by proper rotations; the 12 even ones close:', closed,
+          '| all 24 close as the cube group O (1, 6 quarter-turns, 8 third-turns, 9 half-turns):', closed_all and angles == [0] + [90] * 6 + [120] * 8 + [180] * 9)
     # spin characters and the Td decomposition (A1, A2, E, T1, T2 by cycle type and star)
     TD = {'A1': {(1,1,1,1): 1, (3,1): 1, (2,2): 1, (4,): 1, (2,1,1): 1},
           'A2': {(1,1,1,1): 1, (3,1): 1, (2,2): 1, (4,): -1, (2,1,1): -1},
@@ -114,6 +119,24 @@ def main():
     mono = {k: round(12 / sum(1 for q in even if abs(complex(f(q)) - complex(f((0, 1, 2, 3)))) < 1e-9)) for k, f in TT.items()}
     ok &= mono == {'A': 1, '1E': 3, '2E': 3, 'T': 12}
     print('monodromy group orders |T / ker Gamma|:', mono)
+    # the loop of the plate: a third of a turn about the C-H4 axis returns X0 to its position with 1, 2, 3 cycled (even),
+    # the three C2 axes through the edges (4,k) are cycled by it (T(g) is a cyclic permutation in that frame), and 1E(g) is
+    # a primitive cube root of unity
+    AX = np.array(X0[3]) / np.linalg.norm(X0[3])
+    Rg = np.array(G.rot_axis(tuple(AX), 2 * math.pi / 3))
+    Xg = [tuple(Rg @ np.array(x)) for x in X0]
+    where = tuple(min(range(4), key=lambda j: np.linalg.norm(np.array(Xg[i]) - np.array(X0[j]))) for i in range(4))
+    ok &= all(np.linalg.norm(np.array(Xg[i]) - np.array(X0[where[i]])) < 1e-9 for i in range(4)) and parity(list(where)) > 0 and where[3] == 3
+    axes = [np.array(X0[3]) + np.array(X0[k]) for k in range(3)]
+    axes = [a / np.linalg.norm(a) for a in axes]
+    Tg = np.array([[float(np.dot(axes[i], Rg @ axes[j])) for j in range(3)] for i in range(3)])
+    cyclic = np.allclose(np.abs(Tg), np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0]])) or np.allclose(np.abs(Tg), np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]]))
+    ok &= cyclic and np.allclose(Tg @ Tg.T, np.eye(3))
+    g = [q for q in even if np.allclose(R[q], Rg)]
+    ok &= len(g) == 1 and abs(oneE(g[0]) ** 3 - 1) < 1e-9 and abs(oneE(g[0]) - 1) > 1e-9
+    print('loop: X0 returns with', [w + 1 for w in where], '| T(g) cycles the C2 axes:', cyclic, '| 1E(g) =', oneE(g[0]))
+    S0 = json.load(open(os.path.join(ROOT, 'figures', 'data', 'summary.json')))['methane_loop']
+    ok &= S0['nucleus_i_sits_where_j_was'] == [w + 1 for w in where]
     # against the emitted numbers
     S = json.load(open(os.path.join(ROOT, 'figures', 'data', 'summary.json')))['methane_rigid']
     ok &= S['spin_Td'] == spin_td and S['weights'] == weights and S['spin_T'] == spin_t

@@ -360,6 +360,20 @@ def main():
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
     CAM_CH4 = G.camera(azimuth_deg=15.0, elevation_deg=45.0)   # chosen by scan: every hydrogen 0.77 A clear of the carbon disc, depth kept
     emit_pic(mol, 'mol3d-ch4-ref', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_CH4, labels=True))
+    # the loop: a third of a turn about the C-H4 axis (the bond that stands upright in this view) in four snapshots; at
+    # the end the molecule is back in its position with hydrogens 1, 2, 3 cycled (an even relabelling, found by matching)
+    AX = G.unit(CH4[3])
+    for k, ang in enumerate((0.0, 40.0, 80.0, 120.0)):
+        emit_pic(mol, f'mol3d-ch4-rot-{k}', pic_code_rods(G.rotate(G.rot_axis(AX, math.radians(ang)), CH4), G.CH4_ELEMENTS, G.CH4_BONDS, CAM_CH4, labels=True))
+    Xg = G.rotate(G.rot_axis(AX, math.radians(120.0)), CH4)
+    where = [min(range(4), key=lambda j: G.config_distance([Xg[i]], [CH4[j]])) for i in range(4)]   # nucleus i now sits where j was
+    assert all(G.config_distance([Xg[i]], [CH4[where[i]]]) < 1e-9 for i in range(4)) and sorted(where) == [0, 1, 2, 3]
+    summary['methane_loop'] = {'turn_deg': 120.0, 'nucleus_i_sits_where_j_was': [w + 1 for w in where]}
+    # the three C2 axes through the midpoints of the edges (4,1), (4,2), (4,3), cycled by the turn, and the C3 axis C-H4:
+    # unit vectors projected (raw, so that the drawn triad keeps its foreshortening)
+    P = G.project([G.unit(tuple(a + b for a, b in zip(CH4[3], CH4[k]))) for k in (0, 1, 2)] + [AX], CAM_CH4)
+    for name, (px, py, _) in zip(('A', 'B', 'C', 'Z'), P):
+        num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
     # Td(M) = S4 on the four protons, classes (size, cycles, odd?, starred?): E, 3-cycles, double transpositions,
     # 4-cycles (starred), transpositions (starred); chi_spin = 2^cycles; chi_stat = sign; chi_pm = parity^star
     cls = [(1, 4, 1, 0), (8, 2, 1, 0), (3, 2, 1, 0), (6, 1, -1, 1), (6, 3, -1, 1)]

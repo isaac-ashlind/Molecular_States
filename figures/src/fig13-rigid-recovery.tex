@@ -1,55 +1,86 @@
-% Rigid recovery (unnumbered plate, the closing page): rigid methane against Albert, Kubischta, Lemeshko and Liu
-% (arXiv:2403.04572v4; Examples 21, 23, 42 and the T block of Table II). What the reader must see at a squint: a
-% tetrahedron, three bars fanning into four bars (our rotational species by parity, their isomers), and a fibre over
-% a loop (monodromy). Left: methane with its digits; H = Td(M) = S4, even relabellings unstarred, odd ones starred;
-% H_rot = T. Middle: our species with their physical-state counts against their isomer rows (Gamma_rot, Gamma_nuc,
-% d), joined by the restriction Td -> T. Bottom: the covering SO(3) -> SO(3)/T, a loop in the base and the fibre of
-% the T isomer (three components) turned by T(g). Colours: red = the base point, gold = the patch, ink elsewhere.
-% Every number from figures/data (make_data) and recomputed in checks/verify_methane.py.
+% Rigid recovery (unnumbered full-page plate, the closing page): rigid methane against Albert, Kubischta, Lemeshko
+% and Liu (arXiv:2403.04572v4; Examples 21, 23, 42; the T block of Table II; eqs. 1, 44a, 127). Three rows.
+% Top: the tetrahedron with its digits, its C3 axis and the three C2 axes; the groups H = Td(M) = S4 and H_rot = T.
+% Middle: a three-column correlation diagram: our rotational species with physical states by parity, the sixteen spin
+% states as hairlines in their three species groups, their isomer rows; the T row is the entangled one (the 3 x 3
+% invariant, drawn as a diagonal). Bottom: the monodromy shown: a third of a turn about the C-H4 axis in four
+% snapshots brings the molecule back to its position with hydrogens 1, 2, 3 cycled (a loop in SO(3)/T lifted to
+% r g); the fibre of each isomer after the loop: A unchanged, 1E turned by omega, T (a vector) with its components
+% cycled. Colours: red is unused (no versions here), gold unused; ink, blue nitrogen absent; the carbon ink, the
+% hydrogens white. Every number from figures/data (make_data) and recomputed in checks/verify_methane.py.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
+% a phase dial: \dial{x}{y}{angle}{show arc}
+\newcommand\dial[4]{\draw[fine] (#1,#2) circle[radius=.34]; \draw[leader] (#1-.34,#2)--(#1-.26,#2);
+  \ifnum#4=1 \draw[hidden] ($(#1,#2)+(0:.42)$) arc[start angle=0,end angle=#3,radius=.42]; \fi
+  \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.5mm,width=1.2mm]}] (#1,#2)--($(#1,#2)+(#3:.3)$);}
 \begin{document}
-\begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk}]
-\path[use as bounding box] (0,0) rectangle (15,10.4);
-% ------------------------------------------------ left: rigid methane, its groups, its spin space
-\node[sub,anchor=north] at (2.3,10.35) {rigid methane};
-\begin{scope}\molsolid\mollabelsinside\pic[scale=.75] at (2.3,8.3) {mol3d-ch4-ref};\end{scope}
-\node[sub,anchor=north] at (2.3,6.45) {$H=T_d(\mathrm M)\cong S_4$};
-\node[sub,anchor=north] at (2.3,6.1) {even relabellings; odd ones starred};
-\node[sub,anchor=north] at (2.3,5.75) {$H_{\mathrm{rot}}=T\cong A_4$, twelve rotations};
-\node[sub,anchor=north] at (2.3,5.3) {spin $16=\methaneSpinAone\,\mathrm A_1\oplus\mathrm E\oplus\methaneSpinTtwo\,\mathrm T_2$ ($H$)};
-\node[sub,anchor=north] at (2.3,4.95) {$\phantom{16}=\methaneTA\,\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus\methaneTT\,\mathrm T$ ($H_{\mathrm{rot}}$)};
-% ------------------------------------------------ middle: the correspondence, species by parity against the isomer table
-\node[sub,anchor=north] at (7.4,10.35) {this paper, by parity};
-\node[sub,anchor=north] at (12.4,10.35) {Albert et al., Table II};
-\def\yA{8.9}\def\yE{7.2}\def\yT{5.5}
-\draw[heavy] (6.9,\yA)--(8.1,\yA); \node[lab,anchor=base east] at (6.75,{\yA-.1}) {$\mathrm A_1^{-}$, $\mathrm A_2^{+}$}; \node[lab,anchor=base west] at (8.25,{\yA-.1}) {$\methaneOddAone$ each};
-\draw[heavy] (6.9,\yE)--(8.1,\yE) (6.9,{\yE+.09})--(8.1,{\yE+.09}); \node[lab,anchor=base east] at (6.75,{\yE-.055}) {$\mathrm E^{-}$, $\mathrm E^{+}$}; \node[lab,anchor=base west] at (8.25,{\yE-.055}) {$\methaneOddE$ each};
-\draw[heavy] (6.9,\yT)--(8.1,\yT) (6.9,{\yT+.09})--(8.1,{\yT+.09}) (6.9,{\yT+.18})--(8.1,{\yT+.18}); \node[lab,anchor=base east] at (6.75,{\yT-.01}) {$\mathrm T_2^{-}$, $\mathrm T_1^{+}$}; \node[lab,anchor=base west] at (8.25,{\yT-.01}) {$\methaneOddTtwo$ each};
-\def\yiA{9.5}\def\yiEa{8.1}\def\yiEb{6.8}\def\yiT{5.3}
-\draw[heavy] (10.8,\yiA)--(12.0,\yiA); \node[lab,anchor=base west] at (12.15,{\yiA-.1}) {$(\mathrm A,\mathrm A,1)$: $\methaneTA$};
-\draw[heavy] (10.8,\yiEa)--(12.0,\yiEa); \node[lab,anchor=base west] at (12.15,{\yiEa-.1}) {$({}^1\mathrm E,{}^2\mathrm E,1)$: $\methaneTEtwo$};
-\draw[heavy] (10.8,\yiEb)--(12.0,\yiEb); \node[lab,anchor=base west] at (12.15,{\yiEb-.1}) {$({}^2\mathrm E,{}^1\mathrm E,1)$: $\methaneTEone$};
-\draw[heavy] (10.8,\yiT)--(12.0,\yiT) (10.8,{\yiT+.09})--(12.0,{\yiT+.09}) (10.8,{\yiT+.18})--(12.0,{\yiT+.18}); \node[lab,anchor=base west] at (12.15,{\yiT-.01}) {$(\mathrm T,\mathrm T,3)$: $\methaneTT$};
-\draw[jn] (9.45,\yA)--(10.2,\yiA); \draw[jn] (9.45,{\yE+.045})--(10.2,\yiEa); \draw[jn] (9.45,{\yE+.045})--(10.2,\yiEb); \draw[jn] (9.45,{\yT+.09})--(10.2,{\yiT+.09});
-\node[sub,anchor=north] at (9.9,4.6) {restriction $T_d\to T$: $\mathrm A_{1,2}\to\mathrm A$, $\mathrm E\to{}^1\mathrm E\oplus{}^2\mathrm E$, $\mathrm T_{1,2}\to\mathrm T$; parity is ours alone};
-% ------------------------------------------------ bottom: monodromy, the covering SO(3) -> SO(3)/T and the fibre of the T isomer
-\begin{scope}[shift={(2.6,.8)}]
-  \path[fill=ColRetained!50] (-1.8,0)--(1.8,0)--(2.5,.9)--(-1.1,.9)--cycle; \draw[heavy] (-1.8,0)--(1.8,0)--(2.5,.9)--(-1.1,.9)--cycle;
-  \coordinate (bx) at (.35,.45);
-  \draw[tlift] (bx) .. controls (-1.7,.84) and (-1.7,.06) .. (bx);
-  \node[sub,anchor=north,inner sep=1.5pt] at (-.95,-.06) {$\ell_g$}; \node[sub,anchor=west,inner sep=1pt] at (2.62,.45) {$SO(3)/T$};
-  \draw[fine] (bx)--($(bx)+(0,2.3)$);
-  \foreach \k in {1,2,3} {\fill[PlateInk] ($(bx)+(0,.55*\k+.1)$) circle[radius=1.4pt];}
-  \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] ($(bx)+(.36,2.3)$) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
-  \hatomat{bx}{.08}{ColDot}
-  \node[sub,anchor=west,inner sep=1pt] at ($(bx)+(.5,1.2)$) {the fibre of the $\mathrm T$ isomer, $\mathfrak d=3$};
-  \node[sub,anchor=south west,inner sep=1pt] at ($(bx)+(.45,2.3)$) {turned by $\mathrm T(g)$};
+\begin{tikzpicture}[plate,jn/.style={line width=.5pt,draw=PlateInk},ax/.style={line width=.4pt,draw=PlateInk,-{Stealth[length=1.4mm,width=1.1mm]}}]
+\path[use as bounding box] (0,0) rectangle (15,15.6);
+% ================================================ row A: the rigid molecule and its groups
+\node[sub,anchor=north] at (2.5,15.55) {rigid methane, $\X_0$};
+\draw[hidden] ($(2.5,13.5)+(-1.5*\chAxisZx,-1.5*\chAxisZy)$)--($(2.5,13.5)+(1.9*\chAxisZx,1.9*\chAxisZy)$);
+\node[sub,anchor=south west,inner sep=1pt] at ($(2.5,13.5)+(1.9*\chAxisZx,1.9*\chAxisZy)$) {$C_3$};
+\begin{scope}\molsolid\mollabelsinside\pic[scale=.9] at (2.5,13.5) {mol3d-ch4-ref};\end{scope}
+% the three C2 axes as a triad beside the molecule: the frame in which the T fibre is a vector
+\begin{scope}[shift={(5.7,13.3)}]
+  \draw[ax] (0,0)--($(0,0)+(.8*\chAxisAx,.8*\chAxisAy)$); \node[lab,inner sep=1pt] at ($(0,0)+(1.0*\chAxisAx,1.0*\chAxisAy)$) {$x$};
+  \draw[ax] (0,0)--($(0,0)+(.8*\chAxisBx,.8*\chAxisBy)$); \node[lab,inner sep=1pt] at ($(0,0)+(1.0*\chAxisBx,1.0*\chAxisBy)$) {$y$};
+  \draw[ax] (0,0)--($(0,0)+(.8*\chAxisCx,.8*\chAxisCy)$); \node[lab,inner sep=1pt] at ($(0,0)+(1.25*\chAxisCx,1.25*\chAxisCy)$) {$z$};
+  \fill[PlateInk] (0,0) circle[radius=1.2pt];
+  \node[sub,anchor=north] at (0,-1.1) {the three $C_2$ axes};
 \end{scope}
-\node[sub,anchor=north west,align=left] at (8.4,3.7) {$\ell_g$ lifts to $r\mapsto rg$; a species sees $g$ through $\Gamma(g)$\\monodromy group $T/\ker\Gamma$:\\$\mathrm A\mapsto1$,\quad ${}^1\mathrm E,{}^2\mathrm E\mapsto C_3$,\quad $\mathrm T\mapsto T$\\the $\mathrm T$ state is the invariant of $\mathrm T\otimes\mathrm T$:\\Schmidt rank $3$; $9$ of the $16$ spin states};
+\node[sub,anchor=north west,align=left] at (7.4,15.4) {$H=T_d(\mathrm M)\cong S_4$: each relabelling of $1$--$4$ keeps the orbit\\even ones as rotations: $H_{\mathrm{rot}}=T\cong A_4$ ($8$ $C_3$, $3$ $C_2$)\\odd ones with the star: parity, this paper's addition\\spin $16=\methaneSpinAone\,\mathrm A_1\oplus\mathrm E\oplus\methaneSpinTtwo\,\mathrm T_2$ under $H$\\$\phantom{\text{spin }16}=\methaneTA\,\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus\methaneTT\,\mathrm T$ under $T$};
+% ================================================ row B: the correlation, our species | the spin states | their isomers
+\node[sub,anchor=north] at (2.6,11.5) {this paper: species, parity, states};
+\node[sub,anchor=north] at (7.4,11.5) {$\spin$: one line per state};
+\node[sub,anchor=north] at (12.9,11.5) {Albert et al., Table II};
+\def\yA{10.4}\def\yE{8.7}\def\yT{6.9}
+\draw[heavy] (1.9,\yA)--(3.1,\yA); \node[lab,anchor=base east] at (1.75,{\yA-.1}) {$\mathrm A_1^{-}$, $\mathrm A_2^{+}$}; \node[lab,anchor=base west] at (3.25,{\yA-.1}) {$\methaneOddAone$ each};
+\draw[heavy] (1.9,\yE)--(3.1,\yE) (1.9,{\yE+.09})--(3.1,{\yE+.09}); \node[lab,anchor=base east] at (1.75,{\yE-.055}) {$\mathrm E^{-}$, $\mathrm E^{+}$}; \node[lab,anchor=base west] at (3.25,{\yE-.055}) {$\methaneOddE$ each};
+\draw[heavy] (1.9,\yT)--(3.1,\yT) (1.9,{\yT+.09})--(3.1,{\yT+.09}) (1.9,{\yT+.18})--(3.1,{\yT+.18}); \node[lab,anchor=base east] at (1.75,{\yT-.01}) {$\mathrm T_2^{-}$, $\mathrm T_1^{+}$}; \node[lab,anchor=base west] at (3.25,{\yT-.01}) {$\methaneOddTtwo$ each};
+% the spin bundle: 5 + 2 + 9 hairlines
+\foreach \k in {0,...,4} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yA-.14+.07*\k})--(8.6,{\yA-.14+.07*\k});}
+\foreach \k in {0,1} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yE+.01+.07*\k})--(8.6,{\yE+.01+.07*\k});}
+\foreach \k in {0,...,8} {\draw[line width=.35pt,draw=PlateInk] (6.2,{\yT-.19+.07*\k})--(8.6,{\yT-.19+.07*\k});}
+\node[sub,anchor=south] at (7.4,{\yA+.26}) {$\methaneSpinAone\,\mathrm A_1$, under $T$: $\methaneTA\,\mathrm A$};
+\node[sub,anchor=south] at (7.4,{\yE+.2}) {$\mathrm E$: ${}^1\mathrm E\oplus{}^2\mathrm E$};
+\node[sub,anchor=south] at (7.4,{\yT+.47}) {$\methaneSpinTtwo\,\mathrm T_2$: $\methaneTT\,\mathrm T$};
+\def\yiA{10.4}\def\yiEa{9.1}\def\yiEb{8.3}\def\yiT{6.9}
+\draw[heavy] (11.5,\yiA)--(12.7,\yiA); \node[lab,anchor=base west] at (12.85,{\yiA-.1}) {$(\mathrm A,\mathrm A,1)$: $\methaneTA$};
+\draw[heavy] (11.5,\yiEa)--(12.7,\yiEa); \node[lab,anchor=base west] at (12.85,{\yiEa-.1}) {$({}^1\mathrm E,{}^2\mathrm E,1)$: $\methaneTEtwo$};
+\draw[heavy] (11.5,\yiEb)--(12.7,\yiEb); \node[lab,anchor=base west] at (12.85,{\yiEb-.1}) {$({}^2\mathrm E,{}^1\mathrm E,1)$: $\methaneTEone$};
+\draw[heavy] (11.5,\yiT)--(12.7,\yiT) (11.5,{\yiT+.09})--(12.7,{\yiT+.09}) (11.5,{\yiT+.18})--(12.7,{\yiT+.18}); \node[lab,anchor=base west] at (12.85,{\yiT-.01}) {$(\mathrm T,\mathrm T,3)$: $\methaneTT$};
+\draw[jn] (4.6,\yA)--(6.2,\yA); \draw[jn] (4.6,{\yE+.045})--(6.2,{\yE+.045}); \draw[jn] (4.6,{\yT+.09})--(6.2,{\yT+.09});
+\draw[jn] (8.6,\yA)--(11.5,\yiA); \draw[jn] (8.6,{\yE+.045})--(11.5,\yiEa); \draw[jn] (8.6,{\yE+.045})--(11.5,\yiEb); \draw[jn] (8.6,{\yT+.09})--(11.5,{\yiT+.09});
+% the entangled row: the physical state of a T level with a T copy of the spins is the 3 x 3 invariant, a diagonal
+\begin{scope}[shift={(9.3,6.05)}]
+  \foreach \i in {0,1,2} \foreach \j in {0,1,2} {\draw[fine] ({.2*\j},{-.2*\i}) rectangle ({.2*\j+.2},{-.2*\i-.2});}
+  \foreach \i in {0,1,2} {\fill[PlateInk] ({.2*\i+.1},{-.2*\i-.1}) circle[radius=1.1pt];}
+  \node[sub,anchor=west,inner sep=1.5pt] at (.75,-.3) {the $\mathrm T\otimes\mathrm T$ invariant: Schmidt rank $3$};
+\end{scope}
+% ================================================ row C: the monodromy shown
+\node[sub,anchor=north] at (6.0,5.45) {a third of a turn about the C--H$_4$ axis: a loop in $SO(3)/T$, lifted it ends at $rg$};
+\foreach \k/\x/\l in {0/1.8/{$0$},1/4.6/{$2\pi/9$},2/7.4/{$4\pi/9$},3/10.2/{$2\pi/3$}} {
+  \draw[hidden] ($(\x,3.1)+(-1.25*\chAxisZx,-1.25*\chAxisZy)$)--($(\x,3.1)+(1.55*\chAxisZx,1.55*\chAxisZy)$);
+  \begin{scope}\molsolid\mollabelsinside\pic[scale=.7] at (\x,3.1) {mol3d-ch4-rot-\k};\end{scope}
+  \node[sub,anchor=north] at (\x,1.55) {\l};}
+\draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] ($(1.8,3.1)+(1.55*\chAxisZx,1.55*\chAxisZy)+(.36,0)$) arc[start angle=0,end angle=300,x radius=.36,y radius=.13];
+\node[sub,anchor=north] at (10.2,1.2) {same position, $1$, $2$, $3$ cycled};
+\node[sub,anchor=north] at (13.3,5.45) {the fibre after the loop};
+\node[lab,anchor=east] at (12.35,4.4) {$\mathrm A$}; \dial{13.05}{4.4}{0}{0} \node[sub,anchor=west] at (13.55,4.4) {$\times1$};
+\node[lab,anchor=east] at (12.35,3.1) {${}^1\mathrm E$}; \dial{13.05}{3.1}{120}{1} \node[sub,anchor=west] at (13.55,3.1) {$\times\omega$};
+\node[lab,anchor=east] at (12.35,1.6) {$\mathrm T$};
+\begin{scope}[shift={(13.05,1.5)}]
+  \draw[ax] (0,0)--($(0,0)+(.55*\chAxisAx,.55*\chAxisAy)$); \draw[ax] (0,0)--($(0,0)+(.55*\chAxisBx,.55*\chAxisBy)$); \draw[ax] (0,0)--($(0,0)+(.55*\chAxisCx,.55*\chAxisCy)$);
+  \fill[PlateInk] (0,0) circle[radius=1.1pt];
+  \node[sub,inner sep=1pt] at ($(0,0)+(.78*\chAxisAx,.78*\chAxisAy)$) {$x$}; \node[sub,inner sep=1pt] at ($(0,0)+(.78*\chAxisBx,.78*\chAxisBy)$) {$y$}; \node[sub,inner sep=1pt] at ($(0,0)+(1.0*\chAxisCx,1.0*\chAxisCy)$) {$z$};
+  \draw[hidden] ($(0,0)+(.95*\chAxisAx,.95*\chAxisAy)$) to[bend right=35] ($(0,0)+(.95*\chAxisBx,.95*\chAxisBy)$);
+\end{scope}
+\node[sub,anchor=west] at (13.55,1.6) {cycled};
 \end{tikzpicture}
 \end{document}

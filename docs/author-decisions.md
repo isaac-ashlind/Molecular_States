@@ -180,3 +180,9 @@ docs/notation-migration.md.
 - Flag for the shared layer: geometry.kabsch_rotation (a Newton polar iteration) does not converge for third-turns
   (residual 3.1 on the tetrahedron's 3-cycles) though it is exact for the suite's small turns and half-turns; the
   methane check fits by SVD instead. Not changed in this bounded edit.
+- The closing pages (author, 2026-10-05): a full-page plate with a short caption, then one page of equations and
+  tables (classes and class functions of Td(M), weights by parity against their isomers, entanglement, monodromy,
+  the region), both on rigid methane against Albert et al. The monodromy is now shown, not named: the third-turn
+  loop in four computed snapshots and the three fibres after it. The text page is set in small type to hold on one
+  page. The region: F = SO(3) x D^9, positions SO(3)/T x D^9 (their octahedral space); over all of H the deck group
+  is the cube group O and O/T = Z2 is parity (checked).

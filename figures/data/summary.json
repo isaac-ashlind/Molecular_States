@@ -82,6 +82,15 @@
    0.0
   ]
  ],
+ "methane_loop": {
+  "turn_deg": 120.0,
+  "nucleus_i_sits_where_j_was": [
+   3,
+   1,
+   2,
+   4
+  ]
+ },
  "methane_rigid": {
   "spin_Td": {
    "A1": 5,

@@ -192,19 +192,26 @@ suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
 
-## Rigid recovery (unnumbered plate, the closing page): methane against Albert et al.
-What the reader sees at a squint: a tetrahedron, three bars fanning into four, and a loop with a fibre over it.
-Left: rigid methane (computed tetrahedron, C-H 1.087 A, hydrogen 1 up, camera 15 deg azimuth, 45 deg elevation chosen
-by scan so that every hydrogen disc clears the carbon), H = Td(M) = S4 with the even relabellings unstarred and the odd
-ones starred, H_rot = T = A4, the spin space 5 A1 + E + 3 T2 under H and 5 A + 1E + 2E + 3 T under H_rot. Middle:
-our rotational species with their physical-state counts by parity (A1-, A2+: 5 each; E-, E+: 1 each; T2-, T1+: 3
-each) joined by the restriction Td -> T to their isomer rows (Gamma_rot, Gamma_nuc, d) with their state counts
-(A, A, 1): 5; (1E, 2E, 1): 1; (2E, 1E, 1): 1; (T, T, 3): 3, the T block of Table II of Albert, Kubischta, Lemeshko and
-Liu (arXiv:2403.04572v4; their Examples 21, 23, 42, eqs. 1, 44a, 127). Bottom: the covering SO(3) -> SO(3)/T drawn
-as the gold patch of figure 11 with a loop l_g, the fibre of the T isomer as three components over the base point,
-turned by T(g); the monodromy groups T/ker Gamma = 1, C3, C3, T; the T state as the invariant of T x T (Schmidt rank
-3; 9 of 16 spin states). Every number is emitted by make_data (summary.json, methane_rigid) and recomputed from
-explicit permutation and rotation matrices in checks/verify_methane.py, which also checks that the twelve even
-relabellings act as a closed group of proper rotations of the computed tetrahedron and that 1E is a homomorphism.
-Declared: no energies; parity (the starred elements) is this paper's addition to their construction; the labels 1E,
-2E are exchanged together by the other reading of the transport (footnote on the page).
+## Rigid recovery (unnumbered full-page plate, the closing pages): methane against Albert et al.
+What the reader sees at a squint: a tetrahedron with its axes; three bars fanning through a bundle of sixteen lines
+into four bars; four snapshots of the molecule turning, and three small dials. Top: rigid methane (computed
+tetrahedron, C-H 1.087 A, hydrogen 1 on z; camera 15 deg azimuth, 45 deg elevation chosen by scan so that every
+hydrogen disc clears the carbon), its C3 axis (C-H4, the one that stands upright in this view) and the three C2
+axes drawn as a triad, the groups H = Td(M) = S4 and H_rot = T, and the spin decompositions. Middle: a three-column
+correlation diagram, our rotational species with their physical states by parity (A1-, A2+: 5 each; E-, E+: 1 each;
+T2-, T1+: 3 each), the sixteen spin states as hairlines in their three species groups (5 A1 -> 5 A; E -> 1E + 2E;
+3 T2 -> 3 T), and their isomer rows (Gamma_rot, Gamma_nuc, d) with their state counts, the T block of Table II of
+Albert, Kubischta, Lemeshko and Liu (arXiv:2403.04572v4); the T row's 3 x 3 invariant drawn as a diagonal (Schmidt
+rank 3). Bottom, the monodromy shown: a third of a turn about the C-H4 axis in four computed snapshots (0, 2pi/9,
+4pi/9, 2pi/3) brings the molecule back to its position with hydrogens 1, 2, 3 cycled (an even relabelling, found by
+matching positions): a loop in SO(3)/T whose lift ends at r g; at the right the fibre of each isomer after the loop,
+A unchanged (x 1), 1E a phase dial turned by a third (x omega), T a vector triad along the C2 axes with its
+components cycled. The second page carries the equations and tables (classes of Td(M) with their equivalent
+rotations and class functions; the weights by parity against their isomers; entanglement; monodromy; the region
+F = SO(3) x D^9 with positions SO(3)/T x D^9, their octahedral space). Every number is emitted by make_data
+(summary.json: methane_rigid, methane_loop) and recomputed from explicit permutation and rotation matrices in
+checks/verify_methane.py, which also checks that the 24 equivalent rotations form the cube group O (1, 6
+quarter-turns, 8 third-turns, 9 half-turns), that the even twelve form T, that 1E is a homomorphism, that the loop
+closes with an even relabelling, that T(g) cycles the C2 axes and that 1E(g) is a primitive cube root of unity.
+Declared: no energies; parity (the starred half of H) is this paper's addition; the labels 1E, 2E are exchanged
+together by the other reading of the transport (footnote on the text page).

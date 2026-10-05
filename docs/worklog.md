@@ -107,3 +107,10 @@ glyph in the data layer, the closing-page numbers emitted by make_data, an indep
 24 relabellings as proper rotations, 5 A1 + E + 3 T2, the parity weights, the four isomers of Table II, Schmidt rank
 3, monodromy orders 1, 3, 3, 12) registered in build.py, the plate fig13-rigid-recovery redrawn, the page text
 rewritten. Build clean, 22 pages. Flagged: the Newton Kabsch routine fails on third-turns.
+
+## 2026-10-05, the closing pages on methane
+
+Full-page plate (groups, the three-column correlation through the sixteen spin states, the monodromy of a third-turn
+in four snapshots with the fibres after the loop) and a text page with equations and two tables. Checks extended:
+the 24 equivalent rotations form O; the loop closes with an even relabelling; T(g) cycles the C2 axes; 1E(g) is a
+cube root of unity. Build clean, 23 pages.
