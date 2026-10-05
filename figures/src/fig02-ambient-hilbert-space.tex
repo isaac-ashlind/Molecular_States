@@ -12,7 +12,7 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt}}}
+\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt,draw=PlateInk},axis line style={draw=PlateInk}}}   % ink, not the pgfplots grey ticks and black axes
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,10.2);

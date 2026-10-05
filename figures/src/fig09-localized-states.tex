@@ -20,7 +20,7 @@
   \draw[fine] (-180,0)--(180,0);   % the torsion line, after the fills so that it shows under the broad packets too
   \end{scope}
   \foreach \c in {0,120,-120} {\hatom{#1+#4*\c/360}{#2}{.08}{ColDot}}}
-\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt}}}
+\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt,draw=PlateInk},axis line style={draw=PlateInk}}}   % ink, not the pgfplots grey ticks and black axes
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,10.4);
