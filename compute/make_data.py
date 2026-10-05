@@ -360,6 +360,13 @@ def main():
     CH4 = G.methane_c2()
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
     CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)  # chosen by scan: 27 deg (the maximum) from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate on the page; bond 1 toward the viewer
+    # the glyph for the left panel: the suite's molecule primitive with its own camera, chosen by scan (every hydrogen
+    # disc 0.61 A clear of the carbon and of every other hydrogen on the page, every C2 axis at least 26 deg off the view)
+    CAM_MOL = G.camera(azimuth_deg=346.0, elevation_deg=64.0)
+    emit_pic(mol, 'mol3d-ch4-c2', pic_code_rods(CH4, G.CH4_ELEMENTS, G.CH4_BONDS, CAM_MOL, labels=True))
+    for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
+        px, py, _ = G.project([v], CAM_MOL)[0]
+        num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
     BALL_R = 2.0                                                # cm for the angle pi: the ball's radius on the page
     bs = BALL_R / math.pi                                       # cm per radian
     D = [G.unit(CH4[k]) for k in range(4)]                      # bond directions = body diagonals
@@ -393,19 +400,40 @@ def main():
     hid -= vis
     num.append('\\def\\ballCellVisible{' + ','.join(f'{a}/{b}' for a, b in sorted(vis)) + '}')
     num.append('\\def\\ballCellHidden{' + ','.join(f'{a}/{b}' for a, b in sorted(hid)) + '}')
-    # the great circle of the xy-plane (the plane of two C2 axes) as a depth cue: front and back arcs on the page
-    pts = [G.project([(BALL_R * math.cos(math.radians(t)), BALL_R * math.sin(math.radians(t)), 0.0)], CAM_BALL)[0] for t in range(0, 361, 5)]
-    def arcs(sel):
-        runs, cur = [], []
-        for px, py, pz in pts:
-            if sel(pz): cur.append(f'({px:.3f},{py:.3f})')
-            elif cur: runs.append(' '.join(cur)); cur = []
-        if cur: runs.append(' '.join(cur))
-        return runs
-    for tag, sel in (('Front', lambda z: z >= 0), ('Back', lambda z: z < 0)):
-        for i, run in enumerate(arcs(sel)):
-            num.append(f'\\def\\ballEq{tag}{"ABC"[i]}{{{run}}}')
-        num.append(f'\\def\\ballEq{tag}Count{{{len(arcs(sel))}}}')
+    # the cube whose vertices are the eight third-turns (+-D[k] at 2pi/3): edges join vertices differing in one sign;
+    # an edge is visible if it lies on a cube face turned to the viewer (face normals +-x, +-y, +-z)
+    verts = {('ballC' + 'abcd'[k]): tuple(D[k]) for k in range(4)}
+    verts.update({('ballD' + 'abcd'[k]): tuple(-c for c in D[k]) for k in range(4)})
+    sgn = {n: tuple(1 if c > 0 else -1 for c in v) for n, v in verts.items()}
+    cvis, chid = set(), set()
+    for a, b in itertools.combinations(sorted(verts), 2):
+        diff = [i for i in range(3) if sgn[a][i] != sgn[b][i]]
+        if len(diff) != 1: continue
+        shared = [i for i in range(3) if i not in diff]            # the edge lies on the two faces normal to the shared axes
+        visible = any(sgn[a][i] * outv[i] > 0 for i in shared)
+        (cvis if visible else chid).add((a, b))
+    num.append('\\def\\ballCubeVisible{' + ','.join(f'{a}/{b}' for a, b in sorted(cvis)) + '}')
+    num.append('\\def\\ballCubeHidden{' + ','.join(f'{a}/{b}' for a, b in sorted(chid)) + '}')
+    assert len(cvis) + len(chid) == 12
+    # the three great circles of the coordinate planes (each the plane of two C2 axes) as the depth cue: front and
+    # back arcs on the page, each circle split where it crosses the outline (a run may wrap past 360)
+    def circle_pts(plane):
+        out = []
+        for t in range(0, 720, 4):
+            c, sn = math.cos(math.radians(t)), math.sin(math.radians(t))
+            v = {'XY': (c, sn, 0.0), 'YZ': (0.0, c, sn), 'ZX': (sn, 0.0, c)}[plane]
+            out.append(G.project([tuple(BALL_R * x for x in v)], CAM_BALL)[0])
+        return out
+    for plane in ('XY', 'YZ', 'ZX'):
+        pts = circle_pts(plane)
+        for tag, sel in (('Front', lambda z: z >= 0), ('Back', lambda z: z < 0)):
+            # one run of the selected half, taken from the two-turn sampling so that it never wraps
+            start = next(i for i in range(len(pts)) if sel(pts[i][2]) and not sel(pts[i - 1][2]))
+            run = []
+            for i in range(start, start + len(pts) // 2 + 1):
+                if sel(pts[i % len(pts)][2]): run.append('(%.3f,%.3f)' % pts[i % len(pts)][:2])
+                else: break
+            num.append(f'\\def\\ballArc{plane}{tag}{{{" ".join(run)}}}')
     # the loop: a third of a turn about the bond to hydrogen 1 returns X0 to its position with 2, 3, 4 cycled
     Rg = G.rot_axis(D[0], 2 * math.pi / 3)
     Xg = G.rotate(Rg, CH4)

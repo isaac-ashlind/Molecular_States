@@ -194,26 +194,35 @@ Fig. 4.2.3.
 
 ## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
 What the reader sees at a squint: a labelled tetrahedron with three axes; a circle holding a scatter of red dots, a
-small wire octahedron and one arrow; a stack of three flat sheets over a base patch with a loop and a lift. Three
-panels from one camera (make_data: CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the
+small wire octahedron and one arrow; a stack of three flat sheets over a base patch with a loop and a lift. The ball
+panel has its own camera (make_data: CAM_BALL, azimuth 108, elevation 21, chosen by scan to sit 27 degrees, the
 maximum, from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate and bond 1
-faces the viewer). Left: the reference X0 in its C2 frame (geometry.methane_c2: hydrogens on the body diagonals,
-C-H 1.087 A), the axes x, y, z through the midpoints of opposite edges as fine lines, the digits in the hydrogens.
+faces the viewer); the molecule panel has the molecule's (CAM_MOL, azimuth 18, elevation 59, chosen by scan so that
+every hydrogen disc clears the carbon and every other hydrogen by 0.61 A on the page with every C2 axis at least 26
+degrees off the view). The two panels share the body frame, not the camera. Left: the reference X0 in its C2 frame
+(geometry.methane_c2: hydrogens on the body diagonals, C-H 1.087 A) drawn with the suite's molecule primitive
+(mol3d-ch4-c2: shaded atoms, rods, the digits inside the hydrogens), the axes x, y, z through the midpoints of
+opposite edges as fine lines behind it.
 Middle: the orientation space SO(3) as the axis-angle ball (direction the axis, distance the angle, radius pi drawn
 2 cm; the skin is the half-turns, each point its own antipode): the twelve symmetry rotations of T as red dots, the
-centre, eight third-turns (a tetrahedron through the bonds at +2pi/3, one through the faces at -2pi/3) and three
-half-turns on the skin, each drawn once at its visible representative; one cell of the twelve, the orientations
-nearer the centre than any other dot, as a wire octahedron (an octahedron in Rodrigues coordinates, |x|+|y|+|z| <= 1;
-drawn with flat faces, the true faces bulge; hidden edges dotted, the only dotted lines on the plate besides the
-projection at right) with the six quarter-turns, the starred 4-cycles, as ink rings at its vertices; the lift of the
+centre, eight third-turns (a tetrahedron through the bonds at +2pi/3, one through the faces at -2pi/3) joined by the
+thin edges of the cube they span, and three half-turns on the skin at the crossings of the great circles, each drawn
+once at its visible representative; the three great circles of the coordinate planes give the depth; one cell of
+the twelve, the orientations nearer the centre than any other dot, as a wire octahedron (an octahedron in Rodrigues
+coordinates, |x|+|y|+|z| <= 1; drawn with flat faces, the true faces bulge) with the six quarter-turns, the starred
+4-cycles, as ink rings at its vertices; the lift of the
 third-turn loop as a solid arrow from the centre through a face to the dot beyond (r -> r R_g). No molecule inside
 the ball and no point drawn twice (author, 2026-10-05). Right: the covering in figure 11's grammar: a patch of
 SO(3)/T (the cell with its faces glued) with the loop l_g, the sheets r, r R_g, r R_g^2 of the twelve over it, the
 lift of l_g from the dot on sheet r to the dot on sheet r R_g, one dotted projection from the base point to its
-sheet; the sheets are the cartoon of figure 11, not a computed surface. This is the honest form of Albert et al.'s
+sheet; the sheets are the cartoon of figure 11, not a computed surface. Line vocabulary (author, 2026-10-05): solid
+for what faces the viewer, dashed for what lies behind; dotted only for the projection. Colours untangle the nested
+surfaces (author): the sphere teal, the orientation space taking over the core sheet's role; the cell gold, the
+chart patch as in figures 10 and 11, and the base patch at right in figure 11's gold tint; the cube in thin ink; the
+dots red; the lift in ink. This is the honest form of Albert et al.'s
 Fig. 3(c): their fibre over a position is these twelve sheets (the regular representation of T), and their
-monodromy action is the lift moving from one sheet to the next. Colours: ink, white, the red dots (the version-dot
-role of figure 10 handed to orientations). Every coordinate is emitted by make_data (numbers.tex, the ball*
+monodromy action is the lift moving from one sheet to the next. The red dots carry the version-dot role of figure 10,
+handed to orientations. Every coordinate is emitted by make_data (numbers.tex, the ball*
 macros) and the geometry is recomputed in checks/verify_methane.py: all 24 relabellings are proper rotations
 closing as the cube group O, the even twelve as T; the identity's Voronoi cell in the bi-invariant metric is the
 octahedron (3000 random rotations); its vertices are the quarter-turns; the face x+y+z=1 is glued to x+y+z=-1 by

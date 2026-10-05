@@ -126,3 +126,9 @@ the J ladder from the actual rotation angles; the identity's Voronoi cell is the
 (3000 samples) with the quarter-turns at its vertices; the face gluing with a third of a twist; the packet-share
 closed forms against the projector sums. Build clean, all checks and the GAP cross-check pass, no text collisions,
 manuscript 24 pages with no bad boxes.
+
+Same day, the plate reworked on the author's reading: the molecule redrawn with the suite's primitive and its own
+scanned camera; the eight third-turns joined as the cube they span; three great circles for depth; solid in front,
+dashed behind, dotted only for the projection; the sphere teal, the cell gold (the base patch at right in figure
+11's gold tint), the cube in ink, the dots red. Build clean, no collisions, 24 pages.
+
