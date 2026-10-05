@@ -40,14 +40,14 @@
 \path[use as bounding box] (0,0) rectangle (15,8.8);
 % ================================================ upper left: methane in its body frame, seen as the ball is seen
 \node[blurb] at (.15,8.7) {Methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\with the $C_2$ axes $x,y,z$ through the midpoints of opposite edges.};
-\begin{scope}[shift={(1.6,6.4)}]
-  \foreach \a/\s in \baAxisBack {\draw[thin] (0,0)--({\s*1.4*\csname baAxis\a x\endcsname},{\s*1.4*\csname baAxis\a y\endcsname});}
+\begin{scope}[shift={(1.45,6.4)}]
+  \foreach \a/\s in \baAxisBack {\draw[thin] (0,0)--({\s*1.2*\csname baAxis\a x\endcsname},{\s*1.2*\csname baAxis\a y\endcsname});}
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-ball};\end{scope}
-  \foreach \a/\s in \baAxisFront {\draw[thin] (0,0)--({\s*1.4*\csname baAxis\a x\endcsname},{\s*1.4*\csname baAxis\a y\endcsname});}
-  \foreach \a/\lab/\e in {X/$x$/1.47,Y/$y$/1.25,Z/$z$/1.47} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname baAxis\a x\endcsname+.06},{\e*\csname baAxis\a y\endcsname}) {\lab};}
+  \foreach \a/\s in \baAxisFront {\draw[thin] (0,0)--({\s*1.2*\csname baAxis\a x\endcsname},{\s*1.2*\csname baAxis\a y\endcsname});}
+  \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/1.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname baAxis\a x\endcsname+.06},{\e*\csname baAxis\a y\endcsname}) {\lab};}
 \end{scope}
 % ================================================ middle: the orientation ball, large
-\begin{scope}[shift={(5.3,5.25)},scale=1.05]
+\begin{scope}[shift={(5.0,5.25)},scale=1.05]
   \foreach \pl in {XY,YZ,ZX} {\draw[tealdash] plot[smooth] coordinates {\csname ballArc\pl Back\endcsname};}
   \foreach \p/\q in \ballCubeHidden {\draw[thindash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
   \foreach \p/\q in \ballCellHidden {\draw[golddash] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
@@ -62,7 +62,7 @@
   \fill[ColDot] (0,0) circle[radius=.06];
   \foreach \a in {x,y,z} {\foreach \t in {p,m} {\draw[fine,fill=white] (\csname ballV\a\t x\endcsname,\csname ballV\a\t y\endcsname) circle[radius=.04];}}
 \end{scope}
-\node[blurb] at (2.7,2.6) {The orientation space $SO(3)$ as a ball:\\direction the axis, distance the angle.\\Red dots are the twelve rotations of $T$;\\the gold octahedron is the cell $\mathcal U$ at $q=0$;\\the arrow is the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$.};
+\node[blurb] at (2.4,2.6) {The orientation space $SO(3)$ as a ball:\\direction the axis, distance the angle.\\Red dots are the twelve rotations of $T$;\\the gold octahedron is the cell $\mathcal U$ at $q=0$;\\the arrow is the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$.};
 % ================================================ right: the covering, with room
 \begin{scope}[shift={(11.6,3.6)}]
   \coordinate (bx) at (.5,.3);
