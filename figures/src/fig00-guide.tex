@@ -20,7 +20,7 @@
 \path[use as bounding box] (0,1.1) rectangle (15,15.6);
 \pgfmathsetmacro{\Ro}{2.3}\pgfmathsetmacro{\Ri}{1.62}\pgfmathsetmacro{\E}{.42}
 \pgfmathsetmacro{\dx}{.45}   % the slide of the tube, the sheets and their headings to the right of the molecule and the lattice
-% arrangement (author, 2026-10-04): the subgroups between H and B in grey at the top left under heading III, the molecule at
+% arrangement (author, 2026-10-04): the bond interval [H, B] in grey at the top left under heading III, the molecule at
 % the slab's notch with heading I beside it, the tube, the sheets and headings II and IV slid right by \dx for balance
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \hatchfit{42.51}{.12059}{-.03599}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
@@ -72,7 +72,7 @@
   \foreach \k in {0,...,5} {\hatomat{p\k}{.08}{ColDot}}
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
-% ------------------------------------------------ the symmetry groups: the subgroups between H and B, grey, covers in the line grammar
+% ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \def\gt{t}\def\gu{u}
 \begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]

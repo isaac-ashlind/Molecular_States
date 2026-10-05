@@ -1,7 +1,7 @@
 % Figure 5. Symmetry groups and versions. What the reader must see: (A) methylamine as two fragments, the reference
 % X0 with its half-turn axis upright, and bX0 = X0 P_b drawn solid with digits: the half-turn reproduces it, so H = {E, b};
-% the mirror plane seen edge-on down the C-N axis; (B) the feasible regime carved from all the subgroups between H and S
-% (36 subgroups, a faint grey envelope) to those between H and B (10 subgroups, ink) with the chain H < G6 < G12 < B on a gold halo;
+% the mirror plane seen edge-on down the C-N axis; (B) the feasible regime carved from the whole interval [H, S]
+% (36 subgroups, a faint grey envelope) to the bond interval [H, B] (10 subgroups, ink) with the chain H < G6 < G12 < B on a gold halo;
 % in the bond interval every node is named by its generators and every cover is labelled by the generator it adds,
 % so the climb reads as generators being adjoined; (C) versions are the same positions with the digits moved by g.
 % Colours: gold = the chain (a halo under the styled covers); covers by generator in the line grammar, solid t,
@@ -37,7 +37,7 @@
 \node[sub,anchor=north] at (12.3,15.9) {$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$};
 \draw[bpath] (9.05,17.95)--(10.65,17.95); \node[lab,anchor=south] at (9.85,18.13) {$b=(23)(45)^*$};
 \draw[harrow] (9.05,16.85)--(10.65,16.85); \node[lab,anchor=north] at (9.85,16.67) {$\Rmat_b=\Rmat_y(\pi)$};
-% ------------------------------------------------ B. the subgroups between H and S carved to those between H and B, generators adjoined along the climb
+% ------------------------------------------------ B. the whole interval [H, S] carved to the bond interval, generators adjoined along the climb
 \begin{scope}[shift={(.5,6.8)}]
   \foreach \i/\x/\yy/\inb/\name in \bigNodes {\pgfmathsetmacro{\xx}{\x}\ifnum\i=6 \pgfmathsetmacro{\xx}{0.38}\fi\ifnum\i=8 \pgfmathsetmacro{\xx}{0.12}\fi\ifnum\i=15 \pgfmathsetmacro{\xx}{0.21}\fi\ifnum\i=26 \pgfmathsetmacro{\xx}{0.26}\fi \coordinate (n\i) at ({.3+6.4*\xx},{.2+7.6*\yy});}   % four nodes moved along their levels so that no cover runs through a node
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[line width=.2pt,draw=PlateInk!16] (n\a)--(n\b);\fi}
@@ -55,7 +55,7 @@
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
-\node[sub,anchor=north,text width=6.4cm,align=center] at (11.2,6.75) {each cover adjoins one generator: solid $t$, dashed $u$, dotted a starred one};
+\node[sub,anchor=north,text width=6.4cm,align=center] at (11.2,6.75) {each cover adds one generator, solid for $t$, dashed for $u$, dotted for a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move
 \node[sub,anchor=west] at (.3,5.25) {versions $G_{12}/H$};
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {

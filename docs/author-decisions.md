@@ -313,3 +313,16 @@ docs/notation-migration.md.
   permuted, carries A1 and triples every count, so H_spin = 36 A1 + 12 A2 + 24 E and the physical weights are 36, 12,
   24 (even) and 12, 36, 24 (odd), as the methane pages count in their full H_spin. Figure 8 draws the proton factor,
   32 lines, and its caption says nitrogen triples every bundle.
+- Brackets (author, 2026-10-05, supersedes the entry above): brackets wherever they are the standard convention, and
+  no invented notation. The subgroup intervals are [H, B] and [H, S], defined at first use as {G : H <= G <= B} so
+  they do not read as commutators (a symbol L_H^B was tried and withdrawn as arbitrary); C[G/H] and C[T] and the
+  matrix entry [M_s(a)]_{beta alpha} keep their brackets. The loops carry no brackets (gamma_g is the path and, in
+  the quotient, its loop); [X] is the class of X.
+- Captions and in-plate notes (author, 2026-10-05): rewritten in the voice of the opening pages, whole sentences with
+  one idea each, plain verbs, no colons, semicolons rare, no em dashes; position words ("at the top", "on the left")
+  in place of "Top:" and "Left:". In-plate notes stay lowercase without full stops.
+- Closing section (author, 2026-10-05): titled Example and Recovery of the Rigid Case and rewritten in the author's
+  voice. Methane is run through the construction in order, each step numbered by the section it applies (1, 2-3,
+  4-5, 6 to 12), and the rigid body of Albert et al. falls out as a projection that forgets the normal coordinates
+  and parity. It now flows over four pages without forced breaks; the main text's two pointers to a closing box
+  point to the example that closes the paper.

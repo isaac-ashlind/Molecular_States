@@ -4,8 +4,9 @@ The manuscript and its plates are complete, built from one command, and checked.
 is verified, how to change things, and what is left to the author.
 
 ## State
-- `docs/manuscript.tex` builds to 24 pages (`build/manuscript.pdf`): the cover guide, the twelve sections in four
-  parts with one plate each, the three closing pages on rigid methane, the notation and the references. No undefined
+- `docs/manuscript.tex` builds to 25 pages (`build/manuscript.pdf`): the cover guide, the twelve sections in four
+  parts with one plate each, the four closing pages (Example and Recovery of the Rigid Case: methane run through
+  Sections 1 to 12, the rigid case as a projection), the notation and the references. No undefined
   references, no over- or underfull boxes.
 - Fourteen plates in `figures/src/`, compiled to `figures/pdf/` (vector) and `figures/png/` (600 dpi). Every plate is
   15.2 cm wide and is included at `\linewidth`, so all print at one scale (labels 9.8 pt, notes 8.7 pt).
@@ -24,7 +25,8 @@ Outputs in `build/`: `manuscript.pdf`, `proofsheet.pdf` (every plate at print wi
 
 ## Where to change what
 - **Text**: `docs/manuscript.tex`. Banner comments mark the four parts, the twelve sections and the closing pages.
-  The closing pages have explicit page breaks (before item 5 and before Table A); if their text grows, move those.
+  The closing pages flow without forced breaks; each step is numbered by the section it applies, and each table is
+  kept whole.
 - **A plate**: `figures/src/figNN-*.tex`, then `python3 build.py --only NN`. The visual vocabulary (line styles, atoms,
   rods, tube, hatch, zoom bubble) is in `figures/shared/primitives.tex`, the palette in `figurestyle.sty`; the rules
   are written out in `docs/style.md`. What each plate shows and what it declares schematic is in
@@ -72,5 +74,9 @@ alone.
   rearrangement paths gamma (each a loop in the quotient), s' in the action rule, the proton spin space (C^2)^{x5}, Section 2's components f_xi and f_zeta, Table
   A's classes by relabellings), defined the rest at first use, and completed the notation page.
 - Plates (244892e to 24fd9a7): a seven-inspector, seven-skeptic audit; 46 confirmed findings applied plate by plate.
+- Captions and in-plate notes rewritten in the voice of the opening pages (whole sentences, one idea each, no
+  colons, semicolons rare, no em dashes); the closing section retitled Example and Recovery of the Rigid Case and
+  rewritten as methane run through Sections 1 to 12, with the rigid case of Albert et al. as a projection; the
+  methylamine spin space written with its carbon and nitrogen factors (physical weights 36, 12, 24).
 - Then: every label on figure 6 at note size (uH's slot cannot take label size); figure 1's tight strip cells widened;
   figure 11's graph nodes enlarged so every label has at least 3 pt of air.

@@ -35,7 +35,7 @@
   under/.style={sub,anchor=north,align=center}]
 \path[use as bounding box] (0,0) rectangle (15,8.8);
 % ================================================ left column: methane and the orientation ball
-\node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\the $C_2$ axes $x,y,z$ through the midpoints of opposite edges};
+\node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$, the reference $\X_0$ in its body frame\\its twofold axes $x$, $y$, $z$ pass through midpoints of opposite edges};
 \begin{scope}[shift={(1.25,6.55)}]
   \foreach \a/\s in \chAxisBack {\def\L{1.2}\if Z\a\def\L{.9}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
   \begin{scope}\molsolid\renewcommand\mollabel[6]{\if#1H\node[font=\fontsize{6.5}{7}\selectfont,inner sep=0pt] at ({#3-\ifnum#2=2 .03\else 0\fi},{#4-\ifnum#2=2 .033\else 0\fi}) {#2};\fi}\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}   % digits inside the discs, 2 nudged off the front half of z
@@ -65,7 +65,7 @@
   \hatom{0}{0}{.08}{ColDot}
   \foreach \p in \ballCellFrontPts {\draw[fine,fill=white] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
 \end{scope}
-\node[under] at (4.3,2.55) {the orientation space $SO(3)$ as a ball,\\direction the axis and distance the angle:\\the twelve rotations of $T$ in red,\\the cell $\mathcal U$ at $q=0$ in gold,\\and the lift $r\to r\Rmat_g$ of the\\third-turn about bond $1$};
+\node[under] at (4.3,2.55) {the orientation space $SO(3)$ as a ball\\direction gives the axis and distance the angle\\the twelve rotations of $T$ in red\\the cell $\mathcal U$ at $q=0$ in gold\\the arrow lifts the third-turn about bond $1$\\from $r$ to $r\Rmat_g$};
 % ================================================ right column: the covering
 \begin{scope}[shift={(11.45,3.2)}]
   \coordinate (bx) at (.5,.3);
@@ -86,6 +86,6 @@
   \foreach \k in {0,1,2} {\hatomat{p\k}{.08}{ColDot}}
   \hatomat{bx}{.08}{ColDot}
 \end{scope}
-\node[under] at (11.95,2.55) {over the base $SO(3)/T$, twelve sheets,\\one for each rotation in $T$, three drawn;\\the third-turn closes as a loop $\gamma_g$ in the base\\and, lifted, climbs from sheet $r$ to sheet $r\Rmat_g$;\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$,\\${}^2\mathrm E$ as $e^{4\pi i/3}$, $\mathrm T$ as $x\to y\to z$};
+\node[under] at (11.95,2.55) {over the base $SO(3)/T$ lie twelve sheets\\one for each rotation in $T$, three drawn\\the third-turn's path $\gamma_g$ is a loop in the base\\lifted, it climbs from sheet $r$ to sheet $r\Rmat_g$\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$\\${}^2\mathrm E$ as $e^{4\pi i/3}$ and $\mathrm T$ as $x\to y\to z$};
 \end{tikzpicture}
 \end{document}

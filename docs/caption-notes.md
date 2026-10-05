@@ -41,7 +41,7 @@ cylinder's symmetries is of order 12 and isomorphic to G12 (checks/verify_antipr
 carries exactly the molecular symmetry group, which the caption may say. The solid's decoration is drawn turned
 15 degrees so that the projection line from H to [X] crosses no other version point. The four headings carry the
 roman numerals of the four sections (the former parts) with their subsection ranges. At the top left, under heading
-III, the subgroups between H and B of figure 5 as a small Hasse diagram in grey (ink thinned), covers in the line grammar
+III, the bond interval [H, B] of figure 5 as a small Hasse diagram in grey (ink thinned), covers in the line grammar
 (solid t, dashed u, dotted a starred generator), the vertices H, B and G (= G_12, the regime) named; no colour. The
 base patch of the sheets is pale gold, a chart neighbourhood in the quotient (gold = a retained region, here the
 neighbourhood carrying a chart), with the class of the reference as a red point; it is unnamed (the quotient is named
@@ -90,8 +90,8 @@ and down to G_K and G_Rb; the common core <E*> below, E at the bottom; the latti
 ## Figure 5, symmetry groups and versions
 Row A: methylamine as two fragments, methyl and amino (dashed hulls); X0 with its half-turn axis and the version
 equation b = (23)(45)* = R_y(pi), bX0 = X0 P_b = R_b X0, so H = {E, b}. Row B: the 36 subgroups between H and S
-(grey) carved to the 10 that keep the bonds (black), the chain H < G6 < G12 < B in gold; at the right the
-subgroups between H and B as a Hasse diagram, every node written by its generators, each cover drawn in the line grammar of
+(grey) carved to the 10 that keep the bonds (black), the chain H < G6 < G12 < B in gold; at the right the bond
+interval [H, B] as a Hasse diagram, every node written by its generators, each cover drawn in the line grammar of
 the generator it adjoins (solid t, dashed u, dotted a starred one: E*, u*, t*), the same chain as a gold halo.
 Row C: the six versions G12/H, the same positions with the digits moved, position j carrying label g(j); each glyph is
 one representative of its rotational-orbit version (the orbit under H = {E, b} is the rotation by R_b). All
@@ -124,7 +124,7 @@ through H (dotted line, the starred generator). Mode pictures (disc area = ampli
 a dash for zero) are after Harter (1993), Fig. 4.4.3 in spirit; the grid shows each mode v, its image t v and its
 image b v; the plane beneath shows the three images of v2 at a third turn with the mirror axis. Vectors v1 =
 (1,1,1)/sqrt3, v2 = (2,-1,-1)/sqrt6, v3 = (0,1,-1)/sqrt2 and the actions t(a,b,c) = (c,a,b), b(a,b,c) = (a,c,b)
-are exact (verify_symbolic.py); C^(G6/H) = A1 + E, no A2 (GAP).
+are exact (verify_symbolic.py); C[G6/H] = A1 + E, no A2 (GAP).
 
 ## Figure 8, nuclear spin weights
 Correlation diagram in the manner of Harter (1993), Fig. 4.2.3: the proton spin space (C^2)^(x5) in the
@@ -194,7 +194,7 @@ suite's radius);
 species from U_t f_m = e^{-2 pi i m/3} f_m, U_b f_m = f_{-m} (computed); level rules after Harter (1993),
 Fig. 4.2.3.
 
-## Rigid recovery (fig13, unnumbered, the three closing pages): methane through the pipeline, against Albert et al.
+## Example and recovery of the rigid case (fig13, unnumbered, the four closing pages): methane run through Sections 1 to 12, the rigid case of Albert et al. as a projection
 What the reader sees at a squint: a small labelled tetrahedron with three axes at the left margin; beside it a large
 teal globe holding a thin cube with a gold octahedron inside, red dots at the cube's corners and one arrow; on the
 right three sheets stacked over a gold patch, a loop on the patch, a bow rising from one sheet to the next, and one
