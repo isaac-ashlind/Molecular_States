@@ -55,7 +55,7 @@ l/4, l/2}, theta in {60, 90, 120, 150, 180} degrees, each centred on its own mas
 the oxygen in the upper-left shape, `\waterOxygenOffset`); the loci delta = 0 (equal bonds) and theta = pi (linear) are
 the atlas's own coordinate lines, drawn as thin solid ink (thinner than the axes; dashes and dots are kept for actions),
 not a schematic boundary. Commuting square: the rotation matrix R = R_z(40 deg) on the left, the column matrix P_sigma with sigma = (12) on the right; the
-matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{st} = P_t P_s).
+matrix X and X m = 0 from the data (`\waterX..`, `\massH`, `\massO`). Verified in checks/verify.py (centring, P_{ss'} = P_{s'} P_s).
 
 ## Figure 2, ambient Hilbert space
 A slice of C (delta = 0, theta from 80 to 180 degrees) as a baseline with a comb of fibres, one spin space over every
@@ -140,7 +140,7 @@ amino multiplets (3 + 1) (checks/verify_spin.py), which the caption may mention.
 ## Figure 9, localized states
 The torsion circle unrolled to [-pi, pi]; three periodic Gaussians at tau = 0, 2pi/3, 4pi/3 in three rows
 of Delta/d = 1/6, 1/3 (the ratio drawn elsewhere), 2/3 (Delta is the packet width, the density standard deviation per
-coordinate; sigma stays the permutation symbol); the overlap c = <g0, g1> = exp(-d^2 / 8 Delta^2) is the
+coordinate; sigma stays the permutation symbol); the overlap c = <eta0, eta1> = exp(-d^2 / 8 Delta^2) is the
 gold; the bar at the right of each row is the A1 share w_A1 = (1 + 2c)/3 (filled) and the E share w_E = 2(1 - c)/3
 (open); the small chart marks the three rows on the share curves, the A1 share heavy and the E share thin, both ink,
 with the three ratios as ticks of the Delta/d axis (figures/data/gaussian-shares.dat, exact in verify_symbolic.py).
@@ -248,7 +248,7 @@ the vertex R_x(pi/2) landing at R_z(-pi/2), a third of a twist; the loop about b
 and R_g cycles x, y, z. The three pages carry the pipeline (sections 1 to 10 instantiated on rigid methane; the
 vibrational species A1 + E + 2 T2 from explicit 15 x 15 matrices; the packet shares (1+8c3+3c2)/12, (1-4c3+3c2)/12,
 3(1-c2)/4; the J ladder D^J restricted to H with the physical states by parity, J = 0..4 in the table, 0..6 in the
-data; U_g multiplies the ring K by omega^K, so 1E for K = 1, -2 and 2E for K = 2, -1 with 1E(g) = omega by the
+data; U_g multiplies the ring K by e^(2 pi i K/3), so 1E for K = 1, -2 and 2E for K = 2, -1 with 1E(g) = e^(2 pi i/3) by the
 check's convention) and the projection onto Albert et al. (page 3: Tables A to D, the classes of Td(M); the species
 with their isomers, their Table II T block; the J ladder; the dictionary with their equation and example numbers).
 Declared: no energies; parity (the starred half of H) and the vibrations (the normal coordinates q in R^9 under M_h) are what their

@@ -269,3 +269,18 @@ docs/notation-migration.md.
   q in R^9 (n_q = 9), not "the disc D^9", which clashed with the Wigner matrix D^J on the same pages and drifted from
   item 10's SO(3) x R^9. Item 4 keeps the picture in words: the normal coordinates, a small disc about q = 0, thicken
   the factor SO(3). The cell's bundle is SO(3) x_T R^9 with T acting by the M_g; caption notes follow.
+- Notation audit (author's request, 2026-10-05; five readers and a skeptic, 25 findings confirmed, 26 refuted). Manuscript:
+  omega is only an angle (the cube root of unity written e^{2 pi i/3}; the Rodrigues angle omega, axis n defined);
+  the packet and its translates eta_0, eta_j, eta_h (g is the group element; eta is free since the umbrella coordinate
+  became iota); the second element in the action rule s' (t is the generator (123)); the loops lambda_t, lambda_b,
+  lambda_g (ell is the bond scale); the parity weights by words, even and odd (w is the projection share); Section 6
+  introduces tau, iota, +-iota_0, X_0(tau, iota) and q, and the tube is S^1 x [-iota_0, iota_0]; the proton spin space
+  of methylamine is (C^2)^{x5} (H_spin includes carbon and nitrogen; their factor multiplies every count and is set
+  aside); the Section 2 components f_xi, f_zeta (a and b are the shape and a generator); Table B defines frak d and
+  frak m_nuc; Table A names classes by representative relabellings, (123), (12)(34), (1234)*, (12)* (C_3, S_4, sigma
+  clashed with the paper's own symbols), its word column dropped as redundant; [H, B] defined as an interval; the
+  chart phi: U -> C at first use; the normal frame mass-orthonormal throughout; Section 12 writes T_t, T_b, T_g for the
+  action on tau; Albert et al.'s element sans-serif g in Table D; the entangled invariant sum e_i x zeta_i; the local
+  tuple x dropped from the closing pages (x is a Rodrigues coordinate there); bold x_i introduced with the matrix.
+  Notation page: Psi, Psi_pm, psi = Psi o phi, G_6 and G_12, +-iota_0, the packet; five entries tightened to keep
+  one page. Plate labels follow in their own commit.
