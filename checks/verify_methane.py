@@ -50,7 +50,7 @@ def spin_matrix(p):
 def axis_angle(Rm):
     ang = math.acos(max(-1.0, min(1.0, (np.trace(Rm) - 1) / 2)))
     if ang < 1e-9: return np.zeros(3), 0.0
-    if abs(ang - math.pi) < 1e-9:
+    if abs(ang - math.pi) < 1e-6:   # a half-turn: the axis from (R + 1)/2 = n n^T
         M = (Rm + np.eye(3)) / 2; k = int(np.argmax(np.diag(M))); return M[:, k] / math.sqrt(M[k, k]), ang
     n = np.array([Rm[2, 1] - Rm[1, 2], Rm[0, 2] - Rm[2, 0], Rm[1, 0] - Rm[0, 1]]) / (2 * math.sin(ang))
     return n, ang
@@ -60,8 +60,8 @@ def main():
     X0 = G.methane_c2()
     masses = np.array(G.CH4_MASSES)
     perms = [list(p) for p in itertools.permutations(range(4))]
-    # the stabilizer: sigma unstarred when even, starred when odd; R_h from an exact orthogonal Procrustes fit by SVD
-    # (the suite's Newton polar routine is tuned to small turns and half-turns and does not converge for third-turns)
+    # the stabilizer: sigma unstarred when even, starred when odd; R_h from an orthogonal Procrustes fit by SVD,
+    # independent of compute/
     def fit(X, Y):
         A = np.array(X).T; B = np.array(Y).T; W = np.diag(G.CH4_MASSES)
         U, _, Vt = np.linalg.svd(B @ W @ A.T)
@@ -234,12 +234,49 @@ def main():
     mono = {k: round(12 / sum(1 for q in even if abs(complex(f(q)) - complex(f((0, 1, 2, 3)))) < 1e-9)) for k, f in TT.items()}
     ok &= mono == {'A': 1, '1E': 3, '2E': 3, 'T': 12}
     print('monodromy group orders |T / ker Gamma|:', mono)
+    # Table A: per class, the turn of R_h and its axis, chi_stat, chi_-, chi_spin and chi_3N
+    def axis_kind(q):
+        n = np.abs(axis_angle(R[q])[0]); n = n / np.linalg.norm(n)
+        if np.allclose(sorted(n), [0, 0, 1]): return 'x, y, z'
+        if np.allclose(sorted(n), [0, 1 / math.sqrt(2), 1 / math.sqrt(2)]): return 'cube edge'
+        bonds = [np.abs(np.array(x)) / np.linalg.norm(x) for x in X0[:4]]
+        if any(np.allclose(n, b) for b in bonds): return 'bond'
+        return str(np.round(n, 3))
+    table_a = {}
+    for q in allp:
+        row = (cycle_type(q), parity(q) < 0, round(math.degrees(axis_angle(R[q])[1])), axis_kind(q) if q != (0, 1, 2, 3) else '',
+               parity(q), parity(q), int(round(chi[q])), int(round(chi_3n[q])))
+        table_a.setdefault(row[0], set()).add(row[1:])
+    ok &= table_a == {(1, 1, 1, 1): {(False, 0, '', 1, 1, 16, 15)}, (3, 1): {(False, 120, 'bond', 1, 1, 4, 0)},
+                      (2, 2): {(False, 180, 'x, y, z', 1, 1, 4, -1)}, (4,): {(True, 90, 'x, y, z', -1, -1, 2, -1)},
+                      (2, 1, 1): {(True, 180, 'cube edge', -1, -1, 8, 3)}}
+    print('Table A rows (star, turn, axis, chi_stat, chi_-, chi_spin, chi_3N):', table_a)
+    # R_{h1 h2} = R_{h2} R_{h1} (the right action reverses products), on all 576 pairs; the other order fails
+    comp = lambda a, b: tuple(a[b[i]] for i in range(4))
+    rev = all(np.allclose(R[comp(a, b)], R[b] @ R[a]) for a in allp for b in allp)
+    fwd = all(np.allclose(R[comp(a, b)], R[a] @ R[b]) for a in allp for b in allp)
+    ok &= rev and not fwd and 2 * len(perms) == 48 and len(allp) == 24
+    print('R_{h1h2} = R_{h2} R_{h1}:', rev, '| |S| = 48, |H| = 24, |S/H| = 2')
+    # C[T] = A + 1E + 2E + 3T (the regular character), and Table B's restriction of the Td species to T
+    reg = {k: round((sum((12 if q == (0, 1, 2, 3) else 0) * complex(f(q)).conjugate() for q in even) / 12).real) for k, f in TT.items()}
+    on_t = {g: {k: round((sum(v[cycle_type(q)] * complex(f(q)).conjugate() for q in even) / 12).real) for k, f in TT.items()} for g, v in TD.items()}
+    on_t = {g: {k: m for k, m in d.items() if m} for g, d in on_t.items()}
+    ok &= reg == {'A': 1, '1E': 1, '2E': 1, 'T': 3}
+    ok &= on_t == {'A1': {'A': 1}, 'A2': {'A': 1}, 'E': {'1E': 1, '2E': 1}, 'T1': {'T': 1}, 'T2': {'T': 1}}
+    print('C[T]:', reg, '| the species of Td(M) on T:', on_t)
+    # the ring K under g carries e^{2 pi i K/3}: A when 3 | K, 1E when K = 1 mod 3, 2E when K = 2 mod 3
+    ring = {K: [k for k, f in TT.items() if k != 'T' and abs(complex(f(g[0])) - cmath.exp(2j * math.pi * K / 3)) < 1e-9] for K in range(-4, 5)}
+    ok &= all(ring[K] == (['A'] if K % 3 == 0 else ['1E'] if K % 3 == 1 else ['2E']) for K in ring)
+    print('rings under g:', ring)
+    # reading T through h -> R_h instead of R_h^-1 conjugates 1E and 2E, and gives the same isomers
+    swap = {'A': 'A', '1E': '2E', '2E': '1E', 'T': 'T'}
+    ok &= sorted((swap[r], swap[n], d, m) for r, n, d, m in iso) == sorted(iso)
     # against the emitted numbers
     S = json.load(open(os.path.join(ROOT, 'figures', 'data', 'summary.json')))
     S0, S1 = S['methane_loop'], S['methane_rigid']
     ok &= S0['nucleus_i_sits_where_j_was'] == [w + 1 for w in where] and S0['axis'] == 'C-H1'
     ok &= S1['spin_Td'] == spin_td and S1['weights'] == weights and S1['spin_T'] == spin_t
-    ok &= [tuple(x) for x in S1['isomers']] == iso and S1['entangled_fraction'] == [9, 16] and S1['monodromy_orders'] == mono
+    ok &= [tuple(x) for x in S1['isomers']] == iso and S1['entangled_fraction'] == [rank * spin_t['T'], int(round(chi[(0, 1, 2, 3)]))] and S1['monodromy_orders'] == mono
     ok &= S1['gamma_3N'] == gamma_3n and S1['gamma_vib'] == gamma_vib and S1['J_table'] == j_table
     print('summary.json agrees:', ok)
     if not ok:

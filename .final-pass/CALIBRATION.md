@@ -57,6 +57,8 @@ The same text is in the scratchpad at FINAL_PASS_CALIBRATION.md; the repository 
 ## 5. Writing rules (author's voice and punctuation)
 - In-plate text is always ink; a hue never colours text (author, 2026-10-05: figure 2's teal and gold labels were hard to
   read). Only a greyed-out object's own labels are grey (the guide's bond interval).
+- EXACT ARITHMETIC (author, 2026-10-05, mid-pass): avoid numerics; use exact calculations (integers, rationals, the
+  cyclotomic field Q(omega), GAP's E(n)) whenever possible, in checks and in make_data.
 - AMERICAN ENGLISH everywhere (author, 2026-10-05, mid-pass): fiber, center, centered, color, gray, neighborhood,
   labeled, modeled, behavior, normalize; in prose, captions, plate text, comments and our own identifiers alike.
 - Voice = the opening pages (Sections 1 and 2): plain declarative sentences, one idea each, "Consider", "Take", "We",

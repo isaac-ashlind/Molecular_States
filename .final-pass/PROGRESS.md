@@ -1,7 +1,7 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: IN PROGRESS
-Live check-in trigger: trig_01RRHQvEUy6KYPvjK1daqPYV (fires 2026-10-05T18:20Z)
+Live check-in trigger: trig_01KRHxXGCBTde598ef9oV5En (fires 2026-10-05T18:34Z)
 Audit (step 4): three background Agent auditors, launched 16:11Z, reports to .final-pass/audit/{plates,manuscript,compute}.md. If a report is missing after an interruption, re-run that auditor (prompt: read-only, the five headings in CALIBRATION section 8 for its area).
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
@@ -32,3 +32,4 @@ Log (one line per step: step, commit, note):
 - 5c (partial): \tubegeom and cover view (tube numbers read from the tube; the cover solid takes figure 6 proportions); image style in fig06; make_data emits mlaTurn, spin counts, packet rows and marks, Gaussian centre/width; fig07 amplitudes exact. Next: American spelling pass (author request), then 5d headers.
 - 5 spelling: American spelling across manuscript, plates, comments and identifiers (ColGrayed, \nmcenter, \compCenter, center()); refs.bib titles untouched; figure 2 labels f_xi, f_zeta in ink (author)
 - 5d: all 14 plate headers rewritten (what the plate shows, what is computed, what is declared, the colors; no colons, no history); stale body comments fixed (V, eta0, author/date narration, drafts); shared headers without colons; fig05 axis thin, fig07 plane arc 14 degrees clear like the key. Step 5 done.
+- 6a (partial): kabsch transpose fixed (data identical); GAP --quitonbreak; verify_spin checks the full spin space 36/12/24 and the weights by parity; verify_methane checks Table A rows, R_{h1h2} = R_{h2}R_{h1}, C[T], Table B on-T column, the rings, the 1E/2E exchange. Next 6b: exact rewrite (author: cyclotomic, no numerics) of verify_methane, verify_spin, make_data methane, GAP methane block; then dead code, unused emissions, eta->iota.

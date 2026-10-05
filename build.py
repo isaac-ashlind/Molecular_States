@@ -64,7 +64,7 @@ def main():
             print(f'      {what}: {module} not found, skipped (the stdlib checks already passed)'); continue
         run([sys.executable, script], quiet=False)
     if shutil.which('gap'):
-        run(['gap', '-q', '-b', 'checks/verify.g'], quiet=False)
+        run(['gap', '-q', '-b', '--quitonbreak', 'checks/verify.g'], quiet=False)
     else:
         print('      GAP cross-check: gap not found, skipped')
     if not shutil.which('pdflatex'):

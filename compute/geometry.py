@@ -124,28 +124,19 @@ def mass_inner(A, B, masses):
     return sum(m*dot(a, b) for m, a, b in zip(masses, A, B))
 
 def kabsch_rotation(X, Y, masses):
-    """Return (R, residual): best proper rotation with Y ~ R X in mass metric.
+    """Return (R, residual) for the rotation R that best fits Y ~ R X in the mass metric.
 
-    Implemented by a small Jacobi SVD-free method: we solve the orthogonal
-    Procrustes problem via the polar decomposition of the 3x3 cross-covariance
-    computed with Newton iteration for the symmetric square root.  Exact for
-    the small turns and half-turns used here (residual ~1e-12); it does not
-    converge for third-turns, so the methane check fits by SVD instead.
+    The cross-covariance H = sum_i m_i x_i y_i^T has the polar decomposition
+    H = U P with U = R^T; Higham's Newton iteration U <- (U + U^-T)/2 gives U.
     """
     H = [[sum(m*x[i]*y[j] for m, x, y in zip(masses, X, Y)) for j in range(3)] for i in range(3)]
-    # polar decomposition H = U S, U orthogonal, by Higham iteration
     U = [row[:] for row in H]
     for _ in range(60):
-        Ui = inverse3(U)
-        UiT = transpose(Ui)
+        UiT = transpose(inverse3(U))
         U = [[0.5*(U[i][j] + UiT[i][j]) for j in range(3)] for i in range(3)]
-    # U is orthogonal with U = H (H^T H)^{-1/2}; Y ~ R X needs R = U
-    R = U
-    if det3(R) < 0:
-        # improper: not a rotation; reflect the last column so the caller sees a large residual
-        R = [[R[i][j] * (-1 if j == 2 else 1) for j in range(3)] for i in range(3)]
-    res = config_distance(rotate(R, X), Y, masses)
-    return R, res
+    R = transpose(U)
+    assert det3(R) > 0, 'the best orthogonal fit is improper'
+    return R, config_distance(rotate(R, X), Y, masses)
 
 def det3(M):
     return (M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])

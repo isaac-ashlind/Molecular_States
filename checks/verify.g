@@ -1,5 +1,5 @@
 # Independent GAP cross-check of the group-theoretic claims used in the figures.
-# Run:  gap -q -b checks/verify.g      (prints a report; a failed Assert aborts)
+# Run:  gap -q -b --quitonbreak checks/verify.g   (prints a report; a failed Assert exits nonzero)
 # Orders and cosets; [H,B] (10 subgroups, 17 covers) and [H,S] (36, 73); the three order-12 extensions of G6; the
 # class sizes of G6; the proton-spin weights by parity; C[G6/H] = A1 + E; the KRb groups.
 #
