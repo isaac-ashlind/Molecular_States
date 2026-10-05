@@ -1,6 +1,6 @@
 # Storyline of the plates, part by part
 
-The sections now follow the figure flow (docs/manuscript-reorganized.tex). Each plate hands one object to the next.
+The sections now follow the figure flow (docs/manuscript.tex). Each plate hands one object to the next.
 
 Part I, Configurations and States.
 1. A configuration is a centred matrix: the water family over its two shape coordinates, and what the family leaves

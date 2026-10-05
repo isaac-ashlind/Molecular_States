@@ -196,8 +196,10 @@ Fig. 4.2.3.
 What the reader sees at a squint: a small labelled tetrahedron with three axes at the left margin; beside it a large
 teal globe holding a thin cube with a gold octahedron inside, red dots at the cube's corners and one arrow; on the
 right three sheets stacked over a gold patch, a loop on the patch, a bow rising from one sheet to the next, and one
-dotted vertical through every dot running on past the top sheet. Three panels; two left-aligned text blocks on one
-line under the ball and the covering; no leader labels; the figure unnumbered (author).
+dotted vertical through every dot running on past the top sheet. Two columns that read as two figures (author):
+methane and the orientation ball on the left, the covering on the right, a centred text block under each in
+lowercase phrases without full stops; no leader labels; the figure unnumbered and included at full width, so its
+text prints at the size of every other plate.
 Camera. Both panels share one right-handed camera (make_data: CAM_BALL = CAM_MOL): the suite's G.camera(108, 21),
 the ball view the author chose, with the x and z components of its three vectors exchanged. G.camera builds a
 left-handed frame, which draws a mirror image; the exchange x <-> z is a mirror symmetry of the cube, the dual
@@ -211,10 +213,10 @@ half away from it behind; z, the foreshortened axis, drawn longer so that its fr
 0.46 cm); the title in the corner names the molecule and its formula.
 Middle, large and beside the molecule: the orientation space SO(3) as the axis-angle ball, direction the axis and
 distance the angle, radius pi. The sphere teal with its three great circles, solid in front and dashed behind; the
-skin is the half-turns, each point its own antipode. The twelve rotations of T as red dots: the centre, the eight
+skin is the half-turns, each point its own antipode. The twelve rotations of T as version points (two-tone spheres, radius 0.08 cm, as on every plate): the centre, the eight
 third-turns at 2pi/3 along the body diagonals, joined by the thin ink edges of the cube they span (a reading aid: no
 edge between two points is intrinsic), and the three half-turns on the skin, each drawn once at its far
-representative and pale, so that they read as distant (author). The cell of the centre as the schematic that is
+representative, pale in a dashed ghost outline, so that they read as distant (author). The cell of the centre as the schematic that is
 exact in Rodrigues coordinates: the gold wire octahedron dual to that cube, its vertices, the quarter-turns as ink
 rings, on the cube's face centres, every edge straight; in the ball the true cell has edges that bow outward and its
 vertices a little further out (the caption says so; the exact curved version and the Rodrigues-only version were
@@ -229,9 +231,9 @@ re-emerging at its dot, running on past the top sheet to a vertical ellipsis (au
 sheets are the cartoon of figure 11, not a computed surface. This is the honest form of Albert et al.'s Fig. 3(c):
 their fibre over a position is these twelve sheets (the regular representation of T) and their monodromy action is
 the lift moving from one sheet to the next; what each species sees is in the text block.
-Text blocks (author): complementary to the caption, which keeps the one sentence on the schematic. Under the ball:
-what the colours and the arrow are. Under the covering: what the sheets are, that the loop closes in the base and
-climbs in the sheets, and what each species makes of the climb.
+Text blocks (author): centred under their objects, complementary to the caption, which keeps the one sentence on
+the schematic. Under the ball: what the colours and the arrow are. Under the covering: what the sheets are, that the
+loop closes in the base and climbs in the sheets, and what each species makes of the climb.
 Colours: the sphere teal (the orientation space takes over the core sheet's role), the cell gold (the chart patch,
 as in figures 10 and 11; the base patch at right in figure 11's tint), the cube thin ink, the dots red (the
 version-dot role of figure 10 handed to orientations), the lift ink. Dotted only for the projection.

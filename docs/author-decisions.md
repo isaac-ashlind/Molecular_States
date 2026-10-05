@@ -18,7 +18,7 @@
 ## Open, for the author
 1. Section order. The export's sections 5 to 9 (Symmetry Groups, Methylamine, Versions and Symmetry Species,
    Localized States, Feasible Configuration Space) differ from the figure flow of the approved specification.
-   As agreed, the integration reorganizes the sections to the figure flow in four parts: `docs/manuscript-reorganized.tex`
+   As agreed, the integration reorganizes the sections to the figure flow in four parts: `docs/manuscript.tex`
    is the export with `\part` headings, the twelve sections of the specification, and the plates placed; the author's
    text is moved verbatim (the Methylamine text continues the Symmetry Groups and Versions section with no heading of
    its own; Nuclear Spin Weights is a new section holding figure 8 and a comment where the author's text goes);
@@ -233,4 +233,18 @@ docs/notation-migration.md.
 - Headings (author, 2026-10-05): a period after the number, none after the title ("1. Configuration Space",
   "I. Configurations and States"; unnumbered titles bare). This replaces the 2026-10-04 rule of a period after every
   title. The run-in heads of the closing pages follow it ("6. Nuclear spin weights").
+- Style cohesion (author, 2026-10-05): the hidden part of any contour is the same stroke dashed, on every plate
+  (figure 12's ring backs changed from dotted); ghost outlines of hidden or faded objects dashed; dotted kept only
+  for projections and lifts between levels (the style renamed `projection`); text under an object centred on it, a
+  row or corner title left-aligned; in-plate text lowercase without full stops; version points the suite's two-tone
+  spheres everywhere, the closing plate included; cut hatch 0.22 pt everywhere (the tube's cut faces and figure 6's
+  enlarged face were 0.3 pt); hatch spacing and phase set so that no line sits on a parallel edge (the cover's slab,
+  whose hatch runs at its receding angle, had a line 0.3 mm inside one slanted edge and 0.1 mm inside the other).
+- The closing plate in two columns that read as two figures (author): methane and the ball left, the covering right;
+  included at full width like every plate, so its text prints at the same size (it was at 0.8 width, 7 pt notes).
+- Repository hygiene (author, 2026-10-05): the rejected study sheets (`studies/`) and the zip of the repository
+  (`dist/`) removed from the tree; superseded plans and logs moved to `docs/history/`; unused data emissions, uncalled
+  helpers and the check for the retired methylamine rigid page removed (every plate pixel-identical before and
+  after); the manuscript renamed `docs/manuscript.tex`, its source reflowed with banners and its preamble grouped,
+  unused packages dropped (every page identical at 150 dpi before and after). A backup was delivered first.
 
