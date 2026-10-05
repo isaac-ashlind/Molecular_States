@@ -1,4 +1,4 @@
-# Quantum State Spaces of Nonrigid Molecules and their Complexes
+# Quantum State Spaces of Nonrigid Molecules and Their Complexes
 
 The manuscript `docs/manuscript.tex` and its fourteen plates: the cover guide, twelve numbered plates (one per
 section) and the unnumbered plate of the closing example. Each plate is a standalone TikZ document drawn from
