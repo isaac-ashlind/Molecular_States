@@ -16,7 +16,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate]
+\begin{tikzpicture}[plate,lab/.style={sub}]   % every label on this plate at note size: uH's slot cannot take label size (author)
 \path[use as bounding box] (0,-.5) rectangle (15,12.5);
 % ------------------------------------------------ level 2: the solid F, cut open as on the cover (window from -47 to 23 degrees),
 % the decoration turned by 15 degrees as there, so the tu path stays inside the window
