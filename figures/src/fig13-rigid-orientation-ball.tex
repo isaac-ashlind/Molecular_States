@@ -15,9 +15,7 @@
 % cover it, its outer part after. Solid for what faces the viewer, dashed for what lies behind.
 % Right, with room: the covering in figure 11's grammar: the gold base patch with the loop l_g through its point (a
 % line, no arrowhead, as on the cover), three sheets r, r R_g, r R_g^2 of the twelve, the lift as the same curve raised from the
-% dot on sheet r to the dot on sheet r R_g (the loop's own Bezier with its control points raised by a third, two thirds
-% and the whole spacing, so that its vertical projection is exactly the loop); a dotted vertical from the loop's far
-% point to the lift's far point shows it; one vertical
+% dot on sheet r to the dot on sheet r R_g (figure 11's smooth bow, reaching as far left as the loop); one vertical
 % line of projection through every dot, hidden behind each sheet and re-emerging at its dot, running on past the top
 % sheet with a vertical ellipsis (author): the stack goes on. The sheets are the cartoon of figure 11.
 % The two bottom texts are left-aligned on one line with a gap between them (author).
@@ -69,7 +67,7 @@
 \begin{scope}[shift={(11.6,3.6)}]
   \coordinate (bx) at (.5,.3);
   \csheet{0}{0}{1.2}{heavy}{ColRetained!50}
-  \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx) coordinate[pos=.5] (loopfar);
+  \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
   \node[sub,anchor=north,inner sep=1.5pt] at (-.15,-.08) {$\ell_g$};
   % one vertical line of projection through every dot: drawn under the sheets, so that each sheet hides it below
   % its dot, and redrawn above each dot, so that it re-emerges; it runs on past the top sheet
@@ -81,8 +79,7 @@
     \draw[hidden,shorten <=2.3pt] (p\k)--(.5,{\y+1.3});
     \node[sub,anchor=west,inner sep=1pt] at (1.9,{\y+.3}) {$\lab$};}
   \node[sub,anchor=south,inner sep=0pt] at (.5,5.75) {$\vdots$};
-  \draw[tlift] (p0) .. controls (-.7,{1.4+.85+1.3/3}) and (-.7,{1.4-.25+2*1.3/3}) .. (p1) coordinate[pos=.5] (liftfar);
-  \draw[hidden,shorten <=2.3pt,shorten >=2.3pt] (loopfar)--(liftfar);
+  \draw[tlift] (p0) .. controls (-.7,{1.4+.3+.45}) and (-.7,{2.7+.3-.45}) .. (p1);   % figure 11's bow, reaching as far left as the loop
   \foreach \k in {0,1,2} {\fill[ColDot] (p\k) circle[radius=.06];}
   \fill[ColDot] (bx) circle[radius=.06];
 \end{scope}
