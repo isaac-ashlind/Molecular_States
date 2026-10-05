@@ -115,7 +115,7 @@ apart at the right as a reference: it is the midpoint in tau of the continuous p
 not a version, and t does not pass through it in steps. On the solid the solid path from H to tH is that continuous
 path, with the eclipsed point marked white on it.
 
-In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 16 degrees on the page so that both
+In the eclipsed Newman projection (tau = pi/3) the back set is drawn turned 20 degrees on the page so that both
 sets of hydrogens show, the usual drawing convention (declared; the geometry itself is exactly eclipsed).
 
 ## Figure 7, symmetry species

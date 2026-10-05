@@ -481,7 +481,7 @@ def main():
     # shapes along the t path at fixed orientation: tau = pi/3 (eclipsed) and 2 pi/3 (the version tH) (figure 6d)
     summary['tau_shapes_deg'] = [0, 60, 120]
     for deg in (0, 60, 120):
-        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(16.0 if deg == 60 else 0.0)))
+        emit_pic(mol, f'newman-tau-{deg}', pic_code_newman(G.methylamine(math.radians(deg), ETA0), G.MLA_ELEMENTS, twist_deg=(20.0 if deg == 60 else 0.0)))
     emit_pic(mol, 'newman-tuH', pic_code_newman(G.methylamine(-math.pi/3, -ETA0), G.MLA_ELEMENTS))
     # fragment loops in page coordinates (figure 4)
     P0 = G.project(X0, CAM_MLA)

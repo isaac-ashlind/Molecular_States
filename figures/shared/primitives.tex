@@ -118,6 +118,10 @@
     \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)}) -- cycle;
     \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
     \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)});
+    % the cut faces' top edges again, at the faces' weight: the top face's fill above covered half of each
+    \pgfmathparse{\wa==\wb}\ifnum\pgfmathresult=1\relax\else
+      \foreach \a in {\wa,\wb} {\draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});}
+    \fi
     \coordinate (-top0) at ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)});
     \coordinate (-top120) at ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)});
     \coordinate (-top240) at ({\Rm*sin(240)},{\Hh-\E*\Rm*cos(240)});

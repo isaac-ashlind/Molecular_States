@@ -28,19 +28,20 @@
   \coordinate (ecl) at ({2.15*sin(60+\ph)},{.62-.42*2.15*cos(60+\ph)});
   % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
   \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});   % stops 3pt short of the dot at 135
-  \draw[upath] plot[domain=0:.935,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
+  \draw[upath] plot[domain=0:.92,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
   \draw[fine,fill=white] (ecl) circle[radius=.075];
   \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
+  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45,blend mode=multiply] (\p) circle[radius=.08];}   % pale, the front lines showing through
 \end{scope}
 \leaderlabel{10.86}{9.65}{.0}{-.55}{north}{$H$}
 \leaderlabel{11.82}{11.16}{.2}{.56}{south}{$tH$}
 \leaderlabel{8.22}{10.75}{-.5}{.45}{east}{$t^2H$}
-\draw[leader,shorten >=3pt,shorten <=4pt] (12.377,10.286)--(13.03,10.853); \node[sub,anchor=west,inner sep=2.5pt,fill=white] at (13.03,10.853) {eclipsed};
-\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.377,9.046)--(11.45,8.119); \node[sub,anchor=north east,inner sep=2.5pt,fill=white] at (11.45,8.119) {$t^2uH$};
+\draw[leader,shorten >=3pt,shorten <=4pt] (12.377,10.286)--(13.03,10.853); \node[lab,anchor=west,inner sep=2.5pt] at (13.03,10.853) {eclipsed};
+\draw[leader,shorten >=3pt,shorten <=2.3pt] (12.377,9.046)--(11.45,8.119); \node[lab,anchor=north east,inner sep=2.5pt] at (11.45,8.119) {$t^2uH$};
 % uH sits on the sheet's bottom edge at the back, inside the wall, just above the inner bottom rim: its leader drops through
-% the rim between two of the inner wall's lines to a name on the clear floor of the hole (a leader up would cross the wall)
-\draw[leader,shorten >=3pt,shorten <=4.5pt] (9.744,10.152)--(10.128,9.83); \node[sub,anchor=west,inner sep=2.5pt] at (10.128,9.83) {$uH$};
+% the rim to a name on the clear floor of the hole (a leader up would cross the wall); the name stays at note size, the
+% slot is too low for label size
+\draw[leader,shorten >=3pt,shorten <=2.6pt] (9.744,10.152)--(10.128,9.83); \node[sub,anchor=west,inner sep=2.5pt] at (10.128,9.83) {$uH$};
 \node[lab] at (12.62,11.27) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
 % the version point tuH at the lower end of the iota line)
@@ -78,14 +79,14 @@
 \foreach \i in {0,...,9} \foreach \j in {0,1} {
   \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
   \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=PlateInk!22,tube/topfill=PlateInk!22,tube/innerfill=PlateInk!22,tube/bandfill=PlateInk!22}\pic at (\cx,\cy) {thicktube};\end{scope}}
-\draw[leader,shorten >=3pt] (2.68,5.8)--(2.68,6.5); \node[sub,anchor=south,inner sep=2.5pt] at (2.68,6.5) {$s\mathcal F$};
+\draw[leader,shorten >=3pt] (2.68,5.8)--(2.68,6.5); \node[lab,anchor=south,inner sep=2.5pt] at (2.68,6.5) {$s\mathcal F$};
 % the active image: white, closed, no decoration (author, 2026-10-04: the version points are read on the enlargement)
 \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
 \draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(8.26,8.46); \draw[fine] (11.22,5.77)--(12.75,9.05);   % the left line ends on the zoom circle
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};
 % ------------------------------------------------ the same two paths followed as Newman projections down the C-N axis
-\node[sub,anchor=north] at (7.0,3.3) {the same two paths seen down the C--N axis, N in front};
+\node[sub,anchor=north west] at (.35,3.3) {the same two paths seen down the C--N axis, N in front};
 % the two steps between versions, each one arrow from H (author, 2026-10-04): tu to tuH on the left, t to tH on the
 % right; the eclipsed shape stands apart as a reference, midway in tau on the path of t, not a version
 \begin{scope}
@@ -95,7 +96,7 @@
   \pic[scale=.9] at (12.3,1.65) {newman-tau-60};
 \end{scope}
 \draw[upath] (3.75,1.65)--(2.85,1.65); \node[lab,anchor=south] at (3.3,1.73) {$tu$};
-\draw[tpath] (6.05,1.65)--(6.95,1.65); \node[lab,anchor=south] at (6.5,1.73) {$t$};
+\draw[tpath] (6.37,1.65)--(7.27,1.65); \node[lab,anchor=south] at (6.82,1.73) {$t$};
 \foreach \x/\l/\s in {1.7/{$tuH$}/{$\tau=-\pi/3$, $\iota=-\iota_0$},4.9/{$H$}/{$\tau=0$, $\iota=\iota_0$},8.1/{$tH$}/{$\tau=2\pi/3$, $\iota=\iota_0$},12.3/{eclipsed}/{$\tau=\pi/3$, $\iota=\iota_0$}} {
   \node[lab] at (\x,.4) {\l}; \node[sub] at (\x,.05) {\s};}
 \node[sub] at (12.3,-.27) {midway on the path of $t$};
