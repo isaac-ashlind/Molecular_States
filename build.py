@@ -26,6 +26,16 @@ def run(cmd, cwd=ROOT, env=None, quiet=True):
         raise SystemExit(f'failed: {" ".join(str(c) for c in cmd)}')
     return r
 
+def deliver(pdfs):
+    """Copy each plate PDF to figures/pdf and render it at 600 dpi to figures/png (the high-resolution plates)."""
+    out, png = ROOT / 'figures' / 'pdf', ROOT / 'figures' / 'png'
+    out.mkdir(exist_ok=True); png.mkdir(exist_ok=True)
+    for pdf in pdfs:
+        shutil.copy2(pdf, out / pdf.name)
+        if shutil.which('pdftoppm'):
+            run(['pdftoppm', '-r', '600', '-png', '-singlefile', str(pdf), str(png / pdf.stem)])
+    return out
+
 def main():
     only = None
     if '--only' in sys.argv:
@@ -77,9 +87,7 @@ def main():
     else:
         print('    pdftoppm not found: previews skipped')
     if only:
-        out = ROOT / 'figures' / 'pdf'; out.mkdir(exist_ok=True)
-        for pdf in sorted(FIGS.glob('fig*.pdf')):
-            shutil.copy2(pdf, out / pdf.name)   # a single-figure build still refreshes its deliverable
+        deliver(sorted(FIGS.glob('fig*.pdf')))   # a single-plate build still refreshes its deliverables
         r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))], cwd=ROOT, capture_output=True, text=True)
         print(r.stdout.strip())
         return
@@ -95,7 +103,7 @@ def main():
     if 'fig:guide' in aux or 'fig:0' in aux:
         raise SystemExit('the guide must not define a numbered figure label')
     print('    figure numbers 1-12 match their sections; guide unnumbered')
-    print('[6/7] proof sheet, squint sheet, grayscale proof, deliverable PDFs, text-collision report')
+    print('[6/7] proof sheet, grayscale proof, deliverable PDFs and 600 dpi PNGs, text-collision report')
     run(['pdflatex', '-interaction=nonstopmode', '-halt-on-error',
          '-output-directory=' + str(BUILD), 'scaffold/proofsheet.tex'], env=env)
     if shutil.which('gs'):
@@ -103,10 +111,7 @@ def main():
              '-sColorConversionStrategy=Gray', '-dProcessColorModel=/DeviceGray', str(BUILD / 'proofsheet.pdf')])
     elif shutil.which('pdftoppm'):
         run(['pdftoppm', '-r', '110', '-gray', '-png', str(BUILD / 'proofsheet.pdf'), str(PREV / 'proofsheet-gray')])
-    out = ROOT / 'figures' / 'pdf'
-    out.mkdir(exist_ok=True)
-    for pdf in sorted(FIGS.glob('fig*.pdf')):
-        shutil.copy2(pdf, out / pdf.name)
+    out = deliver(sorted(FIGS.glob('fig*.pdf')))
     r = subprocess.run([sys.executable, 'checks/collisions.py'] + [str(p) for p in sorted(FIGS.glob('fig*.pdf'))],
                        cwd=ROOT, capture_output=True, text=True)
     (BUILD / 'collisions.txt').write_text(r.stdout)

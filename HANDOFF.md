@@ -7,8 +7,8 @@ is verified, how to change things, and what is left to the author.
 - `docs/manuscript.tex` builds to 24 pages (`build/manuscript.pdf`): the cover guide, the twelve sections in four
   parts with one plate each, the three closing pages on rigid methane, the notation and the references. No undefined
   references, no over- or underfull boxes.
-- Fourteen plates in `figures/src/`, compiled to `figures/pdf/`. Every plate is 15.2 cm wide and is included at
-  `\linewidth`, so all print at one scale (labels 9.8 pt, notes 8.7 pt).
+- Fourteen plates in `figures/src/`, compiled to `figures/pdf/` (vector) and `figures/png/` (600 dpi). Every plate is
+  15.2 cm wide and is included at `\linewidth`, so all print at one scale (labels 9.8 pt, notes 8.7 pt).
 - Branch `figures-v2`. The backup taken before the final sweeps is commit `7765ac7` (and `ba92480` after the heading
   change); the source zip and PDF of both were delivered. The tag `v2-backup-before-sweeps` exists locally only: the
   remote refuses tag pushes from this environment.
@@ -19,7 +19,8 @@ python3 build.py              # data -> checks -> plates -> previews -> numberin
 python3 build.py --only 06    # one plate
 ```
 Outputs in `build/`: `manuscript.pdf`, `proofsheet.pdf` (every plate at print width, then the squint sheet),
-`proofsheet-gray.pdf`, `previews/` (150 dpi colour and grayscale), `collisions.txt`. A failing check stops the build.
+`proofsheet-gray.pdf`, `previews/` (150 dpi colour and grayscale), `collisions.txt`; the plates themselves go to
+`figures/pdf/` and, at 600 dpi, `figures/png/`. A failing check stops the build.
 
 ## Where to change what
 - **Text**: `docs/manuscript.tex`. Banner comments mark the four parts, the twelve sections and the closing pages.
@@ -58,3 +59,15 @@ closing pages, from explicit matrices (`checks/verify_methane.py`); text overlap
 3. **Captions** are minimal by decision; the disclosures a careful caption may want (schematic elements, declared
    approximations) are listed per plate in `docs/caption-notes.md`.
 4. **`reference/`** holds the author's materials and was not touched.
+5. **Two tight spots left by the last label pass** (every leader and label was measured; these need geometry, not a
+   nudge): in figure 1 the 7 pt entries of the column strips sit 1.3 to 2 pt from the cell rules (wider cells or
+   smaller text would fix it); in figure 11 the labels of the bookkeeping graph nearly touch their circles (bigger
+   nodes would fix it). Two leaders cross more than one line because their dot sits inside shading or hatch:
+   figure 6 t²uH (five thin wall lines, the fewest possible) and sF (the hatched slab).
+
+## Last changes (2026-10-05)
+Each is logged in `docs/author-decisions.md`. Figure 4: the two strands one weight, the reaction arrows centred in
+their gaps. Figure 5: the methyl and amino fragments turn with their clips (hydrogen 2 is whole). Figure 10: the
+undisplaced ghost is a simple outline of the two hydrogens that move. Closing plate: the hidden cube corner and the
+hidden octahedron vertex drawn pale under the front lines. A label pass rerouted the leaders of figure 6 (tH, t,
+eclipsed, t²uH, uH) and gave air to labels on figures 0, 1, 2, 4, 9, 10 and 11.
