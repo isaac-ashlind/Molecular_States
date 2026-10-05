@@ -81,7 +81,7 @@
     %    the inner bottom rim is a visible edge.
     \begin{scope}
       \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]
-            plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- cycle;
+            plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- ({\Ro*sin(\wa)},{\Hh-\E*\Ro*cos(\wa)}) -- cycle;
       \path[fill=\pgfkeysvalueof{/tikz/tube/innerfill}] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
       \pgfmathtruncatemacro{\ni}{(266-94)/\istep}\foreach \k in {0,...,\ni} {\pgfmathsetmacro{\a}{94+\k*\istep}\pgfmathsetmacro{\lw}{\lws*(0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a)))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
       \draw[line width=\lwh pt,draw=PlateInk] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});

@@ -35,18 +35,18 @@
 \draw[projection,shorten <=1.6pt] (4.0,3.25)--(4.0,6.049);
 \node[head,anchor=west] at (.5,4.8) {I\quad Configurations}; \node[head,anchor=west] at (.5,4.4) {and States}; \node[rng,anchor=north west] at (.5,4.18) {\S\S\,1--3};
 % ------------------------------------------------ the feasible solid F lifted out: core sheet, two paths, versions, a packet
-\begin{scope}[shift={(7.6+\dx,6.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-47,tube/a2=23}
+\begin{scope}[shift={(7.6+\dx,6.2)}]\tikzset{tube/Ro=2.3,tube/Ri=1.62,tube/H=.55,tube/E=.42,tube/a1=-47,tube/a2=23,tube/istep=6.5}
   % the decoration is turned by phi = 15 degrees so that no version point shares a vertical with its antipode
   \pgfmathsetmacro{\ph}{15}
   \draw[projection] (-\Ro,-3.3)--(-\Ro,-.55) (\Ro,-3.3)--(\Ro,-.55);
   \pic (ft) at (0,0) {thicktube};
   \foreach \a in {0,120,240} {\coordinate (vt\a) at ({1.96*sin(\a+\ph)},{.55-.42*1.96*cos(\a+\ph)});}
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({1.96*sin(\a+\ph)},{-.55-.42*1.96*cos(\a+\ph)});}
-  \draw[tpath] plot[domain=\ph:\ph+114.5,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});   % stops 3pt short of the dot at 135
-  \draw[upath] plot[domain=0:.93,samples=30,variable=\s] ({1.96*sin(\ph-60*\s)},{.55-2*.55*\s-.42*1.96*cos(\ph-60*\s)});
+  \draw[tpath] plot[domain=\ph:\ph+112,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});   % stops 3pt short of the dot at 135
+  \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.96*sin(\ph-60*\s)},{.55-2*.55*\s-.42*1.96*cos(\ph-60*\s)});
   \path[fill=ColRetained!55] (vt0) circle[radius=.3]; \draw[fine] (vt0) circle[radius=.3];
   \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45] (\p) circle[radius=.08];}
+  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45,blend mode=multiply] (\p) circle[radius=.08];}   % pale, the front lines showing through
   \node[lab,anchor=east] at ({-\Ro-.18},-1.1) {$\mathcal F$};
   \coordinate (Hpt) at (vt0);
 \end{scope}
@@ -58,16 +58,17 @@
 \begin{scope}[shift={(7.76+\dx,9.3)}]
   \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
   \sheet{0}{heavy}{ColRetained!50}
-  \coordinate (bx) at (.35,.25); \hatomat{bx}{.08}{ColDot}
+  \coordinate (bx) at (.35,.25);
   \draw[tlift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
   \draw[ulift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
+  \hatomat{bx}{.08}{ColDot}   % after both loops, like every other version point
   \foreach \k/\la in {0/H,1/uH,2/tH,3/tuH,4/{t^2H},5/{t^2uH}} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
     \sheet{\yy}{fine}{white}
     \coordinate (p\k) at (.35,{\yy+.25});
     }
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
-  \draw[tlift] (p0) .. controls (2.3,{1.3+.25+.3}) and (2.3,{1.3+.78*2+.25-.3}) .. (p2);
-  \draw[ulift] (p0) .. controls (-1.7,{1.3+.25+.4}) and (-1.7,{1.3+.78*3+.25-.4}) .. (p3);
+  \draw[tlift] (p0) .. controls (2.0,{1.3+.25+.3}) and (2.0,{1.3+.78*2+.25-.3}) .. (p2);
+  \draw[ulift] (p0) .. controls (-1.3,{1.3+.25+.4}) and (-1.3,{1.3+.78*3+.25-.4}) .. (p3);
   \foreach \k in {0,...,5} {\hatomat{p\k}{.08}{ColDot}}
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
