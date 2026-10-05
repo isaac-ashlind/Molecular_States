@@ -18,7 +18,7 @@ Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only
 - [x] 5. Shared primitives and plate defragmentation, each plate checked with diffsheet before and after
 - [x] 6. compute/, figures/data/ and checks/ cleanup (no unused emissions, no dead code, accurate docstrings)
 - [x] 7. Manuscript LaTeX: preamble, macros, tables (Section 8, Tables A-D, notation page) formatted perfectly
-- [ ] 8. Full python3 build.py: every check passes, no collisions, text inside every plate, manuscript clean
+- [x] 8. Full python3 build.py: every check passes, no collisions, text inside every plate, manuscript clean
 - [ ] 9. Delete .final-pass/, commit "Final pass step 9: done", push, cancel the check-in, short final report
 
 Log (one line per step: step, commit, note):
@@ -36,3 +36,4 @@ Log (one line per step: step, commit, note):
 - 6b (partial): exact rewrite: verify_methane stdlib exact (integer R_h, Q(omega) class, exact Rodrigues cell, exact vibrations and J ladder), verify_spin exact counts, make_data methane exact (QOmega in groups.py, Chebyshev chi_J), GAP methane block (E(3)); verify.py checks numbers.tex (spin counts, kappa, species, version labels, chart cells, shares); verify_symbolic: iota, shares from projectors, seam for all m; verify_antiprism removed; dead code and unused emissions removed (summary.json 9 keys, no depth macros, trimmed lists, chart cells from the versions, lattice nudges in make_data); analytic tangents; build: SymPy required, no numpy.
 - 6: done (last comment fixes; typed tables marked)
 - 7: manuscript: caption labels with a period; one table style (plaintable: lettered captions above, small, rules, numbers in math, L columns), Section 8 table is Table A, closing tables B-E with \ref; Notation breakable longtable in the same style with a header row; closing section at body size; run-in heads via \paragraph in Title Case with \ref numbers; section labels on all twelve; ties before \cite; \act, \cong, C_2, 2pi/3, pi/3, gamma_s, u_i (no clash with zeta, e); bookmarks and PDF title; title Their; fig05 bounding box trimmed (float fit); 26 pages, 0 bad boxes, 0 undefined
+- 8: full build passes: all checks (verify, spin, methane, symbolic, GAP), 14 plates no collisions and no text outside, manuscript 26 pages, 0 undefined, 0 bad boxes, numbering check counts figure captions only

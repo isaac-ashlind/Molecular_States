@@ -43,7 +43,8 @@ def check_numbering(ms):
     placed = [re.findall(r'\\label\{fig:(\d+)\}', s) for s in src.split('\\subsection{')[1:]]
     numbers = dict(re.findall(r'\\newlabel\{fig:(\d+)\}\{\{(\d+)\}', (ms / 'manuscript.aux').read_text()))
     want = [str(k) for k in range(1, 13)]
-    if placed != [[k] for k in want] or numbers != {k: k for k in want} or src.count('\\caption{') != 12:
+    figures = re.findall(r'\\begin\{figure\}.*?\\end\{figure\}', src, re.S)
+    if placed != [[k] for k in want] or numbers != {k: k for k in want} or sum(f.count('\\caption{') for f in figures) != 12:
         raise SystemExit(f'figure numbering mismatch: sections hold {placed}, numbers {numbers}')
     print('    figures 1-12 numbered as their sections; the guide and the closing plate unnumbered')
 
