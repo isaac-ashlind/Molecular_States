@@ -16,19 +16,20 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,lab/.style={sub}]   % every label on this plate at note size: uH's slot cannot take label size (author)
+% every label at note size, since uH's slot cannot take label size; image: an image of F in C, closed
+\begin{tikzpicture}[plate,lab/.style={sub},cover view,
+  image/.style={tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45}]
 \path[use as bounding box] (0,-.5) rectangle (15,12.5);
-% ------------------------------------------------ level 2: the solid F, cut open as on the cover (window from -47 to 23 degrees),
-% the decoration turned by 15 degrees as there, so the tu path stays inside the window
-\pgfmathsetmacro{\ph}{15}
-\begin{scope}[shift={(10.3,9.9)}]\tikzset{tube/a1=-47,tube/a2=23}
+% ------------------------------------------------ level 2: the solid F, cut open and decorated as on the cover
+\tubegeom\pgfmathsetmacro{\ph}{\coverturn}
+\begin{scope}[shift={(10.3,9.9)}]
   \pic (tb) at (0,0) {thicktube};
-  \foreach \a in {0,120,240} {\coordinate (vt\a) at ({2.15*sin(\a+\ph)},{.62-.42*2.15*cos(\a+\ph)});}
-  \foreach \a in {60,180,300} {\coordinate (vb\a) at ({2.15*sin(\a+\ph)},{-.62-.42*2.15*cos(\a+\ph)});}
-  \coordinate (ecl) at ({2.15*sin(60+\ph)},{.62-.42*2.15*cos(60+\ph)});
+  \foreach \a in {0,120,240} {\coordinate (vt\a) at ({\tRm*sin(\a+\ph)},{\tH-\tE*\tRm*cos(\a+\ph)});}
+  \foreach \a in {60,180,300} {\coordinate (vb\a) at ({\tRm*sin(\a+\ph)},{-\tH-\tE*\tRm*cos(\a+\ph)});}
+  \coordinate (ecl) at ({\tRm*sin(60+\ph)},{\tH-\tE*\tRm*cos(60+\ph)});
   % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
-  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});   % stops 3pt short of the dot at 135
-  \draw[upath] plot[domain=0:.92,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
+  \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({\tRm*sin(\a)},{\tH-\tE*\tRm*cos(\a)});   % the head stops 3pt short of the dot at 135
+  \draw[upath] plot[domain=0:.92,samples=30,variable=\s] ({\tRm*sin(\ph-60*\s)},{\tH-2*\tH*\s-\tE*\tRm*cos(\ph-60*\s)});   % and of the dot at -45
   \draw[fine,fill=white] (ecl) circle[radius=\vrad];   % the eclipsed shape, a reference on the path, not a version
   \foreach \p in {vt0,vt120,vt240,vb300} {\vpoint{\p}}
   \foreach \p in {vb60,vb180} {\vpointhidden[blend mode=multiply]{\p}}   % pale, the front lines showing through
@@ -47,29 +48,29 @@
 % the version point tuH at the lower end of the iota line)
 \zoombubble{8.73}{9.28}{.95}{3.0}{9.9}{1.5}
 \begin{scope}[shift={(3.0,9.9)}]
-  \pgfmathsetmacro{\m}{1.45}\pgfmathsetmacro{\fa}{-47}\pgfmathsetmacro{\E}{.42}
-  \pgfmathsetmacro{\cx}{2.15*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*2.15*cos(\fa)}
-  \coordinate (p1) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(.62-\E*1.8*cos(\fa)-\cy)});
-  \coordinate (p2) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(.62-\E*2.5*cos(\fa)-\cy)});
-  \coordinate (p3) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(-.62-\E*2.5*cos(\fa)-\cy)});
-  \coordinate (p4) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(-.62-\E*1.8*cos(\fa)-\cy)});
+  \pgfmathsetmacro{\m}{1.45}\pgfmathsetmacro{\fa}{\twa}\pgfmathsetmacro{\E}{\tE}
+  \pgfmathsetmacro{\cx}{\tRm*sin(\fa)}\pgfmathsetmacro{\cy}{-\E*\tRm*cos(\fa)}
+  \coordinate (p1) at ({\m*(\tRi*sin(\fa)-\cx)},{\m*(\tH-\E*\tRi*cos(\fa)-\cy)});
+  \coordinate (p2) at ({\m*(\tRo*sin(\fa)-\cx)},{\m*(\tH-\E*\tRo*cos(\fa)-\cy)});
+  \coordinate (p3) at ({\m*(\tRo*sin(\fa)-\cx)},{\m*(-\tH-\E*\tRo*cos(\fa)-\cy)});
+  \coordinate (p4) at ({\m*(\tRi*sin(\fa)-\cx)},{\m*(-\tH-\E*\tRi*cos(\fa)-\cy)});
   \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
-  \hatchfit{45}{.2*\m}{0}{(p1)--(p2)--(p3)--(p4)--cycle}
+  \hatchfit{45}{\ths*\m}{0}{(p1)--(p2)--(p3)--(p4)--cycle}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   % the core sheet's cross-section: the same face geometry at the radii Rm -+ bw, so its ends follow the face's slanted edges
-  \pgfmathsetmacro{\Rmo}{2.15+.04}\pgfmathsetmacro{\Rmi}{2.15-.04}
-  \coordinate (s1) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(.62-\E*\Rmi*cos(\fa)-\cy)});
-  \coordinate (s2) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.62-\E*\Rmo*cos(\fa)-\cy)});
-  \coordinate (s3) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmo*cos(\fa)-\cy)});
-  \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmi*cos(\fa)-\cy)});
+  \pgfmathsetmacro{\Rmo}{\tRm+\tbw}\pgfmathsetmacro{\Rmi}{\tRm-\tbw}
+  \coordinate (s1) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(\tH-\E*\Rmi*cos(\fa)-\cy)});
+  \coordinate (s2) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(\tH-\E*\Rmo*cos(\fa)-\cy)});
+  \coordinate (s3) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(-\tH-\E*\Rmo*cos(\fa)-\cy)});
+  \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-\tH-\E*\Rmi*cos(\fa)-\cy)});
   \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[fine] (s1)--(s4) (s2)--(s3);
-  \vpoint{0,-\m*.62}
-  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.19}) {$tuH$};
+  \vpoint{0,-\m*\tH}
+  \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*\tH-.19}) {$tuH$};
   % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
   \coordinate (qa) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.2-\E*\Rmo*cos(\fa)-\cy)});
-  \coordinate (qb) at ({\m*(2.45*sin(\fa)-\cx)},{\m*(.2-\E*2.45*cos(\fa)-\cy)});
+  \coordinate (qb) at ({\m*((\tRo-.05)*sin(\fa)-\cx)},{\m*(.2-\E*(\tRo-.05)*cos(\fa)-\cy)});
   \draw[harrow] (qa)--(qb); \node[lab,anchor=east,inner sep=1pt] at ($(qb)+(-.22,-.04)$) {$q$};
-  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*.62+.18}) {$\iota$};
+  \node[lab,anchor=south,inner sep=1pt] at (0,{\m*\tH+.18}) {$\iota$};
 \end{scope}
 \node[sub,anchor=north] at (3.0,8.2) {the cut face enlarged};
 \node[sub,anchor=north] at (3.0,7.85) {the core sheet is the family $\X_0(\tau,\iota)$};
@@ -78,10 +79,10 @@
 \node[lab,anchor=south west] at (.35,6.42) {$\conf$};
 \foreach \i in {0,...,9} \foreach \j in {0,1} {
   \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
-  \begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=ColFaint,tube/topfill=ColFaint,tube/innerfill=ColFaint,tube/bandfill=ColFaint}\pic at (\cx,\cy) {thicktube};\end{scope}}
+  \begin{scope}\tikzset{image,tube/wallfill=ColFaint,tube/topfill=ColFaint,tube/innerfill=ColFaint,tube/bandfill=ColFaint}\pic at (\cx,\cy) {thicktube};\end{scope}}
 \leaderlabel[shorten <=0pt]{2.68,5.8}{0}{.7}{south}{$s\mathcal F$}   % crosses the hatch: the image sits in the cut material
 % the active image: white, closed, no decoration (author, 2026-10-04: the version points are read on the enlargement)
-\begin{scope}\tikzset{tube/Ro=.5,tube/Ri=.36,tube/H=.13,tube/E=.42,tube/a1=0,tube/a2=0,tube/istep=16,tube/gstep=9,tube/lw=.45,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
+\begin{scope}\tikzset{image,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
 \draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(8.26,8.46); \draw[fine] (11.22,5.77)--(12.75,9.05);   % the left line ends on the zoom circle
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};

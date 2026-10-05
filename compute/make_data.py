@@ -6,6 +6,7 @@ and group definitions; nothing is typed in by hand.  checks/verify.py
 re-derives the same quantities independently and asserts them.
 """
 import itertools, json, math, cmath, os, sys
+from fractions import Fraction
 sys.path.insert(0, os.path.dirname(__file__))
 import geometry as G
 import groups as Q
@@ -464,6 +465,9 @@ def main():
     summary['methylamine_X0'] = [[round(v, 4) for v in c] for c in X0]
     summary['methylamine_X0_Xm'] = [round(v, 12) for v in G.mass_moment(X0, G.MLA_MASSES)]
     emit_pic(mol, 'mol3d-mla-ref', pic_code_rods(X0, G.MLA_ELEMENTS, G.MLA_BONDS, CAM_MLA, labels=True))
+    # figure 5 turns its glyphs in the page so that the projected half-turn axis of b (the body y axis) stands upright
+    ax = G.project([(0.0, 1.0, 0.0)], CAM_MLA)[0]
+    num.append(f'\\def\\mlaTurn{{{-math.degrees(math.atan2(-ax[0], ax[1])):.2f}}}')
     emit_pic(mol, 'mol3d-water-X', pic_code_rods(wX, G.WATER_ELEMENTS, bonds_w, CAM_FLAT, labels=True))
     RwX = G.rotate(Rw, wX)
     summary['water_matrices'] = {'X': [[round(v, 4) for v in c] for c in wX], 'RX': [[round(v, 4) for v in c] for c in RwX]}
@@ -765,6 +769,7 @@ def main():
     summary['coset_action'] = {'t': act_t, 'b': act_b}
     w = Q.spin_weights()
     summary['spin_weights'] = {str(k): v for k, v in w.items()}
+    num.append(f'\\def\\spinAone{{{w[1]["A1"]}}}\\def\\spinAtwo{{{w[1]["A2"]}}}\\def\\spinE{{{w[1]["E"]}}}\\def\\spinDim{{{w[1]["A1"]+w[1]["A2"]+2*w[1]["E"]}}}')   # figure 8, the proton factor
     # multiplicities of species in C[G6/H]: permutation character (3, 0, 1)
     perm_char = {'E': 3, 't': 0, 'b': 1}
     local = {n: int(round(sum(Q.G6_CHARS[n][c]*perm_char[c]*{'E': 1, 't': 2, 'b': 3}[c] for c in 'Etb')/6)) for n in Q.G6_CHARS}
@@ -778,13 +783,19 @@ def main():
             x = i/100
             c = math.exp(-1/(8*x*x))
             f.write(f'{x:.2f} {(1+2*c)/3:.6f} {2*(1-c)/3:.6f} 0\n')
+    # figure 9's three rows: Delta/d, the packet width in degrees for d = 120 degrees, the A1 share
+    rows = [(r, (1 + 2*math.exp(-1/(8*float(r)**2)))/3) for r in (Fraction(1, 6), Fraction(1, 3), Fraction(2, 3))]
+    num.append('\\def\\packetRows{' + ','.join(f'{{{r}}}/{float(r)*120:g}/{w:.4f}' for r, w in rows) + '}')
+    num.append('\\def\\packetMarks{' + ' '.join(f'({float(r):.4f},{w:.4f})' for r, w in rows) + '}')
     x_show = 1/3; c_show = math.exp(-1/(8*x_show*x_show))
     summary['gaussian_shown'] = {'Delta_over_d': x_show, 'c': c_show, 'wA1': (1+2*c_show)/3, 'wE': 2*(1-c_show)/3}
 
     # ---- component functions (figure 2): a physical choice on the delta = 0 slice.  There X P_sigma = R X with R the
     # in-plane half-turn, so a rotation-invariant state obeys Psi(X) = chi_stat(sigma) sigma.Psi(X) = -(b xi + a eta),
     # i.e. b = -a: the proton singlet (xi - eta) times a scalar f(theta).  f is an illustrative Gaussian in theta.
-    def comp_a(th): return math.exp(-((th-104.5)/14.0)**2/2)
+    COMP_CENTRE, COMP_WIDTH = 104.5, 14.0   # degrees
+    num.append(f'\\def\\compCentre{{{COMP_CENTRE}}}\\def\\compWidth{{{COMP_WIDTH}}}')
+    def comp_a(th): return math.exp(-((th-COMP_CENTRE)/COMP_WIDTH)**2/2)
     def comp_b(th): return -comp_a(th)
     with open(os.path.join(DATA, 'component-functions.dat'), 'w') as f:
         f.write('theta a b n2\n')

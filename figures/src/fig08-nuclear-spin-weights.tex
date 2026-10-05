@@ -18,11 +18,11 @@
 \def\yA{5.0}\def\yB{3.4}\def\yE{1.7}
 % ---- the spin space: bundles of hairlines, one line per state, E as pairs
 \begin{scope}[shift={(7.5,0)}]
-  \foreach \k in {0,...,11} {\draw[thin] (-1.1,{\yA-.385+.07*\k})--(1.1,{\yA-.385+.07*\k});}
-  \foreach \k in {0,...,3} {\draw[thin] (-1.1,{\yB-.105+.07*\k})--(1.1,{\yB-.105+.07*\k});}
-  \foreach \k in {0,...,7} {\draw[thin] (-1.1,{\yE-.4675+.14*\k})--(1.1,{\yE-.4675+.14*\k}); \draw[thin] (-1.1,{\yE-.4675+.14*\k+.045})--(1.1,{\yE-.4675+.14*\k+.045});}
-  \node[sub,anchor=south] at (0,{\yA+.5}) {$\mathrm A_1$, $12$}; \node[sub,anchor=south] at (0,{\yB+.22}) {$\mathrm A_2$, $4$}; \node[sub,anchor=south] at (0,{\yE+.6725}) {$\mathrm E$, $8$ pairs};
-  \node[lab,anchor=base] at (0,6.3) {$(\mathbb C^2)^{\otimes5}$, $32$};
+  \foreach \k in {1,...,\spinAone} {\draw[thin] (-1.1,{\yA+.07*(\k-(\spinAone+1)/2)})--(1.1,{\yA+.07*(\k-(\spinAone+1)/2)});}
+  \foreach \k in {1,...,\spinAtwo} {\draw[thin] (-1.1,{\yB+.07*(\k-(\spinAtwo+1)/2)})--(1.1,{\yB+.07*(\k-(\spinAtwo+1)/2)});}
+  \foreach \k in {1,...,\spinE} {\foreach \o in {-.0225,.0225} \draw[thin] (-1.1,{\yE+.045+.14*(\k-(\spinE+1)/2)+\o})--(1.1,{\yE+.045+.14*(\k-(\spinE+1)/2)+\o});}   % pairs, centred on the E join
+  \node[sub,anchor=south] at (0,{\yA+.5}) {$\mathrm A_1$, $\spinAone$}; \node[sub,anchor=south] at (0,{\yB+.22}) {$\mathrm A_2$, $\spinAtwo$}; \node[sub,anchor=south] at (0,{\yE+.6725}) {$\mathrm E$, $\spinE$ pairs};
+  \node[lab,anchor=base] at (0,6.3) {$(\mathbb C^2)^{\otimes5}$, $\spinDim$};
   \draw[fine] (-1.1,6.18)--(-1.1,6.03)--(1.1,6.03)--(1.1,6.18);
 \end{scope}
 % ---- even-parity levels at the left: straight across

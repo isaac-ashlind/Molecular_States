@@ -55,6 +55,8 @@ The same text is in the scratchpad at FINAL_PASS_CALIBRATION.md; the repository 
 - Closing pages: content length moves page breaks. The author said not to stress layout now.
 
 ## 5. Writing rules (author's voice and punctuation)
+- AMERICAN ENGLISH everywhere (author, 2026-10-05, mid-pass): fiber, center, centered, color, gray, neighborhood,
+  labeled, modeled, behavior, normalize; in prose, captions, plate text, comments and our own identifiers alike.
 - Voice = the opening pages (Sections 1 and 2): plain declarative sentences, one idea each, "Consider", "Take", "We",
   terms defined at first use, no flourish, simple words, claims no more than shown.
 - Prose I write: no colons, semicolons rare, em dashes never. Position words ("at the top", "on the left") instead of

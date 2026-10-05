@@ -19,7 +19,7 @@
 % ------------------------------------------------ A. the fragments drawn apart; X0 with its half-turn axis; the version equation as two arrows into one glyph
 % every methylamine glyph on this plate is turned by -19.53 degrees in the page, which stands the projected half-turn
 % axis (the body y axis, direction (-.6248, 1.7619) in the camera's image) upright; the digits stay upright
-\pgfmathsetmacro{\turn}{-19.53}
+\pgfmathsetmacro{\turn}{\mlaTurn}
 \begin{scope}[shift={(2.5,17.4)},rotate=\turn]
   \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
   \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}

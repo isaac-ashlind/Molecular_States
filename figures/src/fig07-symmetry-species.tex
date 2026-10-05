@@ -20,7 +20,7 @@
     \else \draw[fine] (\mang:{#3-.09})--(\mang:{#3+.09}); \fi}
   \end{scope}}
 % amplitudes: v1=(1,1,1)/sqrt3; v2=(2,-1,-1)/sqrt6; v3=(0,1,-1)/sqrt2; t(a,b,c)=(c,a,b); b(a,b,c)=(a,c,b)
-\def\sA{.5774}\def\sB{.8165}\def\sC{.4082}\def\sD{.7071}
+\pgfmathsetmacro{\sA}{1/sqrt(3)}\pgfmathsetmacro{\sB}{2/sqrt(6)}\pgfmathsetmacro{\sC}{1/sqrt(6)}\pgfmathsetmacro{\sD}{1/sqrt(2)}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,10.65);

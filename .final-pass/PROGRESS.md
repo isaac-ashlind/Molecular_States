@@ -1,7 +1,7 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: IN PROGRESS
-Live check-in trigger: trig_01XfFJ9hVGVvvc8YXyLGJYKf (fires 2026-10-05T17:41Z)
+Live check-in trigger: trig_01RRHQvEUy6KYPvjK1daqPYV (fires 2026-10-05T18:20Z)
 Audit (step 4): three background Agent auditors, launched 16:11Z, reports to .final-pass/audit/{plates,manuscript,compute}.md. If a report is missing after an interruption, re-run that auditor (prompt: read-only, the five headings in CALIBRATION section 8 for its area).
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
@@ -29,3 +29,4 @@ Log (one line per step: step, commit, note):
 - 4: plates.md (23+27+21+44+12 items) and manuscript.md (69 items) in .final-pass/audit; compute.md still running at tick time, needed only for step 6 (re-run the compute auditor if the file is missing then)
 - 5a (partial): shared refactor, all 14 plates pixel-identical: dead sty/prim machinery removed; solid spheres and no labels the molecule defaults; thin, hatch, ring, dense, digit, under styles; \vpoint, \vpointhidden, \sheet, \hassecovers; ColDotHidden, ColPatch, ColSphere roles; fig12 species from data. Next 5b: visual unifications (weights, greys, fonts, arrows), then headers. compute.md audit is in.
 - 5b (partial): one head for heavy arrows (harrow = tpath head), sarrow/farrow; off-scale weights snapped (.7 covers and mode curves heavy, .35 thin, .45/.65 fig13 fine/heavy, joins fine); greys to ColGreyed/ColFaint; gold tints to ColPatch; \inkdot 1.5pt; digits 6.5pt in every disc; Hasse names dense; \leaderlabel from named coordinates at the dot edge; fig13 head 3pt short; loop and note centring. Checked with diff sheets. Next 5c: tube geometry macros, data-driven numbers (shares, counts, Gaussian, fig05 turn), then 5d headers.
+- 5c (partial): \tubegeom and cover view (tube numbers read from the tube; the cover solid takes figure 6 proportions); image style in fig06; make_data emits mlaTurn, spin counts, packet rows and marks, Gaussian centre/width; fig07 amplitudes exact. Next: American spelling pass (author request), then 5d headers.

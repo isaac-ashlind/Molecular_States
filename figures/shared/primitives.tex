@@ -144,6 +144,14 @@
     \coordinate (-bot60) at ({\Rm*sin(60)},{-\Hh-\E*\Rm*cos(60)});
     \coordinate (-bot180) at ({\Rm*sin(180)},{-\Hh-\E*\Rm*cos(180)});
   }}}
+% ---- the solid as the guide draws it (figure 6 repeats it): the wedge from -47 to 23 degrees, the decoration on the core
+% sheet turned 15 degrees so that the projection from H to its class passes no other point
+\tikzset{cover view/.style={tube/a1=-47,tube/a2=23}}\def\coverturn{15}
+% ---- the current tube's dimensions, for drawing on its core sheet: \tubegeom sets \tRo, \tRi, \tRm (the sheet's
+% radius), \tH, \tE, \tbw, \ths and \twa (the angle of the wedge's first face)
+\newcommand\tubegeom{\pgfmathsetmacro{\tRo}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\tRi}{\pgfkeysvalueof{/tikz/tube/Ri}}%
+  \pgfmathsetmacro{\tRm}{(\tRo+\tRi)/2}\pgfmathsetmacro{\tH}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\tE}{\pgfkeysvalueof{/tikz/tube/E}}%
+  \pgfmathsetmacro{\tbw}{\pgfkeysvalueof{/tikz/tube/bw}}\pgfmathsetmacro{\ths}{\pgfkeysvalueof{/tikz/tube/hs}}\pgfmathsetmacro{\twa}{\pgfkeysvalueof{/tikz/tube/a1}}}
 % ---- atom at a coordinate, round in a scaled scope too: \hatomat{coordinate}{r}{fill}
 \newcommand\hatomat[3]{\begin{scope}[shift={(#1)},x=1cm,y=1cm]\hatom{0}{0}{#2}{#3}\end{scope}}
 % ---- a point in ink (a configuration, a lattice point, a centre): \inkdot{coordinate}

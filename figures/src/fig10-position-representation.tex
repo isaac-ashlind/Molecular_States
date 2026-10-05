@@ -42,27 +42,27 @@
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.3);
 % ------------------------------------------------ row 1: the solid, its core sheet, the chart
-\begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/E=.42,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}
+\begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}   % unturned: the seam at the back
   \pic (sf) at (0,0) {thicktube};
   \foreach \p in {top0,top120,top240,bot300} {\vpoint{sf-\p}}
   \foreach \p in {bot60,bot180} {\vpointhidden[blend mode=multiply]{sf-\p}}   % pale, the front lines showing through
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
 \draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.375,10.47) {strip the\\vibrations};
-\begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/E=.42,tube/a1=0,tube/a2=0,tube/bw=.04,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}
+\begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/a1=0,tube/a2=0,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}\tubegeom
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
   % the seam, cut: a slit through the back wall from the bottom rim to the top edge (two cut edges, white between),
   % with cut marks beyond its ends
-  \path[fill=white] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005})--(.035,{.37+.42*1.24+.005})--(.035,{-.37+.42*1.16})--cycle;
+  \path[fill=white] (-.035,{-\tH+\tE*\tRi})--(-.035,{\tH+\tE*\tRo+.005})--(.035,{\tH+\tE*\tRo+.005})--(.035,{-\tH+\tE*\tRi})--cycle;
   \vpointhidden{bd-bot180}   % the hidden point at the seam, under the cut edges and the rim
-  \draw[heavy] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005}) (.035,{-.37+.42*1.16})--(.035,{.37+.42*1.24+.005});
-  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.9*.7pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({1.16*sin(\a)},{-.37-.42*1.16*cos(\a)});\end{scope}   % the inner bottom rim over it
-  \draw[heavy] (-.13,{.37+.42*1.24+.07})--(.13,{.37+.42*1.24+.07}) (-.13,{-.37+.42*1.16-.117})--(.13,{-.37+.42*1.16-.117});
-  \draw[tpath] plot[domain=0:103,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});   % the head stops short of the dot at 120
-  \draw[upath] plot[domain=0:.76,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
+  \draw[heavy] (-.035,{-\tH+\tE*\tRi})--(-.035,{\tH+\tE*\tRo+.005}) (.035,{-\tH+\tE*\tRi})--(.035,{\tH+\tE*\tRo+.005});
+  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.9*.7pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({\tRi*sin(\a)},{-\tH-\tE*\tRi*cos(\a)});\end{scope}   % the inner bottom rim over it
+  \draw[heavy] (-.13,{\tH+\tE*\tRo+.07})--(.13,{\tH+\tE*\tRo+.07}) (-.13,{-\tH+\tE*\tRi-.117})--(.13,{-\tH+\tE*\tRi-.117});
+  \draw[tpath] plot[domain=0:103,samples=30,variable=\a] ({\tRm*sin(\a)},{\tH-\tE*\tRm*cos(\a)});   % the head stops 3pt short of the dot at 120
+  \draw[upath] plot[domain=0:.76,samples=30,variable=\s] ({\tRm*sin(-60*\s)},{\tH-2*\tH*\s-\tE*\tRm*cos(60*\s)});   % and of the dot at -60
   \foreach \p in {top0,top120,top240,bot60,bot300} {\vpoint{bd-\p}}
-  \leaderlabel[sub,shorten <=0pt]{0,{.37+.42*1.24+.09}}{0}{.41}{south}{cut at the seam, $\tau=\pm\pi$}
+  \leaderlabel[sub,shorten <=0pt]{0,{\tH+\tE*\tRo+.09}}{0}{.41}{south}{cut at the seam, $\tau=\pm\pi$}
   % H named outside the sheet, below it at the left, its leader crossing the front wall
   \leaderlabel[sub]{bd-top0}{-.55}{-.946}{north east}{$H$}
 \end{scope}
