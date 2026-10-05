@@ -29,10 +29,10 @@
   \node[lab,anchor=east] at (1.55,{\y+.55}) {$\lab$};
   \path[fill=ColRetained] (11.4,{\y+.38}) rectangle ({11.4+2.6*\wa},{\y+.73}); \draw[fine] (11.4,{\y+.38}) rectangle (14.0,{\y+.73}); \draw[fine] ({11.4+2.6*\wa},{\y+.38})--({11.4+2.6*\wa},{\y+.73});
 }
-\foreach \x/\l in {-180/{-\pi},180/{\pi}} {\node[sub,anchor=north] at ({6.0+8.4*\x/360},3.45) {$\l$};}
-\node[sub,anchor=north] at (11.0,3.45) {$\tau$};
+\foreach \x/\l in {-180/{-\pi},180/{\pi}} {\node[sub,anchor=base] at ({6.0+8.4*\x/360},3.29) {$\l$};}
+\node[sub,anchor=base] at (11.0,3.29) {$\tau$};
 \node[lab,anchor=south] at (6.0,9.95) {$\eta_0$}; \node[lab,anchor=south] at (8.8,9.95) {$\eta_1$}; \node[lab,anchor=south] at (3.2,9.95) {$\eta_2$};
-\node[sub,anchor=north] at (6.0,3.38) {$H$}; \node[sub,anchor=north] at (8.8,3.38) {$tH$}; \node[sub,anchor=north] at (3.2,3.38) {$t^2H$};
+\node[sub,anchor=base] at (6.0,3.15) {$H$}; \node[sub,anchor=base] at (8.8,3.15) {$tH$}; \node[sub,anchor=base] at (3.2,3.15) {$t^2H$};
 \node[sub,anchor=base] at (11.85,9.53) {$w_{\mathrm A_1}$}; \node[sub,anchor=base] at (13.15,9.53) {$w_{\mathrm E}$};
 \node[sub,anchor=east] at (1.55,9.6) {$\Delta/d$};
 \node[lab] at (4.6,6.8) {$c$};
@@ -41,7 +41,7 @@
   \addplot[PlateInk,line width=.9pt] table[x=x,y=wA1] {gaussian-shares.dat};
   \addplot[PlateInk,line width=.5pt] table[x=x,y=wE] {gaussian-shares.dat};   % ink, thinner than the A1 share
   \addplot[only marks,mark=*,mark size=1.6pt,PlateInk] coordinates {(0.1667,0.341) (0.3333,0.550) (0.6667,0.837)};
-  \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.95) {$w_{\mathrm A_1}$}; \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.07) {$w_{\mathrm E}$};
+  \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.90) {$w_{\mathrm A_1}$}; \node[sub,anchor=west,xshift=3pt] at (axis cs:1.0,0.07) {$w_{\mathrm E}$};
 \end{axis}
 \end{tikzpicture}
 \end{document}
