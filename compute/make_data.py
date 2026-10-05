@@ -359,7 +359,7 @@ def main():
     # symmetry rotations and one cell, the vibrational species, the J ladder; the numbers against Albert et al.
     CH4 = G.methane_c2()
     summary['methane_X0'] = [[round(v, 4) for v in c] for c in CH4]
-    CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)  # chosen by scan: 27 deg (the maximum) from every symmetry axis of the cube, so the eight third-turns and the six quarter-turns all separate on the page; bond 1 toward the viewer
+    CAM_BALL = G.camera(azimuth_deg=108.0, elevation_deg=21.0)  # chosen by scan: 27 deg (the maximum) from every symmetry axis of the cube, so the twelve sites and the six cell vertices all separate on the page; bond 1 toward the viewer
     # the glyph for the left panel: the suite's molecule primitive with its own camera, chosen by scan (every hydrogen
     # disc 0.61 A clear of the carbon and of every other hydrogen on the page, every C2 axis at least 26 deg off the view)
     CAM_MOL = G.camera(azimuth_deg=346.0, elevation_deg=64.0)
@@ -367,30 +367,31 @@ def main():
     for name, v in (('X', (1.0, 0.0, 0.0)), ('Y', (0.0, 1.0, 0.0)), ('Z', (0.0, 0.0, 1.0))):
         px, py, _ = G.project([v], CAM_MOL)[0]
         num.append(f'\\def\\chAxis{name}x{{{px:.4f}}}\\def\\chAxis{name}y{{{py:.4f}}}')
-    # the orientation space in Rodrigues coordinates, tan(theta/2) n: the twelve rotations of T are the centre, the eight
-    # third-turns at (+-1, +-1, +-1) (the vertices of a cube) and the three half-turns at infinity along the C2 axes; the
-    # cell of the centre is the exact octahedron |x|+|y|+|z| <= 1, whose vertices, the quarter-turns at (+-1, 0, 0) and
-    # so on, are the face centres of that cube. Nothing here is approximated: every edge is straight in these coordinates.
-    RS = 0.95                                                   # cm per Rodrigues unit on the page
-    RAY = 2.0                                                   # cm: where the axes leave the panel, toward the half-turns at infinity
+    # the orientation space as the axis-angle ball (direction the axis, distance the angle, radius pi; the skin is the
+    # half-turns, each point its own antipode). The twelve rotations of T: the centre, the eight third-turns at 2pi/3
+    # along the body diagonals, the three half-turns on the skin along the C2 axes. The cell of the centre is drawn as
+    # the schematic exact in Rodrigues coordinates: the octahedron dual to the cube spanned by the eight third-turns,
+    # its vertices (the quarter-turns) on the cube's face centres, every edge straight; in the ball the true edges bow
+    # outward (the caption says so). The cube itself is a reading aid: no edge between two points is intrinsic.
+    BALL_R = 2.0                                                # cm for the angle pi: the ball's radius on the page
+    bs = BALL_R / math.pi                                       # cm per radian
     D = [G.unit(CH4[k]) for k in range(4)]                      # bond directions = body diagonals
+    outv = CAM_BALL[2]
     def emit_point(name, v, scale=1.0):
         px, py, pz = G.project([G.scale(v, scale)], CAM_BALL)[0]
         num.append(f'\\def\\{name}x{{{px:.4f}}}\\def\\{name}y{{{py:.4f}}}\\def\\{name}d{{{pz:.4f}}}')
-    num.append(f'\\def\\rodS{{{RS:.4f}}}')
+    num.append(f'\\def\\ballR{{{BALL_R:.4f}}}')
     for k, tag in enumerate('abcd'):
-        emit_point('ballC' + tag, D[k], math.sqrt(3.0) * RS)   # third-turn about bond k: Rodrigues vector tan(pi/3) D[k] = (+-1,+-1,+-1)
-        emit_point('ballD' + tag, D[k], -math.sqrt(3.0) * RS)  # the opposite turn
-    outv = CAM_BALL[2]
+        emit_point('ballC' + tag, D[k], 2 * math.pi / 3 * bs)   # third-turn about bond k, +2pi/3: a cube vertex
+        emit_point('ballD' + tag, D[k], -2 * math.pi / 3 * bs)  # the opposite turn
     axes = {'x': (1.0, 0.0, 0.0), 'y': (0.0, 1.0, 0.0), 'z': (0.0, 0.0, 1.0)}
-    for a, v in axes.items():
+    face_centre = 2 * math.pi / 3 * bs / math.sqrt(3.0)          # the cube's half-edge: where its face centres sit on the axes
+    for a_, v in axes.items():
         for sgn, t in ((1.0, 'p'), (-1.0, 'm')):
-            emit_point(f'ballV{a}{t}', v, sgn * RS)                  # quarter-turn, a cell vertex and a cube face centre
-            emit_point(f'ballE{a}{t}', v, sgn * RAY)                 # where the axis leaves the panel
-    # the rays from the face centres outward: in front of the cube when the face is turned to the viewer
-    num.append('\\def\\rayFront{' + ','.join(f'{a}{t}' for a, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) > 0) + '}')
-    num.append('\\def\\rayBack{' + ','.join(f'{a}{t}' for a, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) <= 0) + '}')
-    # the cell: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
+            emit_point(f'ballS{a_}{t}', v, sgn * math.pi * bs)         # half-turn, on the skin
+            emit_point(f'ballV{a_}{t}', v, sgn * face_centre)           # quarter-turn, drawn on the cube's face centre: a vertex of the dual octahedron
+    num.append('\\def\\ballSkinFront{' + ','.join(f'{a_}{t}' for a_, v in axes.items() for sgn, t in ((1.0, 'p'), (-1.0, 'm')) if sgn * G.dot(v, outv) >= 0) + '}')
+    # the octahedron: faces with normals (+-1,+-1,+-1); an edge is visible if it lies on a face turned to the viewer
     faces = [f for f in itertools.product((1, -1), repeat=3)]
     front = [f for f in faces if G.dot(f, outv) > 0]
     def vname(i, sg): return 'ballV' + 'xyz'[i] + ('p' if sg > 0 else 'm')
@@ -400,51 +401,41 @@ def main():
         for e in itertools.combinations(vs, 2):
             (vis if f in front else hid).add(tuple(sorted(e)))
     hid -= vis
-    num.append('\\def\\ballCellVisible{' + ','.join(f'{a}/{b}' for a, b in sorted(vis)) + '}')
-    num.append('\\def\\ballCellHidden{' + ','.join(f'{a}/{b}' for a, b in sorted(hid)) + '}')
-    # the cube whose vertices are the eight third-turns: edges join vertices differing in one sign;
-    # an edge is visible if it lies on a cube face turned to the viewer (face normals +-x, +-y, +-z)
+    num.append('\\def\\ballCellVisible{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(vis)) + '}')
+    num.append('\\def\\ballCellHidden{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(hid)) + '}')
+    # the cube: edges join third-turns differing in one sign; visible if on a cube face turned to the viewer
     verts = {('ballC' + 'abcd'[k]): tuple(D[k]) for k in range(4)}
     verts.update({('ballD' + 'abcd'[k]): tuple(-c for c in D[k]) for k in range(4)})
-    sgn = {n: tuple(1 if c > 0 else -1 for c in v) for n, v in verts.items()}
+    sgn = {n_: tuple(1 if c > 0 else -1 for c in v) for n_, v in verts.items()}
     cvis, chid = set(), set()
-    for a, b in itertools.combinations(sorted(verts), 2):
-        diff = [i for i in range(3) if sgn[a][i] != sgn[b][i]]
+    for a1, b1 in itertools.combinations(sorted(verts), 2):
+        diff = [i for i in range(3) if sgn[a1][i] != sgn[b1][i]]
         if len(diff) != 1: continue
-        shared = [i for i in range(3) if i not in diff]            # the edge lies on the two faces normal to the shared axes
-        visible = any(sgn[a][i] * outv[i] > 0 for i in shared)
-        (cvis if visible else chid).add((a, b))
-    num.append('\\def\\ballCubeVisible{' + ','.join(f'{a}/{b}' for a, b in sorted(cvis)) + '}')
-    num.append('\\def\\ballCubeHidden{' + ','.join(f'{a}/{b}' for a, b in sorted(chid)) + '}')
+        shared = [i for i in range(3) if i not in diff]
+        visible = any(sgn[a1][i] * outv[i] > 0 for i in shared)
+        (cvis if visible else chid).add((a1, b1))
+    num.append('\\def\\ballCubeVisible{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(cvis)) + '}')
+    num.append('\\def\\ballCubeHidden{' + ','.join(f'{a1}/{b1}' for a1, b1 in sorted(chid)) + '}')
     assert len(cvis) + len(chid) == 12
-    summary['methane_rodrigues'] = {'cube_vertices': [[round(math.sqrt(3.0) * c, 6) for c in D[k]] for k in range(4)],
-                                    'cell_vertices_are_cube_face_centres': True, 'scale_cm': RS}
-    # the solid F for methane cut open (the cover's grammar): the core is the ball SO(3), the wall the nine vibrations;
-    # the octant x, y, z > 0 is removed, the viewer looks in from inside that octant, so the three cut faces (hatched
-    # quarter-annuli on the coordinate planes) and the core's exposed octant (teal) are all visible and nothing hides them
-    RO, RI = 1.45, 0.95                                         # page radii of the wall and of the core (cm)
-    cout = G.unit((0.9, 0.75, 0.55))
-    cup = G.unit(G.sub((0.0, 0.0, 1.0), G.scale(cout, cout[2])))
-    cright = G.cross(cup, cout)
-    def cproj(v): return (G.dot(v, cright), G.dot(v, cup), G.dot(v, cout))
-    def fmtrun(points): return ' '.join('(%.3f,%.3f)' % (x, y) for x, y, _ in points)
-    def arc(plane, radius, step=3):
-        pts = []
-        for t in range(0, 91, step):
-            c, sn = math.cos(math.radians(t)), math.sin(math.radians(t))
-            v = {'XY': (c, sn, 0.0), 'YZ': (0.0, c, sn), 'ZX': (sn, 0.0, c)}[plane]   # x->y, y->z, z->x
-            pts.append(cproj(tuple(radius * a for a in v)))
-        return pts
+    # the three great circles of the coordinate planes as the depth cue: front and back arcs
+    def circle_pts(plane):
+        out = []
+        for t in range(0, 720, 4):
+            cth, sth = math.cos(math.radians(t)), math.sin(math.radians(t))
+            v = {'XY': (cth, sth, 0.0), 'YZ': (0.0, cth, sth), 'ZX': (sth, 0.0, cth)}[plane]
+            out.append(G.project([tuple(BALL_R * x for x in v)], CAM_BALL)[0])
+        return out
     for plane in ('XY', 'YZ', 'ZX'):
-        outer, inner = arc(plane, RO), arc(plane, RI)
-        num.append(f'\\def\\cutOuter{plane}{{{fmtrun(outer)}}}')
-        num.append(f'\\def\\cutInner{plane}{{{fmtrun(inner)}}}')
-        num.append(f'\\def\\cutFace{plane}{{{fmtrun(outer + inner[::-1])}}}')     # the quarter-annulus, closed by --cycle
-    num.append('\\def\\cutCore{' + fmtrun(arc('XY', RI) + arc('YZ', RI) + arc('ZX', RI)) + '}')   # the exposed octant of the core
-    # the wall's silhouette is the whole circle of radius RO: the great circle perpendicular to the view lies in a plane
-    # through the centre and cannot enter the removed octant when the view direction has three positive components
-    assert all(c > 0 for c in cout)
-    summary['methane_cutaway'] = {'view': [round(c, 4) for c in cout], 'RO': RO, 'RI': RI}
+        pts = circle_pts(plane)
+        for tag, sel in (('Front', lambda z: z >= 0), ('Back', lambda z: z < 0)):
+            start = next(i for i in range(len(pts)) if sel(pts[i][2]) and not sel(pts[i - 1][2]))
+            run = []
+            for i in range(start, start + len(pts) // 2 + 1):
+                if sel(pts[i % len(pts)][2]): run.append('(%.3f,%.3f)' % pts[i % len(pts)][:2])
+                else: break
+            num.append(f'\\def\\ballArc{plane}{tag}{{{" ".join(run)}}}')
+    summary['methane_ball'] = {'radius_cm': BALL_R, 'schematic': 'octahedron dual to the cube of third-turns, exact in Rodrigues coordinates',
+                               'quarter_turn_true_radius': round(math.pi / 2 * bs, 4), 'drawn_radius': round(face_centre, 4)}
     # the loop: a third of a turn about the bond to hydrogen 1 returns X0 to its position with 2, 3, 4 cycled
     Rg = G.rot_axis(D[0], 2 * math.pi / 3)
     Xg = G.rotate(Rg, CH4)

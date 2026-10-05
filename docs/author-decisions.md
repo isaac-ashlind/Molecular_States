@@ -205,4 +205,11 @@ docs/notation-migration.md.
   only for the projection; teal, gold, ink and the red dots untangle the nested surfaces; titles under each panel.
   The cell carries its normal disc (a cell of F, Section 11); the figure draws it at q = 0, the text says so, and
   F/T is written as the disc bundle over SO(3)/T, not a product.
+- The closing plate, settled (author, 2026-10-05): three panels, lean and canonical. The molecule; the orientation
+  ball with the twelve rotations of T, the cube of third-turns in thin ink and the gold outline octahedron dual to it
+  (vertices on the cube's face centres), with one caption sentence naming the simplification (exact in Rodrigues
+  coordinates, bowed in the ball); the covering with its sheets as in figure 11 and what each species sees. The cut
+  solid and the K rings were tried and dropped ("repeating the momentum figure adds nothing"); the exact curved
+  cell and the Rodrigues-only picture were tried and dropped ("not intelligible"). Text on three pages with explicit
+  breaks: items 1 to 5 under the figure, items 6 to 10 with Table A, Tables B to D with the projection.
 

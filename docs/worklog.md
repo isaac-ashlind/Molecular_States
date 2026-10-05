@@ -138,3 +138,8 @@ vertices are the cube's face centres); the solid F cut open with the cover's hat
 from make_data); figure 12's rings of K under the third-turn; the covering panel's loop kept on its sheet; the cell
 written with its normal disc. Manuscript 24 pages, no bad boxes, no text collisions.
 
+Same day, settled: the plate reduced to three panels (molecule; ball with the cube of third-turns and its dual
+outline octahedron, schematic declared in the caption; the covering), the text on three pages with explicit breaks,
+the tables with air. The data layer emits only what the plate uses; the check keeps the Rodrigues facts the caption
+rests on. Manuscript 24 pages, no bad boxes, no text collisions.
+
