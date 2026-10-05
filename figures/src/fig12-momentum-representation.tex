@@ -58,22 +58,23 @@
 % ------------------------------------------------ C. periodic torsion modes on the torsion circle, and their species under G6
 \node[sub,anchor=north west] at (.337,6.1) {periodic torsion modes on the torsion circle};
 \node[sub,anchor=east] at (1.55,4.4) {$\cos m\tau$}; \node[sub,anchor=east] at (1.55,3.2) {$\sin m\tau$}; \node[sub,anchor=base east] at (1.55,5.12) {$m$};
-\foreach \m/\cs/\ss in \torsionSpecies {
+\def\spE{E}\def\spnone{none}
+\foreach \m/\cs/\ss in \torsionSpecies {   % the species of cos m tau and sin m tau under G6 (none: sin 0 vanishes)
   \pgfmathsetmacro{\cx}{2.55+1.78*\m}
   \node[lab,anchor=base] at (\cx,5.12) {$\m$};
-  \foreach \yc/\f in {4.4/cos,3.2/sin} {
+  \foreach \yc/\f/\sp in {4.4/cos/\cs,3.2/sin/\ss} {
     \draw[leader] (\cx,\yc) circle[radius=.4];   % the torsion circle in thin ink; the mode curve is the heavier line
-    \ifnum\m=0 \ifdim\yc pt=3.2pt \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi \else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)}); \fi
-    \foreach \a in {90,210,330} {\hatom{\cx+.4*cos(\a)}{\yc+.4*sin(\a)}{.08}{ColDot}}}   % the version points after the curve, on top
-  \ifnum\m=0 \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$};
+    \edef\spx{\sp}\ifx\spx\spnone\else \draw[line width=.7pt,draw=PlateInk] plot[domain=0:360,samples=180,variable=\t] ({\cx+(.4+.16*\f(\m*\t))*cos(\t+90)},{\yc+(.4+.16*\f(\m*\t))*sin(\t+90)});\fi
+    \foreach \a in {90,210,330} {\vpoint{{\cx+.4*cos(\a)},{\yc+.4*sin(\a)}}}}   % the version points after the curve, on top
+  \edef\spc{\cs}\edef\sps{\ss}
+  \ifx\spc\spE
+    \draw[heavy] (\cx-.6,2.425)--(\cx+.6,2.425) (\cx-.6,2.335)--(\cx+.6,2.335); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm E$};
+  \else\ifx\sps\spnone
+    \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$};
   \else
-    \ifnum\numexpr\m-3*(\m/3)\relax=0
-      \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$ (cos)};
-      \draw[heavy] (\cx-.6,1.66)--(\cx+.6,1.66); \node[lab,anchor=north] at (\cx,1.54) {$\mathrm A_2$ (sin)};
-    \else
-      \draw[heavy] (\cx-.6,2.425)--(\cx+.6,2.425) (\cx-.6,2.335)--(\cx+.6,2.335); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm E$};
-    \fi
-  \fi
+    \draw[heavy] (\cx-.6,2.38)--(\cx+.6,2.38); \node[lab,anchor=north] at (\cx,2.26) {$\mathrm A_1$ (cos)};
+    \draw[heavy] (\cx-.6,1.66)--(\cx+.6,1.66); \node[lab,anchor=north] at (\cx,1.54) {$\mathrm A_2$ (sin)};
+  \fi\fi
 }
 \end{tikzpicture}
 \end{document}

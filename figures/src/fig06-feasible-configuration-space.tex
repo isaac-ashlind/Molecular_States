@@ -30,8 +30,8 @@
   \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({2.15*sin(\a)},{.62-.42*2.15*cos(\a)});   % stops 3pt short of the dot at 135
   \draw[upath] plot[domain=0:.92,samples=30,variable=\s] ({2.15*sin(\ph-60*\s)},{.62-2*.62*\s-.42*2.15*cos(\ph-60*\s)});
   \draw[fine,fill=white] (ecl) circle[radius=.075];
-  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45,blend mode=multiply] (\p) circle[radius=.08];}   % pale, the front lines showing through
+  \foreach \p in {vt0,vt120,vt240,vb300} {\vpoint{\p}}
+  \foreach \p in {vb60,vb180} {\vpointhidden[blend mode=multiply]{\p}}   % pale, the front lines showing through
 \end{scope}
 \leaderlabel{10.86}{9.65}{.0}{-.55}{north}{$H$}
 \leaderlabel{11.82}{11.16}{.2}{.56}{south}{$tH$}
@@ -54,7 +54,7 @@
   \coordinate (p3) at ({\m*(2.5*sin(\fa)-\cx)},{\m*(-.62-\E*2.5*cos(\fa)-\cy)});
   \coordinate (p4) at ({\m*(1.8*sin(\fa)-\cx)},{\m*(-.62-\E*1.8*cos(\fa)-\cy)});
   \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
-  \begin{scope}\clip (p1)--(p2)--(p3)--(p4)--cycle; \foreach \k in {-40,...,40} \draw[line width=.22pt,draw=PlateInk] ({\k*.2*\m*1.41421-5},-5)--({\k*.2*\m*1.41421+5},5);\end{scope}
+  \hatchfit{45}{.2*\m}{0}{(p1)--(p2)--(p3)--(p4)--cycle}
   \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   % the core sheet's cross-section: the same face geometry at the radii Rm -+ bw, so its ends follow the face's slanted edges
   \pgfmathsetmacro{\Rmo}{2.15+.04}\pgfmathsetmacro{\Rmi}{2.15-.04}
@@ -63,7 +63,7 @@
   \coordinate (s3) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmo*cos(\fa)-\cy)});
   \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-.62-\E*\Rmi*cos(\fa)-\cy)});
   \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[line width=.4pt,draw=PlateInk] (s1)--(s4) (s2)--(s3);
-  \hatom{0}{-\m*.62}{.08}{ColDot}
+  \vpoint{0,-\m*.62}
   \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*.62-.19}) {$tuH$};
   % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
   \coordinate (qa) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(.2-\E*\Rmo*cos(\fa)-\cy)});

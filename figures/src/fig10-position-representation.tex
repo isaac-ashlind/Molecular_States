@@ -19,14 +19,14 @@
 \newcommand\chartpic[5]{\begin{scope}[shift={(#1,#2)},x=#3,y=#4]
     \path[fill=#5] (-1,-1) rectangle (1,1);
     \foreach \n/\a/\b/\e/\f in \chartCells {\draw[fine] (\a,\e) rectangle (\b,\f);}
-    \path[fill=ColRetained!50] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
+    \path[fill=ColPatch] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
     \draw[heavy] (-1,-1) rectangle (1,1);
     \node[lab] at (.12,.58) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
     \node[lab] at (.8333,-.5) {$u\,\mathcal U$}; \node[lab] at (-.8333,-.5) {$u\,\mathcal U$};
     \node[lab] at (-.47,-.55) {$tu\,\mathcal U$}; \node[lab] at (.3333,-.5) {$t^2u\,\mathcal U$};
     \draw[tpath] (.03,.95) to[bend right=30] (.605,.955);
     \draw[upath,shorten <=.1cm,shorten >=.19cm] (0,1)--(-.3333,-1);   % from the H dot's edge, the head short of the tuH dot
-    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} {\begin{scope}[shift={(\x,\y)},x=1cm,y=1cm]\hatom{0}{0}{.08}{ColDot}\end{scope}}   % the suite's two-tone spheres, round in the scaled chart
+    \foreach \x/\y in {0/1,.6667/1,-.6667/1,1/-1,-1/-1,-.3333/-1,.3333/-1} {\vpoint{\x,\y}}
     \node[sub,anchor=south] at (0,1.16) {$H$}; \node[sub,anchor=south] at (.6667,1.16) {$tH$}; \node[sub,anchor=south] at (-.6667,1.16) {$t^2H$};
     \node[sub,anchor=north] at (-.3333,-1.18) {$tuH$}; \node[sub,anchor=north] at (.3333,-1.18) {$t^2uH$}; \node[sub,anchor=north east] at (1,-1.18) {$uH$}; \node[sub,anchor=north west] at (-1,-1.18) {$uH$};
     \foreach \x/\l in {-1/{-\pi},0/{0},1/{\pi}} \node[sub,anchor=north] at (\x,-1.48) {$\l$};
@@ -44,8 +44,8 @@
 % ------------------------------------------------ row 1: the solid, its core sheet, the chart
 \begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/E=.42,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}
   \pic (sf) at (0,0) {thicktube};
-  \foreach \p in {top0,top120,top240,bot300} {\hatomat{sf-\p}{.08}{ColDot}}
-  \foreach \p in {bot60,bot180} {\draw[ghost,fill=ColDot!45,blend mode=multiply] (sf-\p) circle[radius=.08];}   % pale, the front lines showing through
+  \foreach \p in {top0,top120,top240,bot300} {\vpoint{sf-\p}}
+  \foreach \p in {bot60,bot180} {\vpointhidden[blend mode=multiply]{sf-\p}}   % pale, the front lines showing through
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
 \draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.4,10.47) {strip the\\vibrations};
@@ -55,13 +55,13 @@
   % the seam, cut: a slit through the back wall from the bottom rim to the top edge (two cut edges, white between),
   % with cut marks beyond its ends
   \path[fill=white] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005})--(.035,{.37+.42*1.24+.005})--(.035,{-.37+.42*1.16})--cycle;
-  \draw[ghost,fill=ColDot!45] (bd-bot180) circle[radius=.08];   % the hidden point at the seam, under the cut edges and the rim
+  \vpointhidden{bd-bot180}   % the hidden point at the seam, under the cut edges and the rim
   \draw[heavy] (-.035,{-.37+.42*1.16})--(-.035,{.37+.42*1.24+.005}) (.035,{-.37+.42*1.16})--(.035,{.37+.42*1.24+.005});
   \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.63pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({1.16*sin(\a)},{-.37-.42*1.16*cos(\a)});\end{scope}   % the inner bottom rim over it
   \draw[heavy] (-.13,{.37+.42*1.24+.07})--(.13,{.37+.42*1.24+.07}) (-.13,{-.37+.42*1.16-.117})--(.13,{-.37+.42*1.16-.117});
   \draw[tpath] plot[domain=0:103,samples=30,variable=\a] ({1.2*sin(\a)},{.37-.42*1.2*cos(\a)});   % the head stops short of the dot at 120
   \draw[upath] plot[domain=0:.76,samples=30,variable=\s] ({1.2*sin(-60*\s)},{.37-2*.37*\s-.42*1.2*cos(60*\s)});
-  \foreach \p in {top0,top120,top240,bot60,bot300} {\hatomat{bd-\p}{.08}{ColDot}}
+  \foreach \p in {top0,top120,top240,bot60,bot300} {\vpoint{bd-\p}}
   \draw[leader,shorten >=3pt] (0,{.37+.42*1.24+.09})--(0,{.37+.42*1.24+.5}); \node[sub,anchor=south,inner sep=2.5pt] at (0,{.37+.42*1.24+.5}) {cut at the seam, $\tau=\pm\pi$};
   % H named outside the sheet, below it at the left, its leader crossing the front wall
   \draw[leader,shorten >=3pt,shorten <=2.3pt] (bd-top0)--(-.55,-1.08); \node[sub,anchor=north east,inner sep=1.5pt] at (-.55,-1.08) {$H$};
@@ -70,21 +70,19 @@
 \chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}
 % ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
 \node[sub,anchor=north west,align=left] at (.5,7.95) {over each point $a$ of the chart lie the normal displacements $q$ in the chart's domain\\and every orientation $r$, which together give $x=(r,a,q)$};
-\begin{scope}\molsolid\mollabelsfalse
-  \pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
-  \begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mla-disp-ghost};\end{scope}
-  \pic[scale=.8] at (7.5,6.05) {mla-disp};
-  \pic[scale=.8] at (12.15,6.05) {mla-rot-disp};
-\end{scope}
+\pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
+\begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mla-disp-ghost};\end{scope}
+\pic[scale=.8] at (7.5,6.05) {mla-disp};
+\pic[scale=.8] at (12.15,6.05) {mla-rot-disp};
 \draw[harrow] (4.35,6.05)--(5.65,6.05); \node[lab,anchor=south] at (5.0,6.15) {$q$};
 \draw[harrow] (9.22,6.05)--(10.32,6.05); \node[lab,anchor=south] at (9.77,6.15) {$r$};
-\node[sub,anchor=north,align=center] at (2.5,4.6) {$\X_0(a)\vphantom{\bigl(}$\\the shape, a point of the chart};
-\node[sub,anchor=north,align=center] at (7.5,4.6) {$\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\vphantom{\bigl(}$\\displaced along the normal frame};
-\node[sub,anchor=north,align=center] at (12.15,4.6) {$\varphi(r,a,q)=\Rmat(r)\bigl(\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\bigr)$\\rotated};
+\node[under] at (2.5,4.6) {$\X_0(a)\vphantom{\bigl(}$\\the shape, a point of the chart};
+\node[under] at (7.5,4.6) {$\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\vphantom{\bigl(}$\\displaced along the normal frame};
+\node[under] at (12.15,4.6) {$\varphi(r,a,q)=\Rmat(r)\bigl(\X_0(a)+\sum_\alpha q_\alpha\mathbf e_\alpha(a)\bigr)$\\rotated};
 % ------------------------------------------------ row 3: the two normal directions at a, seen from the side
 \node[sub,anchor=west] at (.5,3.30) {the two normal directions at $a$, mass-orthonormal, seen from the side};
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.8] at (4.3,1.95) {mol3d-mla-ref-eminus-side};\end{scope}
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.8] at (10.7,1.95) {mol3d-mla-ref-eplus-side};\end{scope}
+\pic[scale=.8] at (4.3,1.95) {mol3d-mla-ref-eminus-side};
+\pic[scale=.8] at (10.7,1.95) {mol3d-mla-ref-eplus-side};
 \node[sub,anchor=north] at (4.3,.6) {$\mathbf e_-(a)$, the amino twist};
 \node[sub,anchor=north] at (10.7,.6) {$\mathbf e_+(a)$, the C--N stretch};
 \end{tikzpicture}

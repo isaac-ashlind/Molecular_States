@@ -11,9 +11,9 @@
 \input{numbers.tex}
 % shared drawing for the figure 7 drafts: a mode picture is three discs on the three version sites;
 % disc area = |amplitude|, ink positive, white negative, a tick for zero. Sites at 90, 210, 330 degrees.
-% \modepic{x}{y}{R}{a}{b}{c}{style}  style: circle (torsion circle) or tri (triangle)
-\newcommand\modepic[7]{\begin{scope}[shift={(#1,#2)}]
-  \ifnum#7=1 \draw[fine] (0,0) circle[radius=#3]; \else \draw[fine] (90:#3)--(210:#3)--(330:#3)--cycle; \fi
+% \modepic{x}{y}{R}{a}{b}{c}: the amplitudes a, b, c at the sites 90, 210, 330 on a torsion circle of radius R
+\newcommand\modepic[6]{\begin{scope}[shift={(#1,#2)}]
+  \draw[fine] (0,0) circle[radius=#3];
   \foreach \mang/\mc in {90/#4,210/#5,330/#6} {
     \pgfmathsetmacro{\r}{.42*#3*sqrt(abs(\mc))}\pgfmathsetmacro{\pos}{\mc>0?1:0}
     \ifdim\r cm>0.03cm \ifnum\pos=1 \fill[PlateInk] (\mang:#3) circle[radius=\r]; \else \draw[fine,fill=white] (\mang:#3) circle[radius=\r]; \fi
@@ -30,16 +30,16 @@
   \draw[fine] (0,0) circle[radius=\R];
   \draw[blift] (0,{-\R-.5})--(0,{\R+.5});
   \draw[tpath] (104:{\R+.28}) arc[start angle=104,end angle=196,radius={\R+.28}];   % 14 degrees clear of both sites, as in the plane below
-  \foreach \a in {90,210,330} {\hatom{\R*cos(\a)}{\R*sin(\a)}{.08}{ColDot}}
+  \foreach \a in {90,210,330} {\vpoint{\a:\R}}
   \node[lab,anchor=south west] at ($(90:\R)+(.14,.12)$) {$H$}; \node[lab,anchor=north east,inner sep=2pt] at ($(210:\R)+(-.06,-.12)$) {$tH$}; \node[lab,anchor=north west,inner sep=2pt] at ($(330:\R)+(.06,-.12)$) {$t^2H$};
   \node[lab] at (150:{\R+.62}) {$t$}; \node[lab,anchor=east] at (-.12,{\R+.62}) {$b$};   % b beside its axis, as in the plane below
   \node[sub] at (305:{\R+.36}) {$\tau$};
 \end{scope}
 % the grid
 \foreach \col/\x/\a/\b/\c/\ta/\tb/\tc/\ba/\bb/\bc in {1/7.0/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA/\sA, 2/10.0/\sB/-\sC/-\sC/-\sC/\sB/-\sC/\sB/-\sC/-\sC, 3/13.0/0/\sD/-\sD/-\sD/0/\sD/0/-\sD/\sD} {
-  \modepic{\x}{8.7}{.62}{\a}{\b}{\c}{1}
-  \modepic{\x}{6.75}{.62}{\ta}{\tb}{\tc}{1}
-  \modepic{\x}{4.8}{.62}{\ba}{\bb}{\bc}{1}
+  \modepic{\x}{8.7}{.62}{\a}{\b}{\c}
+  \modepic{\x}{6.75}{.62}{\ta}{\tb}{\tc}
+  \modepic{\x}{4.8}{.62}{\ba}{\bb}{\bc}
   \node[lab] at (\x,9.75) {$v_\col$};}
 \node[lab,anchor=east] at (5.9,8.7) {$v$}; \node[lab,anchor=east] at (5.9,6.75) {$t\,v$}; \node[lab,anchor=east] at (5.9,4.8) {$b\,v$};
 \draw[fine] (6.2,10.2)--(6.2,10.05)--(7.8,10.05)--(7.8,10.2); \node[lab,anchor=south] at (7.0,10.27) {$\mathrm A_1$};

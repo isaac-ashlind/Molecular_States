@@ -14,25 +14,25 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,covlab/.style={font=\fontsize{6.5}{7}\selectfont,fill=white,inner sep=.8pt,text=PlateInk}]
+\begin{tikzpicture}[plate]
 \path[use as bounding box] (0,.6) rectangle (15,19.9);
 % ------------------------------------------------ A. the fragments drawn apart; X0 with its half-turn axis; the version equation as two arrows into one glyph
 % every methylamine glyph on this plate is turned by -19.53 degrees in the page, which stands the projected half-turn
 % axis (the body y axis, direction (-.6248, 1.7619) in the camera's image) upright; the digits stay upright
 \pgfmathsetmacro{\turn}{-19.53}
 \begin{scope}[shift={(2.5,17.4)},rotate=\turn]
-  \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
-  \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopmethyl} -- cycle; \mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}[shift={(.55,0)}]\clip[scale=.8,rounded corners=6pt] plot coordinates {\fragloopamino} -- cycle; \mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
 \end{scope}
 \node[sub,anchor=north] at (1.95,15.9) {methyl}; \node[sub,anchor=north] at (3.52,15.9) {amino};
 \begin{scope}[shift={(7.4,17.4)}]
   \draw[line width=.4pt,draw=PlateInk] (0,-1.3)--(0,-.17) (0,.13)--(0,1.5);   % the axis, interrupted where the C--N rod crosses it
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+  \begin{scope}\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
   \draw[line width=.7pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}] ({.36*cos(30)},{1.5+.13*sin(30)}) arc[start angle=30,end angle=330,x radius=.36,y radius=.13];
 \end{scope}
 \node[sub,anchor=north] at (7.4,15.9) {$\X_0$};
 \begin{scope}[shift={(12.3,17.4)}]
-  \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-bref};\end{scope}
+  \begin{scope}\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-bref};\end{scope}
 \end{scope}
 \node[sub,anchor=north] at (12.3,15.9) {$b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$};
 \draw[bpath] (9.05,17.95)--(10.65,17.95); \node[lab,anchor=south] at (9.85,18.13) {$b=(23)(45)^*$};
@@ -48,11 +48,10 @@
   \node[lab,anchor=north] at ($(n0)+(0,-.2)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.2)$) {$S$};
 \end{scope}
 \draw[harrow] (7.1,10.6)--(7.9,10.6); \node[sub,anchor=south] at (7.5,10.72) {keep the bonds};
-\def\gt{t}\def\gu{u}
 \begin{scope}[shift={(11.2,7.3)},x=-.68cm,y=1.7cm]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
   \draw[line width=3pt,draw=ColGold!60] (h0)--(h4)--(h6)--(h9);
-  \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift] (h\a)--(h\b);\else \draw[blift] (h\a)--(h\b);\fi\fi}
+  \hassecovers
   \foreach \i/\l in \hasseLabels {\node[font=\fontsize{7.5}{8.5}\selectfont,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
 \node[sub,anchor=north,text width=6.4cm,align=center] at (11.2,6.75) {each cover adds one generator, solid for $t$, dashed for $u$, dotted for a starred one};
@@ -61,7 +60,7 @@
 \foreach \cname/\gname/\la/\lb/\lc/\ld/\le/\lf/\lg [count=\k from 0] in \versionList {
   \begin{scope}[shift={({1.25+2.5*\k},3.5)}]
     \def\molA{\la}\def\molB{\lb}\def\molC{\lc}\def\molD{\ld}\def\molE{\le}\def\molF{\lf}\def\molG{\lg}
-    \begin{scope}\molsolid\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
+    \begin{scope}\mollabelsinside\pic[scale=.8,rotate=\turn] at (0,0) {mol3d-mla-ref};\end{scope}
     \node[lab,anchor=base] at (0,-1.657) {$\cname$};
     \node[sub,anchor=base] at (0,-2.01) {$g=\gname$};
   \end{scope}

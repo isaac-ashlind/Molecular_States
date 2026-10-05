@@ -22,14 +22,14 @@
   \draw[leader] (5.7,.08)--(5.7,6.95);   % chart references: ink, thinner than the axes (no grey lines; line styles are for actions)
   \draw[leader] (0,6.3)--(12.2,6.3);
   \node[sub,anchor=south] at (5.7,7.05) {$\delta=0$}; \node[sub,anchor=west] at (12.3,6.3) {$\theta=\pi$};
-  \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\def\rodw{.045}
+  \begin{scope}\def\radH{.17}\def\radX{.27}\def\rodw{.045}
     \foreach \i in {0,...,4} \foreach \j in {0,...,4} {\pic[scale=.72] at ({1.1+2.3*\i},{.9+1.35*\j}) {mol3d-water-grid-\i\j};}
   \end{scope}
   % the meaning of delta, under the right end of its axis (clear of the tick labels and of the names below)
   \node[sub,anchor=north east] at (13.3,-.62) {bond lengths $\ell\pm\delta$};
 \end{scope}
 % ------------------------------------------------ what the family leaves out: rotation on the left, permutation and inversion on the right
-\begin{scope}\molsolid\mollabelsinside
+\begin{scope}\mollabelsinside
   \pic[scale=.8] at (4.0,3.8) {mol3d-water-minusX};
   \pic[scale=.8] at (6.5,3.8) {mol3d-water-X}; \pic[scale=.8] at (11.0,3.8) {mol3d-water-RX};
   \begin{scope}\def\molA{2}\def\molB{1}\pic[scale=.8] at (6.5,1.2) {mol3d-water-X}; \pic[scale=.8] at (11.0,1.2) {mol3d-water-RX};\end{scope}

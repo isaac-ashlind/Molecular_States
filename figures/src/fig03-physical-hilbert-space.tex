@@ -25,11 +25,11 @@
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,6.1);
 % ------------------------------------------------ the configuration story: three configurations, the spins beside the nuclei
-\begin{scope}[shift={(2.4,4.7)}]\molsolid\mollabelsinside\pic[scale=1.05] at (0,0) {mol3d-water-X};
+\begin{scope}[shift={(2.4,4.7)}]\mollabelsinside\pic[scale=1.05] at (0,0) {mol3d-water-X};
   \spinup{-1.34}{.61}\spindn{1.05}{.39}\node[lab] at (0,-1.25) {$\X$};\end{scope}
-\begin{scope}[shift={(7.5,4.7)}]\molsolid\mollabelsinside\def\molA{2}\def\molB{1}\pic[scale=1.05] at (0,0) {mol3d-water-X};
+\begin{scope}[shift={(7.5,4.7)}]\mollabelsinside\def\molA{2}\def\molB{1}\pic[scale=1.05] at (0,0) {mol3d-water-X};
   \spinup{-1.34}{.61}\spindn{1.05}{.39}\node[lab] at (0,-1.25) {$\sigma\X=\X\Pmat{\sigma}$};\end{scope}
-\begin{scope}[shift={(12.6,4.7)}]\molsolid\mollabelsinside\def\molA{2}\def\molB{1}\pic[scale=1.05] at (0,0) {mol3d-water-minusX};
+\begin{scope}[shift={(12.6,4.7)}]\mollabelsinside\def\molA{2}\def\molB{1}\pic[scale=1.05] at (0,0) {mol3d-water-minusX};
   \spinup{1.34}{-.61}\spindn{-1.05}{-.39}\node[lab] at (0,-1.25) {$E^*\sigma\X=-\X\Pmat{\sigma}$};\end{scope}
 \draw[harrow] (4.165,4.7)--(5.465,4.7); \node[lab,anchor=south] at (4.815,4.88) {$\sigma=(12)$}; \node[lab,anchor=north] at (4.815,4.5) {$\stat(\sigma)=-1$};
 \draw[bpath] (9.4,4.7)--(10.7,4.7); \node[lab,anchor=base] at (10.05,4.995) {$E^*$}; \node[lab,anchor=north] at (10.05,4.5) {$\chi_\pm(E^*)=\pm1$};   % E* on the baseline of sigma=(12)

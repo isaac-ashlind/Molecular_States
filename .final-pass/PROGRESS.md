@@ -27,3 +27,4 @@ Log (one line per step: step, commit, note):
 - 2: reference/ removed (git history keeps it)
 - 3: build.py 5 steps (data, checks, plates+pdf/png+collisions, manuscript+numbering check from the manuscript source and aux); scaffold/, previews, proofs and checks/cvd_preview.py removed; plate PDFs reproducible (no date, no trailer ID)
 - 4: plates.md (23+27+21+44+12 items) and manuscript.md (69 items) in .final-pass/audit; compute.md still running at tick time, needed only for step 6 (re-run the compute auditor if the file is missing then)
+- 5a (partial): shared refactor, all 14 plates pixel-identical: dead sty/prim machinery removed; solid spheres and no labels the molecule defaults; thin, hatch, ring, dense, digit, under styles; \vpoint, \vpointhidden, \sheet, \hassecovers; ColDotHidden, ColPatch, ColSphere roles; fig12 species from data. Next 5b: visual unifications (weights, greys, fonts, arrows), then headers. compute.md audit is in.

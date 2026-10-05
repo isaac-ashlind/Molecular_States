@@ -12,7 +12,6 @@
 \input{primitives.tex}
 \input{molecules.tex}
 \input{numbers.tex}
-\pgfplotsset{every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt,draw=PlateInk},axis line style={draw=PlateInk}}}   % ink, not the pgfplots grey ticks and black axes
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,10.2);
@@ -31,7 +30,7 @@
     \draw[line width=2.2pt,line cap=butt,draw=ColDualA] (\x-.09,1.3)--(\x-.09,{1.3+.9*\av});
     \draw[line width=2.2pt,line cap=butt,draw=ColDualB] (\x+.09,1.3)--(\x+.09,{1.3+.9*\bv});
     \fill[PlateInk] (\x,0) circle[radius=1.6pt];
-    \begin{scope}\molsolid\def\radH{.17}\def\radX{.27}\pic[scale=.75] at (\x,-.8) {mol3d-water-sample-\k};\end{scope}
+    \begin{scope}\def\radH{.17}\def\radX{.27}\pic[scale=.75] at (\x,-.8) {mol3d-water-sample-\k};\end{scope}
     \node[lab] at (\x,-1.42) {$\X_\k$};}
   \draw[leader] (-.2,1.3)--(9.6,1.3); \node[sub,anchor=west] at (9.8,1.3) {$0$ in $\spin$};
   \end{scope}

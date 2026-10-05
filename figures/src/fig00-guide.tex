@@ -16,7 +16,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={font=\fontsize{8}{10}\selectfont,inner sep=0pt}]
+\begin{tikzpicture}[plate,head/.style={font=\fontsize{9.5}{11}\selectfont\bfseries,inner sep=0pt},rng/.style={sub,inner sep=0pt}]
 \path[use as bounding box] (0,1.1) rectangle (15,15.6);
 \pgfmathsetmacro{\Ro}{2.3}\pgfmathsetmacro{\Ri}{1.62}\pgfmathsetmacro{\E}{.42}
 \pgfmathsetmacro{\dx}{.45}   % the slide of the tube, the sheets and their headings to the right of the molecule and the lattice
@@ -29,7 +29,7 @@
 \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ro,y radius={\E*\Ro}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\Ri,y radius={\E*\Ri}];
 % ------------------------------------------------ one configuration, a point of C
 \fill[PlateInk] (4.0,3.25) circle[radius=1.4pt];
-\begin{scope}\molsolid\mollabelsfalse\pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};\end{scope}
+\pic[scale=.72] at (4.0,6.1) {mol3d-mla-ref};
 % the molecule is drawn mass-centred (its centre of mass is the pic origin), so the drop to its point of C is the
 % vertical through the centre of mass, dotted like the lift from H to the patch, from the point to the C--N rod's lower edge
 \draw[projection,shorten <=1.6pt] (4.0,3.25)--(4.0,6.049);
@@ -45,8 +45,8 @@
   \draw[tpath] plot[domain=\ph:\ph+112,samples=30,variable=\a] ({1.96*sin(\a)},{.55-.42*1.96*cos(\a)});   % stops 3pt short of the dot at 135
   \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({1.96*sin(\ph-60*\s)},{.55-2*.55*\s-.42*1.96*cos(\ph-60*\s)});
   \path[fill=ColRetained!55] (vt0) circle[radius=.3]; \draw[fine] (vt0) circle[radius=.3];
-  \foreach \p in {vt0,vt120,vt240,vb300} {\hatomat{\p}{.08}{ColDot}}
-  \foreach \p in {vb60,vb180} {\draw[ghost,fill=ColDot!45,blend mode=multiply] (\p) circle[radius=.08];}   % pale, the front lines showing through
+  \foreach \p in {vt0,vt120,vt240,vb300} {\vpoint{\p}}
+  \foreach \p in {vb60,vb180} {\vpointhidden[blend mode=multiply]{\p}}   % pale, the front lines showing through
   \node[lab,anchor=east] at ({-\Ro-.18},-1.1) {$\mathcal F$};
   \coordinate (Hpt) at (vt0);
 \end{scope}
@@ -56,28 +56,25 @@
 \draw[projection,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
 \node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]
-  \newcommand\sheet[3]{\path[fill=#3] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle; \draw[#2] (-1.8,#1)--(1.8,#1)--(2.5,#1+.5)--(-1.1,#1+.5)--cycle;}
-  \sheet{0}{heavy}{ColRetained!50}
+  \sheet{0}{0}{heavy,fill=ColPatch}
   \coordinate (bx) at (.35,.25);
   \draw[tlift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
   \draw[ulift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
-  \hatomat{bx}{.08}{ColDot}   % after both loops, like every other version point
-  \foreach \k/\la in {0/H,1/uH,2/tH,3/tuH,4/{t^2H},5/{t^2uH}} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
-    \sheet{\yy}{fine}{white}
+  \vpoint{bx}   % after both loops, like every other version point
+  \foreach \k in {0,...,5} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
+    \sheet{0}{\yy}{fine,fill=white}
     \coordinate (p\k) at (.35,{\yy+.25});
     }
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
   \draw[tlift] (p0) .. controls (2.0,{1.3+.25+.3}) and (2.0,{1.3+.78*2+.25-.3}) .. (p2);
   \draw[ulift] (p0) .. controls (-1.3,{1.3+.25+.4}) and (-1.3,{1.3+.78*3+.25-.4}) .. (p3);
-  \foreach \k in {0,...,5} {\hatomat{p\k}{.08}{ColDot}}
+  \foreach \k in {0,...,5} {\vpoint{p\k}}
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,13.3) {IV\quad Representations}; \node[head,anchor=west] at (10.7+\dx,12.9) {and Global Structure}; \node[rng,anchor=north west] at (10.7+\dx,12.68) {\S\S\,10--12};
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], grey, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
-\def\gt{t}\def\gu{u}
 \begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]
-  \foreach \i/\x/\y/\v/\name in \hasseNodes {\coordinate (h\i) at (\x,\y);}
-  \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gt \draw[tlift,draw=PlateInk!55] (h\a)--(h\b);\else\ifx\gg\gu \draw[ulift,draw=PlateInk!55] (h\a)--(h\b);\else \draw[blift,draw=PlateInk!55] (h\a)--(h\b);\fi\fi}
+  \hassecovers[draw=PlateInk!55]
   \foreach \i/\x/\y/\v/\name in \hasseNodes {\draw[line width=.5pt,draw=PlateInk!55,fill=white] (h\i) circle[radius=2pt];}
   \node[sub,anchor=north,text=PlateInk!55] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=PlateInk!55] at ($(h9)+(0,.18)$) {$B$};
   \node[sub,anchor=south east,text=PlateInk!55,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};

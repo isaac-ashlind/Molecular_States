@@ -17,8 +17,8 @@
 % ------------------------------------------------ A. the reaction: one set of four nuclei grouped three ways, the two strands
 \foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$\begin{array}{@{}r@{\;=\;}l@{}}G_{\mathrm K}&\langle(12),E^*\rangle\\[-1pt]G_{\mathrm{Rb}}&\langle(34),E^*\rangle\end{array}$}} {
   \begin{scope}[shift={(\x,9.0)}]
-    \begin{scope}\molsolid\mollabelsinsideall\def\radK{.30}\def\radRb{.36}\pic[scale=.8] at (0,0) {mol3d-krb-\pname};\end{scope}
-    \node[lab,anchor=north] at (0,-1.25) {\cap}; \node[sub,anchor=north,align=center] at (0,-1.68) {\grp};
+    \begin{scope}\mollabelsinsideall\def\radK{.30}\def\radRb{.36}\pic[scale=.8] at (0,0) {mol3d-krb-\pname};\end{scope}
+    \node[lab,anchor=north] at (0,-1.25) {\cap}; \node[under] at (0,-1.68) {\grp};
   \end{scope}
 }
 % the two channels as arrows: parallel and centred into the complex, parallel out of it and diverging, each head
