@@ -1,7 +1,7 @@
 # Final pass progress (temporary; step 9 deletes .final-pass/)
 
 Status: NOT STARTED
-Live check-in trigger: trig_PENDING (set below when armed)
+Live check-in trigger: trig_016XrphoRBULEYp82BHpvAiN (backstop armed before the pass, fires 2026-10-05T19:02Z; step 0 replaces it)
 Workflow runs: none yet
 
 Follow section 11 of CALIBRATION.md at the start of every turn. Tick a step only in the commit that completes it.
