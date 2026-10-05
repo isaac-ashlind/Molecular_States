@@ -41,9 +41,9 @@
 % ================================================ upper left: methane in its body frame, seen as the ball is seen
 \node[blurb] at (.15,8.7) {Methane, $\mathrm{CH_4}$: the reference $\X_0$ in its body frame,\\with the $C_2$ axes $x,y,z$ through the midpoints of opposite edges.};
 \begin{scope}[shift={(1.9,6.4)}]
-  \foreach \a/\lab/\anc in {X/$x$/south,Y/$y$/west,Z/$z$/west} {
+  \foreach \a/\lab/\anc/\e in {X/$x$/east/-1.5,Y/$y$/west/1.47,Z/$z$/west/1.47} {
     \draw[thin] ({-1.4*\csname baAxis\a x\endcsname},{-1.4*\csname baAxis\a y\endcsname})--({1.4*\csname baAxis\a x\endcsname},{1.4*\csname baAxis\a y\endcsname});
-    \node[sub,anchor=\anc,inner sep=1.5pt] at ({1.47*\csname baAxis\a x\endcsname},{1.47*\csname baAxis\a y\endcsname}) {\lab};}
+    \node[sub,anchor=\anc,inner sep=1.5pt] at ({\e*\csname baAxis\a x\endcsname},{\e*\csname baAxis\a y\endcsname}) {\lab};}
   \begin{scope}\molsolid\mollabelsinside\pic[scale=.8] at (0,0) {mol3d-ch4-ball};\end{scope}
 \end{scope}
 % ================================================ middle: the orientation ball, large
