@@ -62,7 +62,7 @@ maps $\X: \R^N \to\R^3$ that place the center of mass
 at the origin.
 In a Cartesian basis, represent $\X$ by a $3\times N$ matrix whose $i$th column $\mathbf
 x_i=(x_i,y_i,z_i)^{\mathsf T}$ is the position of
-nucleus $i$
+nucleus $i$,
 \[
 \X=
 \begin{pmatrix}
@@ -103,7 +103,7 @@ therefore a permutation $\sigma$ or a
 permutation--inversion $\sigma^*$.
 
 As matrices, the $\X\in\conf$ form a vector space on which
-permutations act by multiplication from the right
+permutations act by multiplication from the right,
 \[
 s\act\X=\X\Pmat_s,
 \qquad
@@ -127,11 +127,11 @@ these matrices on the right therefore defines a left
 action of $S$ on $\conf$.
 
 We can also act on $\X$ from the left with rotations
-$r\in SO(3)$ via $3\times3$ rotation matrices $\Rmat(r)$
+$r\in SO(3)$ via $3\times3$ rotation matrices $\Rmat(r)$,
 \[
 r\act\X=\Rmat(r)\X.
 \]
-The actions commute by associativity
+The actions commute by associativity,
 \[
 r\act(s\act\X)=\Rmat(r)\X\Pmat_s=s\act(r\act\X).
 \]
@@ -167,7 +167,7 @@ by nuclear label.
 
 The group $S$ permutes like-nucleus spin factors in the
 same order as the configuration columns, with inversion
-acting trivially
+acting trivially,
 \[
 s\act(\xi_1\otimes\cdots\otimes\xi_N)
 =
@@ -196,7 +196,7 @@ $\Psi(\X)=f_\xi(\X)\xi+f_\zeta(\X)\zeta$, then
 \]
 
 As in $L^2(\R^n)$, we identify wavefunctions whose
-difference has zero norm
+difference has zero norm,
 \[
 \Psi\sim\Phi
 \quad\Longleftrightarrow\quad
@@ -424,7 +424,7 @@ G_6=\langle H,t\rangle,\qquad |G_6/H|=3,
 candidates. Any two extensions generate $B$.
 \item Microwave and far-infrared spectra resolve torsion and inversion
 in the $G_{12}$ regime.\footnote{Ilyushin et al.~\cite{IlyushinEtAl2005} and
-Kr\k{e}glewski~\cite{Kreglewski2009}.}
+Gulaczyk and Kr\k{e}glewski~\cite{Kreglewski2009}.}
 The amino inversion includes a corrective $\pi/3$ methyl turn,
 represented by $tu$.\footnote{Kleiner and Hougen~\cite{KleinerHougen2015}.}
 \item Comparing the candidates through their species and spin weights is
@@ -485,7 +485,7 @@ shape and excluding rearrangements; see \hyperref[sec:example]{the example that 
 \[
 \hilb_{\mathcal F}
 =\left\{\Psi\in\hilb:
-\Psi=0\text{ a.e. outside }\bigcup_{s\in S}s\mathcal F\right\}.
+\Psi=0\text{ a.e.\ outside }\bigcup_{s\in S}s\mathcal F\right\}.
 \]
 \begin{itemize}
 \item For open regions, compactly supported smooth packets, combined
@@ -555,7 +555,7 @@ $\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$.}
 \item Restrict the nuclear-spin action of $S$ to the feasible group $G$.
 Inversion acts trivially on spin, so only the permutation part of $G$ acts.
 \item Decompose $\spin$ under $G$ into species, counting copies rather
-than dimensions. For methylamine $\spin=(\mathbb C^2)^{\otimes5}\otimes\mathbb C^1\otimes\mathbb C^3$:
+than dimensions. For methylamine, $\spin=(\mathbb C^2)^{\otimes5}\otimes\mathbb C^1\otimes\mathbb C^3$:
 the five protons,
 carbon-12, and nitrogen-14. Carbon and nitrogen are not permuted, so their factor carries $\mathrm A_1$ and
 triples every count. Under $G_6$,
@@ -596,7 +596,7 @@ $\mathrm E$ & $24$ & $24$\\
 \includegraphics{fig08-nuclear-spin-weights}
 \caption{Nuclear spin weights. The proton spin states split under $G_6$ as
 $(\mathbb C^2)^{\otimes5}\cong12\,\mathrm A_1\oplus4\,\mathrm A_2\oplus8\,\mathrm E$, one line per state.
-An even-parity spatial level joins the spin species of its own name. At odd parity $\mathrm A_1$ and
+An even-parity spatial level joins the spin species of its own name. At odd parity, $\mathrm A_1$ and
 $\mathrm A_2$ trade partners and $\mathrm E$ keeps its own. A level's weight is the number of lines it
 joins, times three for the spin states of nitrogen-14.}
 \label{fig:8}
@@ -667,7 +667,7 @@ of Section~\ref{sec:feasible-space}, when required.
 \begin{itemize}
 \item Choose a body frame and a mass-orthonormal normal frame $\mathbf e_\alpha(a)$.
 Use $r$ for orientation, $a$ for internal shape, and $q$ for normal coordinates.\footnote{For one
-large-amplitude coordinate this is the nonrigid bender of Hougen, Bunker, and Johns~\cite{HougenBunkerJohns1970}.}
+large-amplitude coordinate this is the frame choice of Hougen, Bunker, and Johns~\cite{HougenBunkerJohns1970}.}
 \end{itemize}
 \[
 \varphi(r,a,q)=\Rmat(r)\left(\X_0(a)+\sum_{\alpha=1}^{n_q}q_\alpha\mathbf e_\alpha(a)\right),
@@ -808,8 +808,8 @@ no element but $E$ fixes any other shape. Which case describes the molecule is l
 \centering
 \includegraphics{fig11-covering-spaces-monodromy}
 \caption{Covering spaces and monodromy. Over a patch of $\mathcal F/G$ stand the six sheets of the
-$G_6$ block. In the base the paths $\gamma_t$ and $\gamma_b$ are loops. Lifted from $\X$ they end at $t\X$
-and $b\X$. Taken in turn they end apart, $t$ then $b$ at $tb\X$ and $b$ then $t$ at $t^2b\X$. At the
+$G_6$ block. In the base the paths $\gamma_t$ and $\gamma_b$ are loops. Lifted from $\X$, they end at $t\X$
+and $b\X$. Taken in turn, they end apart, $t$ then $b$ at $tb\X$ and $b$ then $t$ at $t^2b\X$. At the
 right, the same sheets form a graph.}
 \label{fig:11}
 \end{figure}
@@ -907,7 +907,7 @@ methylamine lies outside the present example.
 \begin{figure}[tb]
 \centering
 \includegraphics{fig12-momentum-representation}
-\caption{Momentum representation. For $J=2$ the body-axis component $K$ takes five values on the
+\caption{Momentum representation. For $J=2$, the body-axis component $K$ takes five values on the
 sphere $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$, and the vector $\mathbf J$ drawn has $K=1$. The labels $(m,K)$
 form a lattice in the periodic frame, and the twisted frame shears it to $\kappa=m+\frac12K$. The bottom
 row shows the periodic torsion modes and their species under $G_6$. No energies are assigned.}
@@ -1001,7 +1001,7 @@ $\stat\chi_\pm$. That character is $\mathrm A_2$ at even parity and $\mathrm A_1
 physical state per copy gives the weights of Table~\ref{tab:isomers}.
 
 \paragraph{\ref{sec:localized}. Localized States}
-With $G=H$ there is no coset to induce over, so $H$ moves the
+With $G=H$, there is no coset to induce over, so $H$ moves the
 packet's orientation instead. Take a real packet $\eta_0(r,q)$ about the reference orientation and the
 vibrational ground state. Its translates $\eta_h=\eta_0\circ T_h^{-1}$, for unstarred $h$, sit at the
 twelve dots. If packets overlap by $c_3$ across a third-turn and by $c_2$ across a half-turn, the shares
@@ -1048,7 +1048,7 @@ ${}^1\mathrm E(g)=e^{2\pi i/3}$, ${}^2\mathrm E(g)=e^{4\pi i/3}$, and $\mathrm T
 $y$, $z$. The monodromy groups $T/\ker\Gamma$ are $1$, $C_3$, $C_3$, and $T$.
 
 \paragraph{\ref{sec:momentum}. Momentum Representation}
-On $SO(3)\times\R^9$ there is no torsional label, and
+On $SO(3)\times\R^9$, there is no torsional label, and
 the momentum states are
 \[
 \langle r,q\mid JMK,p\rangle_0=\frac{\sqrt{2J+1}\,D^J_{MK}(r)\,e^{ip\cdot q/\hbar}}{(2\pi\hbar)^{9/2}},
@@ -1137,7 +1137,7 @@ For a $\mathrm T$ level and one $\mathrm T$ copy of the spins, the physical stat
 $\sum_{i=1}^3u_i\otimes u_i'$ of $\mathrm T\otimes\mathrm T$, taken over matched bases $u_i$ of the level
 and $u_i'$ of
 the spin copy. Its Schmidt rank is $3=\mathfrak d$ (their eq.~4), and it uses nine of the sixteen
-spin-rotation states, their ``over $56\%$'' (Example~23).
+spin--rotation states, their ``over $56\%$'' (Example~23).
 
 \begin{plaintable}
 \caption{The dictionary.}
@@ -1150,9 +1150,9 @@ this paper & Albert et al.~\cite{AlbertEtAlOrientation}\\
 the orbit $SO(3)\X_0$, the ball of the figure & the orientation space of the rigid body\\
 $T$, the $\Rmat_h$ of the unstarred $h$ & the symmetry group $\mathsf G$ of the molecule (eq.~41, Example~21)\\
 the cell $\mathcal U$ at $q=0$ with its faces glued, $SO(3)/T$ & the position space, the octahedral space (Example~42)\\
-the twelve translates $\eta_h$ of a packet, and the sheets & the coset states $f(r\mathsf g)=\Gamma_{\mathrm{rot}}(\mathsf g)f(r)$ (eqs.~90, 91, 103)\\
+the twelve translates $\eta_h$ of a packet and the sheets & the coset states $f(r\mathsf g)=\Gamma_{\mathrm{rot}}(\mathsf g)f(r)$ (eqs.~90, 91, 103)\\
 a species $\Gamma$ of $T$ with a partner $\Gamma'$, $\Gamma\otimes\Gamma'\ni\mathrm A$ & an isomer $(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$ (eq.~1, Table~II)\\
-$\Gamma(g)$ on the lift of a loop, and $T/\ker\Gamma$ & the monodromy $\Gamma_{\mathrm{rot}}(\mathsf g^{-1})$ and $\mathsf G_{\mathrm{mono}}=\mathsf G/\ker\Gamma_{\mathrm{rot}}$ (eqs.~127, 130)\\
+$\Gamma(g)$ on the lift of a loop and $T/\ker\Gamma$ & the monodromy $\Gamma_{\mathrm{rot}}(\mathsf g^{-1})$ and $\mathsf G_{\mathrm{mono}}=\mathsf G/\ker\Gamma_{\mathrm{rot}}$ (eqs.~127, 130)\\
 $D^J\downarrow H$, Table~\ref{tab:ladder} & $\Gamma_{\mathrm{rot}}\uparrow SO(3)$, the $J$ carrying each isomer (their Theorem)\\
 the seam rule with $\omega=2\pi/3$ & the $C_3$ part of $T$ (Examples~17 and~35)\\
 $\chi_\pm$ and the starred half of $H$, and the normal coordinates $q$ with $\mathbf M_h$ & absent, since trivial electronic and vibrational factors are assumed\\
