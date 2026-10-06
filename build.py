@@ -97,7 +97,7 @@ def main():
     log = (ms / 'manuscript.log').read_text(errors='replace')
     undefined = len(re.findall(r"(?:Reference|Citation) `[^']*' on page \d+ undefined", log))
     bad = len(re.findall(r'(?:Overfull|Underfull) \\[hv]box', log))
-    pages = re.search(r'Output written on .*?\((\d+) pages', log)
+    pages = re.search(r'Output written on .*?\((\d+) pages', log, re.S)   # the log wraps long paths
     shutil.copy2(ms / 'manuscript.pdf', BUILD / 'manuscript.pdf')
     print(f'    build/manuscript.pdf: {pages.group(1) if pages else "?"} pages, {undefined} undefined references, {bad} over- or underfull boxes')
     if undefined:
