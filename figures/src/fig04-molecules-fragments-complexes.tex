@@ -11,7 +11,7 @@
 \input{molecules.tex}
 \input{numbers.tex}
 \begin{document}
-\begin{tikzpicture}[plate,kline/.style={line width=2pt,draw=ColPotassium},rbline/.style={line width=2pt,draw=ColRubidium},karrow/.style={kline,-{Stealth[length=2.4mm,width=2mm]}},rbarrow/.style={rbline,-{Stealth[length=2.4mm,width=2mm]}}]   % the two channels as strands, with heads to their width
+\begin{tikzpicture}[plate,kline/.style={line width=2pt,draw=ColGold},rbline/.style={line width=2pt,draw=ColTeal},karrow/.style={kline,-{Stealth[length=6.75pt,width=5.75pt]}},rbarrow/.style={rbline,-{Stealth[length=6.75pt,width=5.75pt]}}]   % the two channels as strands, with heads to their width
 \path[use as bounding box] (0,0) rectangle (15,11.0);
 % ------------------------------------------------ A. the reaction: one set of four nuclei grouped three ways, the two strands
 \foreach \x/\pname/\cap/\grp in {2.6/in/{$\mathrm{KRb}+\mathrm{KRb}$}/{$G_{\mathrm{in}}=\langle(12)(34),E^*\rangle$},7.5/complex/{$\mathrm K_2\mathrm{Rb}_2$}/{$S=\langle(12),(34),E^*\rangle$},12.4/out/{$\mathrm K_2+\mathrm{Rb}_2$}/{$\begin{array}{@{}r@{\;=\;}l@{}}G_{\mathrm K}&\langle(12),E^*\rangle\\[-1pt]G_{\mathrm{Rb}}&\langle(34),E^*\rangle\end{array}$}} {
@@ -36,13 +36,13 @@
   \draw[kline] ($(k\krbIdxIn)+(-.06,0)$)--($(k\krbIdxS)+(-.06,0)$); \draw[rbline] ($(k\krbIdxIn)+(.06,0)$)--($(k\krbIdxS)+(.06,0)$);
   \draw[kline] (k\krbIdxS)--(k\krbIdxK); \draw[rbline] (k\krbIdxS)--(k\krbIdxRb);
   \draw[heavy] (k\krbIdxCore)--(k\krbIdxIn) (k\krbIdxCore)--(k\krbIdxK) (k\krbIdxCore)--(k\krbIdxRb) (k\krbIdxE)--(k\krbIdxCore);
-  \foreach \i/\x/\y/\m in \krbNodes {\ifnum\m=1\else\fill[ColFaint] (k\i) circle[radius=1pt];\fi}
-  \draw[ring,fill=white] (k\krbIdxE) circle[radius=3.1pt]; \draw[ring,fill=white] (k\krbIdxCore) circle[radius=3.1pt]; \draw[ring,fill=white] (k\krbIdxS) circle[radius=3.1pt];
-  \draw[ring,fill=ColPotassium] (k\krbIdxK) circle[radius=3.1pt]; \draw[ring,fill=ColRubidium] (k\krbIdxRb) circle[radius=3.1pt];
-  \begin{scope}\clip (k\krbIdxIn) circle[radius=3.1pt]; \fill[ColPotassium] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColRubidium] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[line width=.5pt,draw=PlateInk] (k\krbIdxIn) circle[radius=3.1pt];
+  \foreach \i/\x/\y/\m in \krbNodes {\ifnum\m=1\else\fill[PlateGray] (k\i) circle[radius=1.5pt];\fi}
+  \draw[ring,fill=PlateWhite] (k\krbIdxE) circle[radius=2.5pt]; \draw[ring,fill=PlateWhite] (k\krbIdxCore) circle[radius=2.5pt]; \draw[ring,fill=PlateWhite] (k\krbIdxS) circle[radius=2.5pt];
+  \draw[ring,fill=ColGold] (k\krbIdxK) circle[radius=2.5pt]; \draw[ring,fill=ColTeal] (k\krbIdxRb) circle[radius=2.5pt];
+  \begin{scope}\clip (k\krbIdxIn) circle[radius=2.5pt]; \fill[ColGold] ($(k\krbIdxIn)+(-.2,-.2)$) rectangle ($(k\krbIdxIn)+(0,.2)$); \fill[ColTeal] ($(k\krbIdxIn)+(0,-.2)$) rectangle ($(k\krbIdxIn)+(.2,.2)$);\end{scope} \draw[ring] (k\krbIdxIn) circle[radius=2.5pt];
   \node[lab,anchor=south] at ($(k\krbIdxS)+(0,.22)$) {$S$}; \node[lab,anchor=north] at ($(k\krbIdxE)+(0,-.22)$) {$E$};
   \node[lab,anchor=west] at ($(k\krbIdxCore)+(.22,-.12)$) {$\langle E^*\rangle$};
-  \node[lab,anchor=west] at ($(k\krbIdxK)+(.2,.14)$) {$G_{\mathrm K}$}; \node[lab,anchor=south west] at ($(k\krbIdxRb)+(.15,.14)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,.14)$) {$G_{\mathrm{in}}$};
+  \node[lab,anchor=west] at ($(k\krbIdxK)+(.2,.14)$) {$G_{\mathrm K}$}; \node[lab,anchor=west] at ($(k\krbIdxRb)+(.2,.14)$) {$G_{\mathrm{Rb}}$}; \node[lab,anchor=east] at ($(k\krbIdxIn)+(-.16,.14)$) {$G_{\mathrm{in}}$};
   \foreach \y/\l in {0/{$1$},1/{$2$},2/{$4$},3/{$8$}} \node[sub,anchor=east] at (-.6,{1.65*\y}) {\l}; \node[sub,anchor=east] at (-.6,{1.65*3+.45}) {order};
 \end{scope}
 \end{tikzpicture}

@@ -4,7 +4,7 @@
 % middle, over a point a of the chart, the reconstruction x = (r, a, q), drawn as the shape, the shape displaced along
 % the normal frame and the result rotated. At the bottom the two normal directions e_-(a) and e_+(a) seen from the side.
 % Declared, the displacement amplitude and the rotation are illustrative. The cells, normal directions and copies are
-% computed (compute/, checks/). Red marks the versions, gold the cell U, teal the sheet.
+% computed (compute/, checks/). Red marks the versions, pale gold the cell U, teal the sheet.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -12,11 +12,11 @@
 \input{molecules.tex}
 \input{numbers.tex}
 % the chart of the band: \chartpic{x}{y}{halfwidth cm}{halfheight cm}{fill} draws [-pi,pi] x [-iota0,iota0] with
-% the six H-cells, U gold, the six version points, the t and tu paths from H; labels inside the cells.
+% the six H-cells, U pale gold, the six version points, the t and tu paths from H; labels inside the cells.
 \newcommand\chartpic[5]{\begin{scope}[shift={(#1,#2)},x=#3,y=#4]
     \path[fill=#5] (-1,-1) rectangle (1,1);
     \foreach \a/\b/\e/\f in \chartCells {\draw[fine] (\a,\e) rectangle (\b,\f);}
-    \path[fill=ColPatch] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
+    \path[fill=ColPaleGold] (-0.3333,0) rectangle (0.3333,1); \draw[fine] (-0.3333,0) rectangle (0.3333,1);
     \draw[heavy] (-1,-1) rectangle (1,1);
     \node[lab] at (.12,.58) {$\mathcal U$}; \node[lab] at (.6667,.5) {$t\,\mathcal U$}; \node[lab] at (-.6667,.5) {$t^2\mathcal U$};
     \node[lab] at (.8333,-.5) {$u\,\mathcal U$}; \node[lab] at (-.8333,-.5) {$u\,\mathcal U$};
@@ -30,31 +30,30 @@
     \node[sub,anchor=north west] at (1.1,-1.48) {$\tau$};
     \node[sub,anchor=east] at (-1.06,1) {$\iota_0$}; \node[sub,anchor=east] at (-1.06,0) {$0$}; \node[sub,anchor=east] at (-1.06,-1) {$-\iota_0$};
   \end{scope}}
-% the undisplaced shape beneath its displaced copy, a faded solid outline (the one exception to dashed ghosts): the
-% rods with both edges one faded weight and white atoms with a faded contour, only for the atoms that visibly move
-% (mla-disp-ghost), since an atom that barely moves would show only as a sliver
-\newcommand\molfaded{\tikzset{rodfill/.style={fill=white},rodedge/.style={fine,draw=ColGrayed},rodshade/.style={rodedge}}%
-  \renewcommand\molatom[4]{\if##1H\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=ColGrayed,fill=white] (##3,##4) circle[radius=\radX];\fi}}
+% the undisplaced shape beneath its displaced copy, a ghost in gray lines on white (the one solid faded outline): the
+% rods with both edges at one weight and white atoms, only for the atoms that visibly move (mla-disp-ghost), since an
+% atom that barely moves would show only as a sliver
+\newcommand\molghost{\tikzset{rodedge/.style={fine,draw=PlateGray},rodshade/.style={rodedge}}%
+  \renewcommand\molatom[4]{\if##1H\draw[fine,draw=PlateGray,fill=PlateWhite] (##3,##4) circle[radius=\radH];\else\draw[fine,draw=PlateGray,fill=PlateWhite] (##3,##4) circle[radius=\radX];\fi}}
 \begin{document}
 \begin{tikzpicture}[plate]
 \path[use as bounding box] (0,0) rectangle (15,12.3);
 % ------------------------------------------------ row 1: the solid, its core sheet, the chart
 \begin{scope}[shift={(2.1,10.3)}]\tikzset{tube/Ro=1.5,tube/Ri=1.08,tube/H=.37,tube/a1=-62,tube/a2=8,tube/istep=12,tube/gstep=7,tube/lw=.7}   % unturned: the seam at the back
-  \pic (sf) at (0,0) {thicktube};
+  \pic[tube/hidden={60,180}] (sf) at (0,0) {thicktube};   % the two hidden versions, under the front lines
   \foreach \p in {top0,top120,top240,bot300} {\vpoint{sf-\p}}
-  \foreach \p in {bot60,bot180} {\vpointhidden[blend mode=multiply]{sf-\p}}   % pale, the front lines showing through
   \node[lab,anchor=east] at (-1.62,-.1) {$\mathcal F$};
 \end{scope}
 \draw[harrow] (3.8,10.3)--(4.95,10.3); \node[sub,anchor=south,align=center] at (4.375,10.47) {strip the\\vibrations};
-\begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/a1=0,tube/a2=0,tube/wallfill=ColBand,tube/topfill=ColBand,tube/innerfill=ColBand,tube/istep=12,tube/gstep=7,tube/lw=.7}\tubegeom
+\begin{scope}[shift={(6.5,10.3)}]\tikzset{tube/Ro=1.24,tube/Ri=1.16,tube/H=.37,tube/a1=0,tube/a2=0,tube/wallfill=ColPaleTeal,tube/topfill=ColPaleTeal,tube/innerfill=ColPaleTeal,tube/istep=12,tube/gstep=7,tube/lw=.7}\tubegeom
   % the core sheet alone: a thin teal tube of the same thickness as the sheet inside the solid; seam at the back
   \pic (bd) at (0,0) {thicktube};
   % the seam, cut: a slit through the back wall from the bottom rim to the top edge (two cut edges, white between),
   % with cut marks beyond its ends
-  \path[fill=white] (-.035,{-\tH+\tE*\tRi})--(-.035,{\tH+\tE*\tRo+.005})--(.035,{\tH+\tE*\tRo+.005})--(.035,{-\tH+\tE*\tRi})--cycle;
+  \path[fill=PlateWhite] (-.035,{-\tH+\tE*\tRi})--(-.035,{\tH+\tE*\tRo+.005})--(.035,{\tH+\tE*\tRo+.005})--(.035,{-\tH+\tE*\tRi})--cycle;
   \vpointhidden{bd-bot180}   % the hidden point at the seam, under the cut edges and the rim
   \draw[heavy] (-.035,{-\tH+\tE*\tRi})--(-.035,{\tH+\tE*\tRo+.005}) (.035,{-\tH+\tE*\tRi})--(.035,{\tH+\tE*\tRo+.005});
-  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.9*.7pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({\tRi*sin(\a)},{-\tH-\tE*\tRi*cos(\a)});\end{scope}   % the inner bottom rim over it
+  \begin{scope}\clip (bd-bot180) circle[radius=.1];\draw[line width=.7pt,draw=PlateInk] plot[domain=170:190,samples=9,variable=\a] ({\tRi*sin(\a)},{-\tH-\tE*\tRi*cos(\a)});\end{scope}   % the inner bottom rim over it
   \draw[heavy] (-.13,{\tH+\tE*\tRo+.07})--(.13,{\tH+\tE*\tRo+.07}) (-.13,{-\tH+\tE*\tRi-.117})--(.13,{-\tH+\tE*\tRi-.117});
   \draw[tpath] plot[domain=0:103,samples=30,variable=\a] ({\tRm*sin(\a)},{\tH-\tE*\tRm*cos(\a)});   % the head stops 3pt short of the dot at 120
   \draw[upath] plot[domain=0:.76,samples=30,variable=\s] ({\tRm*sin(-60*\s)},{\tH-2*\tH*\s-\tE*\tRm*cos(60*\s)});   % and of the dot at -60
@@ -64,11 +63,11 @@
   \leaderlabel[sub]{bd-top0}{-.55}{-.946}{north east}{$H$}
 \end{scope}
 \draw[harrow] (7.95,10.3)--(8.7,10.3); \node[sub,anchor=south] at (8.32,10.47) {unroll};
-\chartpic{11.85}{10.3}{2.5cm}{1.0cm}{white}
+\chartpic{11.85}{10.3}{2.5cm}{1.0cm}{PlateWhite}
 % ------------------------------------------------ row 2: over a point a of the chart, the normal displacement and the orientation: the reconstruction
 \node[sub,anchor=north west,align=left] at (.5,7.95) {over each point $a$ of the chart lie the normal displacements $q$ in the chart's domain\\and every orientation $r$, which together give $x=(r,a,q)$};
 \pic[scale=.8] at (2.5,6.05) {mol3d-mla-ref};
-\begin{scope}\molfaded\pic[scale=.8] at (7.5,6.05) {mla-disp-ghost};\end{scope}
+\begin{scope}\molghost\pic[scale=.8] at (7.5,6.05) {mla-disp-ghost};\end{scope}
 \pic[scale=.8] at (7.5,6.05) {mla-disp};
 \pic[scale=.8] at (12.15,6.05) {mla-rot-disp};
 \draw[harrow] (4.35,6.05)--(5.65,6.05); \node[lab,anchor=south] at (5.0,6.15) {$q$};

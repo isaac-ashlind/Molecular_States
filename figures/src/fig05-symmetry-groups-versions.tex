@@ -1,9 +1,10 @@
 % Figure 5, symmetry groups and versions. At the top methylamine's two fragments, the reference X0 with its half-turn
 % axis upright, and bX0 = X0 P_b drawn with its digits, which the half-turn reproduces, so H = {E, b}. In the middle
 % the interval [H, S] (36 subgroups, faint) is carved to the bond interval [H, B] (10 subgroups, ink) with the chain
-% H < G6 < G12 < B on a gold halo, and at the right [H, B] again with every node named by its generators and every
-% cover drawn in the line style of the generator it adds. At the bottom the six versions, the same positions with the
-% digits moved. All lattice data and generator forms are computed (compute/, checks/verify.g). Blue is nitrogen.
+% H < G6 < G12 < B as a gold band with gold nodes, and at the right [H, B] again with every node named by its
+% generators and every cover drawn in the line style of the generator it adds. At the bottom the six versions, the
+% same positions with the digits moved. All lattice data and generator forms are computed (compute/, checks/verify.g).
+% Blue is nitrogen, gold the chain through the regime G of the quotient F/G.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -38,18 +39,18 @@
 \begin{scope}[shift={(.5,6.8)}]
   \foreach \i/\x/\yy/\inb in \bigNodes {\coordinate (n\i) at ({.3+6.4*\x},{.2+7.6*\yy});}
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\else\draw[faint] (n\a)--(n\b);\fi}
-  \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColPatch] (n\a)--(n\b);}   % the halo first, under the covers, as in the Hasse diagram
+  \foreach \a/\b in \bigChainCovers {\draw[line width=3pt,draw=ColGold] (n\a)--(n\b);}   % the band first, under the covers, as in the Hasse diagram
   \foreach \a/\b/\inb in \bigCovers {\ifnum\inb=1\draw[heavy] (n\a)--(n\b);\fi}
-  \foreach \i/\x/\yy/\inb in \bigNodes {\ifnum\inb=1 \draw[ring,fill=white] (n\i) circle[radius=1.9pt];\else\fill[ColFaint] (n\i) circle[radius=1pt];\fi}
-  \foreach \i in \bigChain {\draw[ring,fill=ColRetained] (n\i) circle[radius=2.1pt];}
-  \node[lab,anchor=north] at ($(n0)+(0,-.2)$) {$H$}; \node[lab,anchor=south] at ($(n35)+(0,.2)$) {$S$};
+  \foreach \i/\x/\yy/\inb in \bigNodes {\ifnum\inb=1 \draw[ring,fill=PlateWhite] (n\i) circle[radius=2.5pt];\else\fill[PlateGray] (n\i) circle[radius=1.5pt];\fi}
+  \foreach \i in \bigChain {\draw[ring,fill=ColGold] (n\i) circle[radius=2.5pt];}
+  \node[lab,anchor=north] at ($(n0)+(0,-.2)$) {$H$}; \node[lab,anchor=south,text=PlateGray] at ($(n35)+(0,.2)$) {$S$};
 \end{scope}
 \draw[harrow] (7.1,10.6)--(7.9,10.6); \node[sub,anchor=south] at (7.5,10.72) {keep the bonds};
 \begin{scope}[shift={(11.2,7.3)},x=-.68cm,y=1.7cm]
   \hassenodes
-  \draw[line width=3pt,draw=ColPatch] (h0)--(h4)--(h6)--(h9);   % the chain's halo, under the covers
+  \draw[line width=3pt,draw=ColGold] (h0)--(h4)--(h6)--(h9);   % the chain's band, under the covers
   \hassecovers
-  \foreach \i/\l in \hasseLabels {\node[dense,fill=white,inner sep=1.3pt] at (h\i) {$\l$};}
+  \foreach \i/\l in \hasseLabels {\node[dense,fill=PlateWhite,inner sep=1.3pt] at (h\i) {$\l$};}
 \end{scope}
 \node[sub,anchor=north,text width=6.4cm,align=center] at (11.2,6.75) {each cover adds one generator, solid for $t$, dashed for $u$, dotted for a starred one};
 % ------------------------------------------------ C. versions: the same positions, the digits move

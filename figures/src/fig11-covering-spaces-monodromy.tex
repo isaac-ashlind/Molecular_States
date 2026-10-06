@@ -4,25 +4,25 @@
 % on the right and b then t two levels up. At the right the six sheets form a graph, where t turns the outer triangle
 % one way and the inner the other. The six drawn are the G6 block of the twelve sheets.
 % The relations bt = t^2 b and btb = t^-1 and the best-fit residual between X and bX are computed (checks/). Red marks
-% the points over [X], gold the patch, blue nitrogen.
+% the points over [X], pale gold the patch, blue nitrogen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
 \input{primitives.tex}
 \input{molecules.tex}
 \begin{document}
-\begin{tikzpicture}[plate,sheet/d=.9,gnode/.style={circle,ring,fill=white,inner sep=0pt,minimum size=8.6mm,dense}]   % the base patch is a sheet's shape, so every sheet maps onto it
+\begin{tikzpicture}[plate,sheet/d=.9,gnode/.style={circle,ring,fill=PlateWhite,inner sep=0pt,minimum size=8.6mm,dense}]   % the base patch is a sheet's shape, so every sheet maps onto it
 \path[use as bounding box] (0,0) rectangle (15,11.3);
 \begin{scope}[shift={(5.6,.8)}]
   % the base: a patch of the quotient, one sheet's size, both columns over it; the two loops inside it
-  \sheet{0}{0}{heavy,fill=ColPatch}
+  \sheet{0}{0}{heavy,fill=ColPaleGold}
   \coordinate (bx) at (.35,.45);
   \draw[tlift] (bx) .. controls (-1.7,.84) and (-1.7,.06) .. (bx); \draw[blift] (bx) .. controls (2.4,.06) and (2.4,.84) .. (bx);
   \node[sub,anchor=north,inner sep=2.5pt] at (-.95,-.2) {$\gamma_t$}; \node[sub,anchor=north,inner sep=2.5pt] at (1.65,-.2) {$\gamma_b$};   % under their loops, symmetric about [X]
   \node[sub,anchor=west,inner sep=1pt] at (2.62,.45) {$\mathcal F/G$};
   \foreach \k/\ga/\gb/\pl in {0/{\X}/{b\X}/H,1/{t\X}/{tb\X}/tH,2/{t^2\X}/{t^2b\X}/t^2H} {
     \pgfmathsetmacro{\y}{1.7+1.8*\k}
-    \sheet{-2.3}{\y}{fine,fill=white} \sheet{2.3}{\y}{fine,fill=white}
+    \sheet{-2.3}{\y}{fine,fill=PlateWhite} \sheet{2.3}{\y}{fine,fill=PlateWhite}
     \coordinate (pa\k) at (-1.95,{\y+.45}); \coordinate (pb\k) at (2.65,{\y+.45});
     \node[sub,anchor=west,inner sep=1pt] at (-3.5,{\y+.22}) {$\ga$}; \node[sub,anchor=west,inner sep=1pt] at (1.1,{\y+.22}) {$\gb$};   % both columns named at the same place on their sheets
     \node[lab,anchor=east] at (-4.3,{\y+.45}) {$\pl$};}

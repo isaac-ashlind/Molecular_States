@@ -103,6 +103,7 @@ def main():
     if undefined:
         raise SystemExit('undefined references in the manuscript')
     check_numbering(ms)
+    run([sys.executable, 'checks/palette.py'], quiet=False)   # the sixteen tones, on every plate
     print('done:', BUILD / 'manuscript.pdf')
 
 if __name__ == '__main__':

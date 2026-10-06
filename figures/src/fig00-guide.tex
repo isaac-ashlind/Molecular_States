@@ -5,7 +5,7 @@
 % different sheets. At the top left, grayed out, is the bond interval [H, B] of figure 5, whose G is the G of F/G.
 % The four part headings stand beside their objects with their section ranges.
 % The scene is schematic. The solid is figure 6's, its decoration turned by \coverturn degrees.
-% Red marks the version points, teal the core sheet, gold the packet and the patch, blue nitrogen.
+% Red marks the version points, teal the core sheet, pale gold the packet and the quotient patch, blue nitrogen.
 \documentclass[10pt,border=1mm]{standalone}
 \usepackage[T1]{fontenc}
 \usepackage{figurestyle}
@@ -20,7 +20,7 @@
 % ------------------------------------------------ the slab C, cut away everywhere, with the hole the solid leaves
 \hatchfit{42.51}{.12059}{-.03599}{(.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle} \draw[heavy] (.5,1.8)--(12.1,1.8)--(14.5,4.0)--(2.9,4.0)--cycle;
 \node[lab,anchor=south west] at (3.0,4.14) {$\conf$};
-\path[fill=white,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\tRo,y radius={\tE*\tRo}] (7.6+\dx,2.9) ellipse[x radius=\tRi,y radius={\tE*\tRi}];
+\path[fill=PlateWhite,even odd rule] (7.6+\dx,2.9) ellipse[x radius=\tRo,y radius={\tE*\tRo}] (7.6+\dx,2.9) ellipse[x radius=\tRi,y radius={\tE*\tRi}];
 \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\tRo,y radius={\tE*\tRo}]; \draw[fine] (7.6+\dx,2.9) ellipse[x radius=\tRi,y radius={\tE*\tRi}];
 % ------------------------------------------------ one configuration, a point of C
 \inkdot{4.0,3.25}
@@ -33,15 +33,14 @@
 \begin{scope}[shift={(7.6+\dx,6.2)}]
   \pgfmathsetmacro{\ph}{\coverturn}
   \draw[projection] (-\tRo,-3.3)--(-\tRo,-\tH) (\tRo,-3.3)--(\tRo,-\tH);
-  \pic (ft) at (0,0) {thicktube};
+  \pic[tube/hidden={60+\ph,180+\ph}] (ft) at (0,0) {thicktube};   % the two hidden versions, under the front lines
   \foreach \a in {0,120,240} {\coordinate (vt\a) at ({\tRm*sin(\a+\ph)},{\tH-\tE*\tRm*cos(\a+\ph)});}
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({\tRm*sin(\a+\ph)},{-\tH-\tE*\tRm*cos(\a+\ph)});}
   \draw[tpath] plot[domain=\ph:\ph+112,samples=30,variable=\a] ({\tRm*sin(\a)},{\tH-\tE*\tRm*cos(\a)});   % the head stops 3pt short of the dot at 135
   \draw[upath] plot[domain=0:.88,samples=30,variable=\s] ({\tRm*sin(\ph-60*\s)},{\tH-2*\tH*\s-\tE*\tRm*cos(\ph-60*\s)});   % and of the dot at -45
-  \path[fill=ColPatch] (vt0) circle[radius=.3]; \draw[fine] (vt0) circle[radius=.3];
+  \path[fill=ColPaleGold] (vt0) circle[radius=7.5pt];   % the packet, a pale gold disc without an outline
   \foreach \p in {vt0,vt120,vt240,vb300} {\vpoint{\p}}
-  \foreach \p in {vb60,vb180} {\vpointhidden[blend mode=multiply]{\p}}   % pale, the front lines showing through
-  \node[lab,anchor=east] at ({-\tRo-.18},-1.1) {$\mathcal F$};
+  \node[lab,anchor=east] at ({-\tRo-.1},.1) {$\mathcal F$};
   \coordinate (Hpt) at (vt0);
 \end{scope}
 \node[head,anchor=west] at (10.7+\dx,6.1) {II\quad Fragments and}; \node[head,anchor=west] at (10.7+\dx,5.7) {Feasible Regimes}; \node[rng,anchor=north west] at (10.7+\dx,5.48) {\S\S\,4--6};
@@ -50,13 +49,13 @@
 \draw[projection,shorten <=2.3pt] (Hpt)--(8.11+\dx,9.52);
 \node[sub,anchor=west,inner sep=1pt] at (8.25+\dx,8.25) {$\mathcal F\to\mathcal F/G$};
 \begin{scope}[shift={(7.76+\dx,9.3)}]
-  \sheet{0}{0}{heavy,fill=ColPatch}
+  \sheet{0}{0}{heavy,fill=ColPaleGold}
   \coordinate (bx) at (.35,.25);
   \draw[tlift] (bx) .. controls (2.2,-.22) and (2.2,.72) .. (bx);
   \draw[ulift] (bx) .. controls (-1.5,.72) and (-1.5,-.22) .. (bx);
   \vpoint{bx}   % after both loops, like every other version point
   \foreach \k in {0,...,5} {\pgfmathsetmacro{\yy}{1.3+.78*\k}
-    \sheet{0}{\yy}{fine,fill=white}
+    \sheet{0}{\yy}{fine,fill=PlateWhite}
     \coordinate (p\k) at (.35,{\yy+.25});
     }
   % the same two loops lifted from the sheet H: t climbs to tH, tu to tuH; neither closes, and they end on different sheets
@@ -68,10 +67,10 @@
 % ------------------------------------------------ the symmetry groups: the bond interval [H, B], gray, covers in the line grammar
 % (solid t, dashed u, dotted a starred generator); G names the regime G_12 of the paper, the same G as the quotient F/G
 \begin{scope}[shift={(3.95,8.0)},x=-.38cm,y=1.02cm]
-  \hassenodes\hassecovers[draw=ColGrayed]
-  \foreach \i/\x/\y in \hasseNodes {\draw[ring,draw=ColGrayed,fill=white] (h\i) circle[radius=2pt];}
-  \node[sub,anchor=north,text=ColGrayed] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=ColGrayed] at ($(h9)+(0,.18)$) {$B$};
-  \node[sub,anchor=south east,text=ColGrayed,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
+  \hassenodes\hassecovers[draw=PlateGray]
+  \foreach \i/\x/\y in \hasseNodes {\draw[ring,draw=PlateGray,fill=PlateWhite] (h\i) circle[radius=2.5pt];}
+  \node[sub,anchor=north,text=PlateGray] at ($(h0)+(0,-.18)$) {$H$}; \node[sub,anchor=south,text=PlateGray] at ($(h9)+(0,.18)$) {$B$};
+  \node[sub,anchor=south east,text=PlateGray,inner sep=1pt] at ($(h6)+(.2,.14)$) {$G$};
 \end{scope}
 \end{tikzpicture}
 \end{document}

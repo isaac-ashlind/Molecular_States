@@ -1,50 +1,71 @@
-\ProvidesPackage{figurestyle}[2026/10/05 Plate style of the manuscript]
+\ProvidesPackage{figurestyle}[2026/10/06 Plate style of the manuscript]
 % The plates are ink drawings. The drawing shows the structure, and text is bookkeeping. Every plate is 15.2 cm wide
 % and is included at \linewidth, so all plates print at one scale.
+% Words are set in New Century Schoolbook, like the manuscript's text, and math in the standard math fonts.
 % Labels are 9pt (lab) and notes 8pt (sub). Smaller sizes appear only inside dense marks, 7pt in small cells and graph
 % nodes (dense) and 6.5pt for digits in discs (digit). If one label on a plate cannot take its size, every label on
 % that plate comes down to it (figure 6).
 % A label sits on what it names, with air, never on a line or another label. Text under an object is centered on it,
 % a row or corner title is left-aligned at the margin, and a note in a right corner is right-aligned. In-plate text is
 % lowercase, without full stops or colons, except the guide's part headings, which repeat the manuscript's part titles.
-% Text is ink. A hue never colors text, and only a grayed-out object's own labels are gray.
 % The line vocabulary (weights, action styles, hidden contours, leaders, hatch) lives in primitives.tex.
 \pdfinfoomitdate=1 \pdftrailerid{}   % no date or random ID in the PDF, so a rebuild reproduces it byte for byte
 \RequirePackage{amsmath,amssymb}
+\RequirePackage{newcent}
 \RequirePackage{tikz,pgfplots}
 \usetikzlibrary{arrows.meta,calc}
 \pgfplotsset{compat=1.18,
-  every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.4pt,tick style={line width=.4pt,draw=PlateInk},
+  every axis/.append style={font=\fontsize{8}{10}\selectfont,line width=.5pt,tick style={line width=.5pt,draw=PlateInk},
     axis line style={draw=PlateInk}}}   % plots in ink, with notes for tick labels
 
-% ---- the palette. Ink first; a hue is spent only where it carries meaning. Hues are used pure, never darkened; a
-% faded tint marks only an obscured element. White is the cladding and hydrogen; gray is ink thinned, for grayed-out
-% objects only.
-\definecolor{PlateInk}{HTML}{303438}       % ink: contours, text, hatching, and every action path
-\definecolor{ColRed}{HTML}{D56860}         % oxygen on the water plates; the version points
-\definecolor{ColBlue}{HTML}{397BA8}        % nitrogen, nothing else
-\definecolor{ColTeal}{HTML}{4F9C97}        % the reference family and the orientation sphere; rubidium
-\definecolor{ColGold}{HTML}{E0B84F}        % retained regions and marks; potassium
-\colorlet{ColOxygen}{ColRed}\colorlet{ColNitrogen}{ColBlue}\colorlet{ColPotassium}{ColGold}\colorlet{ColRubidium}{ColTeal}
-
-% ---- color roles (the only places a hue is spent)
-\colorlet{ColDot}{ColRed}                    % version points, and the rotations of T on the closing plate
-\colorlet{ColDotHidden}{ColDot!45}           % a hidden version point, pale in a ghost outline
-\colorlet{ColBand}{ColTeal!38}               % the reference family (core sheet) as a surface
-\colorlet{ColSphere}{ColTeal}                % the orientation sphere of the closing plate
-\colorlet{ColWall}{white}                    % the cladding of the solid
-\colorlet{ColGrayed}{PlateInk!45}            % a grayed-out object: the guide's bond interval, a faded outline
-\colorlet{ColFaint}{PlateInk!20}             % a background object: subgroups outside an interval, the inactive images
-\colorlet{ColRetained}{ColGold}              % a retained region or mark: the cell's edges, the chain, the shear line
-\colorlet{ColPatch}{ColRetained!50}          % a retained region as a surface: the reference cell, a base patch
-\colorlet{ColDualA}{ColTeal}                 % a dual pair (two components of one object) on a plate with no core
-\colorlet{ColDualB}{ColGold}                 %   sheet and no retained region (figure 2): teal and gold
-% Actions carry no color.  Line style says which: solid = t, dashed = u or tu, dotted = a starred operation (b, E*).
+% ---- the palette, sixteen tones and no others, each used by its name below with no mixing, opacity, blend mode or
+% shading (checks/palette.py). Every colored element follows from one of these rules.
+%  1 Ink draws every contour, every action path, the hatch and every letter. Carbon is ink.
+%  2 White is matter and paper (the solid's cladding, the sheets of a covering, hydrogen, the ground of discs).
+%  3 A hue names one kind of object, the same on every plate. Red is a version point (and oxygen on the water
+%    plates), teal the reference family (the core sheet, and for rigid methane its orbit, the sphere), gold what
+%    survives when copies are identified (the retained cell, the base patch, the quotient, and figure 9's kept share
+%    and overlaps), and blue nitrogen. Figure 4 adds potassium gold and rubidium teal, figure 2 its two components
+%    teal and gold. When in doubt, ink.
+%  4 The tone follows what is drawn. Full is the object itself, as a body, disc, mark, bar, section, band or line.
+%    Deep is only the shadow of a sphere. Pale is a surface, an overlap, a patch, a hidden thing or a flat schematic
+%    atom. Likewise a receded object has gray lines and pale gray fills (its nodes open white discs), a ghost is gray
+%    lines on white, and white in shadow is pale gray.
+%  5 A sphere seen in space is lit from the upper left, full and deep (hydrogen white and pale gray), with no glint.
+%    Carbon is flat ink.
+%  6 Schematics are flat. In a Newman projection nitrogen is a pale blue disc, the back carbon gray and hydrogen
+%    white, each disc in an ink contour.
+%  7 A contour never crosses a colored section.
+%  8 Labels are ink, each nearest what it names. A grayed object's own labels are gray. No text is in a hue.
+%  9 A colored line keeps its weight, a gray line is at least .5pt, and a pale tone is a fill, never a thin line.
+% 10 Nothing is placed only to show a tone.
+\definecolor{PlateWhite}{HTML}{FFFFFF}     % the solid's cladding and faces, the sheets, hydrogen, figure 12's sphere,
+                                           %   rods, the ground of discs, nodes, labels and charts, a ghost's ground
+\definecolor{PlateInk}{HTML}{303438}       % contours, text, hatch, action paths, points, carbon, positive amplitudes
+\definecolor{PlateGray}{HTML}{7F8184}      % a receded object's lines, dots and labels, a ghost's lines, the back carbon
+                                           %   of a Newman projection
+\definecolor{PlatePaleGray}{HTML}{D6D6D7}  % a receded object's fills, the shadow of a white sphere
+\definecolor{ColDeepRed}{HTML}{9F433C}     % the shadow of a version point and of oxygen
+\definecolor{ColRed}{HTML}{D56860}         % version points, oxygen
+\definecolor{ColPaleRed}{HTML}{EEC3BF}     % a hidden version point
+\definecolor{ColDeepBlue}{HTML}{24587A}    % the shadow of nitrogen
+\definecolor{ColBlue}{HTML}{397BA8}        % nitrogen
+\definecolor{ColPaleBlue}{HTML}{88B0CB}    % nitrogen in a Newman projection, the nitrogen blue at 60%
+\definecolor{ColDeepTeal}{HTML}{2F6F6A}    % the shadow of rubidium
+\definecolor{ColTeal}{HTML}{4F9C97}        % the core sheet in section, the orientation sphere, rubidium and its strand,
+                                           %   figure 2's first component
+\definecolor{ColPaleTeal}{HTML}{BCD9D7}    % the core sheet as a surface
+\definecolor{ColDeepGold}{HTML}{AF842C}    % the shadow of potassium
+\definecolor{ColGold}{HTML}{E0B84F}        % the cell's edges, figure 5's chain, the third a packet keeps alone, the shear
+                                           %   line, potassium and its strand, figure 2's second component
+\definecolor{ColPaleGold}{HTML}{F0DCA7}    % the retained cell, the base patch, the guide's packet, figure 9's overlaps
+\color{PlateInk}   % the default color, so nothing on a plate falls back to black
+% Actions carry no color. Line style says which, solid for t, dashed for u or tu, dotted for a starred operation.
 
 % ---- the plate
 \tikzset{
   plate/.style={font=\fontsize{9}{11}\selectfont,line cap=round,line join=round,draw=PlateInk,text=PlateInk,
-    >={Stealth[length=2mm,width=1.6mm]}},
+    >={Stealth[length=5.75pt,width=4.5pt]}},
 }
 
 % ---- molecules. The pics in figures/data/molecules.tex draw with \molrodj (primitives.tex), \molatom and \mollabel,

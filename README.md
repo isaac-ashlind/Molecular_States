@@ -26,5 +26,10 @@ checks/                     independent checks of what the plates draw and the t
 build.py                    the one entry point
 ```
 Every plate is 15.2 cm wide and is included at `\linewidth`, so all plates print at one scale.
+The plates use sixteen tones and no others, white, ink, a gray, a pale gray, and a deep, a full and a pale brick
+red, gouache blue, teal and gold. `figurestyle.sty` names them and states the rules for where each one goes. The
+manuscript's text and math are plain black, so the manuscript is not part of the palette. `checks/palette.py`, the
+last step of the build, reads every plate PDF, and any other PDF given to it (the poster art, say), and fails when
+one paints a color outside the palette or uses a shading, a pattern, a raster image, a blend mode or an opacity.
 The numbers in the closing example of rigid methane are written by compute/make_data.py and recomputed in
 checks/verify_methane.py and checks/verify.g.

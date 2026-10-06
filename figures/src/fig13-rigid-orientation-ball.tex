@@ -5,7 +5,7 @@
 % center, the eight third-turns at the corners of the thin cube they span and the three half-turns, each drawn once at
 % its far side. The cell of the center is the gold octahedron dual to the cube, its vertices the quarter-turns (rings).
 % The heavy arrow lifts the third-turn loop. Every hidden point is pale and under the front lines.
-% At the right the covering in figure 11's manner, the gold base SO(3)/T with the loop gamma_g, three of the twelve
+% At the right the covering in figure 11's manner, the pale gold base SO(3)/T with the loop gamma_g, three of the twelve
 % sheets r, r R_g, r R_g^2, the lift as figure 11's bow and one dotted projection through every dot.
 % Declared, the octahedron is exact in Rodrigues coordinates and bowed in the ball (the caption says so), and the sheets
 % are a cartoon. Both panels share one right-handed camera (make_data, CAM_BALL), so bond 1 points along the arrow.
@@ -18,9 +18,9 @@
 \input{numbers.tex}
 \begin{document}
 \begin{tikzpicture}[plate,
-  teal/.style={fine,draw=ColSphere},
-  tealthin/.style={thin,draw=ColSphere},
-  gold/.style={heavy,draw=ColRetained}]
+  teal/.style={fine,draw=ColTeal},
+  tealthin/.style={thin,draw=ColTeal},
+  gold/.style={heavy,draw=ColGold}]
 \path[use as bounding box] (0,0) rectangle (15,8.8);
 % ================================================ left column: methane and the orientation ball
 \node[sub,anchor=north west,align=left] at (.15,8.7) {methane, $\mathrm{CH_4}$, the reference $\X_0$ in its body frame\\its twofold axes $x$, $y$, $z$ pass through midpoints of opposite edges};
@@ -28,7 +28,7 @@
   \foreach \a/\s in \chAxisBack {\def\L{1.2}\if Z\a\def\L{.9}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
   \begin{scope}\renewcommand\mollabel[6]{\if#1H\node[digit] at ({#3-\ifnum#2=2 .03\else 0\fi},{#4-\ifnum#2=2 .033\else 0\fi}) {#2};\fi}\pic[scale=.8] at (0,0) {mol3d-ch4-c2};\end{scope}   % digits inside the discs, 2 nudged off the front half of z
   \foreach \a/\s in \chAxisFront {\def\L{1.2}\if Z\a\def\L{2.2}\fi\draw[thin] (0,0)--({\s*\L*\csname chAxis\a x\endcsname},{\s*\L*\csname chAxis\a y\endcsname});}
-  \foreach \a/\lab/\e in {X/$x$/1.27,Y/$y$/1.08,Z/$z$/2.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname chAxis\a x\endcsname+.06},{\e*\csname chAxis\a y\endcsname}) {\lab};}
+  \foreach \a/\lab/\e in {X/$x$/1.22,Y/$y$/1.08,Z/$z$/2.27} {\node[sub,anchor=west,inner sep=1.5pt] at ({\e*\csname chAxis\a x\endcsname+.06},{\e*\csname chAxis\a y\endcsname}) {\lab};}
 \end{scope}
 \begin{scope}[shift={(4.3,5.0)}]
   % the back: hidden great-circle arcs, cube edges and cell edges, dashed in their own strokes
@@ -39,7 +39,7 @@
   % and the cell's one hidden vertex (every edge at each of them dashed)
   \foreach \s in \ballSkinBack {\vpointhidden{\csname ballS\s x\endcsname,\csname ballS\s y\endcsname}}
   \foreach \p in \ballCubeBackPts {\vpointhidden{\csname \p x\endcsname,\csname \p y\endcsname}}
-  \foreach \p in \ballCellBackPts {\draw[ghost,fill=white] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
+  \foreach \p in \ballCellBackPts {\draw[ghost,fill=PlateWhite] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
   % the lift: its inner part first, so that the gold edge in front of it covers it
   \draw[tlift] (0,0)--(\ballFax,\ballFay);
   \foreach \p/\q in \ballCellVisible {\draw[gold] (\csname \p x\endcsname,\csname \p y\endcsname)--(\csname \q x\endcsname,\csname \q y\endcsname);}
@@ -51,13 +51,13 @@
   % the visible rotations of T, and the quarter-turns at the cell's visible vertices
   \foreach \p in \ballCubeFrontPts {\vpoint{\csname \p x\endcsname,\csname \p y\endcsname}}
   \vpoint{0,0}
-  \foreach \p in \ballCellFrontPts {\draw[fine,fill=white] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
+  \foreach \p in \ballCellFrontPts {\draw[fine,fill=PlateWhite] (\csname \p x\endcsname,\csname \p y\endcsname) circle[radius=.045];}
 \end{scope}
 \node[under] at (4.3,2.55) {the orientation space $SO(3)$ as a ball\\direction gives the axis and distance the angle\\the twelve rotations of $T$ in red\\the cell $\mathcal U$ at $q=0$ in gold\\the arrow lifts the third-turn about bond $1$\\from $r$ to $r\Rmat_g$};
 % ================================================ right column: the covering
 \begin{scope}[shift={(11.45,3.2)},sheet/w=1.2,sheet/s=.6,sheet/d=.6]
   \coordinate (bx) at (.5,.3);
-  \sheet{0}{0}{heavy,fill=ColPatch}
+  \sheet{0}{0}{heavy,fill=ColPaleGold}
   \draw[tlift] (bx) .. controls (-.7,.85) and (-.7,-.25) .. (bx);
   \node[sub,anchor=north,inner sep=1.5pt] at (.05,-.08) {$\gamma_g$};   % centered under the loop
   % one vertical line of projection through every dot: from the base dot to the front edge of sheet r, then above each
@@ -65,7 +65,7 @@
   \draw[projection,shorten <=2.3pt] (bx)--(.5,1.4);
   \foreach \k/\lab in {0/{r},1/{r\Rmat_g},2/{r\Rmat_g^{\,2}}} {
     \pgfmathsetmacro{\y}{1.4+1.3*\k}
-    \sheet{0}{\y}{fine,fill=white}
+    \sheet{0}{\y}{fine,fill=PlateWhite}
     \coordinate (p\k) at (.5,{\y+.3});
     \draw[projection,shorten <=2.3pt] (p\k)--(.5,{\y+1.3});
     \node[sub,anchor=west,inner sep=1pt] at (1.9,{\y+.3}) {$\lab$};}
@@ -74,6 +74,6 @@
   \foreach \k in {0,1,2} {\vpoint{p\k}}
   \vpoint{bx}
 \end{scope}
-\node[under] at (11.75,2.55) {over the base $SO(3)/T$ lie twelve sheets\\one for each rotation in $T$, three drawn\\the third-turn's path $\gamma_g$ is a loop in the base\\lifted, it climbs from sheet $r$ to sheet $r\Rmat_g$\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$\\${}^2\mathrm E$ as $e^{4\pi i/3}$ and $\mathrm T$ as $x\to y\to z$};
+\node[under] at (11.75,2.55) {over the base $SO(3)/T$ lie twelve sheets\\one for each rotation in $T$, three drawn\\the third-turn's path $\gamma_g$ is a loop in the base\\lifted, it climbs from sheet $r$ to sheet $r\Rmat_g$\\$\mathrm A$ sees the climb as $1$, ${}^1\mathrm E$ as $e^{2\pi i/3}$\\${}^2\mathrm E$ as $e^{4\pi i/3}$, and $\mathrm T$ as $x\to y\to z$};
 \end{tikzpicture}
 \end{document}

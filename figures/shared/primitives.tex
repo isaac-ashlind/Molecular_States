@@ -1,45 +1,53 @@
 % primitives.tex, the drawing vocabulary of the plates. Load after figurestyle.sty.
-% Every line is ink, at one of four weights, heavy .9pt (silhouettes, retained structure, action paths), fine .4pt
-% (construction, detail), thin .3pt (leaders, axes behind a molecule) and hatch .22pt. Disc and node contours are .5pt.
+% A line is ink (figurestyle.sty says where a hue or the gray takes over), at one of four weights, heavy 1pt
+% (silhouettes, retained structure, action paths), fine .5pt (construction, detail), thin .25pt (leaders, axes behind a
+% molecule) and hatch .25pt. Disc and node contours are .5pt.
 % Actions are told apart by line style at action weight, solid for t, dashed for u or tu and beaded dots for a starred
 % operation (b, E*). Arrowheads appear only where a path has a direction. A head stops about 3pt short of the dot it
 % points at, and an arrow sits centered in its gap. The hidden part of a contour is the same stroke dashed (back), and
 % a hidden or faded object's outline is dashed (ghost). A hidden point (every edge at it hidden) is pale in a ghost
 % outline under the front lines, and a projection or lift between levels is dotted (projection). The one solid faded
-% outline is figure 10's undisplaced shape. Leaders start on the object, stop short of the label and cross nothing
-% where avoidable, with no halos. Spheres are two tones of one gouache, the darker as the shadow at the lower right, and
-% version points are spheres of radius .08. Rods start where the bond leaves the far sphere. Hatch marks cut material.
+% outline is figure 10's ghost, the undisplaced shape in gray lines on white. A receded object (grayed out, or in the
+% background) is drawn in the gray, never thinner than .5pt, with pale gray fills.
+% Leaders start on the object, stop short of the label and cross nothing where avoidable, with no halos. A sphere is
+% lit from the upper left, its shadow at the lower right the deep tone of its hue, or pale gray for a white sphere.
+% Version points are spheres of radius 2.5pt. Rods start where the bond leaves the far sphere. Hatch marks cut material.
 \tikzset{
-  heavy/.style={line width=.9pt,draw=PlateInk},
-  fine/.style={line width=.4pt,draw=PlateInk},
-  thin/.style={line width=.3pt,draw=PlateInk},    % leaders, axes behind a molecule, chart loci, zero lines, hairlines
-  hatch/.style={line width=.22pt,draw=PlateInk},  % cut material
+  heavy/.style={line width=1pt,draw=PlateInk},
+  fine/.style={line width=.5pt,draw=PlateInk},
+  thin/.style={line width=.25pt,draw=PlateInk},   % leaders, axes behind a molecule, chart loci, zero lines, hairlines
+  hatch/.style={line width=.25pt,draw=PlateInk},  % cut material
   ring/.style={line width=.5pt,draw=PlateInk},    % the contour of a disc or a node
-  faint/.style={thin,draw=ColFaint},              % a line of a background object (the subgroups outside an interval)
+  faint/.style={fine,draw=PlateGray},             % a line of a background object (the subgroups outside an interval)
   leader/.style={thin},
-  back/.style={dash pattern=on 1.5pt off 1.1pt},   % the hidden part of a contour: the same stroke as its front part, dashed
-  ghost/.style={ring,dash pattern=on 1.2pt off .9pt},   % a hidden or faded object's outline, dashed
-  projection/.style={line width=.45pt,draw=PlateInk,dash pattern=on 0pt off 1.5pt},  % dotted: a projection or lift between levels
+  back/.style={dash pattern=on 1.5pt off 1pt},   % the hidden part of a contour: the same stroke as its front part, dashed
+  ghost/.style={ring,dash pattern=on 1.25pt off 1pt},   % a hidden or faded object's outline, dashed
+  projection/.style={line width=.5pt,draw=PlateInk,dash pattern=on 0pt off 1.5pt},  % dotted: a projection or lift between levels
   % actions: solid = t, dashed = u or tu, beaded dots = a starred operation (b, E*); the beads take a wider pen to read
   tlift/.style={heavy},
-  ulift/.style={heavy,dash pattern=on 2.6pt off 1.6pt},
-  blift/.style={line width=1.1pt,draw=PlateInk,dash pattern=on 0pt off 2.2pt},
+  ulift/.style={heavy,dash pattern=on 2.5pt off 1.5pt},
+  blift/.style={line width=1.25pt,draw=PlateInk,dash pattern=on 0pt off 2.25pt},
   % arrows: the plate's head (>) on heavy strokes; smaller heads on lighter strokes
   tpath/.style={tlift,->},
   upath/.style={ulift,->},
   bpath/.style={blift,->},
   harrow/.style={heavy,->},                        % a vector, or a map from one picture to the next
-  sarrow/.style={line width=.8pt,draw=PlateInk,-{Stealth[length=1.6mm,width=1.3mm]}},   % a mark on a glyph: spin, turning sense, displacement
-  farrow/.style={fine,-{Stealth[length=1.4mm,width=1.1mm]}},   % a correspondence between two rows (figure 3's Psi)
+  sarrow/.style={line width=.75pt,draw=PlateInk,-{Stealth[length=4.5pt,width=3.75pt]}},   % a mark on a glyph: spin, turning sense, displacement
+  farrow/.style={fine,-{Stealth[length=4pt,width=3.25pt]}},   % a correspondence between two rows (figure 3's Psi)
   lab/.style={font=\fontsize{9}{11}\selectfont,inner sep=1pt},
   sub/.style={font=\fontsize{8}{10}\selectfont,inner sep=1pt,text=PlateInk},
   dense/.style={font=\fontsize{7}{8}\selectfont,inner sep=0pt},     % text in a small cell or graph node
   digit/.style={font=\fontsize{6.5}{7}\selectfont,inner sep=0pt},   % a digit in a disc
   under/.style={sub,anchor=north,align=center},                     % a note centered under its object
 }
-% ---- atom: two tones of one gouache, the darker as the shadow (light from the upper left), ink contour
-\newcommand\hatom[4]{\fill[#4!74!PlateInk] ({#1},{#2}) circle[radius=#3];
-  \begin{scope}\clip ({#1},{#2}) circle[radius=#3];\fill[#4] ({(#1)-0.17*#3},{(#2)+0.17*#3}) circle[radius={0.93*#3}];\end{scope}
+% ---- atom: \hatom{x}{y}{r}{lit}{shadow}, a sphere in an ink contour, lit from the upper left of the page whatever the
+% pic's rotation, its shadow a crescent at the lower right up to .28 of the radius wide, and at least 1pt
+\newcommand\hatom[5]{%
+  \pgfgettransformentries{\hta}{\htb}{\htc}{\htd}{\hte}{\htf}%
+  \pgfmathsetmacro{\htl}{135-atan2(\htb,\hta)}%   the page's upper left in the picture's frame
+  \fill[#5] ({#1},{#2}) circle[radius=#3];
+  \pgfmathsetmacro{\hts}{max(.14*(#3),.0176)}%   the shadow at least 1pt wide, so it shows past the ring on small spheres
+  \fill[#4] ({(#1)+\hts*cos(\htl)},{(#2)+\hts*sin(\htl)}) circle[radius={(#3)-\hts}];
   \draw[ring] ({#1},{#2}) circle[radius=#3];}
 % ---- rod: a cylinder in ink. \molrodj{px}{py}{qx}{qy}{dx}{dy}{uz}{r}: far center p, near center q, page unit
 % direction (dx,dy) from p to q, uz = depth component of the bond direction (0 = in the page, 1 = at the viewer),
@@ -47,7 +55,7 @@
 % (projected: a half ellipse bulging toward p), runs to q and is hidden there by the near sphere, painted later.
 % White band, fine ink edges, the shadow edge (away from the upper-left light) heavier.
 \def\rodw{.05}
-\tikzset{rodfill/.style={fill=white},rodedge/.style={line width=.4pt,draw=PlateInk},rodshade/.style={line width=.75pt,draw=PlateInk}}
+\tikzset{rodfill/.style={fill=PlateWhite},rodedge/.style={line width=.5pt,draw=PlateInk},rodshade/.style={line width=.75pt,draw=PlateInk}}
 \newcommand\molrodj[8]{%
   \pgfmathsetmacro{\rs}{sqrt((#8)*(#8)-\rodw*\rodw)}%
   \pgfmathsetmacro{\ex}{#1+\rs*(#5)}\pgfmathsetmacro{\ey}{#2+\rs*(#6)}%
@@ -63,12 +71,17 @@
     \draw[rodedge] ({\ex+\rodw*\nx},{\ey+\rodw*\ny}) -- ({#3+\rodw*\nx},{#4+\rodw*\ny});
     \draw[rodshade] ({\ex-\rodw*\nx},{\ey-\rodw*\ny}) -- ({#3-\rodw*\nx},{#4-\rodw*\ny});
   \fi}
-% ---- molecules: \molatom draws each atom as a sphere (radii in cm at pic scale 1); \radH, \radX, \radK, \radRb
+% ---- molecules: \molatom draws each atom as a sphere, carbon as a flat ink disc (radii in cm at pic scale 1)
 \def\radH{.20}\def\radX{.36}\def\radK{.40}\def\radRb{.46}
 \newcommand\molsolid{\renewcommand\molatom[4]{%
-  \if##1H\hatom{##3}{##4}{\radH}{white}\else\if##1C\hatom{##3}{##4}{\radX}{PlateInk}\else\if##1N\hatom{##3}{##4}{\radX}{ColNitrogen}\else\if##1O\hatom{##3}{##4}{\radX}{ColOxygen}\else\if##1K\hatom{##3}{##4}{\radK}{ColPotassium}\else\hatom{##3}{##4}{\radRb}{ColRubidium}\fi\fi\fi\fi\fi}}
+  \if##1H\hatom{##3}{##4}{\radH}{PlateWhite}{PlatePaleGray}\else
+  \if##1C\draw[ring,fill=PlateInk] (##3,##4) circle[radius=\radX];\else
+  \if##1N\hatom{##3}{##4}{\radX}{ColBlue}{ColDeepBlue}\else
+  \if##1O\hatom{##3}{##4}{\radX}{ColRed}{ColDeepRed}\else
+  \if##1K\hatom{##3}{##4}{\radK}{ColGold}{ColDeepGold}\else
+  \hatom{##3}{##4}{\radRb}{ColTeal}{ColDeepTeal}\fi\fi\fi\fi\fi}}
 \newcommand\molatom[4]{}\molsolid
-% ---- hatch (cut material, ink .22pt): \hatchfit{angle}{spacing}{phase}{path} fills the path with continuous lines (a tiled
+% ---- hatch (cut material, ink .25pt): \hatchfit{angle}{spacing}{phase}{path} fills the path with continuous lines (a tiled
 % pattern breaks at every tile); spacing and phase are chosen so that an edge parallel to the hatch falls midway between
 % two lines, never on one. \hatchregion{angle}{path} is the default spacing .12 cm, phase 0.
 \newcommand\hatchfit[4]{\begin{scope}\clip #4; \begin{scope}[rotate=#1]\foreach \k in {-260,...,260} \draw[hatch] (-32,{\k*#2+#3})--(32,{\k*#2+#3});\end{scope}\end{scope}}
@@ -78,21 +91,29 @@
 \newcommand\leaderlabel[6][]{\draw[leader,shorten >=3pt,shorten <=\vrad cm,#1] (#2)--++(#3,#4);
   \node[lab,#1,anchor=#5,inner sep=2.5pt] at ($(#2)+(#3,#4)$) {#6};}
 % ---- zoom bubble: \zoombubble{x}{y}{r}{X}{Y}{R} draws the small circle, the large circle and two tangent lines
-\newcommand\zoombubble[6]{\draw[fine] (#1,#2) circle[radius=#3]; \draw[heavy,fill=white] (#4,#5) circle[radius=#6];
+\newcommand\zoombubble[6]{\draw[fine] (#1,#2) circle[radius=#3]; \draw[heavy,fill=PlateWhite] (#4,#5) circle[radius=#6];
   \pgfmathsetmacro{\za}{atan2(#5-#2,#4-#1)}\pgfmathsetmacro{\zd}{sqrt((#4-#1)*(#4-#1)+(#5-#2)*(#5-#2))}
   \pgfmathsetmacro{\zp}{acos((#3-#6)/\zd)}
   \draw[fine] ({#1+#3*cos(\za+\zp)},{#2+#3*sin(\za+\zp)})--({#4+#6*cos(\za+\zp)},{#5+#6*sin(\za+\zp)});
   \draw[fine] ({#1+#3*cos(\za-\zp)},{#2+#3*sin(\za-\zp)})--({#4+#6*cos(\za-\zp)},{#5+#6*sin(\za-\zp)});}
 % ---- thick tube with a near-side cut-away wedge. Keys: tube/Ro, Ri, H (half height), E (ellipse ratio), a1, a2 (wedge, degrees; tau = 0 faces the viewer).
+% Colors: wallfill, topfill, innerfill (the surfaces, white), bandfill (the core sheet as a surface, pale teal),
+% sectionfill (the sheet in section, teal, its ring on the top face and its strip on the cut faces), line (every
+% stroke, ink, or gray for a receded image, whose strokes then take at least the weight lmin). hidden: the angles of
+% hidden version points on the sheet's bottom edge, drawn under the front lines. core=0 leaves off the sheet's ring on the top face.
 % Order: far inner wall, outer wall pieces, cut faces (hatched = cut material), the band in the wedge gap (nearer than the faces),
 % top face as the annulus minus the wedge sector, then the band edge. Named coordinates: -top0 -top120 -top240 (top edge), -bot60 -bot180 -bot300 (bottom edge).
-\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=ColWall,tube/bandfill/.initial=ColBand,tube/istep/.initial=6,tube/gstep/.initial=3,tube/lw/.initial=1,tube/bw/.initial=.04,tube/topfill/.initial=white,tube/innerfill/.initial=white,
+\tikzset{tube/Ro/.initial=2.5,tube/Ri/.initial=1.8,tube/H/.initial=.62,tube/E/.initial=.42,tube/a1/.initial=-62,tube/a2/.initial=8,tube/hs/.initial=.2,tube/wallfill/.initial=PlateWhite,tube/bandfill/.initial=ColPaleTeal,tube/sectionfill/.initial=ColTeal,tube/line/.initial=PlateInk,tube/lmin/.initial=0,tube/hidden/.initial=,tube/core/.initial=1,tube/istep/.initial=6,tube/gstep/.initial=3,tube/lw/.initial=1,tube/bw/.initial=.04,tube/topfill/.initial=PlateWhite,tube/innerfill/.initial=PlateWhite,
   pics/thicktube/.style={code={
+    \def\tline{\pgfkeysvalueof{/tikz/tube/line}}\tikzset{hatch/.append style={draw=\tline}}\pgfkeysgetvalue{/tikz/tube/hidden}\thid
+    % hidden version points on the core sheet's bottom edge (tube/hidden = their angles), pale in a ghost outline and
+    % under the front lines: drawn after the fill of the surface that hides them and before its lines
+    \def\tubehidden{\ifx\thid\empty\else\foreach \ha in \thid {\vpointhidden{{\Rm*sin(\ha)},{-\Hh-\E*\Rm*cos(\ha)}}}\fi}
     \pgfmathsetmacro{\Ro}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\Ri}{\pgfkeysvalueof{/tikz/tube/Ri}}
     \pgfmathsetmacro{\Rm}{(\Ro+\Ri)/2}\pgfmathsetmacro{\Hh}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\E}{\pgfkeysvalueof{/tikz/tube/E}}
     \pgfmathsetmacro{\wa}{\pgfkeysvalueof{/tikz/tube/a1}}\pgfmathsetmacro{\wb}{\pgfkeysvalueof{/tikz/tube/a2}}
     \pgfmathsetmacro{\hs}{\pgfkeysvalueof{/tikz/tube/hs}}\pgfmathsetmacro{\bw}{\pgfkeysvalueof{/tikz/tube/bw}}\pgfmathsetmacro{\Rma}{\Rm-\bw}\pgfmathsetmacro{\Rmb}{\Rm+\bw}
-    \pgfmathsetmacro{\istep}{\pgfkeysvalueof{/tikz/tube/istep}}\pgfmathsetmacro{\gstep}{\pgfkeysvalueof{/tikz/tube/gstep}}\pgfmathsetmacro{\lws}{\pgfkeysvalueof{/tikz/tube/lw}}\pgfmathsetmacro{\lwh}{\lws*.9}\pgfmathsetmacro{\lwf}{\lws*.4}
+    \pgfmathsetmacro{\istep}{\pgfkeysvalueof{/tikz/tube/istep}}\pgfmathsetmacro{\gstep}{\pgfkeysvalueof{/tikz/tube/gstep}}\pgfmathsetmacro{\lws}{\pgfkeysvalueof{/tikz/tube/lw}}\pgfmathsetmacro{\lmin}{\pgfkeysvalueof{/tikz/tube/lmin}}\pgfmathsetmacro{\lwh}{max(\lmin,\lws)}\pgfmathsetmacro{\lwf}{max(\lmin,\lws*.5)}
     % 1. far inner wall, full height, seen through the hole (from above) and through the wedge gap:
     %    generatrix lines uniform in tau, so they crowd toward both silhouettes; heavier on the shadow (left) side;
     %    the inner bottom rim is a visible edge.
@@ -100,43 +121,48 @@
       \clip (0,\Hh) ellipse[x radius=\Ri,y radius={\E*\Ri}]
             plot[domain=\wa:\wb,samples=20,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- ({\Ro*sin(\wb)},{\Hh-\E*\Ro*cos(\wb)}) -- plot[domain=\wb:\wa,samples=20,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- ({\Ro*sin(\wa)},{\Hh-\E*\Ro*cos(\wa)}) -- cycle;
       \path[fill=\pgfkeysvalueof{/tikz/tube/innerfill}] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- plot[domain=270:90,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)}) -- cycle;
-      \pgfmathtruncatemacro{\ni}{(266-94)/\istep}\foreach \k in {0,...,\ni} {\pgfmathsetmacro{\a}{94+\k*\istep}\pgfmathsetmacro{\lw}{\lws*(0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a)))}\draw[line width=\lw pt,draw=PlateInk] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
-      \draw[line width=\lwh pt,draw=PlateInk] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
+      \tubehidden
+      \pgfmathtruncatemacro{\ni}{(266-94)/\istep}\foreach \k in {0,...,\ni} {\pgfmathsetmacro{\a}{94+\k*\istep}\pgfmathsetmacro{\lw}{max(\lmin,\lws*(0.18+0.42*abs(cos(\a))+0.18*max(0,-sin(\a))))}\draw[line width=\lw pt,draw=\tline] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});}
+      \draw[line width=\lwh pt,draw=\tline] plot[domain=90:270,samples=40,variable=\a] ({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)});
     \end{scope}
     % 2. outer wall, front, minus the wedge; solid shadow band on the right
-    \foreach \ta/\tb in {-90/\wa,\wb/90} {\path[fill=\pgfkeysvalueof{/tikz/tube/wallfill}] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;}
-    \pgfmathtruncatemacro{\ng}{48/\gstep}\foreach \k in {0,...,\ng} {\pgfmathsetmacro{\a}{40+\k*\gstep}\pgfmathsetmacro{\lw}{\lws*(0.2+0.5*((\a-40)/48))}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
-    \pgfmathtruncatemacro{\nh}{18/\gstep}\foreach \k in {0,...,\nh} {\pgfmathsetmacro{\a}{-88+\k*\gstep}\pgfmathsetmacro{\lw}{\lws*(0.2+0.3*((-70-\a)/18))}\draw[line width=\lw pt,draw=PlateInk] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
-    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
-    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
-    \draw[line width=\lwh pt,draw=PlateInk] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
+    \pgfmathparse{\wa==\wb}\ifnum\pgfmathresult=1 \def\tpieces{-90/90}\else\def\tpieces{-90/\wa,\wb/90}\fi   % a closed tube's wall in one piece, so no seam shows
+    \foreach \ta/\tb in \tpieces {\path[fill=\pgfkeysvalueof{/tikz/tube/wallfill}] plot[domain=\ta:\tb,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\tb:\ta,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;}
+    \ifx\thid\empty\else\begin{scope}\clip plot[domain=-90:\wa,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=\wa:-90,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle
+      plot[domain=\wb:90,samples=25,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain=90:\wb,samples=25,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)}) -- cycle;\tubehidden\end{scope}\fi   % the hidden points behind the wall, under its lines
+    \pgfmathtruncatemacro{\ng}{48/\gstep}\foreach \k in {0,...,\ng} {\pgfmathsetmacro{\a}{40+\k*\gstep}\pgfmathsetmacro{\lw}{max(\lmin,\lws*(0.2+0.5*((\a-40)/48)))}\draw[line width=\lw pt,draw=\tline] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
+    \pgfmathtruncatemacro{\nh}{18/\gstep}\foreach \k in {0,...,\nh} {\pgfmathsetmacro{\a}{-88+\k*\gstep}\pgfmathsetmacro{\lw}{max(\lmin,\lws*(0.2+0.3*((-70-\a)/18)))}\draw[line width=\lw pt,draw=\tline] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});}
+    \draw[line width=\lwh pt,draw=\tline] plot[domain=\wb:90,samples=30,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=\tline] plot[domain=-90:\wa,samples=8,variable=\a] ({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=\tline] (-\Ro,-\Hh)--(-\Ro,\Hh) (\Ro,-\Hh)--(\Ro,\Hh);
     \pgfmathparse{\wa==\wb}\ifnum\pgfmathresult=1\relax\else
-    % 3. cut faces: hatched (cut material), with the core sheet's cross-section as a thin tinted strip
+    % 3. cut faces: hatched (cut material), with the core sheet's cross-section as a thin strip in the section tone
     \foreach \a in {\wa,\wb} {
-      \path[fill=white] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+      \path[fill=PlateWhite] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
       \hatchfit{45}{\hs}{0}{({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle}
-      \draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
-      \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)})--cycle;
-      \draw[line width=\lwf pt,draw=PlateInk] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)}) ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)});}
+      \draw[heavy,draw=\tline] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)})--({\Ro*sin(\a)},{-\Hh-\E*\Ro*cos(\a)})--({\Ri*sin(\a)},{-\Hh-\E*\Ri*cos(\a)})--cycle;
+      \path[fill=\pgfkeysvalueof{/tikz/tube/sectionfill}] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)})--cycle;
+      \draw[line width=\lwf pt,draw=\tline] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)})--({\Rma*sin(\a)},{-\Hh-\E*\Rma*cos(\a)}) ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Rmb*sin(\a)},{-\Hh-\E*\Rmb*cos(\a)});}
     % 4. the band inside the wedge gap (the reference family at mid-thickness), painted after the cut faces
-    %    because in the gap it is nearer the viewer than the faces; its top surface is the thin strip that continues the ring on the top face
+    %    because in the gap it is nearer the viewer than the faces
     \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)}) -- plot[domain=\wb:\wa,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)}) -- cycle;
-    \draw[fine] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
-    \draw[fine] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
-    \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)}) -- plot[domain=\wb:\wa,samples=25,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)}) -- cycle;
-    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
-    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)});
+    \draw[fine,draw=\tline] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{\Hh-\E*\Rm*cos(\a)});
+    \draw[fine,draw=\tline] plot[domain=\wa:\wb,samples=25,variable=\a] ({\Rm*sin(\a)},{-\Hh-\E*\Rm*cos(\a)});
     \fi
-    % 5. top face: the annulus minus the wedge sector, with the core sheet's ring (its cross-section) at mid-thickness
+    % 5. top face: the annulus minus the wedge sector, then the core sheet's ring (its cross-section) at mid-thickness,
+    %    all the way round in one piece, across the wedge gap too
     \path[fill=\pgfkeysvalueof{/tikz/tube/topfill}] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)}) -- cycle;
-    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
-    \draw[line width=\lwh pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
-    \path[fill=\pgfkeysvalueof{/tikz/tube/bandfill}] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)}) -- plot[domain={\wa+360}:\wb,samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)}) -- cycle;
-    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
-    \draw[line width=\lwf pt,draw=PlateInk] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)});
-    % the cut faces' top edges again, at the faces' weight: the top face's fill above covered half of each
+    \draw[line width=\lwh pt,draw=\tline] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});
+    \draw[line width=\lwh pt,draw=\tline] plot[domain=\wb:{\wa+360},samples=90,variable=\a] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)});
+    \ifnum\pgfkeysvalueof{/tikz/tube/core}=1
+      \path[fill=\pgfkeysvalueof{/tikz/tube/sectionfill},even odd rule] (0,\Hh) ellipse[x radius=\Rmb,y radius={\E*\Rmb}] (0,\Hh) ellipse[x radius=\Rma,y radius={\E*\Rma}];
+      \draw[line width=\lwf pt,draw=\tline] (0,\Hh) ellipse[x radius=\Rmb,y radius={\E*\Rmb}] (0,\Hh) ellipse[x radius=\Rma,y radius={\E*\Rma}];
+    \fi
+    % the cut faces' top edges again, at the faces' weight: the top face's fill above covered half of each. Each edge
+    % stops at the core sheet's ribbon, its round cap shortened so that it ends on the ribbon's edge
     \pgfmathparse{\wa==\wb}\ifnum\pgfmathresult=1\relax\else
-      \foreach \a in {\wa,\wb} {\draw[heavy] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});}
+      \foreach \a in {\wa,\wb} {\draw[heavy,draw=\tline,shorten >=.5pt] ({\Ri*sin(\a)},{\Hh-\E*\Ri*cos(\a)})--({\Rma*sin(\a)},{\Hh-\E*\Rma*cos(\a)});
+        \draw[heavy,draw=\tline,shorten <=.5pt] ({\Rmb*sin(\a)},{\Hh-\E*\Rmb*cos(\a)})--({\Ro*sin(\a)},{\Hh-\E*\Ro*cos(\a)});}
     \fi
     \coordinate (-top0) at ({\Rm*sin(0)},{\Hh-\E*\Rm*cos(0)});
     \coordinate (-top120) at ({\Rm*sin(120)},{\Hh-\E*\Rm*cos(120)});
@@ -153,14 +179,14 @@
 \newcommand\tubegeom{\pgfmathsetmacro{\tRo}{\pgfkeysvalueof{/tikz/tube/Ro}}\pgfmathsetmacro{\tRi}{\pgfkeysvalueof{/tikz/tube/Ri}}%
   \pgfmathsetmacro{\tRm}{(\tRo+\tRi)/2}\pgfmathsetmacro{\tH}{\pgfkeysvalueof{/tikz/tube/H}}\pgfmathsetmacro{\tE}{\pgfkeysvalueof{/tikz/tube/E}}%
   \pgfmathsetmacro{\tbw}{\pgfkeysvalueof{/tikz/tube/bw}}\pgfmathsetmacro{\ths}{\pgfkeysvalueof{/tikz/tube/hs}}\pgfmathsetmacro{\twa}{\pgfkeysvalueof{/tikz/tube/a1}}}
-% ---- atom at a coordinate, round in a scaled scope too: \hatomat{coordinate}{r}{fill}
-\newcommand\hatomat[3]{\begin{scope}[shift={(#1)},x=1cm,y=1cm]\hatom{0}{0}{#2}{#3}\end{scope}}
 % ---- a point in ink (a configuration, a lattice point, a center): \inkdot{coordinate}
 \newcommand\inkdot[1]{\fill[PlateInk] (#1) circle[radius=1.5pt];}
-% ---- version points: \vpoint{coordinate}; a hidden one, \vpointhidden[options]{coordinate}, is pale in a ghost outline
-\def\vrad{.08}
-\newcommand\vpoint[1]{\hatomat{#1}{\vrad}{ColDot}}
-\newcommand\vpointhidden[2][]{\draw[ghost,fill=ColDotHidden,#1] (#2) circle[radius=\vrad];}
+% ---- version points: \vpoint{coordinate}, a red sphere, round in a scaled scope too; a hidden one,
+% \vpointhidden[options]{coordinate}, is pale in a ghost outline, drawn before the lines in front of it (inside the
+% solid, tube/hidden does this)
+\def\vrad{.0879}   % 2.5pt in cm
+\newcommand\vpoint[1]{\begin{scope}[shift={(#1)},x=1cm,y=1cm]\hatom{0}{0}{\vrad}{ColRed}{ColDeepRed}\end{scope}}
+\newcommand\vpointhidden[2][]{\draw[ghost,fill=ColPaleRed,#1] (#2) circle[radius=\vrad];}
 % ---- a sheet of a covering, or its base patch: \sheet{x}{y}{style}, a parallelogram whose front edge, of half-width
 % sheet/w, is centered at (x,y), its back edge sheet/d higher and sheet/s to the right
 \tikzset{sheet/w/.initial=1.8,sheet/d/.initial=.5,sheet/s/.initial=.7}
@@ -175,16 +201,17 @@
 \newcommand\hassecovers[1][]{%
   \foreach \a/\b/\g in \hasseCoverLabels {\edef\gg{\g}\ifx\gg\gent \draw[tlift,#1] (h\a)--(h\b);\else\ifx\gg\genu \draw[ulift,#1] (h\a)--(h\b);\else \draw[blift,#1] (h\a)--(h\b);\fi\fi}}
 % ---- Newman projection macros (used by the newman-* pics; coordinates in angstrom, pic scale sets the size)
-% back carbon: a circle of radius \nmR with its hydrogens on fine bonds from the rim; front nitrogen: a disc at the
+% back carbon: a circle of radius \nmR with its hydrogens on ink bonds from the rim; front nitrogen: a disc at the
 % center with its hydrogens on rod bonds. Order of painting: back bonds and atoms, circle, front bonds and atoms, center.
-\def\nmR{.5}\def\nmr{.2}
+% The radii are in pt as printed at figure 6's pic scale .9: carbon 12.5pt, hydrogen 5pt, nitrogen 7.5pt.
+\def\nmR{12.5pt/.9}\def\nmr{5pt/.9}
 \newcommand\nmback[3]{\pgfmathsetmacro{\nml}{sqrt((#1)*(#1)+(#2)*(#2))}
-  \draw[line width=.6pt,draw=PlateInk] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
-  \hatom{#1}{#2}{\nmr}{white}\node[digit] at (#1,#2) {#3};}
-\newcommand\nmcircle{\draw[ring,fill=white] (0,0) circle[radius=\nmR];}
-\newcommand\nmfront[3]{\draw[line width=.4pt,draw=PlateInk,double distance=2.4pt,double=white] (0,0)--(#1,#2);
-  \hatom{#1}{#2}{\nmr}{white}\node[digit] at (#1,#2) {#3};}
-\newcommand\nmcenter{\hatom{0}{0}{.27}{ColNitrogen}}
+  \draw[heavy] ({\nmR*(#1)/\nml},{\nmR*(#2)/\nml})--(#1,#2);
+  \draw[ring,fill=PlateWhite] (#1,#2) circle[radius=\nmr];\node[digit] at (#1,#2) {#3};}
+\newcommand\nmcircle{\draw[ring,fill=PlateGray] (0,0) circle[radius=\nmR];}
+\newcommand\nmfront[3]{\draw[fine,double distance=2.5pt,double=PlateWhite] (0,0)--(#1,#2);
+  \draw[ring,fill=PlateWhite] (#1,#2) circle[radius=\nmr];\node[digit] at (#1,#2) {#3};}
+\newcommand\nmcenter{\draw[ring,fill=ColPaleBlue] (0,0) circle[radius=7.5pt/.9];}
 % ---- digits inside the discs: \mollabelsinside (hydrogens only), \mollabelsinsideall (every disc: potassium, rubidium)
 \newcommand\mollabelsinside{\renewcommand\mollabel[6]{\if##1H\node[digit] at (##3,##4) {##2};\fi}}
 \newcommand\mollabelsinsideall{\renewcommand\mollabel[6]{\node[digit] at (##3,##4) {##2};}}

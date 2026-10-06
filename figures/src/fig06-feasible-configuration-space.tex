@@ -19,16 +19,15 @@
 % ------------------------------------------------ level 2: the solid F, cut open and decorated as on the cover
 \tubegeom\pgfmathsetmacro{\ph}{\coverturn}
 \begin{scope}[shift={(10.3,9.9)}]
-  \pic (tb) at (0,0) {thicktube};
+  \pic[tube/hidden={60+\ph,180+\ph}] (tb) at (0,0) {thicktube};   % uH and t^2uH hidden, under the front lines
   \foreach \a in {0,120,240} {\coordinate (vt\a) at ({\tRm*sin(\a+\ph)},{\tH-\tE*\tRm*cos(\a+\ph)});}
   \foreach \a in {60,180,300} {\coordinate (vb\a) at ({\tRm*sin(\a+\ph)},{-\tH-\tE*\tRm*cos(\a+\ph)});}
   \coordinate (ecl) at ({\tRm*sin(60+\ph)},{\tH-\tE*\tRm*cos(60+\ph)});
   % paths on the sheet: t along the top edge through the eclipsed point; tu through the interior to the bottom edge
   \draw[tpath] plot[domain=\ph:\ph+115,samples=30,variable=\a] ({\tRm*sin(\a)},{\tH-\tE*\tRm*cos(\a)});   % the head stops 3pt short of the dot at 135
   \draw[upath] plot[domain=0:.92,samples=30,variable=\s] ({\tRm*sin(\ph-60*\s)},{\tH-2*\tH*\s-\tE*\tRm*cos(\ph-60*\s)});   % and of the dot at -45
-  \draw[fine,fill=white] (ecl) circle[radius=\vrad];   % the eclipsed shape, a reference on the path, not a version
+  \draw[fine,fill=PlateWhite] (ecl) circle[radius=\vrad];   % the eclipsed shape, a reference on the path, not a version
   \foreach \p in {vt0,vt120,vt240,vb300} {\vpoint{\p}}
-  \foreach \p in {vb60,vb180} {\vpointhidden[blend mode=multiply]{\p}}   % pale, the front lines showing through
 \end{scope}
 \leaderlabel{vt0}{0}{-.55}{north}{$H$}
 \leaderlabel{vt120}{.2}{.56}{south}{$tH$}
@@ -37,7 +36,7 @@
 \leaderlabel{vb60}{-.927}{-.927}{north east}{$t^2uH$}   % crosses the hatched face: its dot sits behind it
 % uH sits on the sheet's bottom edge at the back, inside the wall, just above the inner bottom rim, so its leader drops
 % through the rim to a name on the clear floor of the hole (a leader up would cross the wall)
-\leaderlabel{vb180}{.384}{-.322}{west}{$uH$}
+\leaderlabel{vb180}{.14}{-.3}{west}{$uH$}
 \node[lab] at (12.62,11.27) {$t$}; \node[lab,inner sep=1pt] at (9.2,9.25) {$tu$};
 % ------------------------------------------------ level 3: the cut face enlarged by m (same quadrilateral, same 45-degree hatch, spacing scaled by m,
 % the version point tuH at the lower end of the iota line)
@@ -49,16 +48,16 @@
   \coordinate (p2) at ({\m*(\tRo*sin(\fa)-\cx)},{\m*(\tH-\E*\tRo*cos(\fa)-\cy)});
   \coordinate (p3) at ({\m*(\tRo*sin(\fa)-\cx)},{\m*(-\tH-\E*\tRo*cos(\fa)-\cy)});
   \coordinate (p4) at ({\m*(\tRi*sin(\fa)-\cx)},{\m*(-\tH-\E*\tRi*cos(\fa)-\cy)});
-  \path[fill=white] (p1)--(p2)--(p3)--(p4)--cycle;
+  \path[fill=PlateWhite] (p1)--(p2)--(p3)--(p4)--cycle;
   \hatchfit{45}{\ths*\m}{0}{(p1)--(p2)--(p3)--(p4)--cycle}
-  \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;
   % the core sheet's cross-section: the same face geometry at the radii Rm -+ bw, so its ends follow the face's slanted edges
   \pgfmathsetmacro{\Rmo}{\tRm+\tbw}\pgfmathsetmacro{\Rmi}{\tRm-\tbw}
   \coordinate (s1) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(\tH-\E*\Rmi*cos(\fa)-\cy)});
   \coordinate (s2) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(\tH-\E*\Rmo*cos(\fa)-\cy)});
   \coordinate (s3) at ({\m*(\Rmo*sin(\fa)-\cx)},{\m*(-\tH-\E*\Rmo*cos(\fa)-\cy)});
   \coordinate (s4) at ({\m*(\Rmi*sin(\fa)-\cx)},{\m*(-\tH-\E*\Rmi*cos(\fa)-\cy)});
-  \path[fill=ColBand] (s1)--(s2)--(s3)--(s4)--cycle; \draw[fine] (s1)--(s4) (s2)--(s3);
+  \path[fill=ColTeal] (s1)--(s2)--(s3)--(s4)--cycle; \draw[fine] (s1)--(s4) (s2)--(s3);
+  \draw[heavy] (p1)--(p2)--(p3)--(p4)--cycle;   % the face's outline over the strip: no top face here for the ribbon to continue on
   \vpoint{0,-\m*\tH}
   \node[lab,anchor=north,inner sep=1pt] at (0,{-\m*\tH-.19}) {$tuH$};
   % the normal coordinate q: from the sheet's edge across the wall, along the face's own radial direction
@@ -74,10 +73,11 @@
 \node[lab,anchor=south west] at (.35,6.42) {$\conf$};
 \foreach \i in {0,...,9} \foreach \j in {0,1} {
   \pgfmathsetmacro{\cx}{1.35+1.33*\i}\pgfmathsetmacro{\cy}{4.45+1.0*\j}
-  \begin{scope}\tikzset{image,tube/wallfill=ColFaint,tube/topfill=ColFaint,tube/innerfill=ColFaint,tube/bandfill=ColFaint}\pic at (\cx,\cy) {thicktube};\end{scope}}
-\leaderlabel[shorten <=0pt]{2.68,5.8}{0}{.7}{south}{$s\mathcal F$}   % crosses the hatch: the image sits in the cut material
+  \begin{scope}\tikzset{image,tube/wallfill=PlateGray,tube/topfill=PlateGray,tube/innerfill=PlateGray,tube/core=0,tube/lmin=.5}\pic at (\cx,\cy) {thicktube};\end{scope}}
+% sF names one of the gray images, so its leader and label are gray. The leader crosses the hatch, as the image sits in it
+\draw[faint,shorten >=3pt] (2.68,5.8)--++(0,.7); \node[lab,anchor=south,inner sep=2.5pt,text=PlateGray] at (2.68,6.5) {$s\mathcal F$};
 % the active image, white, closed and undecorated (the version points are read on the enlargement)
-\begin{scope}\tikzset{image,tube/wallfill=white,tube/bandfill=white}\pic at (10.66,5.45) {thicktube};\end{scope}
+\begin{scope}\tikzset{image,tube/sectionfill=PlateWhite}\pic at (10.66,5.45) {thicktube};\end{scope}
 \draw[fine] (10.66,5.45) circle[radius=.64]; \draw[fine] (10.1,5.77)--(8.26,8.46); \draw[fine] (11.22,5.77)--(12.75,9.05);   % the left line ends on the zoom circle
 \node[lab,anchor=south] at (10.66,6.45) {$\mathcal F$};
 \node[sub,anchor=north east] at (14.6,3.3) {$|S/G_{12}|=20$ images of $\mathcal F$};

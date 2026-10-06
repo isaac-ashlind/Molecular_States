@@ -17,7 +17,7 @@
   % the sphere is seen from a higher elevation than the tubes (E = .6) so that the ring planes open and a vector from the
   % center to a ring reads in depth; the body axis stays upright
   \pgfmathsetmacro{\s}{.56}\pgfmathsetmacro{\R}{sqrt(6)*\s}\pgfmathsetmacro{\E}{.6}
-  \hatom{0}{0}{\R}{white}
+  \hatom{0}{0}{\R}{PlateWhite}{PlatePaleGray}
   \draw[fine] (0,{-\R-.25})--(0,{\R+.45}); \node[sub,anchor=south] at (0,{\R+.55}) {body axis $z$};
   \foreach \K in {2,1,0,-1,-2} {\pgfmathsetmacro{\r}{sqrt(6-\K*\K)*\s}\pgfmathsetmacro{\h}{\K*\s*sqrt(1-\E*\E)}
     % a ring point at angle a is visible when sin a < tan(latitude) tan(elevation): K = 2 lies wholly in front, K = -2
@@ -25,7 +25,7 @@
     \pgfmathsetmacro{\vc}{max(-1,min(1,\K*\E/sqrt(1-\E*\E)/sqrt(6-\K*\K)))}\pgfmathsetmacro{\va}{asin(\vc)}
     \ifdim\vc pt<1pt \draw[fine,back] ({\r*cos(\va)},{\h+\E*\r*sin(\va)}) arc[start angle=\va,end angle={180-\va},x radius=\r,y radius={\E*\r}];\fi
     \ifdim\vc pt>-1pt \draw[fine] ({\r*cos(180-\va)},{\h+\E*\r*sin(180-\va)}) arc[start angle={180-\va},end angle={360+\va},x radius=\r,y radius={\E*\r}];\fi
-    \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
+    \draw[leader,shorten >=1.5pt] ({-\r},\h)--({-\R-.16},\h); \node[sub,anchor=east] at ({-\R-.16},\h) {$K=\K$};}
   % the vector J: from the center (marked) up to the right end of the K = 1 ring (its z component is K = 1), named
   % outside the sphere at the right, clear of the lattice beside it
   \pgfmathsetmacro{\ja}{355}\pgfmathsetmacro{\jr}{sqrt(5)*\s}\pgfmathsetmacro{\jh}{\s*sqrt(1-\E*\E)}
@@ -48,7 +48,7 @@
 \draw[fine] ({12.4-3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm-2.5*\sh},{9.4-2.5*\dk}) -- ({12.4+3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- ({12.4-3.5*\dm+2.5*\sh},{9.4+2.5*\dk}) -- cycle;
 % the zero line (ink, thin) and the gold line kappa = rho K, drawn before the lattice dots so that no dot is covered
 \draw[thin] (12.4,{9.4-2.5*\dk-.05})--(12.4,{9.4+2.5*\dk+.05});
-\draw[line width=1.6pt,draw=ColRetained] ({12.4-2.5*\sh},{9.4-2.5*\dk})--({12.4+2.5*\sh},{9.4+2.5*\dk});
+\draw[line width=1.5pt,draw=ColGold] ({12.4-2.5*\sh},{9.4-2.5*\dk})--({12.4+2.5*\sh},{9.4+2.5*\dk});
 \foreach \K/\list in \kappaRows {\pgfmathsetmacro{\y}{9.4+\dk*\K}\foreach \k in \list {\inkdot{{12.4+\dm*\k},\y}}}
 \node[sub,anchor=south west] at ({12.4+2.5*\sh+.05},{9.4+2.5*\dk+.16}) {$\kappa=\rho K$};
 \node[sub,anchor=north] at (12.4,{9.4-2.5*\dk-.08}) {$0$}; \node[sub,anchor=north] at ({12.4+3.5*\dm-2.5*\sh+.2},{9.4-2.5*\dk-.08}) {$\kappa$};
