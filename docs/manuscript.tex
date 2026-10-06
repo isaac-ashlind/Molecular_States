@@ -1,66 +1,46 @@
 \documentclass[12pt]{article}
-
-% ---- packages -----------------------------------------------------------------------------------
 \usepackage{amsmath,amssymb}
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\graphicspath{{figures/pdf/}{../figures/pdf/}}   % the plates, compiled from the repository root or from docs/
+\graphicspath{{figures/pdf/}{../figures/pdf/}}
 \usepackage[font=small,labelfont=bf,labelsep=period]{caption}
-\usepackage[section]{placeins}                    % floats stay within their part (I-IV)
+\usepackage[section]{placeins}
 \usepackage{array}
-\usepackage{longtable}                           % the notation, which may run past a page
+\usepackage{longtable}
 \usepackage{titlesec}
-\usepackage[hidelinks,pdftitle={Quantum State Spaces of Nonrigid Molecules and Their Complexes},pdfauthor={Isaac AshLind}]{hyperref}
+\usepackage[hidelinks,pdfusetitle]{hyperref}
 
-% ---- structure: four parts (roman-numbered sections) and twelve sections (subsections 1-12) ------
 \renewcommand{\thesection}{\Roman{section}}
 \counterwithout{subsection}{section}
-\renewcommand{\thesubsection}{\arabic{subsection}}
-% headings: a period after the number, none after the title; the run-in heads of the example in the same style
 \titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{.6em}{}
-\titleformat{name=\section,numberless}{\normalfont\Large\bfseries}{}{0pt}{}
 \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{.6em}{}
-\titleformat{\paragraph}[runin]{\normalfont\bfseries}{}{0pt}{}
 \titlespacing*{\paragraph}{0pt}{.6ex}{1em}
 
-% ---- floats and lists: a plate shares its page with the prose unless it needs the whole page ------
 \renewcommand{\topfraction}{.9}
-\renewcommand{\bottomfraction}{.6}
-\renewcommand{\textfraction}{.08}
-\renewcommand{\floatpagefraction}{.85}
 \setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
 \setlength{\intextsep}{12pt plus 2pt minus 2pt}
 \AddToHook{env/itemize/begin}{\setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}}
-% the unnumbered parts (the example, the notation, the references) each open a page
 
-% ---- tables: lettered, captioned above in the style of the figure captions, the body small, rules above and below
-% the header and at the bottom, numbers in math; a table is kept whole
 \renewcommand{\thetable}{\Alph{table}}
 \newenvironment{plaintable}{\par\medskip\noindent\begin{minipage}{\linewidth}\captionsetup{type=table,skip=3pt}\small
   \renewcommand{\arraystretch}{1.05}\setlength{\tabcolsep}{5pt}}{\end{minipage}\par\medskip}
-% two text columns that fill the line
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{\dimexpr#1\linewidth-\tabcolsep\relax}}
 
-% ---- title --------------------------------------------------------------------------------------
 \title{Quantum State Spaces of Nonrigid\\ Molecules and Their Complexes}
 \author{Isaac AshLind}
 \date{}
 
-% ---- notation: configuration arrays and matrices bold (\X, \Pmat, \Rmat), abstract operators sans serif ------
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\conf}{\mathcal{C}}                    % centered configuration space
-\newcommand{\hilb}{\mathcal{H}}                    % physical Hilbert space
-\newcommand{\hamb}{\mathcal{H}_{\mathrm{amb}}}     % ambient Hilbert space
-\newcommand{\spin}{\mathcal{H}_{\mathrm{spin}}}    % nuclear spin space
-\newcommand{\act}{\mathbin{\cdot}}                 % group action
-\newcommand{\stat}{\chi_{\mathrm{stat}}}           % statistics character
-\newcommand{\X}{\mathbf{X}}                        % configuration matrix; \X_0 the reference
-\newcommand{\Pmat}[1]{\mathbf{P}_{#1}}             % signed right-action matrix
-\newcommand{\Rmat}{\mathbf{R}}                     % rotation matrix: \Rmat(r), \Rmat_h, \Rmat_z(\omega)
-\newcommand{\Uop}[1]{\mathsf{U}_{#1}}              % spatial action operator
-\newcommand{\Pproj}[1]{\mathsf{P}_{#1}}            % isotypic projector
-\newcommand{\jdens}{j_\varphi}                     % positive chart density
+\newcommand{\conf}{\mathcal{C}}
+\newcommand{\hilb}{\mathcal{H}}
+\newcommand{\spin}{\mathcal{H}_{\mathrm{spin}}}
+\newcommand{\act}{\mathbin{\cdot}}
+\newcommand{\stat}{\chi_{\mathrm{stat}}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Pmat}{\mathbf{P}}
+\newcommand{\Rmat}{\mathbf{R}}
+\newcommand{\Uop}{\mathsf{U}}
 
 \begin{document}
 \maketitle
@@ -70,12 +50,7 @@
 \end{center}
 \clearpage
 
-
-% ================================================================================================
-% I. Configurations and States
-% ================================================================================================
 \section{Configurations and States}
-% ---- 1. Configuration Space --------------------------------------------------------------------
 \subsection{Configuration Space}
 \label{sec:configuration}
 
@@ -84,7 +59,8 @@ Take
 the \emph{configuration space} to be the set of all linear
 maps $\X: \R^N \to\R^3$ that place the center of mass
 at the origin.
-In a Cartesian basis, represent $\X$ by a $3\times N$ matrix whose $i$th column $\mathbf x_i=(x_i,y_i,z_i)^{\mathsf T}$ is the position of
+In a Cartesian basis, represent $\X$ by a $3\times N$ matrix whose $i$th column $\mathbf
+x_i=(x_i,y_i,z_i)^{\mathsf T}$ is the position of
 nucleus $i$
 \[
 \X=
@@ -128,11 +104,11 @@ permutation--inversion $\sigma^*$.
 As matrices, the $\X\in\conf$ form a vector space on which
 permutations act by multiplication from the right
 \[
-s\act\X=\X\Pmat{s},
+s\act\X=\X\Pmat_s,
 \qquad
-\Pmat{\sigma^*}=-\Pmat{\sigma}.
+\Pmat_{\sigma^*}=-\Pmat_\sigma.
 \]
-Here $\Pmat{\sigma}$ reorders the columns according to
+Here $\Pmat_\sigma$ reorders the columns according to
 \[
 \sigma\act(\mathbf x_1,\ldots, \mathbf x_N)
 =
@@ -141,11 +117,11 @@ Here $\Pmat{\sigma}$ reorders the columns according to
 With this convention, for $s,s'\in S$,
 \[
 s\act(s'\act\X)
-=(\X\Pmat{s'})\Pmat{s}
-=\X\Pmat{s'}\Pmat{s}
+=(\X\Pmat_{s'})\Pmat_s
+=\X\Pmat_{s'}\Pmat_s
 =(ss')\act\X.
 \]
-The matrices satisfy $\Pmat{ss'}=\Pmat{s'}\Pmat{s}$. Multiplication by
+The matrices satisfy $\Pmat_{ss'}=\Pmat_{s'}\Pmat_s$. Multiplication by
 these matrices on the right therefore defines a left
 action of $S$ on $\conf$.
 
@@ -156,7 +132,7 @@ r\act\X=\Rmat(r)\X.
 \]
 The actions commute by associativity
 \[
-r\act(s\act\X)=\Rmat(r)\X\Pmat{s}=s\act(r\act\X).
+r\act(s\act\X)=\Rmat(r)\X\Pmat_s=s\act(r\act\X).
 \]
 We drop the dots when the action is understood.
 
@@ -165,18 +141,18 @@ We drop the dots when the action is understood.
 \includegraphics[width=\linewidth]{fig01-configuration-space}
 \caption{Configuration space. Each water shape sits at its bond asymmetry $\delta$ and bend angle
 $\theta$. Symmetric shapes lie on the line $\delta=0$ and linear shapes on the line $\theta=\pi$. Below, a
-rotation $\Rmat$ acts on the configuration matrix $\X$ from the left, and a permutation $\Pmat{\sigma}$ and
-the inversion $E^*$ act from the right.}\label{fig:1}
+rotation $\Rmat$ acts on the configuration matrix $\X$ from the left, and a permutation $\Pmat_\sigma$ and
+the inversion $E^*$ act from the right.}
+\label{fig:1}
 \end{figure}
 
-% ---- 2. Ambient Hilbert Space ------------------------------------------------------------------
 \subsection{Ambient Hilbert Space}
 \label{sec:ambient}
 
 The \emph{ambient Hilbert space} for our configuration space,
 including the spin of the nuclei, is
 \[
-\hamb=L^2(\conf)\otimes\spin,
+\hilb_{\mathrm{amb}}=L^2(\conf)\otimes\spin,
 \qquad
 \spin=\bigotimes_{i=1}^{N}\mathbb C^{2I_i+1}.
 \]
@@ -233,15 +209,15 @@ difference has zero norm
 \caption{Ambient Hilbert space. Over each configuration of a slice of $\conf$ stands a copy of the spin
 space $\spin$. A state assigns to each configuration a vector with components $f_\xi$ and $f_\zeta$, and
 $\|\Psi\|^2$ is the integral of $|f_\xi|^2+|f_\zeta|^2$ over $\conf$. The state drawn is unchanged by
-rotations and antisymmetric under exchange, so $f_\zeta=-f_\xi$.}\label{fig:2}
+rotations and antisymmetric under exchange, so $f_\zeta=-f_\xi$.}
+\label{fig:2}
 \end{figure}
 
-% ---- 3. Physical Hilbert Space -----------------------------------------------------------------
 \subsection{Physical Hilbert Space}
 \label{sec:physical}
 
 Exchange statistics select the \emph{physical Hilbert
-space} $\hilb\subseteq\hamb$.
+space} $\hilb\subseteq\hilb_{\mathrm{amb}}$.
 
 Inversion imposes no additional exchange-statistics
 constraint, so we pass to $S/\langle E^*\rangle$,
@@ -264,7 +240,7 @@ the physical Hilbert space is
 \hilb
 =
 \left\{
-\Psi\in\hamb
+\Psi\in\hilb_{\mathrm{amb}}
 :
 \Psi\circ\sigma
 \sim
@@ -311,15 +287,11 @@ while $s\act\Psi_\pm$ acts on the spin factors.
 \includegraphics[width=\linewidth]{fig03-physical-hilbert-space}
 \caption{Physical Hilbert space. A relabeling $\sigma$ moves the digits and leaves each spin in its
 place, so $\Psi(\sigma\X)=\stat(\sigma)\,\sigma\act\Psi(\X)$. The inversion $E^*$ sends every column
-through the origin and multiplies $\Psi$ by the parity sign $\chi_\pm(E^*)=\pm1$.}\label{fig:3}
+through the origin and multiplies $\Psi$ by the parity sign $\chi_\pm(E^*)=\pm1$.}
+\label{fig:3}
 \end{figure}
 
-
-% ================================================================================================
-% II. Fragments and Feasible Regimes
-% ================================================================================================
 \section{Fragments and Feasible Regimes}
-% ---- 4. Molecules, Fragments, and Complexes ----------------------------------------------------
 \subsection{Molecules, Fragments, and Complexes}
 \label{sec:fragments}
 \begin{itemize}
@@ -354,10 +326,10 @@ Symmetry gives allowed sectors, not yields.
 \caption{Molecules, fragments, complexes. The same four nuclei are grouped three ways along
 $\mathrm{KRb}+\mathrm{KRb}\to\mathrm K_2\mathrm{Rb}_2\to\mathrm K_2+\mathrm{Rb}_2$, each grouping with its
 permutation--inversion group. Gold follows the potassium nuclei and teal the rubidium nuclei. Below, the
-same two strands run through the lattice of the sixteen subgroups of $S$.}\label{fig:4}
+same two strands run through the lattice of the sixteen subgroups of $S$.}
+\label{fig:4}
 \end{figure}
 
-% ---- 5. Symmetry Groups and Versions -----------------------------------------------------------
 \subsection{Symmetry Groups and Versions}
 \label{sec:groups-versions}
 
@@ -366,9 +338,8 @@ arrangements of nuclei without imposing energetic or
 experimental restrictions. Experimental resolution informs the choice of a feasible
 regime with a group $G\leq S$ of feasible operations. For a given configuration $\X$,
 there is a natural minimal symmetry $H$ consisting of the
-permutation--inversions equivalent to rotations in $SO(3)$. By looking at the subgroup lattice for
-$H\leq G\leq S$
-along with a reference configuration and chosen paths,
+permutation--inversions equivalent to rotations in $SO(3)$. By looking at the subgroup lattice for $H\leq
+G\leq S$ along with a reference configuration and chosen paths,
 we can carve out the shapes of feasible regimes and
 their symmetries without first specifying a potential.
 This is a kinematic model. Which
@@ -434,7 +405,8 @@ S=S_5\times\{E,E^*\},\qquad |S|=240,
 \qquad H=\langle b\rangle,\qquad b=(23)(45)^*.
 \]
 \begin{itemize}
-\item Keeping bonds restricts the candidates to the interval $[H,B]=\{G:H\leq G\leq B\}$ of the subgroup lattice, where $B$ is the bond-preserving subgroup below.
+\item Keeping bonds restricts the candidates to the interval $[H,B]=\{G:H\leq G\leq B\}$ of the subgroup
+lattice, where $B$ is the bond-preserving subgroup below.
 Here $S_A$ permutes the labels in $A$.
 \end{itemize}
 \[
@@ -450,7 +422,8 @@ G_6=\langle H,t\rangle,\qquad |G_6/H|=3,
 \item Above $G_6$, adding $u$, $E^*$, or $u^*$ gives three order-$12$
 candidates. Any two extensions generate $B$.
 \item Microwave and far-infrared spectra resolve torsion and inversion
-in the $G_{12}$ regime.\footnote{Ilyushin et al.~\cite{IlyushinEtAl2005} and Kr\k{e}glewski~\cite{Kreglewski2009}.}
+in the $G_{12}$ regime.\footnote{Ilyushin et al.~\cite{IlyushinEtAl2005} and
+Kr\k{e}glewski~\cite{Kreglewski2009}.}
 The amino inversion includes a corrective $\pi/3$ methyl turn,
 represented by $tu$.\footnote{Kleiner and Hougen~\cite{KleinerHougen2015}.}
 \item Comparing the candidates through their species and spin weights is
@@ -463,12 +436,12 @@ The full interval $[H,S]$ has $36$ subgroups, and $[H,B]$ has $10$.
 \centering
 \includegraphics[width=\linewidth]{fig05-symmetry-groups-versions}
 \caption{Symmetry groups and versions. At the top are methylamine's two fragments and the reference
-$\X_0$, for which $b\X_0=\X_0\Pmat{b}=\Rmat_b\X_0$. In the middle, the $10$ subgroups of $[H,B]$, which keep
+$\X_0$, for which $b\X_0=\X_0\Pmat_b=\Rmat_b\X_0$. In the middle, the $10$ subgroups of $[H,B]$, which keep
 the bonds, stand out from the $36$ of $[H,S]$. Each cover adds one generator, solid for $t$,
-dashed for $u$ and dotted for a starred one. At the bottom are the six versions $G_{12}/H$.}\label{fig:5}
+dashed for $u$ and dotted for a starred one. At the bottom are the six versions $G_{12}/H$.}
+\label{fig:5}
 \end{figure}
 
-% ---- 6. Feasible Configuration Space -----------------------------------------------------------
 \subsection{Feasible Configuration Space}
 \label{sec:feasible-space}
 \begin{itemize}
@@ -490,7 +463,8 @@ contains $G$ and equals $G$ unless the thickening is wide enough to merge copies
 one for each coset in $S/G_{12}$. At the top, $\mathcal F$ is cut open as a solid. Its core sheet is the
 family $\X_0(\tau,\iota)$, its thickness is the vibrations, and its cut face is enlarged at the left. At the
 bottom, the two steps $t$ and $tu$ are seen down the C--N axis, with the eclipsed shape halfway along the
-path of $t$.}\label{fig:6}
+path of $t$.}
+\label{fig:6}
 \end{figure}
 \[
 S/H\longrightarrow S/G,\qquad sH\longmapsto sG.
@@ -525,12 +499,7 @@ $\hilb_{\mathcal F}$.
 does not specify geometric inclusion.
 \end{itemize}
 
-
-% ================================================================================================
-% III. Symmetry and Localization
-% ================================================================================================
 \section{Symmetry and Localization}
-% ---- 7. Symmetry Species -----------------------------------------------------------------------
 \subsection{Symmetry Species}
 \label{sec:species}
 \begin{itemize}
@@ -541,12 +510,12 @@ $\chi_\Gamma=\operatorname{tr}\Gamma$ and $d_\Gamma=\dim\Gamma$.
 The projector retains all copies of that species.
 \end{itemize}
 \[
-(\Uop{g}f)(\X)=f(g^{-1}\X),\qquad
-\Pproj{\Gamma}=\frac{d_\Gamma}{|G|}
-\sum_{g\in G}\chi_\Gamma(g^{-1})\,\Uop{g}.
+(\Uop_gf)(\X)=f(g^{-1}\X),\qquad
+\mathsf P_\Gamma=\frac{d_\Gamma}{|G|}
+\sum_{g\in G}\chi_\Gamma(g^{-1})\,\Uop_g.
 \]
 \[
-w_\Gamma(f)=\frac{\|\Pproj{\Gamma} f\|^2}{\|f\|^2},
+w_\Gamma(f)=\frac{\|\mathsf P_\Gamma f\|^2}{\|f\|^2},
 \qquad \sum_\Gamma w_\Gamma(f)=1,\qquad f\ne0.
 \]
 \begin{itemize}
@@ -575,17 +544,18 @@ product groups.
 \caption{Symmetry species. The three version sites sit on the torsion circle. The modes $v_1$, $v_2$,
 $v_3$ are drawn with their images under $t$ and $b$, with a disc's area for the amplitude, ink for
 positive and white for negative. The functions on the sites split as
-$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$.}\label{fig:7}
+$\mathbb C[G_6/H]\cong\mathrm A_1\oplus\mathrm E$.}
+\label{fig:7}
 \end{figure}
 
-% ---- 8. Nuclear Spin Weights -------------------------------------------------------------------
 \subsection{Nuclear Spin Weights}
 \label{sec:weights}
 \begin{itemize}
 \item Restrict the nuclear-spin action of $S$ to the feasible group $G$.
 Inversion acts trivially on spin, so only the permutation part of $G$ acts.
 \item Decompose $\spin$ under $G$ into species, counting copies rather
-than dimensions. For methylamine $\spin=(\mathbb C^2)^{\otimes5}\otimes\mathbb C^1\otimes\mathbb C^3$: the five protons,
+than dimensions. For methylamine $\spin=(\mathbb C^2)^{\otimes5}\otimes\mathbb C^1\otimes\mathbb C^3$:
+the five protons,
 carbon-12 and nitrogen-14. Carbon and nitrogen are not permuted, so their factor carries $\mathrm A_1$ and
 triples every count. Under $G_6$,
 \end{itemize}
@@ -606,7 +576,8 @@ $\mathrm A_1$ with $\mathrm A_2$ and keeps $\mathrm E$.
 carries, one for each copy of its partner species (Figure~\ref{fig:8}):
 \end{itemize}
 \begin{plaintable}
-\caption{The physical weights of methylamine's spatial levels by parity.}\label{tab:weights}
+\caption{The physical weights of methylamine's spatial levels by parity.}
+\label{tab:weights}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \hline
@@ -626,10 +597,10 @@ $\mathrm E$ & $24$ & $24$\\
 $(\mathbb C^2)^{\otimes5}\cong12\,\mathrm A_1\oplus4\,\mathrm A_2\oplus8\,\mathrm E$, one line per state.
 An even-parity spatial level joins the spin species of its own name. At odd parity $\mathrm A_1$ and
 $\mathrm A_2$ trade partners and $\mathrm E$ keeps its own. A level's weight is the number of lines it
-joins, times three for the spin states of nitrogen-14.}\label{fig:8}
+joins, times three for the spin states of nitrogen-14.}
+\label{fig:8}
 \end{figure}
 
-% ---- 9. Localized States -----------------------------------------------------------------------
 \subsection{Localized States}
 \label{sec:localized}
 \begin{figure}[tb]
@@ -638,10 +609,12 @@ joins, times three for the spin states of nitrogen-14.}\label{fig:8}
 \caption{Localized states. Three packets of width $\Delta$ sit on the unrolled torsion circle, a distance
 $d$ apart, for $\Delta/d=1/6$, $1/3$ and $2/3$. The profiles are their densities, and neighbors cross at $c$
 times the peak height. Each bar splits $w_{\mathrm A_1}=1/3+2c/3$ into the third a packet has with no
-overlap, in dark gold, and the overlap part $2c/3$, in light gold like the overlap regions. The rest of the bar
+overlap, in dark gold, and the overlap part $2c/3$, in light gold like the overlap regions. The rest of
+the bar
 is $w_{\mathrm E}=2(1-c)/3$. The rows have $c=e^{-9/2}$, $e^{-9/8}$ and $e^{-9/32}$, so in the top row the
 overlap is nonzero but thinner than the line. Below, both shares are drawn against $\Delta/d$ with the three
-rows marked. The packets are illustrative, and their overlap is that of planar Gaussians.}\label{fig:9}
+rows marked. The packets are illustrative, and their overlap is that of planar Gaussians.}
+\label{fig:9}
 \end{figure}
 \begin{itemize}
 \item In $G_6$, choose a normalized real scalar packet $\eta_0$, fixed
@@ -669,14 +642,15 @@ c=\exp\!\left(-\frac{d^2}{8\Delta^2}\right).
 \]
 \begin{itemize}
 \item With no overlap a packet is still one third $\mathrm A_1$, because
-$\Pproj{\mathrm A_1}\eta_0=(\eta_0+\eta_1+\eta_2)/3$ averages it over the three versions. Overlap adds $2c/3$
+$\mathsf P_{\mathrm A_1}\eta_0=(\eta_0+\eta_1+\eta_2)/3$ averages it over the three versions. Overlap
+adds $2c/3$
 to that third. Gaussians have $c>0$ at every width, so $w_{\mathrm A_1}>1/3$.
 \item A packet not fixed by $H$ splits as $\eta_0=\eta_0^++\eta_0^-$ with
-$\eta_0^\pm=(\eta_0\pm\Uop{b}\eta_0)/2$. Each projector commutes with $\Uop{b}$, so the two parts
+$\eta_0^\pm=(\eta_0\pm\Uop_b\eta_0)/2$. Each projector commutes with $\Uop_b$, so the two parts
 contribute to the shares separately. The even part follows the formulas above with its own overlap. The odd
 part adds only $\mathrm A_2$ and $\mathrm E$, with total weight
-$\|\eta_0^-\|^2=(1-\langle\eta_0,\Uop{b}\eta_0\rangle)/2$, which vanishes as $\eta_0$ becomes fixed by $H$.
-\item Overlaps $\langle\eta_0,\Uop{s}\eta_0\rangle$ with $s\notin G$ measure how far a packet leaks into
+$\|\eta_0^-\|^2=(1-\langle\eta_0,\Uop_b\eta_0\rangle)/2$, which vanishes as $\eta_0$ becomes fixed by $H$.
+\item Overlaps $\langle\eta_0,\Uop_s\eta_0\rangle$ with $s\notin G$ measure how far a packet leaks into
 the other copies of $\mathcal F$. Where they vanish, the shares under $S$ follow from those under $G$
 through the branching of species. Otherwise they enter the shares as $c$ does.
 \item Add $u$-related packets for the six versions in $G_{12}/H$.
@@ -686,13 +660,7 @@ of Section~\ref{sec:feasible-space}, when required.
 \item Treat symmetry-enforced nodes with the required pointwise regularity.
 \end{itemize}
 
-
-
-% ================================================================================================
-% IV. Representations and Global Structure
-% ================================================================================================
 \section{Representations and Global Structure}
-% ---- 10. Position Representation ---------------------------------------------------------------
 \subsection{Position Representation}
 \label{sec:position}
 \begin{itemize}
@@ -705,10 +673,10 @@ Use $r$ for orientation, $a$ for internal shape, and $q$ for normal coordinates.
 \]
 \begin{itemize}
 \item On a regular chart $\varphi:\mathcal U\to\conf$, pull back the configuration measure.
-Here $dr$ is normalized Haar measure and $\jdens$ is the chart density.
+Here $dr$ is normalized Haar measure and $j_\varphi$ is the chart density.
 \end{itemize}
 \[
-d\mu=\jdens(a,q)\,dr\,da\,dq,
+d\mu=j_\varphi(a,q)\,dr\,da\,dq,
 \qquad
 \|\Psi\|_{\varphi(\mathcal U)}^2
 =\int_{\mathcal U}\|\psi(r,a,q)\|_{\spin}^2\,d\mu.
@@ -728,8 +696,8 @@ normal frame in the target frame to obtain $\mathbf M_s(a)$.
 \end{itemize}
 \[
 \begin{aligned}
-\X_0(a)\Pmat{s}&=\mathbf A_s(a)\X_0(a'),\\
-\mathbf e_\alpha(a)\Pmat{s}&=\mathbf A_s(a)\sum_\beta\mathbf e_\beta(a')\,[\mathbf M_s(a)]_{\beta\alpha},\\
+\X_0(a)\Pmat_s&=\mathbf A_s(a)\X_0(a'),\\
+\mathbf e_\alpha(a)\Pmat_s&=\mathbf A_s(a)\sum_\beta\mathbf e_\beta(a')\,[\mathbf M_s(a)]_{\beta\alpha},\\
 T_s(r,a,q)&=\bigl(r\mathbf A_s(a),a',\mathbf M_s(a)q\bigr).
 \end{aligned}
 \]
@@ -754,21 +722,22 @@ spin factors gives the physical-state condition.
 \caption{Position representation. Without its vibrations the solid $\mathcal F$ is its core sheet,
 which unrolls into the chart $[-\pi,\pi]\times[-\iota_0,\iota_0]$ with its six version cells. Over a point
 $a$ of the chart, normal displacements $q$ and an orientation $r$ rebuild a configuration. The bottom row
-shows the two normal directions at $a$.}\label{fig:10}
+shows the two normal directions at $a$.}
+\label{fig:10}
 \end{figure}
 \[
-(\Uop{s}\psi)(x)=\psi(T_s^{-1}x),\qquad \Uop{s}|x\rangle=|T_sx\rangle.
+(\Uop_s\psi)(x)=\psi(T_s^{-1}x),\qquad \Uop_s|x\rangle=|T_sx\rangle.
 \]
 \[
 \psi(T_\sigma x)\sim\stat(\sigma)\,\sigma\act\psi(x).
 \]
 \begin{itemize}
-\item With $\widetilde\psi=\jdens^{1/2}\psi$, the same operator in
+\item With $\widetilde\psi=j_\varphi^{1/2}\psi$, the same operator in
 the measure $dr\,da\,dq$ includes the density ratio.
 \end{itemize}
 \[
 (\widetilde{\mathsf U}_s\widetilde\psi)(x)
-=\left(\frac{\jdens(x)}{\jdens(T_s^{-1}x)}\right)^{1/2}
+=\left(\frac{j_\varphi(x)}{j_\varphi(T_s^{-1}x)}\right)^{1/2}
 \widetilde\psi(T_s^{-1}x).
 \]
 \begin{itemize}
@@ -785,7 +754,7 @@ hydrogens at $(\iota,\pm b_A,z_A)$ and the methyl hydrogens at angles
 $\tau-2\pi(k-1)/3$, $k=1,2,3$, at fixed radius and height about
 the C--N axis. Center the whole configuration as before.}
 \item Twist the body frame by $\Rmat_z(-\rho\tau)$, with $\rho$ a chosen
-frame parameter; we take $\rho=\tfrac12$, the analogue for one methyl top of
+frame parameter; we take $\rho=\frac12$, the analogue for one methyl top of
 the symmetric internal-axis frame used for ethane by Mellor, Yurchenko, Mant
 and Jensen~\cite{MellorEtAl2019}. Retain two normal
 coordinates $q_+,q_-$ chosen to transform evenly and oddly under $tu$.
@@ -799,7 +768,7 @@ x=(r,\tau,\iota,q_+,q_-),
 T_{tu}x=\bigl(r\Rmat_z(\omega_{tu}),\tau-\pi/3,-\iota,q_+,-q_-\bigr),
 \]
 \[
-(\Uop{tu}\psi)(x)
+(\Uop_{tu}\psi)(x)
 =\psi\bigl(r\Rmat_z(-\omega_{tu}),\tau+\pi/3,-\iota,q_+,-q_-\bigr).
 \]
 \begin{itemize}
@@ -818,12 +787,11 @@ dynamical rotational transport.
 \item Versions and induced species depend on the base point only through the conjugacy class of its point
 group. In $G_{12}$, a shape on one of the six lines $\tau\in\frac\pi3\mathbb Z$ is fixed by a conjugate of
 $b$, so any reference there, the eclipsed shape included, gives the same versions and species up to
-relabeling. A conjugate of $(23)^*$ fixes each of the six shapes $(\frac\pi6+\frac{k\pi}3,0)$, $k=0,\ldots,5$, instead, and
+relabeling. A conjugate of $(23)^*$ fixes each of the six shapes $(\frac\pi6+\frac{k\pi}3,0)$,
+$k=0,\ldots,5$, instead, and
 no element but $E$ fixes any other shape. Which case describes the molecule is left to experiment.
 \end{itemize}
 
-
-% ---- 11. Covering Spaces and Monodromy ---------------------------------------------------------
 \subsection{Covering Spaces and Monodromy}
 \label{sec:covering}
 \begin{figure}[tb]
@@ -832,7 +800,8 @@ no element but $E$ fixes any other shape. Which case describes the molecule is l
 \caption{Covering spaces and monodromy. Over a patch of $\mathcal F/G$ stand the six sheets of the
 $G_6$ block. In the base the paths $\gamma_t$ and $\gamma_b$ are loops. Lifted from $\X$ they end at $t\X$
 and $b\X$. Taken in turn they end apart, $t$ then $b$ at $tb\X$ and $b$ then $t$ at $t^2b\X$. At the
-right, the same sheets form a graph.}\label{fig:11}
+right, the same sheets form a graph.}
+\label{fig:11}
 \end{figure}
 \begin{itemize}
 \item Versions label rotational orbits in $G/H$. Charts give local coordinates.
@@ -847,7 +816,8 @@ normal coordinates, and wavefunctions across the walls.
 \item For a free action, $\mathcal F\to\mathcal F/G$ is a covering
 with deck group $G$. A lifted chart transition induced by $g$
 is a local expression of its deck transformation.
-\item A rearrangement path $\gamma_s$ from $\X$ to $s\X$ projects to a loop in $\mathcal F/G$ through the point $[\X]$,
+\item A rearrangement path $\gamma_s$ from $\X$ to $s\X$ projects to a loop in $\mathcal F/G$ through the
+point $[\X]$,
 the class of $\X$; the path is that loop's lift from $\X$. It stays in one
 feasible component and records the sheet change, or
 \emph{monodromy}.\footnote{Hatcher~\cite{Hatcher2002}, Section~1.3.}
@@ -862,15 +832,14 @@ t^3=b^2=E,\qquad btb=t^{-1},\qquad bt=t^2b\ne tb.
 $\Gamma(G)\cong G/\ker\Gamma$. On $G_6$, $\mathrm A_1$ sees no change,
 while $\mathrm E$ retains noncommutativity.
 \item Treat fixed configurations separately; the rigid orientation
-construction is recovered in \hyperref[sec:example]{the example that closes the paper}.\footnote{Albert et al.~\cite{AlbertEtAlOrientation}.}
+construction is recovered in \hyperref[sec:example]{the example that closes the paper}.\footnote{Albert
+et al.~\cite{AlbertEtAlOrientation}.}
 \item Distinguish chart gluing from mechanical parallel
 transport.\footnote{Littlejohn and Reinsch~\cite{LittlejohnReinsch1997}.}
 A Berry interpretation needs
 a specified state family and connection.
 \end{itemize}
 
-
-% ---- 12. Momentum Representation ---------------------------------------------------------------
 \subsection{Momentum Representation}
 \label{sec:momentum}
 \begin{itemize}
@@ -879,7 +848,7 @@ subject to the chart identifications; the example below is a reduced
 torsional model, not a transform of the full torsion--umbrella model.
 \item For the product model $SO(3)\times S^1\times\R^{n_q}$, with $\iota$ held
 at its reference value and omitted from the product (a reduced torsional
-model), absorb the density into $\widetilde\psi=\jdens^{1/2}\psi$.
+model), absorb the density into $\widetilde\psi=j_\varphi^{1/2}\psi$.
 Use the measure $dr\,d\tau\,dq$, denoted by the subscript $0$.
 \end{itemize}
 \[
@@ -914,8 +883,8 @@ the same states. Include normal-frame gluing when present.
 with $T_t:\tau\mapsto\tau+2\pi/3$ and $T_b:\tau\mapsto-\tau$.
 \end{itemize}
 \[
-\Uop{g}f=f\circ T_g^{-1},\qquad
-\Uop{t}f_m=e^{-2\pi im/3}f_m,\qquad \Uop{b}f_m=f_{-m}.
+\Uop_gf=f\circ T_g^{-1},\qquad
+\Uop_tf_m=e^{-2\pi im/3}f_m,\qquad \Uop_bf_m=f_{-m}.
 \]
 \begin{itemize}
 \item The species of the modes are those of Figure~\ref{fig:12}: $\mathrm A_1$
@@ -930,17 +899,14 @@ methylamine lies outside the present example.
 \includegraphics[width=\linewidth]{fig12-momentum-representation}
 \caption{Momentum representation. For $J=2$ the body-axis component $K$ takes five values on the
 sphere $|\mathbf J|=\sqrt{J(J+1)}\,\hbar$, and the vector $\mathbf J$ drawn has $K=1$. The labels $(m,K)$
-form a lattice in the periodic frame, and the twisted frame shears it to $\kappa=m+\tfrac12K$. The bottom
-row shows the periodic torsion modes and their species under $G_6$. No energies are assigned.}\label{fig:12}
+form a lattice in the periodic frame, and the twisted frame shears it to $\kappa=m+\frac12K$. The bottom
+row shows the periodic torsion modes and their species under $G_6$. No energies are assigned.}
+\label{fig:12}
 \end{figure}
 
 \clearpage
-% ================================================================================================
-% Example and Recovery of the Rigid Case (unnumbered): rigid methane run through Sections 1 to 12 in
-% order, each step numbered by its section; the rigid case of Albert et al. as a projection. Every number
-% is emitted by compute/make_data.py and recomputed in checks/verify_methane.py and checks/verify.g.
-% ================================================================================================
-\section*{Example and Recovery of the Rigid Case}\phantomsection\label{sec:example}
+\section*{Example and Recovery of the Rigid Case}
+\phantomsection\label{sec:example}
 \pdfbookmark[1]{Example and Recovery of the Rigid Case}{example}
 \begin{center}\captionsetup{type=figure}
 \includegraphics[width=\linewidth]{fig13-rigid-orientation-ball}
@@ -950,29 +916,40 @@ bond $1$. The gold cell is drawn as the octahedron dual to the cube of third-tur
 Rodrigues coordinates, while in the ball the cell's edges bow outward. On the right is the covering, drawn
 as in Figure~\ref{fig:11}.}
 \end{center}
-\noindent We now run the construction of Sections~1 to~12 on one molecule, in order, and read off the
+We now run the construction of Sections~1 to~12 on one molecule, in order, and read off the
 rigid case at the end. Take methane held at its tetrahedron, with protons $1$ to $4$ and carbon $5$. Each
 step below carries the number of the section it applies. No energies are assigned.
 
-\paragraph{\ref{sec:configuration}. Configuration Space}Five nuclei with their center of mass fixed give the
+\paragraph{\ref{sec:configuration}. Configuration Space}
+Five nuclei with their center of mass fixed give the
 twelve-dimensional space $\conf=\{\X\in\hom(\R^5,\R^3):\X\mathbf m=0\}$. The four protons are alike and
 the carbon is unique, so $S=S_4\times S_1\times\{E,E^*\}$ has order $48$. In the body frame of the
 figure, with $\ell=1.087$~\AA, the reference is
 \[
-\X_0=\frac{\ell}{\sqrt3}\begin{pmatrix}1&1&-1&-1&0\\1&-1&1&-1&0\\1&-1&-1&1&0\end{pmatrix}.
+\X_0=\frac{\ell}{\sqrt3}
+\begin{pmatrix}
+    1 & 1 & -1 & -1 & 0 \\
+    1 & -1 & 1 & -1 & 0 \\
+    1 & -1 & -1 & 1 & 0
+\end{pmatrix}.
 \]
 
-\paragraph{\ref{sec:ambient}--\ref{sec:physical}. Ambient and Physical States}Carbon-12 has spin zero, so
+\paragraph{\ref{sec:ambient}--\ref{sec:physical}. Ambient and Physical States}
+Carbon-12 has spin zero, so
 $\spin=(\mathbb C^2)^{\otimes4}\otimes\mathbb C^1$ is sixteen-dimensional. The protons are fermions, so
 $\stat(\sigma)=\operatorname{sgn}\sigma$ and a physical state obeys
 $\Psi\circ\sigma\sim\operatorname{sgn}\sigma\,\sigma\act\Psi$. It splits by parity into parts with
 $\Psi_\pm(-\X)=\pm\Psi_\pm(\X)$.
 
-\paragraph{\ref{sec:fragments}--\ref{sec:groups-versions}. Groups and Versions}Methane is one molecule, so there are no fragments to
+\paragraph{\ref{sec:fragments}--\ref{sec:groups-versions}. Groups and Versions}
+Methane is one molecule, so there are no fragments to
 follow. Every relabeling carries the tetrahedron into its rotational orbit, the even ones as they stand
 and the odd ones once starred (Table~\ref{tab:classes}). The point group of the reference is therefore
 \[
-H=\{h\in S:h\X_0\in SO(3)\X_0\}=T_d(\mathrm M)\cong S_4,\qquad h\X_0=\Rmat_h\X_0,\qquad
+H=\{h\in S:h\X_0\in SO(3)\X_0\}=T_d(\mathrm M)\cong S_4,
+\qquad
+h\X_0=\Rmat_h\X_0,
+\qquad
 \Rmat_{h_1h_2}=\Rmat_{h_2}\Rmat_{h_1}.
 \]
 The rotations $\Rmat_h$ form the cube group $O$, and those of the twelve unstarred $h$ form the
@@ -980,32 +957,40 @@ tetrahedral group $T$. Holding the tetrahedron admits no rearrangement, so the f
 and there is one version. The set $S/H$ has two elements. The second is the mirror-labeled tetrahedron
 $E^*\X_0$, which no feasible motion reaches.
 
-\paragraph{\ref{sec:feasible-space}. Feasible Configuration Space}Thickening the orbit by its nine normal
+\paragraph{\ref{sec:feasible-space}. Feasible Configuration Space}
+Thickening the orbit by its nine normal
 coordinates gives $\mathcal F\cong SO(3)\times\R^9$. Each $h\in H$ maps $\mathcal F$ to itself, and
 $E^*\mathcal F$ misses $\mathcal F$. So there are two copies, one for each coset in $S/G$, with one version
 in each. The figure draws the factor $SO(3)$. The normal coordinates thicken it, and one may picture them
 as a small disc about $q=0$.
 
-\paragraph{\ref{sec:species}. Symmetry Species}The species of $G$ are $\mathrm A_1$, $\mathrm A_2$,
+\paragraph{\ref{sec:species}. Symmetry Species}
+The species of $G$ are $\mathrm A_1$, $\mathrm A_2$,
 $\mathrm E$, $\mathrm T_1$ and $\mathrm T_2$. Since $\mathbb C[G/H]\cong\mathrm A_1$, there are no version
 modes. The structure lives instead in the orientation fiber and the normal coordinates of the one
 version,
 \[
 \mathbb C[T]\cong\mathrm A\oplus{}^1\mathrm E\oplus{}^2\mathrm E\oplus3\,\mathrm T,
 \qquad
-T_{\X_0}\conf\cong\underbrace{\mathrm T_1}_{\text{along the orbit}}\oplus\underbrace{\mathrm A_1\oplus
-\mathrm E\oplus2\,\mathrm T_2}_{\text{the nine vibrations}}.
+T_{\X_0}\conf
+\cong
+\underbrace{\mathrm T_1}_{\text{along the orbit}}
+\oplus
+\underbrace{\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2}_{\text{the nine vibrations}}.
 \]
-The first is the space of functions on the twelve dots of the figure. The second is $\chi_{3N}$ of Table~\ref{tab:classes}
+The first is the space of functions on the twelve dots of the figure. The second is $\chi_{3N}$ of
+Table~\ref{tab:classes}
 less the translations $\mathrm T_2$ and the rotations $\mathrm T_1$.
 
-\paragraph{\ref{sec:weights}. Nuclear Spin Weights}From $\chi_{\mathrm{spin}}$ of Table~\ref{tab:classes},
+\paragraph{\ref{sec:weights}. Nuclear Spin Weights}
+From $\chi_{\mathrm{spin}}$ of Table~\ref{tab:classes},
 $\spin\cong5\,\mathrm A_1\oplus\mathrm E\oplus3\,\mathrm T_2$, and $5+2+9=16$. A spatial species
 $\Gamma$ of parity $\pm$ pairs with the spin species $\Gamma'$ for which $\Gamma\otimes\Gamma'$ contains
 $\stat\chi_\pm$. That character is $\mathrm A_2$ at even parity and $\mathrm A_1$ at odd parity. One
 physical state per copy gives the weights of Table~\ref{tab:isomers}.
 
-\paragraph{\ref{sec:localized}. Localized States}With $G=H$ there is no coset to induce over, so $H$ moves the
+\paragraph{\ref{sec:localized}. Localized States}
+With $G=H$ there is no coset to induce over, so $H$ moves the
 packet's orientation instead. Take a real packet $\eta_0(r,q)$ about the reference orientation and the
 vibrational ground state. Its translates $\eta_h=\eta_0\circ T_h^{-1}$, for unstarred $h$, sit at the
 twelve dots. If packets overlap by $c_3$ across a third-turn and by $c_2$ across a half-turn, the shares
@@ -1015,10 +1000,13 @@ w_{\mathrm A}=\frac{1+8c_3+3c_2}{12},\qquad
 w_{{}^1\mathrm E}=w_{{}^2\mathrm E}=\frac{1-4c_3+3c_2}{12},\qquad
 w_{\mathrm T}=\frac{3(1-c_2)}{4},
 \]
-which play the part of the shares in Section~\ref{sec:localized}. As a packet narrows against the spacing of the
-dots, $c_3$ and $c_2$ tend to zero and the shares to $d_\Gamma^2/12$. The twelve translates span $\mathbb C[T]$.
+which play the part of the shares in Section~\ref{sec:localized}. As a packet narrows against the spacing
+of the
+dots, $c_3$ and $c_2$ tend to zero and the shares to $d_\Gamma^2/12$. The twelve translates span $\mathbb
+C[T]$.
 
-\paragraph{\ref{sec:position}. Position Representation}There is no shape coordinate, and the chart is
+\paragraph{\ref{sec:position}. Position Representation}
+There is no shape coordinate, and the chart is
 $\varphi(r,q)=\Rmat(r)\bigl(\X_0+\sum_{\alpha=1}^{9}q_\alpha\mathbf e_\alpha\bigr)$. In the chart, $h$ acts
 through $\mathbf A_h=\Rmat_h$ and a fixed orthogonal $9\times9$ matrix $\mathbf M_h$, the matrix of
 $\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2$,
@@ -1037,7 +1025,8 @@ $\Rmat_g$ and is glued to the opposite face by $T_g^{-1}$, a third of a twist in
 $\mathbf M_g^{-1}$ on the vibrations. With its faces glued, $\mathcal U$ becomes $\mathcal F/T$, the
 bundle $SO(3)\times_T\R^9$ over $SO(3)/T$.
 
-\paragraph{\ref{sec:covering}. Covering Spaces and Monodromy}The map $\mathcal F\to\mathcal F/H$ is a covering
+\paragraph{\ref{sec:covering}. Covering Spaces and Monodromy}
+The map $\mathcal F\to\mathcal F/H$ is a covering
 with deck group $H$ and twenty-four sheets. Its unstarred half $\mathcal F\to\mathcal F/T$ has twelve
 sheets, the cells of the figure, and over $q=0$ it is the covering $SO(3)\to SO(3)/T$. The remaining factor
 $O/T\cong C_2$, the starred half, is where parity enters. A third of a turn about the bond to
@@ -1047,21 +1036,26 @@ loop. A species $\Gamma$ sees this climb through $\Gamma(g)$. So $\mathrm A(g)=1
 ${}^1\mathrm E(g)=e^{2\pi i/3}$, ${}^2\mathrm E(g)=e^{4\pi i/3}$, and $\mathrm T(g)$ cycles the axes $x$,
 $y$, $z$. The monodromy groups $T/\ker\Gamma$ are $1$, $C_3$, $C_3$ and $T$.
 
-\paragraph{\ref{sec:momentum}. Momentum Representation}On $SO(3)\times\R^9$ there is no torsional label, and
+\paragraph{\ref{sec:momentum}. Momentum Representation}
+On $SO(3)\times\R^9$ there is no torsional label, and
 the momentum states are
 \[
 \langle r,q\mid JMK,p\rangle_0=\frac{\sqrt{2J+1}\,D^J_{MK}(r)\,e^{ip\cdot q/\hbar}}{(2\pi\hbar)^{9/2}},
 \qquad
 D^J_{MK}\bigl(r\Rmat_z(2\pi/3)\bigr)=e^{-2\pi iK/3}D^J_{MK}(r),
 \]
-the second in the frame with $z$ along the bond to hydrogen~$1$. This is the seam rule of Section~\ref{sec:momentum}
-with $\omega=2\pi/3$. So $\Uop{g}$ multiplies the ring $K$ by $e^{2\pi iK/3}$, and the ring carries
-$\mathrm A$ when $3\mid K$ and ${}^1\mathrm E$ or ${}^2\mathrm E$ otherwise, as in Figure~\ref{fig:12} with $m$
+the second in the frame with $z$ along the bond to hydrogen~$1$. This is the seam rule of
+Section~\ref{sec:momentum}
+with $\omega=2\pi/3$. So $\Uop_g$ multiplies the ring $K$ by $e^{2\pi iK/3}$, and the ring carries
+$\mathrm A$ when $3\mid K$ and ${}^1\mathrm E$ or ${}^2\mathrm E$ otherwise, as in Figure~\ref{fig:12}
+with $m$
 replaced by $K$. The other generator of $T$, a half-turn about an axis at the tetrahedral angle to $z$,
 mixes the rings. Restricting $D^J$ to all of $H$ by characters gives Table~\ref{tab:ladder}.
 
 \begin{plaintable}
-\caption{The classes of $H=T_d(\mathrm M)$ with their equivalent rotations, the class functions and the species.}\label{tab:classes}
+\caption{The classes of $H=T_d(\mathrm M)$ with their equivalent rotations, the class functions and the
+species.}
+\label{tab:classes}
 \centering
 \begin{tabular}{@{}lllrrrrrrrrr@{}}
 \hline
@@ -1077,7 +1071,11 @@ $6\,(12)^*$ & yes & half-turn about a cube edge & $-1$ & $-1$ & $8$ & $3$ & $1$ 
 \end{plaintable}
 
 \begin{plaintable}
-\caption{The species of $H$ with their spin copies, their physical states by parity and their isomers $(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$. Here $\mathfrak d=\dim\Gamma_{\mathrm{rot}}$, and $\mathfrak m_{\mathrm{nuc}}$ counts the copies of $\Gamma_{\mathrm{nuc}}$ in $\spin$ under $T$ (Albert et al.'s Table~II, $T$ block~\cite{AlbertEtAlOrientation}).}\label{tab:isomers}
+\caption{The species of $H$ with their spin copies, their physical states by parity and their isomers
+$(\Gamma_{\mathrm{rot}},\Gamma_{\mathrm{nuc}})$. Here $\mathfrak d=\dim\Gamma_{\mathrm{rot}}$, and
+$\mathfrak m_{\mathrm{nuc}}$ counts the copies of $\Gamma_{\mathrm{nuc}}$ in $\spin$ under $T$ (Albert et
+al.'s Table~II, $T$ block~\cite{AlbertEtAlOrientation}).}
+\label{tab:isomers}
 \centering
 \begin{tabular}{@{}lrrrllrrl@{}}
 \hline
@@ -1093,7 +1091,8 @@ $\mathrm T_2$ & $3$ & $0$ & $3$ & $\mathrm T$ & $(\mathrm T,\mathrm T)$ & $3$ & 
 \end{plaintable}
 
 \begin{plaintable}
-\caption{The $J$ ladder, with $D^J$ restricted to $H$ and the physical states of each $J$ by parity.}\label{tab:ladder}
+\caption{The $J$ ladder, with $D^J$ restricted to $H$ and the physical states of each $J$ by parity.}
+\label{tab:ladder}
 \centering
 \begin{tabular}{@{}rlrrr@{}}
 \hline
@@ -1108,25 +1107,30 @@ $4$ & $\mathrm A_1\oplus\mathrm E\oplus\mathrm T_1\oplus\mathrm T_2$ & $4$ & $9$
 \end{tabular}
 \end{plaintable}
 
-\paragraph{The Rigid Case as a Projection}The rigid body of Albert, Kubischta, Lemeshko and
+\paragraph{The Rigid Case as a Projection}
+The rigid body of Albert, Kubischta, Lemeshko and
 Liu~\cite{AlbertEtAlOrientation} is this model with two things forgotten. The normal coordinates are
 dropped by the projection $(r,q)\mapsto r$ from $\mathcal F$ onto the orbit, and parity is dropped by
 keeping only the unstarred half $T$ of $H$. Their symmetry group is $T$, read through
 $h\mapsto\Rmat_h^{-1}$. The reading through $h\mapsto\Rmat_h$ exchanges ${}^1\mathrm E$ with
 ${}^2\mathrm E$ on both sides of each pairing at once, so it gives the same isomers. Each step above then
-passes to its counterpart in their formalism, and Table~\ref{tab:dictionary} lists the pairs. The glued cell becomes their
+passes to its counterpart in their formalism, and Table~\ref{tab:dictionary} lists the pairs. The glued
+cell becomes their
 octahedral space $SO(3)/T$, the translates of a packet become their coset states, a species with its spin
-partner becomes an isomer (Table~\ref{tab:isomers}), and $\Gamma(g)$ on a lifted loop becomes their monodromy. What the
+partner becomes an isomer (Table~\ref{tab:isomers}), and $\Gamma(g)$ on a lifted loop becomes their
+monodromy. What the
 projection forgets is kept here. Parity, the starred half $O/T$, fixes the even weights against the odd
 and so the parity of every level in Table~\ref{tab:ladder}. The vibrations, $q\in\R^9$ of species
 $\mathrm A_1\oplus\mathrm E\oplus2\,\mathrm T_2$, ride along under $\mathbf M_h$. One isomer is entangled.
 For a $\mathrm T$ level and one $\mathrm T$ copy of the spins, the physical state is the invariant
-$\sum_{i=1}^3u_i\otimes u_i'$ of $\mathrm T\otimes\mathrm T$, taken over matched bases $u_i$ of the level and $u_i'$ of
+$\sum_{i=1}^3u_i\otimes u_i'$ of $\mathrm T\otimes\mathrm T$, taken over matched bases $u_i$ of the level
+and $u_i'$ of
 the spin copy. Its Schmidt rank is $3=\mathfrak d$ (their eq.~4), and it uses nine of the sixteen
 spin-rotation states, their ``over $56\%$'' (Example~23).
 
 \begin{plaintable}
-\caption{The dictionary.}\label{tab:dictionary}
+\caption{The dictionary.}
+\label{tab:dictionary}
 \centering
 \begin{tabular}{@{}L{.4}L{.6}@{}}
 \hline
@@ -1146,18 +1150,15 @@ $\chi_\pm$ and the starred half of $H$, and the normal coordinates $q$ with $\ma
 \end{plaintable}
 
 \clearpage
-% ================================================================================================
-% Notation (unnumbered)
-% ================================================================================================
 \section*{Notation}
 \pdfbookmark[1]{Notation}{notation}
-{\small\renewcommand{\arraystretch}{1.05}\setlength{\tabcolsep}{5pt}   % the table style of the preamble, breakable
+{\small\renewcommand{\arraystretch}{1.05}\setlength{\tabcolsep}{5pt}
 \begin{longtable}{@{}L{.4}L{.6}@{}}
 \hline
 symbol & meaning\\
 \hline
 \endhead
-$\conf$; $\hamb$, $\hilb$; $\spin$; $\hilb_\pm$ & centered configuration space; ambient and physical Hilbert spaces; nuclear spin space; parity sectors\\
+$\conf$; $\hilb_{\mathrm{amb}}$, $\hilb$; $\spin$; $\hilb_\pm$ & centered configuration space; ambient and physical Hilbert spaces; nuclear spin space; parity sectors\\
 $\Psi$; $\Psi_\pm$ & wavefunction $\conf\to\spin$; its parity components\\
 $\mathcal F$; $\mathcal U$ & feasible region; a chart cell\\
 $S$; $G$; $H$; $B$ & permutation--inversion group; feasible group; reference point group; bond-preserving subgroup\\
@@ -1168,7 +1169,7 @@ $\X$; $\X_0$; $\X_0(a)$ & configuration matrix; reference configuration; referen
 $\gamma_s$; $[\X]$ & rearrangement path $\X\to s\X$, a loop in the quotient; the class of $\X$\\
 $\mathbf x_i$; $\mathbf m$ & nuclear position vectors; mass vector\\
 $\delta$; $\ell$; $\theta$ & bond asymmetry of water; bond scale (water, Figure~\ref{fig:1}; C--H in the example); bend angle of water\\
-$\Pmat{s}$ & signed right-action matrix, $s\act\X=\X\Pmat{s}$, $\Pmat{ss'}=\Pmat{s'}\Pmat{s}$\\
+$\Pmat_s$ & signed right-action matrix, $s\act\X=\X\Pmat_s$, $\Pmat_{ss'}=\Pmat_{s'}\Pmat_s$\\
 $\Rmat(r)$; $\Rmat_h$; $\Rmat_z(\omega)$ & rotation matrices of $r\in SO(3)$; carrying $h\in H$; about $z$ by $\omega$\\
 $\mathbf A_s(a)$, $\mathbf M_s(a)$ & compensating rotation and normal-frame matrix of the chart action\\
 $x=(r,a,q)$ & orientation, shape and normal coordinates\\
@@ -1176,14 +1177,14 @@ $a=(\tau,\iota)$; $\pm\iota_0$ & torsion angle and umbrella coordinate; the vers
 $q=(q_1,\ldots,q_{n_q})$; $q_\pm$ & normal coordinates; even and odd pair under $tu$\\
 $\mathbf e_\alpha(a)$ & normal-frame vectors, mass-orthonormal\\
 $\varphi$; $T_s$ & reconstruction map; coordinate action\\
-$\jdens(x)$; $\psi=\Psi\circ\varphi$; $\widetilde\psi=\jdens^{1/2}\psi$ & chart density; the wavefunction in the chart; measure-rescaled state\\
-$\Uop{s}$; $\Pproj{\Gamma}$ & spatial action operator; isotypic projector\\
+$j_\varphi(x)$; $\psi=\Psi\circ\varphi$; $\widetilde\psi=j_\varphi^{1/2}\psi$ & chart density; the wavefunction in the chart; measure-rescaled state\\
+$\Uop_s$; $\mathsf P_\Gamma$ & spatial action operator; isotypic projector\\
 $\stat$, $\chi_\pm$ & statistics and parity characters\\
 $\Gamma$; $\chi_\Gamma$; $d_\Gamma$; $w_\Gamma$ & species; character; dimension; projection share\\
 $\mathrm A_1$, $\mathrm A_2$, $\mathrm E$ & the species of $G_6$\\
 $O$; $T$ & the rotations of the cube; of the tetrahedron (the example)\\
 $\eta_0$, $\eta_j$, $\eta_0^\pm$; $\Delta$; $d$; $c$ & packet, its translates and its parts even and odd under $b$; width (density standard deviation per coordinate); site separation; overlap\\
-$\rho$; $\omega_{tu}$ & frame twist, $\rho=\tfrac12$; compensating angle of $tu$\\
+$\rho$; $\omega_{tu}$ & frame twist, $\rho=\frac12$; compensating angle of $tu$\\
 $J$, $M$, $K$; $m$, $\kappa$; $p$ & rotational labels; torsional labels, periodic and twisted; normal momenta\\
 $b_A$, $z_A$ & amino offset and height in the reference family\\
 \hline

@@ -26,3 +26,5 @@ checks/                     independent checks of what the plates draw and the t
 build.py                    the one entry point
 ```
 Every plate is 15.2 cm wide and is included at `\linewidth`, so all plates print at one scale.
+The numbers in the closing example of rigid methane are written by compute/make_data.py and recomputed in
+checks/verify_methane.py and checks/verify.g.
